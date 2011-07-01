@@ -1,0 +1,33 @@
+#! /usr/bin/python
+import sys, os, os.path
+if len(sys.argv[1:])<2:
+  print "SYNTAX: pkg1,pkg2... /path/to/bin args..."
+  exit(-1)
+pkgs,fn,args=sys.argv[1].split(','),sys.argv[2],sys.argv[3:]
+if os.path.exists(fn):
+  os.execv(fn, args) # env=os.environ.copy(); os.execve(fn, args, env)
+  exit(0) # never reached
+
+# if this is reached this mean fn does not exists, pkgs should be installed
+
+import dbus
+from dbus.mainloop.glib import DBusGMainLoop
+bus = dbus.SessionBus()
+
+nopk=False
+try:
+    pk_proxy = bus.get_object('org.freedesktop.PackageKit', '/org/freedesktop/PackageKit')
+    pk_iface = dbus.Interface(pk_proxy, 'org.freedesktop.PackageKit.Modify')
+except dbus.DBusException, e:
+    nopk=True
+
+def install_packages(pkgs):
+    if not pkgs or nopk: return
+    # options are show/hide-*: confirm-search confirm-deps confirm-install progress finished warning
+    try: r=pk_iface.InstallPackageNames(dbus.UInt32(0),pkgs,"hide-confirm-search,show-confirm-install,show-progress,show-finished")
+    except dbus.DBusException, e: return -1
+    return r
+
+if not nopk: install_packages(pkgs)
+else: exit(-1)
+

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC
+ "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd">
+
+<policyconfig>
+  <vendor>ojuba.org</vendor>
+  <vendor_url>http://www.ojuba.org</vendor_url>
+  <icon_name>preferences-system</icon_name>
+  <action id="org.ojuba.occ.call">
+    <description>Ojuba Control Center</description>
+    <description xml:lang="ar">مركز تحكم أعجوبة</description>
+    <message>Managing your system with ojuba control center requires authentication</message>
+    <message xml:lang="ar">إدارة النظام عبر مركز تحكم أعجوبة تتطلب المواثقة</message>
+    <defaults>
+      <allow_any>no</allow_any>
+      <allow_inactive>no</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+  </action>
+</policyconfig>

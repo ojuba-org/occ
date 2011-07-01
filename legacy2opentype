@@ -1,0 +1,498 @@
+#! /usr/bin/env fontforge
+#
+# This python script converts legacy MS Windows-only Arabic fonts to Unicode
+# and OpenType.
+#
+# You will need a recent version of FontForge with python scripting support.
+#
+# Usage: legacy2opentype.py FILE1.TTF FILE2.TTF ... [-d destination_directory]
+#
+# Return value 1 indicates failure of conversion, and -1 indicates the font
+# don't need any conversion.
+#
+# WARNING: unless you specify a destination directory, this script will overrite
+#          the processed fonts, so you'be better keep a backup somewhere.
+#
+# This code is in puplic domain.
+
+import sys, os, os.path, unicodedata
+try:
+    import fontforge
+except ImportError:
+    print "\tYou need fontforge python extension,\n\n\t'python-fontforge' package on Debian/Ubuntu"
+
+usage_text = "\nUsage: %s FILE1.TTF FILE2.TTF ... [-d destination_directory]" %(sys.argv[0])
+
+# this dictionary maps code points in the old font to tuble of values, the first
+# field is glyph name, the second is its proper Unicode code point (or -1 for
+# glyphs that don't need to be encoded), and the third is a tuble that only
+# present for marks and ligatures, and it has optional fields for ligature
+# components.
+fontlist = {
+ -1:    (".notdef",			-1),
+ 61725: ("c285",			-1),
+ 61953: ('Allah',			u'\ufdf2',	('liga', ('lam.init', 'lam.medi', 'heh.fina'))),
+ 61954: ('f202',			-1,		('liga', ('baa.init', 'meem.fina'))),
+ 61955: ('f203',			-1,		('liga', ('taa.init', 'meem.fina'))),
+ 61956: ('f204',			-1,		('liga', ('thaa.init', 'meem.fina'))),
+ 61957: ('f205',			-1,		('liga', ('lam.init', 'meem.fina'))),
+ 61958: ('f206',			-1,		('liga', ('noon.init', 'meem.fina'))),
+ 61964: ('CR',				u'\u200c'),
+ 61965: ('FF',				u'\u200d'),
+ 61966: ('SO',				u'\u200e'),
+ 61967: ('SI',				u'\u200f'),
+ 61968: ('f210',			-1,		('liga', ('lam.init', 'meem.medi', 'haa.medi'))),
+ 61969: ('f211',			-1,		('liga', ('lam.init', 'meem.medi', 'jeem.medi'))),
+ 61970: ('f212',			-1,		('liga', ('lam.init', 'jeem.fina'))),
+ 61971: ('f213',			-1,		('liga', ('lam.init', 'haa.fina'))),
+ 61972: ('f214',			-1,		('liga', ('lam.init', 'khaa.fina'))),
+ 61973: ('f215',			-1,		('liga', ('baa.init', 'raa.fina'))),
+ 61974: ('f216',			-1,		('liga', ('taa.init', 'raa.fina'))),
+ 61975: ('f217',			-1,		('liga', ('yaa.init', 'raa.fina'))),
+ 61976: ('f218',			-1,		('liga', ('seen.init', 'meem.medi'))),
+ 61977: ('f219',			-1,		('liga', ('sheen.init', 'meem.medi'))),
+ 61978: ('f21a',			-1,		('liga', ('lam.init', 'heh.medi'))),
+ 61980: ('f21c',			-1,		('liga', ('lam.init', 'yaa.fina'))),
+ 61981: ('f21d',			-1,		('liga', ('baa.init', 'yaa.fina'))),
+ 61982: ('f21e',			-1,		('liga', ('taa.init', 'yaa.fina'))),
+ 61983: ('f21f',			-1,		('liga', ('noon.init', 'yaa.fina'))),
+ 61984: ('space',			u' '),
+ 61985: ('exclam',			u'!'),
+ 61986: ('quotedbl',			u'"'),
+ 61987: ('guillemotleft',		u'\xab'),
+ 61988: ('guillemotright',		u'\xbb'),
+ 61989: ('percentarabic',		u'\u066a'),
+ 61990: ('multiply',			u'\xd7'),
+ 61991: ('divide',			u'\xf7'),
+ 61992: ('parenleft',			u'('),
+ 61993: ('parenright',			u')'),
+ 61994: ('asterisk',			u'*'),
+ 61995: ('plus',			u'+'),
+ 61996: ('commaarabic',			u'\u060c'),
+ 61997: ('minus',			u'\u2212'),
+ 61998: ('period',			u'.'),
+ 61999: ('slash',			u'/'),
+ 62000: ('zeroarabic',			u'\u0660'),
+ 62001: ('onearabic',			u'\u0661'),
+ 62002: ('twoarabic',			u'\u0662'),
+ 62003: ('threearabic',			u'\u0663'),
+ 62004: ('fourarabic',			u'\u0664'),
+ 62005: ('fivearabic',			u'\u0665'),
+ 62006: ('sixarabic',			u'\u0666'),
+ 62007: ('sevenarabic',			u'\u0667'),
+ 62008: ('eightarabic',			u'\u0668'),
+ 62009: ('ninearabic',			u'\u0669'),
+ 62010: ('colon',			u':'),
+ 62011: ('semicolonarabic',		u'\u061b'),
+ 62012: ('quotedblleft',		u'\u201c'),
+ 62013: ('equal',			u'='),
+ 62014: ('quotedblright',		u'\u201d'),
+ 62015: ('questionarabic',		u'\u061f'),
+ 62016: ('tatweelwide',			u'\u0640'),
+ 62017: ('arabicalef',			u'\u0627'),
+ 62018: ('arabicalef.fina',		u'\ufe8e'),
+ 62019: ('hamzahonalef',		u'\u0623'),
+ 62020: ('hamzahonalef.fina',		u'\ufe84'),
+ 62021: ('maddahonalef',		u'\u0622'),
+ 62022: ('maddahonalef.fina',		u'\ufe82'),
+ 62023: ('hamzahunderalef',		u'\u0625'),
+ 62024: ('hamzahunderalef.fina',	u'\ufe88'),
+ 62025: ('baa.init',			u'\ufe91'),
+ 62026: ('baa.medi',			u'\ufe92'),
+ 62027: ('baa.fina',			u'\ufe90'),
+ 62028: ('baa',				u'\u0628'),
+ 62029: ('taa.init',			u'\ufe97'),
+ 62030: ('taa.medi',			u'\ufe98'),
+ 62031: ('taa.fina',			u'\ufe96'),
+ 62032: ('taa',				u'\u062a'),
+ 62033: ('thaa.init',			u'\ufe9b'),
+ 62034: ('thaa.medi',			u'\ufe9c'),
+ 62035: ('thaa.fina',			u'\ufe9a'),
+ 62036: ('thaa',			u'\u062b'),
+ 62037: ('jeem.init',			u'\ufe9f'),
+ 62038: ('jeem.medi',			u'\ufea0'),
+ 62039: ('jeem.fina',			u'\ufe9e'),
+ 62040: ('jeem',			u'\u062c'),
+ 62041: ('haa.init',			u'\ufea3'),
+ 62042: ('haa.medi',			u'\ufea4'),
+ 62043: ('bracketleft',			u'['),
+ 62044: ('haa.fina',			u'\ufea2'),
+ 62045: ('bracketright',		u']'),
+ 62046: ('comma',			u','),
+ 62047: ('tatweelnarrow',		-1),
+ 62048: ('haa',				u'\u062d'),
+ 62049: ('khaa.init',			u'\ufea7'),
+ 62050: ('khaa.medi',			u'\ufea8'),
+ 62051: ('khaa.fina',			u'\ufea6'),
+ 62052: ('khaa',			u'\u062e'),
+ 62053: ('dal',				u'\u062f'),
+ 62054: ('dal.fina',			u'\ufeaa'),
+ 62055: ('thal',			u'\u0630'),
+ 62056: ('thal.fina',			u'\ufeac'),
+ 62057: ('raa',				u'\u0631'),
+ 62058: ('raa.fina',			u'\ufeae'),
+ 62059: ('zain',			u'\u0632'),
+ 62060: ('zain.fina',			u'\ufeb0'),
+ 62061: ('seen.init',			u'\ufeb3'),
+ 62062: ('seen.medi',			u'\ufeb4'),
+ 62063: ('seen.fina',			u'\ufeb2'),
+ 62064: ('seen',			u'\u0633'),
+ 62065: ('sheen.init',			u'\ufeb7'),
+ 62066: ('sheen.medi',			u'\ufeb8'),
+ 62067: ('sheen.fina',			u'\ufeb6'),
+ 62068: ('sheen',			u'\u0634'),
+ 62069: ('sad.init',			u'\ufebb'),
+ 62070: ('sad.medi',			u'\ufebc'),
+ 62071: ('sad.fina',			u'\ufeba'),
+ 62072: ('sad',				u'\u0635'),
+ 62073: ('dad.init',			u'\ufebf'),
+ 62074: ('dad.medi',			u'\ufec0'),
+ 62075: ('f27b',			u'\ufd3e'),
+ 62076: ('dad.fina',			u'\ufebe'),
+ 62077: ('f27d',			u'\ufd3f'),
+ 62078: ('dad',				u'\u0636'),
+ 62079: ('tah.init',			u'\ufec3'),
+ 62080: ('f280',			-1,		('liga', ('baa.init', 'jeem.medi'))),
+ 62081: ('f281',			-1,		('liga', ('baa.init', 'haa.medi'))),
+ 62082: ('f282',			-1,		('liga', ('baa.init', 'khaa.medi'))),
+ 62083: ('f283',			-1,		('liga', ('taa.init', 'jeem.medi'))),
+ 62084: ('f284',			-1,		('liga', ('taa.init', 'haa.medi'))),
+ 62085: ('f285',			-1,		('liga', ('taa.init', 'khaa.medi'))),
+ 62086: ('f286',			-1,		('liga', ('lam.init', 'jeem.medi'))),
+ 62087: ('f287',			-1,		('liga', ('lam.init', 'haa.medi'))),
+ 62088: ('f288',			-1,		('liga', ('lam.init', 'khaa.medi'))),
+ 62089: ('f289',			-1,		('liga', ('meem.init', 'jeem.medi'))),
+ 62090: ('f28a',			-1,		('liga', ('meem.init', 'haa.medi'))),
+ 62091: ('f28b',			-1,		('liga', ('meem.init', 'khaa.medi'))),
+ 62092: ('f28c',			-1,		('liga', ('noon.init', 'jeem.medi'))),
+ 62093: ('f28d',			-1,		('liga', ('noon.init', 'haa.medi'))),
+ 62094: ('f28e',			-1,		('liga', ('noon.init', 'khaa.medi'))),
+ 62095: ('f28f',			-1,		('liga', ('yaa.init', 'jeem.medi'))),
+ 62096: ('f290',			-1,		('liga', ('yaa.init', 'haa.medi'))),
+ 62097: ('f291',			-1,		('liga', ('yaa.init', 'khaa.medi'))),
+ 62098: ('f292',			-1,		('liga', ('baa.init', 'noon.fina'))),
+ 62099: ('f293',			-1,		('liga', ('taa.init', 'noon.fina'))),
+ 62100: ('f294',			-1,		('liga', ('yaa.init', 'noon.fina'))),
+ 62101: ('f295',			-1,		('liga', ('lam.init', 'alefmaqsurah.fina'))),
+ 62102: ('f296',			-1,		('liga', ('baa.init', 'meem.medi'))),
+ 62103: ('f297',			-1,		('liga', ('taa.init', 'meem.medi'))),
+ 62104: ('f298',			-1,		('liga', ('noon.init', 'meem.medi'))),
+ 62105: ('f299',			-1,		('liga', ('yaa.init', 'meem.medi'))),
+ 62106: ('f29a',			-1,		('liga', ('jeem.init', 'meem.medi'))),
+ 62107: ('f29b',			-1,		('liga', ('haa.init', 'meem.medi'))),
+ 62108: ('f29c',			-1,		('liga', ('khaa.init', 'meem.medi'))),
+ 62109: ('f29d',			-1,		('liga', ('lam.init', 'meem.medi'))),
+ 62110: ('f29e',			-1,		('liga', ('meem.init', 'meem.medi'))),
+ 62111: ('f29f',			-1,		('liga', ('faa.init', 'yaa.fina'))),
+ 62113: ('tah.fina',			u'\ufec2'),
+ 62114: ('tah',				u'\u0637'),
+ 62115: ('dhah.init',			u'\ufec7'),
+ 62116: ('dhah.medi',			u'\ufec8'),
+ 62117: ('dhah.fina',			u'\ufec6'),
+ 62118: ('dhah',			u'\u0638'),
+ 62119: ('ain.init',			u'\ufecb'),
+ 62120: ('ain.medi',			u'\ufecd'),
+ 62121: ('ain.fina',			u'\ufeca'),
+ 62122: ('ain',				u'\u0639'),
+ 62123: ('ghain.init',			u'\ufecf'),
+ 62124: ('ghain.medi',			u'\ufed0'),
+ 62125: ('ghain.fina',			u'\ufece'),
+ 62126: ('ghain',			u'\u063a'),
+ 62127: ('faa.init',			u'\ufed3'),
+ 62128: ('faa.medi',			u'\ufed4'),
+ 62129: ('faa.fina',			u'\ufed2'),
+ 62130: ('faa',				u'\u0641'),
+ 62131: ('qaf.init',			u'\ufed7'),
+ 62132: ('qaf.medi',			u'\ufed8'),
+ 62133: ('qaf.fina',			u'\ufed6'),
+ 62134: ('qaf',				u'\u0642'),
+ 62135: ('caf.init',			u'\ufedb'),
+ 62136: ('caf.medi',			u'\ufedc'),
+ 62137: ('caf.fina',			u'\ufeda'),
+ 62138: ('caf',				u'\u0643'),
+ 62139: ('lam.init',			u'\ufedf'),
+ 62140: ('lam.medi',			u'\ufee0'),
+ 62141: ('lam.fina',			u'\ufede'),
+ 62142: ('lam',				u'\u0644'),
+ 62143: ('meem.init',			u'\ufee3'),
+ 62144: ('meem.medi',			u'\ufee4'),
+ 62145: ('meem.fina',			u'\ufee2'),
+ 62146: ('meem',			u'\u0645'),
+ 62147: ('noon.init',			u'\ufee7'),
+ 62148: ('noon.medi',			u'\ufee8'),
+ 62149: ('noon.fina',			u'\ufee6'),
+ 62150: ('noon',			u'\u0646'),
+ 62151: ('heh.init',			u'\ufeeb'),
+ 62152: ('heh.medi',			u'\ufeec'),
+ 62153: ('heh.fina',			u'\ufeea'),
+ 62154: ('heh',				u'\u0647'),
+ 62155: ('waw',				u'\u0648'),
+ 62156: ('waw.fina',			u'\ufeee'),
+ 62157: ('yaa.init',			u'\ufef3'),
+ 62158: ('yaa.medi',			u'\ufef4'),
+ 62159: ('yaa.fina',			u'\ufef2'),
+ 62160: ('yaa',				u'\u064a'),
+ 62161: ('taamarbutah',			u'\u0629'),
+ 62162: ('taamarbutah.fina',		u'\ufe94'),
+ 62163: ('alefmaqsurah.fina',		u'\ufef0'),
+ 62164: ('alefmaqsurah',		u'\u0649'),
+ 62165: ('hamzah',			u'\u0621'),
+ 62166: ('hamzahonyaa.init',		u'\ufe8b'),
+ 62167: ('hamzahonyaa.medi',		u'\ufe8c'),
+ 62168: ('hamzahonyaa.fina',		u'\ufe8a'),
+ 62169: ('hamzahonyaa',			u'\u0626'),
+ 62170: ('hamzahonwaw',			u'\u0624'),
+ 62171: ('hamzahonwaw.fina',		u'\ufe86'),
+ 62172: ('lamelef',			u'\ufefb',	('liga', ('lam.init', 'arabicalef.fina'))),
+ 62173: ('lamalef.fina',		u'\ufefc',	('liga', ('lam.medi', 'arabicalef.fina'))),
+ 62174: ('hamzahonlamelef',		u'\ufef7',	('liga', ('lam.init', 'hamzahonalef.fina'))),
+ 62175: ('hamzahonlamelef.fina',	u'\ufef8',	('liga', ('lam.medi', 'hamzahonalef.fina'))),
+ 62176: ('maddahonlamelef',		u'\ufef5',	('liga', ('lam.init', 'maddahonalef.fina'))),
+ 62177: ('maddahonlamelef.fina',	u'\ufef6',	('liga', ('lam.medi', 'maddahonalef.fina'))),
+ 62178: ('hamzahunderlamelef',		u'\ufef9',	('liga', ('lam.init', 'hamzahunderalef.fina'))),
+ 62179: ('hamzahunderlamelef.fina',	u'\ufefa',	('liga', ('lam.medi', 'hamzahunderalef.fina'))),
+ 62180: ('fathah2',			-1,		('mark', '')),
+ 62181: ('dammah2',			-1,		('mark', '')),
+ 62182: ('sukun2',			-1,		('mark', '')),
+ 62183: ('fathatan2',			-1,		('mark', '')),
+ 62184: ('dammatan2',			-1,		('mark', '')),
+ 62185: ('shaddah2',			-1,		('mark', '')),
+ 62186: ('kasrah2',			-1,		('mark', '')),
+ 62187: ('kasratan2',			-1,		('mark', '')),
+ 62188: ('fahtanonshaddah2',		-1,		('mark', ('shaddah2', 'fathah2'))),
+ 62189: ('dammahonshaddah2',		-1,		('mark', ('shaddah2', 'dammah2'))),
+ 62190: ('fathatanonshaddah2',		-1,		('mark', ('shaddah2', 'fathatan2'))),
+ 62191: ('dammatanonshaddah2',		-1,		('mark', ('shaddah2', 'dammatan2'))),
+ 62192: ('shaddahonfathah2',		-1,		('mark', ('shaddah2', 'kasrah2'))),
+ 62193: ('tah.medi',			u'\ufec4'),
+ 62194: ('fathah',			u'\u064e',	('mark', '')),
+ 62195: ('dammah',			u'\u064f',	('mark', '')),
+ 62196: ('sukun',			u'\u0652',	('mark', '')),
+ 62197: ('fathatan',			u'\u064b',	('mark', '')),
+ 62198: ('dammatan',			u'\u064c',	('mark', '')),
+ 62199: ('shaddah',			u'\u0651',	('mark', '')),
+ 62200: ('kasrah',			u'\u0650',	('mark', '')),
+ 62201: ('kasratan',			u'\u064d',	('mark', '')),
+ 62202: ('fahtanonshaddah',		-1,		('mark', ('shaddah', 'fathah'))),
+ 62203: ('dammahonshaddah',		-1,		('mark', ('shaddah', 'dammah'))),
+ 62204: ('fathatanonshaddah',		-1,		('mark', ('shaddah', 'fathatan'))),
+ 62205: ('dammatanonshaddah',		-1,		('mark', ('shaddah', 'dammatan'))),
+ 62206: ('shaddahonfathah',		-1,		('mark', ('shaddah', 'kasrah'))),
+ 62207: ('shaddahonfathatan',		-1,		('mark', ('shaddah', 'kasratan')))
+ }
+
+def is_ligature(glyph):
+    """Returns number of ligature components (2 or 3) or nothing if not a ligature"""
+    if len(fontlist[glyph.unicode]) == 3 and fontlist[glyph.unicode][2][0] == 'liga':
+        if len(fontlist[glyph.unicode][2][1]) == 3:
+            return 3
+        else:
+            return 2
+
+def is_mark(glyph):
+    """Returns type of the mark ("above" or "below") or nothing if not a mark"""
+    if len(fontlist[glyph.unicode]) == 3 and fontlist[glyph.unicode][2][0] == 'mark':
+        # if it has 'kasra' in its name, then it is a below base mark
+        if "kasra" in glyph.glyphname:
+            return "below"
+        else:
+            return "above"
+
+def is_base(glyph):
+    """Returns true if Arabic base glyph"""
+    code = fontlist[glyph.unicode][1]
+    # if it is an Arabic letter, return true, we have no interesent in
+    # positioning marks above non-letter characters
+    if code != -1 and unicodedata.bidirectional(code) == "AL" and unicodedata.category(code) == "Lo" and not is_ligature(glyph):
+        return True
+
+def is_legacy(font):
+    """Check if we shall edit this font in the fisrt place"""
+    for glyph in font.glyphs():
+        if glyph.unicode == 61953:
+	    return 1
+
+def fix_enco(font):
+    """Changes the encoding of the glyph to the proper Unicode code point"""
+    for glyph in font.glyphs():
+        if fontlist[glyph.unicode][1] == -1:
+            glyph.unicode = -1
+        else:
+            glyph.unicode = ord(fontlist[glyph.unicode][1])
+
+def fix_name(font):
+    """Renames glyphs"""
+    for glyph in font.glyphs():
+        if not glyph.unicode in fontlist:
+            # if not in our list don't bother, just delete it
+            font.removeGlyph(glyph)
+        elif glyph.unicode != -1:
+            glyph.glyphname = fontlist[glyph.unicode][0]
+
+def add_gsub(font):
+    """Adds GSUB layout data, not including ligatures"""
+    font.addLookup("'init' Initial forms",	"gsub_single", "right_to_left", (("init",(("arab",("dflt")),)),))
+    font.addLookup("'medi' Medial forms",	"gsub_single", "right_to_left", (("medi",(("arab",("dflt")),)),))
+    font.addLookup("'fina' Final forms",	"gsub_single", "right_to_left", (("fina",(("arab",("dflt")),)),))
+    font.addLookupSubtable("'init' Initial forms",	"'init' Initial forms 1")
+    font.addLookupSubtable("'medi' Medial forms",	"'medi' Medial forms 1"	)
+    font.addLookupSubtable("'fina' Final forms",	"'fina' Final forms 1"	)
+    for glyph in font.glyphs():
+        glyphname = glyph.glyphname
+        init = font.createChar(-1,glyphname+".init").isWorthOutputting()
+        medi = font.createChar(-1,glyphname+".medi").isWorthOutputting()
+        fina = font.createChar(-1,glyphname+".fina").isWorthOutputting()
+        if init:
+            glyph.addPosSub("'init' Initial forms 1",glyphname+".init")
+        if medi:
+            glyph.addPosSub("'medi' Medial forms 1",glyphname+".medi")
+        if fina:
+            glyph.addPosSub("'fina' Final forms 1",glyphname+".fina")
+
+def add_liga(font):
+    """Adds ligatures layout data"""
+    font.addLookup("'liga' Regular ligatures", "gsub_ligature", "ignore_marks", (("liga",(("arab",("dflt")),)),))
+    font.addLookupSubtable("'liga' Regular ligatures", "'liga' Regular ligatures 1")
+    for glyph in font.glyphs():
+        if is_ligature(glyph):
+            glyph.addPosSub("'liga' Regular ligatures 1", fontlist[glyph.unicode][2][1])
+            glyph.glyphclass = "baseligature"
+
+def calculate_anchor(glyph, type="base", placement="above"):
+    """Calculate anchor attach points, returns a tuble of X and Y values"""
+    if len(glyph.foreground) > 0:
+        Width = glyph.width
+        maxY = glyph.boundingBox()[3]
+        minY = glyph.boundingBox()[1]
+
+        # the distance between the anchor point and the glyph
+        markOffset = 100
+        baseOffset = 200
+
+        if type == "base" and placement == "above":
+            # X = center of the glyph
+            return (Width / 2, maxY + baseOffset)
+        elif type == "base" and placement == "below":
+            return (Width / 2, minY - baseOffset)
+        elif type == "mark" and placement == "above":
+            # we set mark width to 0, so just zero X here too
+            return (0, minY - markOffset)
+        elif type == "mark" and placement == "below":
+            return (0, maxY + markOffset)
+        elif type == "liga" and placement == "above":
+            # X1 = 1st quarter, X2 = last quarter
+            return ((Width - (Width / 4.0), maxY + baseOffset), (Width - ((Width / 4.0) * 3), maxY + baseOffset))
+        elif type == "liga" and placement == "below":
+            return ((Width - (Width / 4.0), minY - baseOffset), (Width - ((Width / 4.0) * 3), minY - baseOffset))
+        elif type == "3liga" and placement == "above":
+            # X1 = 1st quarter, X2 = center, X3 = last quarter
+            return ((Width - (Width / 4.0), maxY + baseOffset), (Width / 2.0, maxY + baseOffset), (Width - ((Width / 4.0) * 3), maxY + baseOffset))
+        elif type == "3liga" and placement == "below":
+            return ((Width - (Width / 4.0), minY - baseOffset), (Width / 2.0, minY - baseOffset), (Width - ((Width / 4.0) * 3), minY - baseOffset))
+    else:
+        return (0, 0)
+
+def add_mark(font):
+    """Adds mark layout data"""
+    font.addLookup("'liga' Mark ligatures",		"gsub_ligature",	"right_to_left", (("liga",(("arab",("dflt")),)),))
+    font.addLookup("'mark' Mark to base",		"gpos_mark2base",	"right_to_left", (("mark",(("arab",("dflt")),)),))
+    font.addLookup("'mark' Mark to ligature",		"gpos_mark2ligature",	"right_to_left", (("mark",(("arab",("dflt")),)),))
+    font.addLookupSubtable("'liga' Mark ligatures",	"'liga' Mark ligatures 1"	)
+    font.addLookupSubtable("'mark' Mark to base",	"'mark' Mark to base 1"		)
+    font.addLookupSubtable("'mark' Mark to ligature",	"'mark' Mark to ligature 1"	)
+    font.addAnchorClass("'mark' Mark to base 1",	"aboveBase")
+    font.addAnchorClass("'mark' Mark to base 1",	"belowBase")
+    font.addAnchorClass("'mark' Mark to ligature 1",	"aboveLiga")
+    font.addAnchorClass("'mark' Mark to ligature 1",	"belowLiga")
+    for glyph in font.glyphs():
+        if is_mark(glyph):
+            glyph.glyphclass = "mark"
+
+            # set width to zero, then center in width
+            glyph.width = 0
+            glyph.left_side_bearing = - ((-glyph.boundingBox()[0] + glyph.boundingBox()[2]) / 2)
+
+            glyph.addPosSub("'liga' Mark ligatures 1", fontlist[glyph.unicode][2][1])
+            if is_mark(glyph) == "below":
+                below =  calculate_anchor(glyph,"mark","below")
+                glyph.addAnchorPoint("belowBase", "mark", below[0], below[1])
+                glyph.addAnchorPoint("belowLiga", "mark", below[0], below[1])
+            else:
+                above =  calculate_anchor(glyph,"mark","above")
+                glyph.addAnchorPoint("aboveBase", "mark", above[0], above[1])
+                glyph.addAnchorPoint("aboveLiga", "mark", above[0], above[1])
+        elif is_base(glyph):
+            above =  calculate_anchor(glyph,"base","above")
+            below =  calculate_anchor(glyph,"base","below")
+            glyph.addAnchorPoint("aboveBase", "base", above[0], above[1])
+            glyph.addAnchorPoint("belowBase", "base", below[0], below[1])
+        elif is_ligature(glyph) == 3:
+            above =  calculate_anchor(glyph,"3liga","above")
+            below =  calculate_anchor(glyph,"3liga","below")
+            glyph.addAnchorPoint("aboveLiga", "ligature", above[0][0], above[0][1], 0)
+            glyph.addAnchorPoint("aboveLiga", "ligature", above[1][0], above[1][1], 1)
+            glyph.addAnchorPoint("aboveLiga", "ligature", above[2][0], above[2][1], 2)
+            glyph.addAnchorPoint("belowLiga", "ligature", below[0][0], below[0][1], 0)
+            glyph.addAnchorPoint("belowLiga", "ligature", below[1][0], below[1][1], 1)
+            glyph.addAnchorPoint("belowLiga", "ligature", below[2][0], below[2][1], 2)
+        elif is_ligature(glyph):
+            above =  calculate_anchor(glyph,"liga","above")
+            below =  calculate_anchor(glyph,"liga","below")
+            glyph.addAnchorPoint("aboveLiga", "ligature", above[0][0], above[0][1], 0)
+            glyph.addAnchorPoint("aboveLiga", "ligature", above[1][0], above[1][1], 1)
+            glyph.addAnchorPoint("belowLiga", "ligature", below[0][0], below[0][1], 0)
+            glyph.addAnchorPoint("belowLiga", "ligature", below[1][0], below[1][1], 1)
+
+def convert(i,o):
+    try:
+        font = fontforge.open(i)
+        if not is_legacy(font):
+            print "I don't know how to convert this font"
+            print "may be it isn't an old Arabic Windows font, or may be you converted it before?"
+            return -1
+        fix_name(font)
+        add_liga(font)
+        add_gsub(font)
+        add_mark(font)
+        fix_enco(font) # must be the last
+        font.encoding = "UnicodeBmp" # otherwise encoding changes won't take effect
+        font.generate(o, flags=("PfEd-lookups", "opentype"))
+        font.close()
+    except EnvironmentError:
+        print "Error converting [%s]" % i
+        return 1
+    return 0
+
+def main():
+    s=0
+    e=[]
+    skipped=[]
+    dest=None
+ 
+    if '-d' in sys.argv:
+        i=sys.argv.index('-d')
+        try: dest=sys.argv[i+1]
+        except IndexError: pass
+        del sys.argv[i:i+2]
+
+    if len(sys.argv) > 1:
+        for f in sys.argv[1:]:
+            if dest: o=os.path.join(dest, os.path.basename(f))
+            else: o=f
+            r=convert(f,o)
+            if r>0: e.append(f)
+            elif r<0: skipped.append(f)
+            else: s+=1
+        if s > 0:
+            print "converted successfully: [%i] file(s)" % s
+        if len(e) > 0:
+            print "errors while converting: [%i] file(s): [%s]" % (len(e),", ".join(e))
+        if len(skipped) > 0:
+            print "skipped: [%i] file(s): [%s]" % (len(skipped),", ".join(skipped))
+        return len(e)+len(skipped)
+    else:
+        print usage_text
+
+if __name__ == '__main__':
+    sys.exit(main())
+

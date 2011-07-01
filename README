@@ -1,0 +1,13 @@
+occ - Ojuba Control Center
+
+occ is a program that you can use to control and tune your computer.
+
+if you got a problem with some plugin you may disable it with
+
+  occ --skip-plugins=PLUGIN1,PLUGIN2...
+
+for example if running glxinfo crashes X and thus running occ will send you back to login screen, try this:
+
+  occ --skip-plugins=vga
+
+

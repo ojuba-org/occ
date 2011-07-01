@@ -1,0 +1,15 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Ojuba Control Center
+Name[ar]=مركز تحكم أعجوبة
+GenericName=Ojuba Control Center
+GenericName[ar]=مركز تحكم أعجوبة
+Comment=Control your preferences and settings
+Comment[ar]=تحكم في التفضيلات والإعدادات
+Icon=preferences-system
+Exec=occ
+Terminal=false
+Type=Application
+Categories=GNOME;GTK;System;Settings;
+StartupNotify=true
+
