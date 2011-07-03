@@ -1,0 +1,5 @@
+occ.desktop.in
+OjubaControlCenter/*.py
+Plugins/*.py
+mechanisms/*.py
+

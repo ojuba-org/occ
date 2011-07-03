@@ -23,10 +23,11 @@ Ojuba Control Center is a central place to control your computer.
 %setup -q
 
 %build
+make %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__python} setup.py install -O1 --root $RPM_BUILD_ROOT
+%makeinstall DESTDIR=$RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT/usr/local/bin/
 
