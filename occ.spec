@@ -41,7 +41,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc README COPYING LICENSE-ar.txt LICENSE-en
+%doc AUTHORS README COPYING LICENSE-ar.txt LICENSE-en
 %{python_sitelib}/*
 /etc/dbus-1/system.d/org.ojuba.occ.conf
 %{_datadir}/applications/%{name}.desktop
