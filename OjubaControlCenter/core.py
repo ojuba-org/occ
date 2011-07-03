@@ -110,6 +110,7 @@ class CCWindow(gtk.Window):
     self.connect("delete_event", gtk.main_quit)
     self.set_size_request(800,400)
     self.set_title(_('Ojuba Control Center'))
+    self.maximize()
     vb=gtk.VBox(False,2)
     self.add(vb)
     h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
