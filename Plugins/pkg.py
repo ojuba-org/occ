@@ -64,7 +64,7 @@ class occPlugin(PluginsClass):
     h.pack_start(b, False,False,2)
     
     h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=gtk.Label(_("If you don'y have internet access you may want to disable internet repositories."))
+    l=gtk.Label(_("If you don't have internet access you may want to disable internet repositories."))
     h.pack_start(l,False,False,2)
     h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
     b=gtk.Button(_('Disable all internet repositories'))

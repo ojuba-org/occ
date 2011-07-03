@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: occ 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-03 16:01+0300\n"
+"POT-Creation-Date: 2011-07-03 16:30+0300\n"
 "PO-Revision-Date: 2009-06-25 17:44+0300\n"
 "Last-Translator: Muayyd Saleh Alsadi <alsadi@ojuba.org>\n"
 "Language-Team: Arabic <ar@li.org>\n"
@@ -369,7 +369,7 @@ msgstr "إزالة كل مستودعات الوسائط"
 
 #: ../Plugins/pkg.py:67
 msgid ""
-"If you don'y have internet access you may want to disable internet "
+"If you don't have internet access you may want to disable internet "
 "repositories."
 msgstr "إن لم تملك اتصال بالإنترنت فإنك قد ترغب في تعطيل مستودعات الإنترنت."
 
