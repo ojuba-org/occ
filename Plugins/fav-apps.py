@@ -15,7 +15,7 @@ Copyright © 2009, Muayyad Alsadi <alsadi@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
-import gtk
+import gtk, os
 
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.utils import  which_exe
@@ -27,7 +27,11 @@ from OjubaControlCenter.widgets import LaunchOrInstall, InstallOrInactive, wait,
 
 
 class occPlugin(PluginsClass):
-  opera_url="ftp://ftp.opera.com/pub/opera/linux/1000/final/en/i386/opera-10.00.gcc4.qt4.i386.rpm"
+  #if (sys.maxsize > 2**32): arch = 'x86_64'
+  #else: arch = 'i386'
+  basearch=os.uname()[4]
+  if basearch=='i686': basearch='i386'
+  opera_url="ftp://ftp.opera.com/pub/opera/linux/1150/opera-11.50-1074.%s.rpm"%basearch
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('Favorite Packages'),'install',20)
     vb=gtk.VBox(False,2)
@@ -38,11 +42,11 @@ class occPlugin(PluginsClass):
     
     hb=gtk.HBox(False,0); vb.pack_start(hb,False,False,6)
     hb.pack_start(gtk.Label(_('Desktop:')),False,False,2)
-    hb.pack_start(LaunchOrInstall(self,'Compiz Fusion','/usr/bin/fusion-icon-gtk',['fusion-icon-gtk','compiz-fusion-extras','compiz-fusion-extras-gnome','ccsm','emerald-themes','emerald']),False,False,2)
+    #hb.pack_start(LaunchOrInstall(self,'Compiz Fusion','/usr/bin/fusion-icon-gtk',['fusion-icon-gtk','compiz-fusion-extras','compiz-fusion-extras-gnome','ccsm','emerald-themes','emerald']),False,False,2)
     hb.pack_start(LaunchOrInstall(self,'Gnome Do','/usr/bin/gnome-do',['gnome-do','gnome-do-plugins', 'gnome-do-plugins-firefox','gnome-do-plugins-thunderbird', 'gnome-do-plugins-eog','gnome-do-plugins-pidgin']),False,False,2)
     hb.pack_start(LaunchOrInstall(self,'Avant Window Navigator','/usr/bin/avant-window-navigator',['avant-window-navigator']),False,False,2)
     hb.pack_start(LaunchOrInstall(self,'cairo dock','/usr/bin/cairo-dock',['cairo-dock','cairo-dock-plug-ins','cairo-dock-plug-ins-webkit']),False,False,2)
-    hb.pack_start(LaunchOrInstall(self,'screenlets','/usr/bin/screenlets',['screenlets']),False,False,2)
+    #hb.pack_start(LaunchOrInstall(self,'screenlets','/usr/bin/screenlets',['screenlets']),False,False,2)
     hb.pack_start(InstallOrInactive(self, _('extra screensavers'), _('extra screensavers'), _('extra screensavers'), ['xscreensaver-extras', 'xscreensaver-extras-gss', 'xscreensaver-gl-base', 'xscreensaver-gl-extras' , 'xscreensaver-gl-extras-gss','rss-glx','rss-glx-gnome-screensaver']),False,False,2)
 
     hb=gtk.HBox(False,0); vb.pack_start(hb,False,False,6)

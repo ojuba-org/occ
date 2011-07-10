@@ -82,6 +82,10 @@ class occPlugin(PluginsClass):
     h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
     self.keep_cache_b=gtk.CheckButton(_('keep downloaded packages'))
     self.keep_cache_b.set_active(self.get_keep_cache())
+    try:
+      self.ccw.rm_old_rpms_b.set_sensitive(self.keep_cache_b.get_active())
+      self.ccw.cp_new_rpms_b.set_sensitive(self.keep_cache_b.get_active())
+    except: pass
     h.pack_start(self.keep_cache_b, False,False,2)
     b=gtk.Button(stock=gtk.STOCK_APPLY)
     b.connect('clicked', self.keep_cache)
@@ -128,6 +132,10 @@ class occPlugin(PluginsClass):
     v=('0','1')[self.keep_cache_b.get_active()]
     r=self.ccw.mechanism('pkg','set_keep_cache', v)
     self.keep_cache_b.set_active(self.get_keep_cache())
+    try:
+      self.ccw.rm_old_rpms_b.set_sensitive(self.keep_cache_b.get_active())
+      self.ccw.cp_new_rpms_b.set_sensitive(self.keep_cache_b.get_active())
+    except: pass
     info(_('Done.'))
 
   def disable_net_repos(self, b):
