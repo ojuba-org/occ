@@ -2,7 +2,7 @@
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
 Name:           occ
-Version:        1.10.6
+Version:        1.20.0
 Release:        1%{?dist}
 Summary:        Ojuba Control Center
 
@@ -56,6 +56,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jul 13 2011 Muayyad Saleh Alsadi <alsadi@ojuba.org> - 1.20.0-1
+- some gnome-shell features
+
 * Sun Jun 27 2010 Muayyad Saleh Alsadi <alsadi@ojuba.org> - 1.10.4-1
 - don't show PAE kernels in x86_64
 
