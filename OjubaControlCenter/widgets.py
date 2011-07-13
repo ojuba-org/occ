@@ -79,7 +79,7 @@ class LaunchOrInstall(gtk.Button):
     run_in_bg(self.__cmd)
     return True
   def __install(self):
-      if not self.__pkgs: r=self.__plugin.ccw.install_by_file(self.__fn)
+      if not self.__pkgs: r=self.__plugin.install_by_file(self.__fn)
       else: r=self.__plugin.ccw.install_packages(self.__pkgs)
   def is_installed(self, full_check=True):
     if not full_check: return os.path.exists(self.__fn)
