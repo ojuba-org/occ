@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Ojuba Control Center
-Copyright © 2009, Muayyad Alsadi <alsadi@ojuba.org>
+Copyright © 2009-2011, ojuba.org <core@ojuba.org>
 
     Released under terms of Waqf Public License.
     This program is free software; you can redistribute it and/or modify
@@ -166,7 +166,7 @@ class CCWindow(gtk.Window):
 """)
     self.about_dlg.set_website("http://linux.ojuba.org")
     self.about_dlg.set_website_label("ojuba Linux web site")
-    self.about_dlg.set_authors(["Muayyad Saleh Alsadi <alsadi@ojuba.org>"])
+    self.about_dlg.set_authors(["Muayyad Saleh Alsadi <alsadi@ojuba.org>", "Ehab El-Gedawy <ehabsas@gmail.com>"])
 
   def __init_pk(self):
     global bus
