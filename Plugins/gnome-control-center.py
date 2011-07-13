@@ -22,7 +22,7 @@ from OjubaControlCenter.widgets import LaunchButton
 
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
-    PluginsClass.__init__(self, ccw,_('Gnome Control Center'),'gnome',50)
+    PluginsClass.__init__(self, ccw,_('Gnome Control Center'),'gnome',10)
     vb=gtk.VBox(False,2)
     self.add(vb)
     hb=gtk.HBox(False,0)

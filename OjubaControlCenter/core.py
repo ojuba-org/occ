@@ -22,7 +22,7 @@ import os.path
 import sys
 import glob
 import imputil
-
+from gi.repository import Gio
 ld=os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])),'..','share','locale')
 if not os.path.exists(ld): ld=os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])),'locale')
 gettext.install('occ', ld, unicode=0)
@@ -102,6 +102,7 @@ class CCWindow(gtk.Window):
     gtk.Window.__init__(self)
     dbus_loop = DBusGMainLoop(set_as_default=True)
     bus = dbus.SystemBus()
+    self.GSettings=Gio.Settings
     self.__init_about_dialog()
     self.__init_pk()
     self.__mechanism = Backend(bus = bus)

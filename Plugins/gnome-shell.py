@@ -18,35 +18,31 @@ Copyright © 2009, Muayyad Alsadi <alsadi@ojuba.org>
 
 import gtk 
 from OjubaControlCenter.pluginsClass import PluginsClass
-from OjubaControlCenter.gwidgets import resetButton, GSCheckButton, mainGSCheckButton
+from OjubaControlCenter.gwidgets import resetButton, GSCheckButton, comboBox
 
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
-    PluginsClass.__init__(self, ccw,_('Desktop Icons'),'gnome',20)
-    SD_P='org.gnome.desktop.background'
-    DT_P='org.gnome.nautilus.desktop'
+    PluginsClass.__init__(self, ccw,_('Shell'),'gnome',40)
     mvb=gtk.VBox(False,2)
     vb=gtk.VBox(False,2)
     self.add(mvb)
     h=gtk.HBox(False,0)
-    h.pack_start(gtk.Label(_('Select the icons you want to be visible on desktop')),False,False,0)
+    h.pack_start(gtk.Label(_('Shell interface setup')),False,False,0)
     mvb.pack_start(h,False,False,6)
-    GS = ccw.GSettings(SD_P)
-    c=mainGSCheckButton(vb,_('Show desktop icons'),'show-desktop-icons',GS)
-    vb.pack_start(c,False,False,1)
-    GS = ccw.GSettings(DT_P)
+    P='org.gnome.desktop.interface'
+    GS = ccw.GSettings(P)
+    tf=comboBox(_('Clock format'),'clock-format',GS, GS.get_range('clock-format')[1])
+    vb.pack_start(tf,False,False,1)
+    P='org.gnome.shell.clock'
+    GS = ccw.GSettings(P)
     DT_l=( \
-       (_('Computer'),'computer-icon-visible'),
-       (_('Home'),'home-icon-visible'),
-       (_('Network'),'network-icon-visible'),
-       (_('Trash'),'trash-icon-visible'),
-       (_('Mounted volumes'),'volumes-visible')
+       (_('Show seconds in clock'),'show-seconds'),
+       (_('Show date in clock'),'show-date')
     )
     
     for t,k in DT_l:
       g=GSCheckButton(t,k,GS)
       vb.pack_start(g,False,False,1)
-    c.update_cboxs()
     b = resetButton(vb)
     mvb.pack_start(vb,False,False,1)
     mvb.pack_start(b,False,False,1)
