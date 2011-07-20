@@ -18,6 +18,7 @@ Copyright © 2009, Muayyad Alsadi <alsadi@ojuba.org>
 import gtk
 from widgets import sure
 
+unavail_txt=_('This setting Unavailable ')
 def setup_reset_button(widget):
   CanReset = False
   RL = _('Reset')
@@ -49,7 +50,11 @@ class comboBox(gtk.HBox):
     self.pack_start(gtk.Label(caption),False,False,0)
     setup_reset_button(self)
     self.pack_end(self.cb,False,False,0)
-    self.update()
+    try:
+      self.update()
+    except:
+      self.set_sensitive(False)
+      self.set_tooltip_text(unavail_txt)
 
   def build_list_cb(self, List):
     cb_list = gtk.ListStore(str)
@@ -81,7 +86,11 @@ class fontButton(gtk.HBox):
     self.pack_start(gtk.Label(caption),False,False,0)
     setup_reset_button(self)
     self.pack_end(self.fb,False,False,0)
-    self.update()
+    try:
+      self.update()
+    except:
+      self.set_sensitive(False)
+      self.set_tooltip_text(unavail_txt)
 
   def update(self,*args, **kw):
     v=self.gs.get_string(self.k)
@@ -106,7 +115,11 @@ class hscale(gtk.HBox):
     self.pack_start(gtk.Label(caption),False,False,0)
     setup_reset_button(self)
     self.pack_end(self.scale,False,False,0)
-    self.update()
+    try:
+      self.update()
+    except:
+      self.set_sensitive(False)
+      self.set_tooltip_text(unavail_txt)
 
   def update(self,*args, **kw):
     v=self.gs.get_double(self.k)
@@ -124,7 +137,11 @@ class GSCheckButton(gtk.HBox):
     self.gs=gs
     self.k=k
     self.chkb = gtk.CheckButton(caption)
-    self.update()
+    try:
+      self.update()
+    except:
+      self.set_sensitive(False)
+      self.set_tooltip_text(unavail_txt)
     self.chkb.connect('toggled',self.set_gconf)
     self.pack_start(self.chkb,True,True,1)
     setup_reset_button(self)
@@ -162,6 +179,7 @@ class resetButton(gtk.HBox):
     if not sure(_('Are you sure?')): return
     childs = vb.get_children()
     for child in childs:
-       try: child.reset()
+       try:
+         if child.get_sensitive(): child.reset()
        except: print child
 
