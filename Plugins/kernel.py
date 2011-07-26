@@ -45,8 +45,8 @@ class occPlugin(PluginsClass):
       h.pack_start(l,False,False,2)
       h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
       b=InstallOrInactive(self, _("Install PAE kernel"),_("PAE kernel is installed"), _('kernel which supports larger memory'), ['kernel-PAE'])
-    
-    h.pack_start(b, False,False,2)
+      h.pack_start(b, False,False,2)
+
     h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
     l=gtk.Label()
     l.set_markup(_("There are two types of drivers: <i>kmods</i> and <i><b>a</b>kmods</i>.\nAlthough <b>akmod</b> drivers requires: more disk space for the development dependencies,\nthey will automatically generate drivers for\nnewly-installed kernels without breaking the dependency.\nWe strongly recommend that you use <b>akmod</b>."))
