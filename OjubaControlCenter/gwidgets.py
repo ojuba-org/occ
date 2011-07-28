@@ -25,8 +25,9 @@ def setup_reset_button(widget):
   try:
     widget.gs.connect("changed::"+widget.k, widget.update)
     CanReset = True
-  except:
+  except TypeError:
     widget.gs.notify_add(widget.k, widget.update)
+  #CanReset = True
   if CanReset:
     widget.rb = gtk.Button(RL)
     widget.rb.connect('clicked', widget.reset)
@@ -52,7 +53,7 @@ class comboBox(gtk.HBox):
     self.pack_end(self.cb,False,False,0)
     try:
       self.update()
-    except:
+    except TypeError:
       self.set_sensitive(False)
       self.set_tooltip_text(unavail_txt)
 
@@ -88,7 +89,7 @@ class fontButton(gtk.HBox):
     self.pack_end(self.fb,False,False,0)
     try:
       self.update()
-    except:
+    except TypeError:
       self.set_sensitive(False)
       self.set_tooltip_text(unavail_txt)
 
@@ -117,7 +118,7 @@ class hscale(gtk.HBox):
     self.pack_end(self.scale,False,False,0)
     try:
       self.update()
-    except:
+    except TypeError:
       self.set_sensitive(False)
       self.set_tooltip_text(unavail_txt)
 
@@ -139,7 +140,7 @@ class GSCheckButton(gtk.HBox):
     self.chkb = gtk.CheckButton(caption)
     try:
       self.update()
-    except:
+    except TypeError:
       self.set_sensitive(False)
       self.set_tooltip_text(unavail_txt)
     self.chkb.connect('toggled',self.set_gconf)
@@ -181,5 +182,5 @@ class resetButton(gtk.HBox):
     for child in childs:
        try:
          if child.get_sensitive(): child.reset()
-       except: print child
+       except AttributeError: print child
 

@@ -23,14 +23,26 @@ from OjubaControlCenter.gwidgets import resetButton, GSCheckButton, mainGSCheckB
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('Desktop Icons'),'gnome',20)
-    SD_P='org.gnome.desktop.background'
-    DT_P='org.gnome.nautilus.desktop'
-    mvb=gtk.VBox(False,2)
+    vbox=gtk.VBox(False,2)
     vb=gtk.VBox(False,2)
-    self.add(mvb)
     h=gtk.HBox(False,0)
     h.pack_start(gtk.Label(_('Select the icons you want to be visible on desktop')),False,False,0)
-    mvb.pack_start(h,False,False,6)
+    vbox.pack_start(h,False,False,6)
+    vbox.pack_start(vb,False,False,1)
+    self.add(vbox)
+    
+    if not ccw.GSettings:
+      h=gtk.HBox(False,0)
+      h.pack_start(gtk.Label(_('Not installed')),False,False,0)
+      vbox.pack_start(h,False,False,6)
+    else:
+      self.GioSettings(vb, ccw)
+      vbox.pack_start(resetButton(vb),False,False,1)
+    
+  def GioSettings(self, vb, ccw):
+    SD_P='org.gnome.desktop.background'
+    DT_P='org.gnome.nautilus.desktop'
+    
     GS = ccw.GSettings(SD_P)
     c=mainGSCheckButton(vb,_('Show desktop icons'),'show-desktop-icons',GS)
     vb.pack_start(c,False,False,1)
@@ -42,12 +54,9 @@ class occPlugin(PluginsClass):
        (_('Trash'),'trash-icon-visible'),
        (_('Mounted volumes'),'volumes-visible')
     )
-    
     for t,k in DT_l:
       g=GSCheckButton(t,k,GS)
       vb.pack_start(g,False,False,1)
     c.update_cboxs()
-    b = resetButton(vb)
-    mvb.pack_start(vb,False,False,1)
-    mvb.pack_start(b,False,False,1)
+    
 

@@ -56,12 +56,12 @@ class occPlugin(PluginsClass):
     s = self.get_size(p)[1]
     dlg.hide()
     if not sure(_("Delete %d RPM Files, will save %s!\nAre you sure?"%(len(p), s))): return
-    cmd = '%s "%s"'%(cmd, ' '.join(p))
+    cmd = '%s %s'%(cmd, ' '.join(p))
     dlg.show_all()
     try: ret = self.ccw.mechanism('run', 'system', cmd)
     except: ret=0
     dlg.hide()
-    if ret: info(_("%d RPM files has been deleted, TO save %s!") %(len(p), rs))
+    if ret: info(_("%d RPM files has been deleted, TO save %s!") %(len(p), s))
     else: info(_("We can't complete this action at this time, due unknown error, you can try again!"))
     
   def cp_rpms_cb(self, b):

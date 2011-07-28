@@ -23,12 +23,23 @@ from OjubaControlCenter.gwidgets import resetButton, GSCheckButton, comboBox
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('Shell'),'gnome',40)
-    mvb=gtk.VBox(False,2)
+    vbox=gtk.VBox(False,2)
     vb=gtk.VBox(False,2)
-    self.add(mvb)
+    self.add(vbox)
     h=gtk.HBox(False,0)
     h.pack_start(gtk.Label(_('Shell interface setup')),False,False,0)
-    mvb.pack_start(h,False,False,6)
+    vbox.pack_start(h,False,False,6)
+    vbox.pack_start(vb,False,False,6)
+
+    if not ccw.GSettings:
+      h=gtk.HBox(False,0)
+      h.pack_start(gtk.Label(_('Not installed')),False,False,0)
+      vbox.pack_start(h,False,False,6)
+    else:
+      self.GioSettings(vb, ccw)
+      vbox.pack_start(resetButton(vb),False,False,1)
+    
+  def GioSettings(self, vb, ccw):
     P='org.gnome.desktop.interface'
     GS = ccw.GSettings(P)
     tf=comboBox(_('Clock format'),'clock-format',GS, GS.get_range('clock-format')[1])
@@ -43,7 +54,5 @@ class occPlugin(PluginsClass):
     for t,k in DT_l:
       g=GSCheckButton(t,k,GS)
       vb.pack_start(g,False,False,1)
-    b = resetButton(vb)
-    mvb.pack_start(vb,False,False,1)
-    mvb.pack_start(b,False,False,1)
+
 
