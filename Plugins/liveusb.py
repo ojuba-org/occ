@@ -39,7 +39,7 @@ class occPlugin(PluginsClass):
     vb=gtk.VBox(False,2)
     self.add(vb)
     h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=gtk.Label(_('A Live System enables you to carry your operating system with you.\nAlso you may add persistent layer so that it can hold your modification to the system.'))
+    l=gtk.Label(_('A Live System enables you to carry your operating system with you.\nAlso, You may add persistent layer so that it can hold your modification to the system.'))
     h.pack_start(l,False,False,2)
     hb=gtk.HBox(False,2); vb.pack_start(hb,False,False,6)
     hb.pack_start(gtk.Label(_('Source:')), False,False,2)

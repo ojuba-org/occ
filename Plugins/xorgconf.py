@@ -132,7 +132,7 @@ You may want to generate a new initrd file."""))
     vb=gtk.VBox(False,2)
     f.add(vb)
     hb=gtk.HBox(False,2); vb.pack_start(hb,False,False,2)
-    l=gtk.Label(_("""Xorg.conf is the file that control X server which is the base of the graphical environment.
+    l=gtk.Label(_("""Xorg.conf is the file that controls X server which is the base of the graphical environment.
 This tool will overwrite xorg.conf with a new one that is not based on your working one."""))
     hb.pack_start(l,False,False,2)
     hb=gtk.HBox(False,2); vb.pack_start(hb,False,False,2)

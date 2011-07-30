@@ -40,7 +40,7 @@ class occPlugin(PluginsClass):
     self.r=gtk.Button(stock=gtk.STOCK_REFRESH)
     self.r.connect('clicked',self.__update)
     hb.pack_start(self.r,False,False,6)
-    hb.pack_start(LaunchOrInstall(self,_('Details'),'/usr/bin/hardinfo','hardinfo'),False,False,0)
+    hb.pack_start(LaunchOrInstall(self,_('Details'),'/usr/bin/hardinfo',['hardinfo']),False,False,0)
     b=gtk.Button(_('Update PCI ID database'))
     b.connect('clicked', self.__update_pciid_cb)
     hb.pack_start(b,False,False,0)

@@ -34,7 +34,7 @@ class occPlugin(PluginsClass):
     vb=gtk.VBox(False,2)
     self.add(vb)
     h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=gtk.Label(_("Save some spaces by removing old RPM files, Located in /var/cache/yum, Or backup theme!"))
+    l=gtk.Label(_("Ojuba keeps an archive of all the RPM packages downloaded from the internet\nAllowing you to use them when necessary\nHowever, These packages take precious hard disk space.\nYou can save some space by deleting those files.\nYou can also have a backup which you can use later"))
     h.pack_start(l,False,False,2)
     h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
     self.ccw.rm_old_rpms_b=b=gtk.Button(_('Remove old RPM files'))
