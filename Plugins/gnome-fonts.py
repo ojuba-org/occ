@@ -27,10 +27,14 @@ class occPlugin(PluginsClass):
     PluginsClass.__init__(self, ccw,_('Desktop Fonts'),'gnome',30)
     vbox=gtk.VBox(False,2)
     vb=gtk.VBox(False,2)
-    self.add(vbox)
-    h=gtk.HBox(False,0)
-    h.pack_start(gtk.Label(_('Adjust desktop fonts')),False,False,0)
-    vbox.pack_start(h,False,False,6)
+    #FIXME: Toggle comment state for next 7 lines to disable expander 
+    expander=gtk.Expander(_("Adjust desktop fonts"))
+    expander.add(vbox)
+    self.add(expander)
+    #self.add(vbox)
+    #h=gtk.HBox(False,0)
+    #h.pack_start(gtk.Label(_('Adjust desktop fonts')),False,False,0)
+    #vbox.pack_start(h,False,False,6)
     vbox.pack_start(vb,False,False,6)
     
     if not ccw.GSettings:

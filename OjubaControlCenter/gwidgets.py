@@ -181,6 +181,6 @@ class resetButton(gtk.HBox):
     childs = vb.get_children()
     for child in childs:
        try:
-         if child.get_sensitive(): child.reset()
+         if child and hasattr(child, 'rb'): child.reset()
        except AttributeError: print child
 

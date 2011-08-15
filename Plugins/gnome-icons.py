@@ -25,11 +25,15 @@ class occPlugin(PluginsClass):
     PluginsClass.__init__(self, ccw,_('Desktop Icons'),'gnome',20)
     vbox=gtk.VBox(False,2)
     vb=gtk.VBox(False,2)
-    h=gtk.HBox(False,0)
-    h.pack_start(gtk.Label(_('Select the icons you want to be visible on desktop')),False,False,0)
-    vbox.pack_start(h,False,False,6)
+    #FIXME: Toggle comment state for next 7 lines to disable expander
+    expander=gtk.Expander(_("Select the icons you want to be visible on desktop"))
+    expander.add(vbox)
+    self.add(expander)
+    #self.add(vbox)
+    #h=gtk.HBox(False,0)
+    #h.pack_start(gtk.Label(_('Select the icons you want to be visible on desktop')),False,False,0)
+    #vbox.pack_start(h,False,False,6)
     vbox.pack_start(vb,False,False,1)
-    self.add(vbox)
     
     if not ccw.GSettings:
       h=gtk.HBox(False,0)
