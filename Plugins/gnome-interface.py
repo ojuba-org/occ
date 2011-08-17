@@ -19,7 +19,7 @@ import os.path
 import logging
 import gtk 
 from OjubaControlCenter.pluginsClass import PluginsClass
-from OjubaControlCenter.gwidgets import resetButton, GSCheckButton, comboBox
+from OjubaControlCenter.gwidgets import resetButton, GSCheckButton, comboBox, comboBoxWithFolder
 
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
@@ -55,12 +55,12 @@ class occPlugin(PluginsClass):
       b=GSCheckButton(t,k,GS)
       vb.pack_start(b,False,False,1)
     FD_l=( \
-       (_('GTK+ theme'),'gtk-theme',self.get_valid_themes()),
-       (_('Icon theme'),'icon-theme',self.get_valid_icon_themes()),
-       (_('Cursor theme'),'cursor-theme',self.get_valid_cursor_themes())
+       (_('GTK+ theme'),'gtk-theme',self.get_valid_themes(),_('Add GTK+ theme'),os.path.expanduser('~/.themes')),
+       (_('Icon theme'),'icon-theme',self.get_valid_icon_themes(),_('Add icons theme'),os.path.expanduser('~/.icons')),
+       (_('Cursor theme'),'cursor-theme',self.get_valid_cursor_themes(),_('Add cursor theme'),os.path.expanduser('~/.cursors'))
     )
-    for t,k,l in FD_l:
-      cb=comboBox(t,k,GS, l)
+    for t,k,l,bt,dst in FD_l:
+      cb=comboBoxWithFolder(t,k,GS, l, bt, dst)
       vb.pack_start(cb,False,False,1)
     
   def get_valid_themes(self):

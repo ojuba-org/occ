@@ -129,8 +129,8 @@ def info(msg, win=None):
   r=dlg.run()
   dlg.destroy()
 
-def error(msg):
-  dlg=gtk.MessageDialog(None,gtk.DIALOG_MODAL,gtk.MESSAGE_ERROR, gtk.BUTTONS_OK, msg)
+def error(msg, win=None):
+  dlg=gtk.MessageDialog(win,gtk.DIALOG_MODAL,gtk.MESSAGE_ERROR, gtk.BUTTONS_OK, msg)
   dlg.connect("response", lambda *args: dlg.hide())
   r=dlg.run()
   dlg.destroy()

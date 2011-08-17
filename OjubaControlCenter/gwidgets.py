@@ -16,7 +16,9 @@ Copyright © 2009, Muayyad Alsadi <alsadi@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 import gtk
-from widgets import sure
+from widgets import sure, error
+from utils import run_file_man
+import os
 
 unavail_txt=_('This setting Unavailable ')
 def setup_reset_button(widget):
@@ -76,6 +78,25 @@ class comboBox(gtk.HBox):
     if gv != cv:
       self.gs.set_string(self.k,cv)
 
+class comboBoxWithFolder(comboBox):
+  def __init__(self,caption,k,gs, List, btCap, target):
+    comboBox.__init__(self,caption,k,gs, List)
+    bt=gtk.Button(btCap)
+    self.targetdir=target
+    bt.connect('clicked', self.opendir_cb)
+    bt.set_size_request(250,-1)
+    self.pack_end(bt,False,False,0)
+  
+  def opendir_cb(self, w):
+    if not os.path.isdir(self.targetdir):
+      try:
+        os.makedirs(self.targetdir)
+      except OSError, e:
+        print str(e)
+        error('%s\n%s' % (_('Can not open file'),self.targetdir))
+        return False
+    run_file_man(self.targetdir)
+  
 class fontButton(gtk.HBox):
   def __init__(self,caption,k,gs):
     gtk.HBox.__init__(self,False,0)
