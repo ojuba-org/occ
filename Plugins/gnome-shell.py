@@ -16,9 +16,11 @@ Copyright © 2009, Muayyad Alsadi <alsadi@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 
+import os, os.path
 import gtk 
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.gwidgets import resetButton, GSCheckButton, comboBox
+from OjubaControlCenter.widgets import LaunchFileManager
 
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
@@ -34,12 +36,16 @@ class occPlugin(PluginsClass):
     #h.pack_start(gtk.Label(_('Shell interface setup')),False,False,0)
     #vbox.pack_start(h,False,False,6)
     vbox.pack_start(vb,False,False,6)
+    
 
     if not ccw.GSettings:
       h=gtk.HBox(False,0)
       h.pack_start(gtk.Label(_('Not installed')),False,False,0)
       vbox.pack_start(h,False,False,6)
     else:
+      h=gtk.HBox(False,0)
+      h.pack_start(LaunchFileManager(_("Personal shell extensions folder"), os.path.expanduser('~/.local/share/gnome-shell/')),False,False,2)
+      vb.pack_start(h,False,False,6)
       self.GioSettings(vb, ccw)
       vbox.pack_start(resetButton(vb),False,False,1)
     
