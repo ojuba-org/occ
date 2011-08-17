@@ -22,6 +22,7 @@ from OjubaControlCenter.widgets import LaunchOrInstall,info,error
 from OjubaControlCenter.pluginsClass import PluginsClass
 
 class occPlugin(PluginsClass):
+  lang_re=re.compile(r'''^(\s*LANG\s*=\s*)['"]([^"']*)['"]''')
   lang_fn='/etc/sysconfig/i18n'
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('System Language:'),'desktop', 10)
@@ -41,20 +42,17 @@ class occPlugin(PluginsClass):
     self.get_lang()
 
   def get_lang(self):
-    lang_re=re.compile(r'^\s*LANG\s*=\s*"([^"]*)"')
     try: lang=open(self.lang_fn, 'r').read().strip()
     except OSError: lang=""
-    m=lang_re.search(lang)
+    m=self.lang_re.search(lang)
     if m:
-      self.ar_b.set_sensitive(not m.group(1).startswith('ar_'))
-      self.en_b.set_sensitive(not m.group(1).startswith('en_'))
+      self.ar_b.set_sensitive(not m.group(2).startswith('ar_'))
+      self.en_b.set_sensitive(not m.group(2).startswith('en_'))
     return lang
 
   def set_lang(self, w, nl="en_US.UTF-8"):
-    #cmd="""cat <<EOF>/etc/sysconfig/i18n\n%s\nEOF"""
-    lang_re=re.compile(r'^(\s*LANG\s*=\s*)"([^"]*)"')
     lang=self.get_lang()
-    l,e=lang_re.subn(r'\1"%s"' %nl,lang)
+    l,e=self.lang_re.subn(r'\1"%s"' %nl,lang)
     print l,nl
     if e==0: l='''LANG="en_US.UTF-8"\nSYSFONT="latarcyrheb-sun16"'''
     self.ccw.mechanism('run','write_conf',self.lang_fn, l)
