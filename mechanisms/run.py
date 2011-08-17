@@ -33,4 +33,7 @@ class OccMechanism(mechanismClass):
   def fileman(self,p):
     run_in_bg("su -l -c '%s'" % file_man_cmd(p))
     return '0'
-
+  
+  def write_conf(self, fn, cont):
+    open(fn, 'wt+').write(cont)
+    return '0'
