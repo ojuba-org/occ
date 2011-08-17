@@ -93,7 +93,7 @@ class comboBoxWithFolder(comboBox):
         os.makedirs(self.targetdir)
       except OSError, e:
         print str(e)
-        error('%s\n%s' % (_('Can not open file'),self.targetdir))
+        error('%s\n%s' % (_('Could not create folder'),self.targetdir))
         return False
     run_file_man(self.targetdir)
   

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: occ 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-30 20:33+0300\n"
+"POT-Creation-Date: 2011-08-17 14:51+0300\n"
 "PO-Revision-Date: 2009-06-25 17:44+0300\n"
 "Last-Translator: Muayyd Saleh Alsadi <alsadi@ojuba.org>\n"
 "Language-Team: Arabic <ar@li.org>\n"
@@ -30,19 +30,23 @@ msgstr "مركز تحكم أعجوبة"
 msgid "OCC"
 msgstr ""
 
-#: ../OjubaControlCenter/gwidgets.py:21
+#: ../OjubaControlCenter/gwidgets.py:23
 msgid "This setting Unavailable "
 msgstr ""
 
-#: ../OjubaControlCenter/gwidgets.py:24
+#: ../OjubaControlCenter/gwidgets.py:26
 msgid "Reset"
 msgstr "استعادة"
 
-#: ../OjubaControlCenter/gwidgets.py:175
+#: ../OjubaControlCenter/gwidgets.py:96
+msgid "Could not create folder"
+msgstr "غير قادر على إنشاء المجلد"
+
+#: ../OjubaControlCenter/gwidgets.py:196
 msgid "Reset all"
 msgstr "استعادة الكل"
 
-#: ../OjubaControlCenter/gwidgets.py:180
+#: ../OjubaControlCenter/gwidgets.py:201
 msgid "Are you sure?"
 msgstr "هل أنت متأكد"
 
@@ -92,7 +96,7 @@ msgstr "عتاد"
 msgid "Configure hardware"
 msgstr "إعداد العتاد"
 
-#: ../OjubaControlCenter/categories.py:24 ../Plugins/gnome-icons.py:53
+#: ../OjubaControlCenter/categories.py:24 ../Plugins/gnome-icons.py:57
 msgid "Network"
 msgstr "الشبكة"
 
@@ -108,32 +112,33 @@ msgstr "الإقلاع والنواة"
 msgid "Desktop Icons"
 msgstr "أيقونات سطح المكتب"
 
+#. FIXME: Toggle comment state for next 7 lines to disable expander
 #: ../Plugins/gnome-icons.py:29
 msgid "Select the icons you want to be visible on desktop"
 msgstr "اختر الأيقونات التي تريدها أن تظهر على سطح المكتب"
 
-#: ../Plugins/gnome-icons.py:36 ../Plugins/gnome-interface.py:37
-#: ../Plugins/gnome-power.py:37 ../Plugins/gnome-shell.py:36
+#: ../Plugins/gnome-icons.py:40 ../Plugins/gnome-interface.py:41
+#: ../Plugins/gnome-power.py:41 ../Plugins/gnome-shell.py:43
 msgid "Not installed"
 msgstr "غير مثبت"
 
-#: ../Plugins/gnome-icons.py:47
+#: ../Plugins/gnome-icons.py:51
 msgid "Show desktop icons"
 msgstr "إظهار أيقونات سطح المكتب"
 
-#: ../Plugins/gnome-icons.py:51
+#: ../Plugins/gnome-icons.py:55
 msgid "Computer"
 msgstr "الحاسوب"
 
-#: ../Plugins/gnome-icons.py:52
+#: ../Plugins/gnome-icons.py:56
 msgid "Home"
 msgstr "البيت"
 
-#: ../Plugins/gnome-icons.py:54
+#: ../Plugins/gnome-icons.py:58
 msgid "Trash"
 msgstr "المهملات"
 
-#: ../Plugins/gnome-icons.py:55
+#: ../Plugins/gnome-icons.py:59
 msgid "Mounted volumes"
 msgstr "الأقراص المضمومة"
 
@@ -335,33 +340,45 @@ msgid " FPS"
 msgstr " إطار بالثانية"
 
 #: ../Plugins/gnome-interface.py:26
-#, fuzzy
 msgid "Interface"
-msgstr "إنترنت:"
+msgstr "الواجهة:"
 
-#: ../Plugins/gnome-interface.py:31
+#. FIXME: Toggle comment state for next 7 lines to disable expander
+#: ../Plugins/gnome-interface.py:30
 msgid "Adjust interface settings"
 msgstr "ضبط إعدادات الواجهة"
 
-#: ../Plugins/gnome-interface.py:47
+#: ../Plugins/gnome-interface.py:51
 msgid "Menus have icons"
 msgstr "إظهار رموز القوائم"
 
-#: ../Plugins/gnome-interface.py:48
+#: ../Plugins/gnome-interface.py:52
 msgid "Buttons have icons"
 msgstr "إظهار رموز الأزرار"
 
-#: ../Plugins/gnome-interface.py:54
+#: ../Plugins/gnome-interface.py:58
 msgid "GTK+ theme"
 msgstr "سمة GTK+"
 
-#: ../Plugins/gnome-interface.py:55
-msgid "Icon theme"
-msgstr "سمة الرموز"
+#: ../Plugins/gnome-interface.py:58
+msgid "Add GTK+ theme"
+msgstr "أضف سمة GTK+"
 
-#: ../Plugins/gnome-interface.py:56
+#: ../Plugins/gnome-interface.py:59
+msgid "Icon theme"
+msgstr "سمة الأيقونات"
+
+#: ../Plugins/gnome-interface.py:59
+msgid "Add icons theme"
+msgstr "أضف سمة للأيقونات"
+
+#: ../Plugins/gnome-interface.py:60
 msgid "Cursor theme"
 msgstr "سمة المؤشرات"
+
+#: ../Plugins/gnome-interface.py:60
+msgid "Add cursor theme"
+msgstr "أضف سمة المؤشرات"
 
 #: ../Plugins/pkg.py:40
 msgid "Package Manager:"
@@ -522,44 +539,45 @@ msgstr "تثبيت حزم foo2"
 msgid "Power settings"
 msgstr "إعدادات الطاقة"
 
-#: ../Plugins/gnome-power.py:31
+#. FIXME: Toggle comment state for next 7 lines to disable expander
+#: ../Plugins/gnome-power.py:30
 msgid "Adjust power settings"
 msgstr "ضبط إعدادات الطاقة"
 
-#: ../Plugins/gnome-power.py:47
+#: ../Plugins/gnome-power.py:51
 msgid "Power button"
 msgstr "عند ضغط زر الطاقة"
 
-#: ../Plugins/gnome-power.py:48
+#: ../Plugins/gnome-power.py:52
 msgid "Hibernate button"
 msgstr "عند ضغط زر الإثبات"
 
-#: ../Plugins/gnome-power.py:49
+#: ../Plugins/gnome-power.py:53
 msgid "Sleep button"
 msgstr "عند ضغط زر الخمول"
 
-#: ../Plugins/gnome-power.py:50
+#: ../Plugins/gnome-power.py:54
 msgid "Suspend button"
 msgstr "عند ضغط زر التعليق"
 
 #. (_('Cursor theme'),'button-sleep'),
-#: ../Plugins/gnome-power.py:52
+#: ../Plugins/gnome-power.py:56
 msgid "Critical battery action"
 msgstr "وضع البطارية الحرج"
 
-#: ../Plugins/gnome-power.py:53
+#: ../Plugins/gnome-power.py:57
 msgid "Laptop lid close action on AC"
 msgstr "إغلاق غطاء الكمبيوتر المحمول أثناء وصل الطاقة"
 
-#: ../Plugins/gnome-power.py:54
+#: ../Plugins/gnome-power.py:58
 msgid "Laptop lid close action on battery"
 msgstr "إغلاق غطاء الكمبيوتر المحمول مع البطارية"
 
-#: ../Plugins/gnome-power.py:55
+#: ../Plugins/gnome-power.py:59
 msgid "Sleep inactive type on AC"
 msgstr "الخمول فى حالة إنعدام النشاط أثناء وصل الطاقة"
 
-#: ../Plugins/gnome-power.py:56
+#: ../Plugins/gnome-power.py:60
 msgid "Sleep inactive type on power"
 msgstr "الخمول فى حالة إنعدام النشاط مع البطارية"
 
@@ -940,35 +958,36 @@ msgstr "تم. ستأخذ الإعدادات الجديدة مفعولها عند
 msgid "Desktop Fonts"
 msgstr "خطوط سطح المكتب"
 
-#: ../Plugins/gnome-fonts.py:32
+#. FIXME: Toggle comment state for next 7 lines to disable expander
+#: ../Plugins/gnome-fonts.py:31
 msgid "Adjust desktop fonts"
 msgstr "ضبط خطوط سطح المكتب"
 
-#: ../Plugins/gnome-fonts.py:45
+#: ../Plugins/gnome-fonts.py:49
 msgid "Text scaling factor"
 msgstr "حجم النص"
 
-#: ../Plugins/gnome-fonts.py:48
+#: ../Plugins/gnome-fonts.py:52
 msgid "Default font"
 msgstr "الخط التلقائى"
 
-#: ../Plugins/gnome-fonts.py:49
+#: ../Plugins/gnome-fonts.py:53
 msgid "Document font"
 msgstr "خط المستندات"
 
-#: ../Plugins/gnome-fonts.py:50
+#: ../Plugins/gnome-fonts.py:54
 msgid "Monospace font"
 msgstr "خط Monospace"
 
-#: ../Plugins/gnome-fonts.py:59
+#: ../Plugins/gnome-fonts.py:63
 msgid "Hinting"
 msgstr "التلميحات"
 
-#: ../Plugins/gnome-fonts.py:60
+#: ../Plugins/gnome-fonts.py:64
 msgid "Antialiasing"
 msgstr "الحواف"
 
-#: ../Plugins/gnome-fonts.py:70
+#: ../Plugins/gnome-fonts.py:74
 msgid "Window title"
 msgstr "عنوان النافذة"
 
@@ -1028,7 +1047,7 @@ msgstr ""
 "إلى :%s\n"
 "وتم حذف %d حزم مكررة!"
 
-#: ../Plugins/oldrpms.py:167
+#: ../Plugins/oldrpms.py:168
 msgid "Select directory"
 msgstr "إختر الدليل"
 
@@ -1289,23 +1308,28 @@ msgstr ""
 "لم يعد هناك أي نصائح.\n"
 "إن قمت بأي تغييرات فإنها قد تحتاج إلى إعادة تشغيل الجهاز كي تُفعّل."
 
-#: ../Plugins/gnome-shell.py:25
+#: ../Plugins/gnome-shell.py:27
 msgid "Shell"
 msgstr "الصدفة"
 
-#: ../Plugins/gnome-shell.py:30
+#. FIXME: Toggle comment state for next 7 lines to disable expander
+#: ../Plugins/gnome-shell.py:31
 msgid "Shell interface setup"
 msgstr "إعداد واجهة الصدفة"
 
-#: ../Plugins/gnome-shell.py:45
+#: ../Plugins/gnome-shell.py:47
+msgid "Personal shell extensions folder"
+msgstr "مجلد إضافات غنوم شل الشخصي"
+
+#: ../Plugins/gnome-shell.py:55
 msgid "Clock format"
 msgstr "تنسيق الوقت"
 
-#: ../Plugins/gnome-shell.py:50
+#: ../Plugins/gnome-shell.py:60
 msgid "Show seconds in clock"
 msgstr "إظهار الثوانى مع الساعة"
 
-#: ../Plugins/gnome-shell.py:51
+#: ../Plugins/gnome-shell.py:61
 msgid "Show date in clock"
 msgstr "إظهار التاريخ مع الساعة"
 
