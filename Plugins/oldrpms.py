@@ -46,23 +46,23 @@ class occPlugin(PluginsClass):
   
   def rm_rpms_cb(self, b):
     cmd = '/bin/rm -f'
-    dlg=wait()
+    dlg=wait(self.ccw)
     dlg.show_all()
     p = self.get_ls()
     if not p:
       dlg.hide()
-      info(_("There are no repeated RPM files!"))
+      info(_("There are no repeated RPM files!"), self.ccw)
       return
     s = self.get_size(p)[1]
     dlg.hide()
-    if not sure(_("Delete %d RPM Files, will save %s!\nAre you sure?"%(len(p), s))): return
+    if not sure(_("Delete %d RPM Files, will save %s!\nAre you sure?"%(len(p), s)), self.ccw): return
     cmd = '%s %s'%(cmd, ' '.join(p))
     dlg.show_all()
     try: ret = self.ccw.mechanism('run', 'system', cmd)
     except: ret=0
     dlg.hide()
-    if ret: info(_("%d RPM files has been deleted, TO save %s!") %(len(p), s))
-    else: info(_("We can't complete this action at this time, due unknown error, you can try again!"))
+    if ret: info(_("%d RPM files has been deleted, TO save %s!") %(len(p), s), self.ccw)
+    else: info(_("We can't complete this action at this time, due unknown error, you can try again!"), self.ccw)
     
   def cp_rpms_cb(self, b):
     tdir_dlg=sel_dir_dlg()
@@ -73,11 +73,11 @@ class occPlugin(PluginsClass):
       tdir_dlg.hide()
       return
     #tdir = '/media/DATA/project/yumarchive/sss'
-    dlg=wait()
+    dlg=wait(self.ccw)
     dlg.show_all()
     c,r = self.cp(tdir)
     dlg.hide()
-    info(_("%d RPM files has been copied\nTo:%s\n%d Repeated RPMS removed!") %(len(c), tdir, len(r))) 
+    info(_("%d RPM files has been copied\nTo:%s\n%d Repeated RPMS removed!") %(len(c), tdir, len(r)), self.ccw) 
     
   def get_rpms(self, d):
     """find all rpm files """
@@ -93,6 +93,7 @@ class occPlugin(PluginsClass):
     rpm_h = {}
     for fn in rpm_ls:
       hdr = self.get_rpm_hdr(fn)
+      if not hdr: continue
       n = hdr[rpm.RPMTAG_NAME]
       if rpm_h.has_key(n): rpm_h[n].append({"h":hdr, "fn":fn})
       else: rpm_h[n] = [{"h":hdr, "fn":fn}]

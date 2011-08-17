@@ -252,7 +252,7 @@ class CCWindow(gtk.Window):
 
 def main():
   try: w=CCWindow()
-  except KeyboardInterrupt: pass
+  except KeyboardInterrupt: print 'Keyboard interrupt!, Exiting...'
 
 if __name__ == '__main__':
   main()

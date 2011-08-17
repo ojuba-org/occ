@@ -116,15 +116,15 @@ class InstallOrInactive(gtk.Button):
 
 
 
-def sure(msg):
-  dlg=gtk.MessageDialog(None,gtk.DIALOG_MODAL,gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, msg)
+def sure(msg, win=None):
+  dlg=gtk.MessageDialog(win,gtk.DIALOG_MODAL,gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, msg)
   dlg.connect("response", lambda *args: dlg.hide())
   r=dlg.run()
   dlg.destroy()
   return r==gtk.RESPONSE_YES
 
-def info(msg):
-  dlg=gtk.MessageDialog(None,gtk.DIALOG_MODAL,gtk.MESSAGE_INFO, gtk.BUTTONS_OK, msg)
+def info(msg, win=None):
+  dlg=gtk.MessageDialog(win,gtk.DIALOG_MODAL,gtk.MESSAGE_INFO, gtk.BUTTONS_OK, msg)
   dlg.connect("response", lambda *args: dlg.hide())
   r=dlg.run()
   dlg.destroy()
@@ -135,11 +135,12 @@ def error(msg):
   r=dlg.run()
   dlg.destroy()
 
-def wait():
-  dlg=gtk.MessageDialog(None,gtk.DIALOG_MODAL,gtk.MESSAGE_INFO, 0, _("Please wait..."))
+def wait(win=None):
+  dlg=gtk.MessageDialog(win,gtk.DIALOG_MODAL,gtk.MESSAGE_INFO, 0, _("Please wait..."))
   dlg.connect("response", lambda *args: dlg.hide())
   dlg.show_all()
-  gtk.main_iteration_do()
-  while(gtk.main_iteration_do()): pass
+  while gtk.events_pending(): gtk.main_iteration_do()
+  #gtk.main_iteration_do()
+  #while(gtk.main_iteration_do()): pass
   return dlg
 
