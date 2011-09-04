@@ -148,5 +148,5 @@ class occPlugin(PluginsClass):
     r=self.ccw.mechanism('run','system','rpm -Uvh "%s"' % self.opera_url, on_fail='-1')
     dlg.hide()
     if dlg: dlg.destroy()
-    if r!='0': error(_("unexpected return code, possible an error had occurred."))
+    info(_("You can wait about 5-15 minutes while downloading opera browser."))
 
