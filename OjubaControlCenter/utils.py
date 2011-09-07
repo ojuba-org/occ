@@ -15,8 +15,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
-import sys,os
-import os.path
+import sys, os, os.path, re
 from glob import glob
 from itertools import groupby
 from subprocess import Popen, PIPE
@@ -86,4 +85,22 @@ def which_exe(bin_fn):
     p=os.path.join(i,bin_fn)
     if os.path.exists(p) and os.stat(p).st_mode & 1: return p
   return None
+
+_ch_re=re.compile(r'\\(0\d\d)')
+
+def decode_mounts(s):
+  return _ch_re.sub(lambda m: chr(int(m.group(1),8)), s)
+
+def get_mounts(unique=True, mnt_filter=None, dev_filter=None):
+  by_mnt={}
+  by_dev={}
+  for i in open('/proc/mounts','rt'):
+    p=decode_mounts(i.split()[1].strip())
+    d=decode_mounts(i.split()[0].strip())
+    if unique and by_dev.has_key(d): continue
+    if dev_filter and not dev_filter(d): continue
+    if mnt_filter and not mnt_filter(p): continue
+    by_mnt[p]=d
+    by_dev[d]=p
+  return by_mnt, by_dev
 
