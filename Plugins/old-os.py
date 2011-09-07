@@ -26,12 +26,12 @@ class occPlugin(PluginsClass):
     self.add(vb)
 
     h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=gtk.Label(_("This section will help you to search you plugged disks \nfor installed system and add theme to grub menu"))
+    l=gtk.Label(_("This section will help you to search your plugged disks \nfor installed system and add them to grub menu"))
     h.pack_start(l, False,False,2)
     
     
     h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    self.apply_b = b = gtk.Button(_('Find and add installed styems to grub menu'))
+    self.apply_b = b = gtk.Button(_('Find and add installed systems to grub menu'))
     b.connect('clicked', self.apply_cb)
     h.pack_start(b, False,False,2)
     
@@ -41,6 +41,6 @@ class occPlugin(PluginsClass):
     dlg.show_all()
     r=self.ccw.mechanism('grub','set_grub_items')
     dlg.hide()
-    if not r: return info(_('No Operating Systems were found'))
+    if not r: return info(_('No operating systems were found'))
     info(_('Operating systems found:\n%s') % r,self.ccw)
     

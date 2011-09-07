@@ -30,6 +30,7 @@ data_files=[
   ('share/occ/Plugins', glob('Plugins/*.py') ),
   ('share/occ/mechanisms',glob('mechanisms/*.py')),
   ('share/applications',['occ.desktop']),
+  ('share/icons/hicolor/scalable/apps', ['ojuba-control-center.svg']),
   ('bin',['occ','legacy2opentype','RunOrInstall']),
 ]
 data_files.extend(locales)

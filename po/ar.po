@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: occ 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-17 14:51+0300\n"
+"POT-Creation-Date: 2011-09-07 11:39+0300\n"
 "PO-Revision-Date: 2009-06-25 17:44+0300\n"
 "Last-Translator: Muayyd Saleh Alsadi <alsadi@ojuba.org>\n"
 "Language-Team: Arabic <ar@li.org>\n"
@@ -32,7 +32,7 @@ msgstr ""
 
 #: ../OjubaControlCenter/gwidgets.py:23
 msgid "This setting Unavailable "
-msgstr ""
+msgstr "هذه الإعدادات غير متوفرة "
 
 #: ../OjubaControlCenter/gwidgets.py:26
 msgid "Reset"
@@ -117,8 +117,8 @@ msgstr "أيقونات سطح المكتب"
 msgid "Select the icons you want to be visible on desktop"
 msgstr "اختر الأيقونات التي تريدها أن تظهر على سطح المكتب"
 
-#: ../Plugins/gnome-icons.py:40 ../Plugins/gnome-interface.py:41
-#: ../Plugins/gnome-power.py:41 ../Plugins/gnome-shell.py:43
+#: ../Plugins/gnome-icons.py:40 ../Plugins/gnome-power.py:41
+#: ../Plugins/gnome-interface.py:41 ../Plugins/gnome-shell.py:43
 msgid "Not installed"
 msgstr "غير مثبت"
 
@@ -215,17 +215,16 @@ msgid "default DFS settings"
 msgstr "إعدادات DFS التلقائية"
 
 #. os.system("hda-verb /dev/snd/hwC0D0 0x15 SET_EAPD_BTLENABLE 2")
-#: ../Plugins/vga.py:122 ../Plugins/pkg.py:139 ../Plugins/kernel.py:94
-#: ../Plugins/hardware-info.py:52 ../Plugins/samples.py:60
-#: ../Plugins/samples.py:67 ../Plugins/net-adv.py:74 ../Plugins/net-adv.py:78
-#: ../Plugins/snd.py:116
+#: ../Plugins/vga.py:122 ../Plugins/hardware-info.py:52 ../Plugins/pkg.py:139
+#: ../Plugins/kernel.py:94 ../Plugins/samples.py:60 ../Plugins/samples.py:67
+#: ../Plugins/net-adv.py:74 ../Plugins/net-adv.py:78 ../Plugins/snd.py:116
 msgid "Done."
 msgstr "تم."
 
 #: ../Plugins/vga.py:123 ../Plugins/vga.py:196 ../Plugins/vga.py:200
-#: ../Plugins/vga.py:204 ../Plugins/fav-apps.py:151 ../Plugins/kernel.py:95
-#: ../Plugins/xorgconf.py:208 ../Plugins/xorgconf.py:251
-#: ../Plugins/xorgconf.py:258 ../Plugins/hardware-info.py:51
+#: ../Plugins/vga.py:204 ../Plugins/hardware-info.py:51
+#: ../Plugins/kernel.py:95 ../Plugins/xorgconf.py:208
+#: ../Plugins/xorgconf.py:251 ../Plugins/xorgconf.py:258
 #: ../Plugins/modem.py:62 ../Plugins/modem.py:67
 msgid "unexpected return code, possible an error had occurred."
 msgstr "كود غير متوقع، غالبا حدث خطأ."
@@ -339,46 +338,37 @@ msgstr "انتظر 5 ثوان"
 msgid " FPS"
 msgstr " إطار بالثانية"
 
-#: ../Plugins/gnome-interface.py:26
-msgid "Interface"
-msgstr "الواجهة:"
+#: ../Plugins/hardware-info.py:31
+msgid "Hardware Information"
+msgstr "معلومات عن العتاد"
 
-#. FIXME: Toggle comment state for next 7 lines to disable expander
-#: ../Plugins/gnome-interface.py:30
-msgid "Adjust interface settings"
-msgstr "ضبط إعدادات الواجهة"
+#: ../Plugins/hardware-info.py:43
+msgid "Details"
+msgstr "تفاصيل"
 
-#: ../Plugins/gnome-interface.py:51
-msgid "Menus have icons"
-msgstr "إظهار رموز القوائم"
+#: ../Plugins/hardware-info.py:44
+msgid "Update PCI ID database"
+msgstr "تحديث قاعدة بيانات معرّفات PCI"
 
-#: ../Plugins/gnome-interface.py:52
-msgid "Buttons have icons"
-msgstr "إظهار رموز الأزرار"
+#: ../Plugins/hardware-info.py:81
+msgid "CPU"
+msgstr "المعالج"
 
-#: ../Plugins/gnome-interface.py:58
-msgid "GTK+ theme"
-msgstr "سمة GTK+"
+#: ../Plugins/hardware-info.py:82
+msgid "Memory"
+msgstr "الذاكرة"
 
-#: ../Plugins/gnome-interface.py:58
-msgid "Add GTK+ theme"
-msgstr "أضف سمة GTK+"
+#: ../Plugins/hardware-info.py:83
+msgid "VGA"
+msgstr "بطاقة العرض VGA"
 
-#: ../Plugins/gnome-interface.py:59
-msgid "Icon theme"
-msgstr "سمة الأيقونات"
+#: ../Plugins/hardware-info.py:83
+msgid "Sound card"
+msgstr "بطاقة الصوت"
 
-#: ../Plugins/gnome-interface.py:59
-msgid "Add icons theme"
-msgstr "أضف سمة للأيقونات"
-
-#: ../Plugins/gnome-interface.py:60
-msgid "Cursor theme"
-msgstr "سمة المؤشرات"
-
-#: ../Plugins/gnome-interface.py:60
-msgid "Add cursor theme"
-msgstr "أضف سمة المؤشرات"
+#: ../Plugins/hardware-info.py:83
+msgid "USB"
+msgstr "الناقل المتسلسل العالمي USB"
 
 #: ../Plugins/pkg.py:40
 msgid "Package Manager:"
@@ -614,6 +604,40 @@ msgstr "القائمة السوداء الخاصة"
 msgid "Done. You may need to restart your browser."
 msgstr "تم. قد يتوجب عليك إعادة تشغيل المتصفح."
 
+#: ../Plugins/gnome-windows.py:27
+msgid "windows"
+msgstr ""
+
+#. FIXME: Toggle comment state for next 7 lines to disable expander
+#: ../Plugins/gnome-windows.py:31
+msgid "Adjust windows settings"
+msgstr "ضبط إعدادات النوافذ"
+
+#. TODO: add the fallback (metacity) window theme
+#: ../Plugins/gnome-windows.py:61
+msgid "Action on title bar double-click"
+msgstr "عمل النقر المزدوج على شريط العنوان"
+
+#: ../Plugins/gnome-windows.py:62
+msgid "Action on title bar middle-click"
+msgstr "عمل النقر الأوسط على شريط العنوان"
+
+#: ../Plugins/gnome-windows.py:63
+msgid "Action on title bar right-click"
+msgstr "عمل النقر الأيمن على شريط العنوان"
+
+#: ../Plugins/gnome-windows.py:64
+msgid "Window focus mode"
+msgstr "طور تبئير النوافذ"
+
+#: ../Plugins/gnome-windows.py:65
+msgid "Windows button layout"
+msgstr "توزيع أزرار النوافذ"
+
+#: ../Plugins/gnome-windows.py:65
+msgid "Require Gnome-Shell Restart"
+msgstr "أنت بحاجة لإعادة تشغيل غنوم شل"
+
 #: ../Plugins/fav-apps.py:41
 msgid "Favorite Packages"
 msgstr "الحزم المفضلة"
@@ -712,6 +736,10 @@ msgstr "مجموعة حزم الدوائر الإلكترونية مثبتة م�
 #: ../Plugins/fav-apps.py:146
 msgid "already installed"
 msgstr "الحزم مثبتة مسبقا"
+
+#: ../Plugins/fav-apps.py:151
+msgid "You can wait about 5-15 minutes while downloading opera browser."
+msgstr ""
 
 #: ../Plugins/kernel.py:27
 msgid "System Kernel:"
@@ -1051,37 +1079,83 @@ msgstr ""
 msgid "Select directory"
 msgstr "إختر الدليل"
 
-#: ../Plugins/hardware-info.py:31
-msgid "Hardware Information"
-msgstr "معلومات عن العتاد"
+#: ../Plugins/old-os.py:24
+msgid "Installed systems:"
+msgstr "الأنظمة المثبتة"
 
-#: ../Plugins/hardware-info.py:43
-msgid "Details"
-msgstr "تفاصيل"
+#: ../Plugins/old-os.py:29
+msgid ""
+"This section will help you to search your plugged disks \n"
+"for installed system and add them to grub menu"
+msgstr ""
+"هذا القسم يساعدك على البحث في الأقسام المضمومة عن أنظمة تشغيل أخرى ويضيفها "
+"لك في قائمة محمل الإقلاع grub."
 
-#: ../Plugins/hardware-info.py:44
-msgid "Update PCI ID database"
-msgstr "تحديث قاعدة بيانات معرّفات PCI"
+#: ../Plugins/old-os.py:34
+msgid "Find and add installed systems to grub menu"
+msgstr "البحث عن أنظمة مثبتة وإضافتها للقائمة."
 
-#: ../Plugins/hardware-info.py:81
-msgid "CPU"
-msgstr "المعالج"
+#: ../Plugins/old-os.py:39
+msgid ""
+"Make sure all disks are mounted. Are you sure you want to detect and add "
+"other operating systems?"
+msgstr ""
+"تأكد من أن كل الأقراص مضمومة. هل أنت متأكد من رغبتك في الكشف وإضافة الأنظمة "
+"الأخرى."
 
-#: ../Plugins/hardware-info.py:82
-msgid "Memory"
-msgstr "الذاكرة"
+#: ../Plugins/old-os.py:44
+msgid "No operating systems were found"
+msgstr "لم نجد أي نظام تشغيل"
 
-#: ../Plugins/hardware-info.py:83
-msgid "VGA"
-msgstr "بطاقة العرض VGA"
+#: ../Plugins/old-os.py:45
+#, python-format
+msgid ""
+"Operating systems found:\n"
+"%s"
+msgstr ""
+"الأنظمة التي وجدناها هي:\n"
+"%s"
 
-#: ../Plugins/hardware-info.py:83
-msgid "Sound card"
-msgstr "بطاقة الصوت"
+#: ../Plugins/gnome-interface.py:26
+msgid "Interface"
+msgstr "الواجهة:"
 
-#: ../Plugins/hardware-info.py:83
-msgid "USB"
-msgstr "الناقل المتسلسل العالمي USB"
+#. FIXME: Toggle comment state for next 7 lines to disable expander
+#: ../Plugins/gnome-interface.py:30
+msgid "Adjust interface settings"
+msgstr "ضبط إعدادات الواجهة"
+
+#: ../Plugins/gnome-interface.py:51
+msgid "Menus have icons"
+msgstr "إظهار رموز القوائم"
+
+#: ../Plugins/gnome-interface.py:52
+msgid "Buttons have icons"
+msgstr "إظهار رموز الأزرار"
+
+#: ../Plugins/gnome-interface.py:58
+msgid "GTK+ theme"
+msgstr "سمة GTK+"
+
+#: ../Plugins/gnome-interface.py:58
+msgid "Add GTK+ theme"
+msgstr "أضف سمة GTK+"
+
+#: ../Plugins/gnome-interface.py:59
+msgid "Icon theme"
+msgstr "سمة الأيقونات"
+
+#: ../Plugins/gnome-interface.py:59
+msgid "Add icons theme"
+msgstr "أضف سمة للأيقونات"
+
+#: ../Plugins/gnome-interface.py:60
+msgid "Cursor theme"
+msgstr "سمة المؤشرات"
+
+#: ../Plugins/gnome-interface.py:60
+msgid "Add cursor theme"
+msgstr "أضف سمة المؤشرات"
 
 #: ../Plugins/legacy-fonts.py:29
 msgid "Fixing legacy fonts:"
@@ -1308,30 +1382,17 @@ msgstr ""
 "لم يعد هناك أي نصائح.\n"
 "إن قمت بأي تغييرات فإنها قد تحتاج إلى إعادة تشغيل الجهاز كي تُفعّل."
 
-#: ../Plugins/gnome-shell.py:27
-msgid "Shell"
-msgstr "الصدفة"
+#: ../Plugins/sys-conf-lang.py:28
+msgid "System Language:"
+msgstr "لغة النظام:"
 
-#. FIXME: Toggle comment state for next 7 lines to disable expander
-#: ../Plugins/gnome-shell.py:31
-msgid "Shell interface setup"
-msgstr "إعداد واجهة الصدفة"
+#: ../Plugins/sys-conf-lang.py:32
+msgid "Select the default system language"
+msgstr "اختر لغة النظام التلقائية"
 
-#: ../Plugins/gnome-shell.py:47
-msgid "Personal shell extensions folder"
-msgstr "مجلد إضافات غنوم شل الشخصي"
-
-#: ../Plugins/gnome-shell.py:55
-msgid "Clock format"
-msgstr "تنسيق الوقت"
-
-#: ../Plugins/gnome-shell.py:60
-msgid "Show seconds in clock"
-msgstr "إظهار الثوانى مع الساعة"
-
-#: ../Plugins/gnome-shell.py:61
-msgid "Show date in clock"
-msgstr "إظهار التاريخ مع الساعة"
+#: ../Plugins/sys-conf-lang.py:41
+msgid "Other Language"
+msgstr "لغة أخرى"
 
 #: ../Plugins/fonts.py:29
 msgid "Installing fonts:"
@@ -1615,6 +1676,31 @@ msgstr "تم. ستأخذ الإعدادات الجديدة مفعولها عند
 #: ../Plugins/snd.py:124
 msgid "Are you sure you want to disable an already enabled hda fix ?"
 msgstr "هل أنت متأكد من رغبتك في تعطيل ما كنت قد فعّلته من إصلاح hda ?"
+
+#: ../Plugins/gnome-shell.py:27
+msgid "Shell"
+msgstr "الصدفة"
+
+#. FIXME: Toggle comment state for next 7 lines to disable expander
+#: ../Plugins/gnome-shell.py:31
+msgid "Shell interface setup"
+msgstr "إعداد واجهة الصدفة"
+
+#: ../Plugins/gnome-shell.py:47
+msgid "Personal shell extensions folder"
+msgstr "مجلد إضافات غنوم شل الشخصي"
+
+#: ../Plugins/gnome-shell.py:55
+msgid "Clock format"
+msgstr "تنسيق الوقت"
+
+#: ../Plugins/gnome-shell.py:60
+msgid "Show seconds in clock"
+msgstr "إظهار الثوانى مع الساعة"
+
+#: ../Plugins/gnome-shell.py:61
+msgid "Show date in clock"
+msgstr "إظهار التاريخ مع الساعة"
 
 #~ msgid ""
 #~ "Save some spaces by removing old RPM files, Located in /var/cache/yum, Or "

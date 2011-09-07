@@ -45,6 +45,7 @@ rm -rf $RPM_BUILD_ROOT
 %{python_sitelib}/*
 /etc/dbus-1/system.d/org.ojuba.occ.conf
 %{_datadir}/applications/%{name}.desktop
+%{_datadir}/icons/hicolor/scalable/apps/ojuba-control-center.svg
 %{_datadir}/polkit-1/actions/org.ojuba.occ.policy
 %{_datadir}/dbus-1/system-services/org.ojuba.occ.service
 %{_datadir}/occ/occ-mechanism.py*

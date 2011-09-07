@@ -99,7 +99,7 @@ class TabLabel(gtk.HBox):
 
 class CCWindow(gtk.Window):
   def __init__(self):
-    gtk.window_set_default_icon_name('gtk-preferences')
+    gtk.window_set_default_icon_name('ojuba-control-center')
     gtk.Window.__init__(self)
     dbus_loop = DBusGMainLoop(set_as_default=True)
     bus = dbus.SystemBus()
@@ -117,7 +117,7 @@ class CCWindow(gtk.Window):
     vb=gtk.VBox(False,2)
     self.add(vb)
     h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    h.pack_start(gtk.image_new_from_icon_name('gtk-preferences',gtk.ICON_SIZE_DIALOG),False,False,6)
+    h.pack_start(gtk.image_new_from_icon_name('ojuba-control-center',gtk.ICON_SIZE_DIALOG),False,False,6)
     l=gtk.Label()
     l.set_markup("""<span size="xx-large">%s</span>""" % (_("Ojuba Control Center")))
     b=gtk.Button()

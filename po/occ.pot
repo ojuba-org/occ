@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-08-17 14:51+0300\n"
+"POT-Creation-Date: 2011-09-07 11:39+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -117,8 +117,8 @@ msgstr ""
 msgid "Select the icons you want to be visible on desktop"
 msgstr ""
 
-#: ../Plugins/gnome-icons.py:40 ../Plugins/gnome-interface.py:41
-#: ../Plugins/gnome-power.py:41 ../Plugins/gnome-shell.py:43
+#: ../Plugins/gnome-icons.py:40 ../Plugins/gnome-power.py:41
+#: ../Plugins/gnome-interface.py:41 ../Plugins/gnome-shell.py:43
 msgid "Not installed"
 msgstr ""
 
@@ -215,17 +215,16 @@ msgid "default DFS settings"
 msgstr ""
 
 #. os.system("hda-verb /dev/snd/hwC0D0 0x15 SET_EAPD_BTLENABLE 2")
-#: ../Plugins/vga.py:122 ../Plugins/pkg.py:139 ../Plugins/kernel.py:94
-#: ../Plugins/hardware-info.py:52 ../Plugins/samples.py:60
-#: ../Plugins/samples.py:67 ../Plugins/net-adv.py:74 ../Plugins/net-adv.py:78
-#: ../Plugins/snd.py:116
+#: ../Plugins/vga.py:122 ../Plugins/hardware-info.py:52 ../Plugins/pkg.py:139
+#: ../Plugins/kernel.py:94 ../Plugins/samples.py:60 ../Plugins/samples.py:67
+#: ../Plugins/net-adv.py:74 ../Plugins/net-adv.py:78 ../Plugins/snd.py:116
 msgid "Done."
 msgstr ""
 
 #: ../Plugins/vga.py:123 ../Plugins/vga.py:196 ../Plugins/vga.py:200
-#: ../Plugins/vga.py:204 ../Plugins/fav-apps.py:151 ../Plugins/kernel.py:95
-#: ../Plugins/xorgconf.py:208 ../Plugins/xorgconf.py:251
-#: ../Plugins/xorgconf.py:258 ../Plugins/hardware-info.py:51
+#: ../Plugins/vga.py:204 ../Plugins/hardware-info.py:51
+#: ../Plugins/kernel.py:95 ../Plugins/xorgconf.py:208
+#: ../Plugins/xorgconf.py:251 ../Plugins/xorgconf.py:258
 #: ../Plugins/modem.py:62 ../Plugins/modem.py:67
 msgid "unexpected return code, possible an error had occurred."
 msgstr ""
@@ -329,45 +328,36 @@ msgstr ""
 msgid " FPS"
 msgstr ""
 
-#: ../Plugins/gnome-interface.py:26
-msgid "Interface"
+#: ../Plugins/hardware-info.py:31
+msgid "Hardware Information"
 msgstr ""
 
-#. FIXME: Toggle comment state for next 7 lines to disable expander
-#: ../Plugins/gnome-interface.py:30
-msgid "Adjust interface settings"
+#: ../Plugins/hardware-info.py:43
+msgid "Details"
 msgstr ""
 
-#: ../Plugins/gnome-interface.py:51
-msgid "Menus have icons"
+#: ../Plugins/hardware-info.py:44
+msgid "Update PCI ID database"
 msgstr ""
 
-#: ../Plugins/gnome-interface.py:52
-msgid "Buttons have icons"
+#: ../Plugins/hardware-info.py:81
+msgid "CPU"
 msgstr ""
 
-#: ../Plugins/gnome-interface.py:58
-msgid "GTK+ theme"
+#: ../Plugins/hardware-info.py:82
+msgid "Memory"
 msgstr ""
 
-#: ../Plugins/gnome-interface.py:58
-msgid "Add GTK+ theme"
+#: ../Plugins/hardware-info.py:83
+msgid "VGA"
 msgstr ""
 
-#: ../Plugins/gnome-interface.py:59
-msgid "Icon theme"
+#: ../Plugins/hardware-info.py:83
+msgid "Sound card"
 msgstr ""
 
-#: ../Plugins/gnome-interface.py:59
-msgid "Add icons theme"
-msgstr ""
-
-#: ../Plugins/gnome-interface.py:60
-msgid "Cursor theme"
-msgstr ""
-
-#: ../Plugins/gnome-interface.py:60
-msgid "Add cursor theme"
+#: ../Plugins/hardware-info.py:83
+msgid "USB"
 msgstr ""
 
 #: ../Plugins/pkg.py:40
@@ -589,6 +579,40 @@ msgstr ""
 msgid "Done. You may need to restart your browser."
 msgstr ""
 
+#: ../Plugins/gnome-windows.py:27
+msgid "windows"
+msgstr ""
+
+#. FIXME: Toggle comment state for next 7 lines to disable expander
+#: ../Plugins/gnome-windows.py:31
+msgid "Adjust windows settings"
+msgstr ""
+
+#. TODO: add the fallback (metacity) window theme
+#: ../Plugins/gnome-windows.py:61
+msgid "Action on title bar double-click"
+msgstr ""
+
+#: ../Plugins/gnome-windows.py:62
+msgid "Action on title bar middle-click"
+msgstr ""
+
+#: ../Plugins/gnome-windows.py:63
+msgid "Action on title bar right-click"
+msgstr ""
+
+#: ../Plugins/gnome-windows.py:64
+msgid "Window focus mode"
+msgstr ""
+
+#: ../Plugins/gnome-windows.py:65
+msgid "Windows button layout"
+msgstr ""
+
+#: ../Plugins/gnome-windows.py:65
+msgid "Require Gnome-Shell Restart"
+msgstr ""
+
 #: ../Plugins/fav-apps.py:41
 msgid "Favorite Packages"
 msgstr ""
@@ -683,6 +707,10 @@ msgstr ""
 
 #: ../Plugins/fav-apps.py:146
 msgid "already installed"
+msgstr ""
+
+#: ../Plugins/fav-apps.py:151
+msgid "You can wait about 5-15 minutes while downloading opera browser."
 msgstr ""
 
 #: ../Plugins/kernel.py:27
@@ -995,36 +1023,76 @@ msgstr ""
 msgid "Select directory"
 msgstr ""
 
-#: ../Plugins/hardware-info.py:31
-msgid "Hardware Information"
+#: ../Plugins/old-os.py:24
+msgid "Installed systems:"
 msgstr ""
 
-#: ../Plugins/hardware-info.py:43
-msgid "Details"
+#: ../Plugins/old-os.py:29
+msgid ""
+"This section will help you to search your plugged disks \n"
+"for installed system and add them to grub menu"
 msgstr ""
 
-#: ../Plugins/hardware-info.py:44
-msgid "Update PCI ID database"
+#: ../Plugins/old-os.py:34
+msgid "Find and add installed systems to grub menu"
 msgstr ""
 
-#: ../Plugins/hardware-info.py:81
-msgid "CPU"
+#: ../Plugins/old-os.py:39
+msgid ""
+"Make sure all disks are mounted. Are you sure you want to detect and add "
+"other operating systems?"
 msgstr ""
 
-#: ../Plugins/hardware-info.py:82
-msgid "Memory"
+#: ../Plugins/old-os.py:44
+msgid "No operating systems were found"
 msgstr ""
 
-#: ../Plugins/hardware-info.py:83
-msgid "VGA"
+#: ../Plugins/old-os.py:45
+#, python-format
+msgid ""
+"Operating systems found:\n"
+"%s"
 msgstr ""
 
-#: ../Plugins/hardware-info.py:83
-msgid "Sound card"
+#: ../Plugins/gnome-interface.py:26
+msgid "Interface"
 msgstr ""
 
-#: ../Plugins/hardware-info.py:83
-msgid "USB"
+#. FIXME: Toggle comment state for next 7 lines to disable expander
+#: ../Plugins/gnome-interface.py:30
+msgid "Adjust interface settings"
+msgstr ""
+
+#: ../Plugins/gnome-interface.py:51
+msgid "Menus have icons"
+msgstr ""
+
+#: ../Plugins/gnome-interface.py:52
+msgid "Buttons have icons"
+msgstr ""
+
+#: ../Plugins/gnome-interface.py:58
+msgid "GTK+ theme"
+msgstr ""
+
+#: ../Plugins/gnome-interface.py:58
+msgid "Add GTK+ theme"
+msgstr ""
+
+#: ../Plugins/gnome-interface.py:59
+msgid "Icon theme"
+msgstr ""
+
+#: ../Plugins/gnome-interface.py:59
+msgid "Add icons theme"
+msgstr ""
+
+#: ../Plugins/gnome-interface.py:60
+msgid "Cursor theme"
+msgstr ""
+
+#: ../Plugins/gnome-interface.py:60
+msgid "Add cursor theme"
 msgstr ""
 
 #: ../Plugins/legacy-fonts.py:29
@@ -1232,29 +1300,16 @@ msgid ""
 "If you have made any changes it will take effect on next boot"
 msgstr ""
 
-#: ../Plugins/gnome-shell.py:27
-msgid "Shell"
+#: ../Plugins/sys-conf-lang.py:28
+msgid "System Language:"
 msgstr ""
 
-#. FIXME: Toggle comment state for next 7 lines to disable expander
-#: ../Plugins/gnome-shell.py:31
-msgid "Shell interface setup"
+#: ../Plugins/sys-conf-lang.py:32
+msgid "Select the default system language"
 msgstr ""
 
-#: ../Plugins/gnome-shell.py:47
-msgid "Personal shell extensions folder"
-msgstr ""
-
-#: ../Plugins/gnome-shell.py:55
-msgid "Clock format"
-msgstr ""
-
-#: ../Plugins/gnome-shell.py:60
-msgid "Show seconds in clock"
-msgstr ""
-
-#: ../Plugins/gnome-shell.py:61
-msgid "Show date in clock"
+#: ../Plugins/sys-conf-lang.py:41
+msgid "Other Language"
 msgstr ""
 
 #: ../Plugins/fonts.py:29
@@ -1524,4 +1579,29 @@ msgstr ""
 
 #: ../Plugins/snd.py:124
 msgid "Are you sure you want to disable an already enabled hda fix ?"
+msgstr ""
+
+#: ../Plugins/gnome-shell.py:27
+msgid "Shell"
+msgstr ""
+
+#. FIXME: Toggle comment state for next 7 lines to disable expander
+#: ../Plugins/gnome-shell.py:31
+msgid "Shell interface setup"
+msgstr ""
+
+#: ../Plugins/gnome-shell.py:47
+msgid "Personal shell extensions folder"
+msgstr ""
+
+#: ../Plugins/gnome-shell.py:55
+msgid "Clock format"
+msgstr ""
+
+#: ../Plugins/gnome-shell.py:60
+msgid "Show seconds in clock"
+msgstr ""
+
+#: ../Plugins/gnome-shell.py:61
+msgid "Show date in clock"
 msgstr ""
