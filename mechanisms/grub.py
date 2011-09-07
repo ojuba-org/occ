@@ -62,14 +62,14 @@ class OccMechanism(mechanismClass):
         oses.append({"title":"Windows XP", "dev": self._to_grub_dev(d), "boot":"chainloader /ntldr"})
       elif os.path.exists(os.path.join(p,'bootmgr')):
         oses.append({"title":"Windows 7 or Vista", "dev": self._to_grub_dev(d), "boot":"chainloader /bootmgr"})
-      elif os.path.exists(os.path.join(p,'boot/grub/grub.conf')):
-        oses.append({"title":self._guess_title(p), "dev": self._to_grub_dev(d), "boot":"configfile /boot/grub/grub.conf"})
-      elif os.path.exists(os.path.join(p,'grub/grub.conf')):
-        oses.append({"title":"Linux Generic", "dev": self._to_grub_dev(d), "boot":"configfile /grub/grub.conf"})
       elif os.path.exists(os.path.join(p,'boot/grub/core.img')):
         oses.append({"title":self._guess_title(p), "dev": self._to_grub_dev(d), "boot":"chainloader /boot/grub/core.img"})
       elif os.path.exists(os.path.join(p,'grub/core.img')):
         oses.append({"title":"Linux Generic", "dev": self._to_grub_dev(d), "boot":"chainloader /grub/core.img"})
+      elif os.path.exists(os.path.join(p,'boot/grub/stage1')):
+        oses.append({"title":self._guess_title(p), "dev": self._to_grub_dev(d), "boot":"chainloader /boot/grub/stage1"})
+      elif os.path.exists(os.path.join(p,'grub/stage1')):
+        oses.append({"title":"Linux Generic", "dev": self._to_grub_dev(d), "boot":"chainloader /grub/stage1"})
     return oses
 
   def set_grub_items(self):
@@ -77,6 +77,7 @@ class OccMechanism(mechanismClass):
     t='''
 title %(title)s
 rootnoverify %(dev)s
+makeactive
 %(boot)s
 '''
     os_ls=self._detect_oses()
