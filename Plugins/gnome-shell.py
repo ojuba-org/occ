@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Ojuba Control Center
-Copyright © 2009, Muayyad Alsadi <alsadi@ojuba.org>
+Copyright © 2009, Ojuba Team <core@ojuba.org>
 
     Released under terms of Waqf Public License.
     This program is free software; you can redistribute it and/or modify
