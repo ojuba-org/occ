@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: occ 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-08 11:55+0300\n"
+"POT-Creation-Date: 2011-09-08 12:04+0300\n"
 "PO-Revision-Date: 2009-06-25 17:44+0300\n"
 "Last-Translator: Muayyd Saleh Alsadi <alsadi@ojuba.org>\n"
 "Language-Team: Arabic <ar@li.org>\n"
@@ -1142,12 +1142,20 @@ msgid "Add GTK+ theme"
 msgstr "أضف سمة GTK+"
 
 #: ../Plugins/gnome-interface.py:59
-msgid "Icons and Cursors"
-msgstr "أيقونات ومؤشرات"
+msgid "Icon theme"
+msgstr "سمة الأيقونات"
 
 #: ../Plugins/gnome-interface.py:59
-msgid "Add icons and cursors theme"
-msgstr "أضف سمة الأيقونات والمؤشرات"
+msgid "Add icons theme"
+msgstr "أضف سمة للأيقونات"
+
+#: ../Plugins/gnome-interface.py:60
+msgid "Cursor theme"
+msgstr "سمة المؤشرات"
+
+#: ../Plugins/gnome-interface.py:60
+msgid "Add cursor theme"
+msgstr "أضف سمة المؤشرات"
 
 #: ../Plugins/legacy-fonts.py:29
 msgid "Fixing legacy fonts:"
@@ -1694,14 +1702,11 @@ msgstr "إظهار الثوانى مع الساعة"
 msgid "Show date in clock"
 msgstr "إظهار التاريخ مع الساعة"
 
-#~ msgid "Icon theme"
-#~ msgstr "سمة الأيقونات"
+#~ msgid "Icons and Cursors"
+#~ msgstr "أيقونات ومؤشرات"
 
-#~ msgid "Add icons theme"
-#~ msgstr "أضف سمة للأيقونات"
-
-#~ msgid "Cursor theme"
-#~ msgstr "سمة المؤشرات"
+#~ msgid "Add icons and cursors theme"
+#~ msgstr "أضف سمة الأيقونات والمؤشرات"
 
 #~ msgid ""
 #~ "Save some spaces by removing old RPM files, Located in /var/cache/yum, Or "

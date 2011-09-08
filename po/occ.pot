@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-08 11:55+0300\n"
+"POT-Creation-Date: 2011-09-08 12:04+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1080,11 +1080,19 @@ msgid "Add GTK+ theme"
 msgstr ""
 
 #: ../Plugins/gnome-interface.py:59
-msgid "Icons and Cursors"
+msgid "Icon theme"
 msgstr ""
 
 #: ../Plugins/gnome-interface.py:59
-msgid "Add icons and cursors theme"
+msgid "Add icons theme"
+msgstr ""
+
+#: ../Plugins/gnome-interface.py:60
+msgid "Cursor theme"
+msgstr ""
+
+#: ../Plugins/gnome-interface.py:60
+msgid "Add cursor theme"
 msgstr ""
 
 #: ../Plugins/legacy-fonts.py:29
