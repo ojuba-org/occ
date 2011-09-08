@@ -56,7 +56,8 @@ class occPlugin(PluginsClass):
       vb.pack_start(b,False,False,1)
     FD_l=( \
        (_('GTK+ theme'),'gtk-theme',self.get_valid_themes(),_('Add GTK+ theme'),os.path.expanduser('~/.themes')),
-       (_('Icons and Cursors'),'icon-theme',self.get_valid_icon_themes(),_('Add icons and cursors theme'),os.path.expanduser('~/.icons')),
+       (_('Icon theme'),'icon-theme',self.get_valid_icon_themes(),_('Add icons theme'),os.path.expanduser('~/.icons')),
+       (_('Cursor theme'),'cursor-theme',self.get_valid_cursor_themes(),_('Add cursor theme'),os.path.expanduser('~/.icons'))
     )
     for t,k,l,bt,dst in FD_l:
       cb=comboBoxWithFolder(t,k,GS, l, bt, dst)
