@@ -2,7 +2,7 @@
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
 Name:           occ
-Version:        1.21.0
+Version:        1.21.1
 Release:        1%{?dist}
 Summary:        Ojuba Control Center
 
@@ -37,6 +37,18 @@ chmod +x $RPM_BUILD_ROOT/usr/local/bin/*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post
+touch --no-create %{_datadir}/icons/hicolor || :
+if [ -x %{_bindir}/gtk-update-icon-cache ] ; then
+%{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
+fi
+
+%postun
+touch --no-create %{_datadir}/icons/hicolor || :
+if [ -x %{_bindir}/gtk-update-icon-cache ] ; then
+%{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
+fi
 
 
 %files

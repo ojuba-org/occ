@@ -1,5 +1,4 @@
 [Desktop Entry]
-Encoding=UTF-8
 Name=Ojuba Control Center
 Name[ar]=مركز تحكم أعجوبة
 GenericName=Ojuba Control Center
@@ -10,6 +9,6 @@ Icon=ojuba-control-center
 Exec=occ
 Terminal=false
 Type=Application
-Categories=GTK;System;DesktopSettings;
+Categories=GTK;System;
 StartupNotify=true
 
