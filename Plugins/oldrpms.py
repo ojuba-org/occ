@@ -58,10 +58,10 @@ class occPlugin(PluginsClass):
     if not sure(_("Delete %d RPM Files, will save %s!\nAre you sure?"%(len(p), s)), self.ccw): return
     cmd = '%s %s'%(cmd, ' '.join(p))
     dlg.show_all()
-    try: ret = self.ccw.mechanism('run', 'system', cmd)
-    except: ret=0
+    r = self.ccw.mechanism('run', 'system', cmd)
     dlg.hide()
-    if ret: info(_("%d RPM files has been deleted, TO save %s!") %(len(p), s), self.ccw)
+    if r == 'NotAuth': return
+    if r: info(_("%d RPM files has been deleted, TO save %s!") %(len(p), s), self.ccw)
     else: info(_("We can't complete this action at this time, due unknown error, you can try again!"), self.ccw)
     
   def cp_rpms_cb(self, b):

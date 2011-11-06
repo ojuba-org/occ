@@ -16,7 +16,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 import gtk, os
-
+import urllib
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.utils import  which_exe
 from OjubaControlCenter.widgets import LaunchOrInstall, InstallOrInactive, wait, info, sure, error
@@ -32,11 +32,6 @@ class Separator(gtk.HBox):
     #self.set_property('width-request', 50)
     
 class occPlugin(PluginsClass):
-  #if (sys.maxsize > 2**32): arch = 'x86_64'
-  #else: arch = 'i386'
-  basearch=os.uname()[4]
-  if basearch=='i686': basearch='i386'
-  opera_url="ftp://ftp.opera.com/pub/opera/linux/1150/opera-11.50-1074.%s.rpm"%basearch
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('Favorite Packages'),'install',20)
     vb=gtk.VBox(False,2)
@@ -142,11 +137,30 @@ class occPlugin(PluginsClass):
     hb.pack_end(LaunchOrInstall(self,'K Stars','/usr/bin/kstars',['kdeedu-kstars']),False,False,2)
 
   def inst_opera(self, b):
-    print self.opera_url
+    opera_url=get_latest_opera_url()
+    print opera_url
     if which_exe('opera'): info(_('already installed')); return
     dlg=wait()
-    r=self.ccw.mechanism('run','system','rpm -Uvh "%s"' % self.opera_url, on_fail='-1')
+    r=self.ccw.mechanism('run','system','rpm -Uvh "%s"' % opera_url, on_fail='-1')
     dlg.hide()
+    if r == 'NotAuth': return
     if dlg: dlg.destroy()
     info(_("You can wait about 5-15 minutes while downloading opera browser."))
+
+  def get_ftp_cont(self, url):
+    sock = urllib.urlopen(url)
+    opera_ver_ls = map(lambda a: a.split()[-1].strip(), sock.readlines())
+    sock.close()
+    return opera_ver_ls
+
+  def get_latest_opera_url(self):
+    opera_base_url="ftp://ftp.opera.com/pub/opera/linux/"
+    opera_ver_ls=map(lambda a: int(a), filter(lambda a: 'b' not in a, self.get_ftp_cont(opera_base_url)))
+    latest_opera_dir="%s%d/"%(opera_base_url,max(opera_ver_ls))
+    latest_files_ls = map(lambda a: a.split()[-1].strip(), self.get_ftp_cont(latest_opera_dir))
+    basearch=os.uname()[4]
+    if basearch=='i686': basearch='i386'
+    basearch_rpm='.%s.rpm'%basearch
+    latest_opera_rpm = filter(lambda a:basearch_rpm in a,  latest_files_ls)
+    return '%s%s' % (latest_opera_dir,latest_opera_rpm[0])
 

@@ -53,7 +53,7 @@ class occPlugin(PluginsClass):
   def set_lang(self, w, nl="en_US.UTF-8"):
     lang=self.get_lang()
     l,e=self.lang_re.subn(r'\1"%s"' %nl,lang)
-    print l,nl
+    #print l,nl
     if e==0: l='''LANG="en_US.UTF-8"\nSYSFONT="latarcyrheb-sun16"'''
     self.ccw.mechanism('run','write_conf',self.lang_fn, l)
     self.get_lang()

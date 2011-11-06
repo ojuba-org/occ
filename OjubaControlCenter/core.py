@@ -201,8 +201,9 @@ class CCWindow(gtk.Window):
     return True
   def mechanism(self,*args, **kw):
     try: return self.__mechanism.call(args)
-    except dbus.exceptions.DBusException:
+    except dbus.exceptions.DBusException, msg:
       if kw.has_key('on_fail'): return kw['on_fail']
+      if 'NotAuthorizedException' in str(msg): return 'NotAuth'
       raise
   def __activate_page(self,cat,p,n):
     if not self.cat_c.has_key(n): return

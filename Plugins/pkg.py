@@ -114,10 +114,12 @@ class occPlugin(PluginsClass):
         if os.path.exists(repo): repos.append(repo)
     if len(repos)==0: error(_("No valid media were found.")); return
     r=self.ccw.mechanism('pkg','add_media',*repos)
+    if r == 'NotAuth': return
     info(_('Done. %s repositories were added.\nOpen the package manager to load or refresh cache.') % r)
 
   def disable_mediarepo(self, b):
     r=self.ccw.mechanism('pkg','disable_mediarepo')
+    if r == 'NotAuth': return
     info(_('Done. %s repositories were disabled.') % r)
 
   def get_keep_cache(self):
@@ -131,6 +133,7 @@ class occPlugin(PluginsClass):
   def keep_cache(self, b):
     v=('0','1')[self.keep_cache_b.get_active()]
     r=self.ccw.mechanism('pkg','set_keep_cache', v)
+    if r == 'NotAuth': return
     self.keep_cache_b.set_active(self.get_keep_cache())
     try:
       self.ccw.rm_old_rpms_b.set_sensitive(self.keep_cache_b.get_active())
@@ -140,6 +143,7 @@ class occPlugin(PluginsClass):
 
   def disable_net_repos(self, b):
     r=self.ccw.mechanism('pkg','disable_net_repos')
+    if r == 'NotAuth': return
     self.restore_repos_b.set_sensitive(os.path.exists(self.media_repo_save))
     try: i=int(r)
     except ValueError: i==0
@@ -149,6 +153,7 @@ class occPlugin(PluginsClass):
 
   def restore_repos(self, b):
     r=self.ccw.mechanism('pkg','restore_enabled_repos')
+    if r == 'NotAuth': return
     self.restore_repos_b.set_sensitive(os.path.exists(self.media_repo_save))
     try: i=int(r)
     except ValueError: i==0

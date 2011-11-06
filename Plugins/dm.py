@@ -74,12 +74,14 @@ class occPlugin(PluginsClass):
   def set_dm(self,*args):
     i=self.dm.get_active_text()
     s=self.ccw.mechanism('run','system', 'system-switch-displaymanager "%s"' % i)
+    if s == 'NotAuth': return
     if s=='0': info(_('Display manager is now set to %s') % i)
     else: error(_('Unable to set display managed.'))
 
   def autologin_cb(self, *args):
     u=pwd.getpwuid(os.geteuid())[0]
     s=self.ccw.mechanism('dm','enable_autologin', u)
+    if s == 'NotAuth': return
     if s.startswith('-'): error(_('could not set automatic login in %s') % s[1:])
     elif s: info(_('Automatic login as %s was set in %s') % (u,s))
     else: error(_('could not set automatic login'))
@@ -87,6 +89,7 @@ class occPlugin(PluginsClass):
 
   def no_autologin_cb(self, *args):
     s=self.ccw.mechanism('dm','disable_autologin')
+    if s == 'NotAuth': return
     if not s: error(_('could not disable automatic login'))
     elif s.startswith('-'): error(_('could not disable automatic login in %s') % s[1:])
     else: info(_('automatic login is now disabled'))

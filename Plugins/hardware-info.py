@@ -48,6 +48,7 @@ class occPlugin(PluginsClass):
 
   def __update_pciid_cb(self, b):
     r=self.ccw.mechanism('run','system','update-pciids -q')
+    if r == 'NotAuth': return
     if r!='0': error(_("unexpected return code, possible an error had occurred."))
     else: info(_('Done.'))
 

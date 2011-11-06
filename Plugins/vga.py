@@ -119,6 +119,7 @@ class occPlugin(PluginsClass):
 
   def call_vga_mechanism(self,b,m):
     s=self.ccw.mechanism('vga',m)
+    if s == 'NotAuth': return
     if s=='0': info(_('Done.'))
     else: error(_('unexpected return code, possible an error had occurred.'))
 
@@ -190,16 +191,19 @@ class occPlugin(PluginsClass):
 
   def checkKMS(self,*args):
     s=self.ccw.mechanism('vga','checkKMS')
+    if s == 'NotAuth': return
     if s=='2': info(_('KMS is enabled for all kernels.'))
     elif s=='1': info(_('KMS is enabled for some kernels, and disabled for others.'))
     elif s=='0': info(_('KMS is disabled for all kernels.'))
     else: error(_('unexpected return code, possible an error had occurred.'))
   def disableKMS(self,*args):
     s=self.ccw.mechanism('vga','disableKMS')
+    if s == 'NotAuth': return
     if s=='0': info(_('KMS is now disabled for all kernels.'))
     else: error(_('unexpected return code, possible an error had occurred.'))
   def enableKMS(self,*args):
     s=self.ccw.mechanism('vga','enableKMS')
+    if s == 'NotAuth': return
     if s=='0': info(_('KMS is now enabled for all kernels.'))
     else: error(_('unexpected return code, possible an error had occurred.'))
     

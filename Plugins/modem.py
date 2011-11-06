@@ -55,6 +55,7 @@ class occPlugin(PluginsClass):
     if self.__sl_service_internal: return
     cmd="chkconfig --level 2345 slmodem %s" % ('off','on')[self.sl_service.get_active()]
     r=self.ccw.mechanism('run','system', cmd)
+    if r == 'NotAuth': return
     self.__sl_service_internal=True
     self.sl_service.set_active(chkconfig(5,'slmodem'))
     self.__sl_service_internal=False
@@ -64,5 +65,6 @@ class occPlugin(PluginsClass):
   def interface_cb(self, b):
     i=self.interface_ls.get_active_text()
     r=self.ccw.mechanism('modem','set_sl_interface', i)
+    if r == 'NotAuth': return
     if r!='0': error(_('unexpected return code, possible an error had occurred.'))
 

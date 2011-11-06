@@ -91,6 +91,7 @@ class occPlugin(PluginsClass):
 
   def __one_kernel(self, *args):
     r=self.ccw.mechanism('run','system','package-cleanup -y --oldkernels --count=1')
+    if r == 'NotAuth': return
     if r=='0': info(_("Done."))
     else: error(_("unexpected return code, possible an error had occurred."))
 

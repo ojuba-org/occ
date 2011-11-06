@@ -71,10 +71,12 @@ class occPlugin(PluginsClass):
 
   def smb_service_on(self, b):
     r=self.ccw.mechanism('smb','start_on_boot')
+    if r == 'NotAuth': return
     info(_('Done.'))
 
   def ushare_cb(self,b):
     r=self.ccw.mechanism('smb','enable_ushare', str(int(self.ushare.get_active())) )
+    if r == 'NotAuth': return
     info(_('Done.'))
 
 # 

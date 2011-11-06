@@ -148,7 +148,7 @@ class occPlugin(PluginsClass):
     self.ccw.mechanism('run','system','''echo ",,,*" | sfdisk %s -N%s''' % (dst0, p))
     while(gtk.main_iteration_do()): pass
     r=self.ccw.mechanism('run','system',cmd, on_fail='0')
-    if r!='0': error(_("An error occurred while creating the live system.\nYou may run the following command in terminal to see the error:\n%s") % cmd)
+    if r!='0' and r!='NotAuth': error(_("An error occurred while creating the live system.\nYou may run the following command in terminal to see the error:\n%s") % cmd)
     while(gtk.main_iteration_do()): pass
     dlg.hide()
     if dlg: dlg.destroy()

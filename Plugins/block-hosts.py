@@ -127,7 +127,8 @@ class occPlugin(PluginsClass):
   def __refresh_cb(self, b):
     e,l=get_blocked_hosts()
     if len(l)<1: error("Unable to fetch black list."); return
-    self.ccw.mechanism('hosts','set_blocked_list', *l)
+    r=self.ccw.mechanism('hosts','set_blocked_list', *l)
+    if r == 'NotAuth': return
     info(_('Done. You may need to restart your browser.'));
   
   def __load__personal_list(self):
@@ -150,9 +151,11 @@ class occPlugin(PluginsClass):
     self.__lock=True
     if b.get_active() and not os.path.exists(self.__blocked_ls_f):
       e,l=get_blocked_hosts()
-      self.ccw.mechanism('hosts','set_blocked_list', *l)
+      r=self.ccw.mechanism('hosts','set_blocked_list', *l)
+      if r == 'NotAuth': return
     v=str(int(b.get_active()))
-    self.ccw.mechanism('hosts','enable_blocked', v)
+    r=self.ccw.mechanism('hosts','enable_blocked', v)
+    if r == 'NotAuth': return
     b.set_active(os.path.exists(self.__blocked_f))
     self.__lock=False
     info(_('Done. You may need to restart your browser.'))
@@ -161,7 +164,8 @@ class occPlugin(PluginsClass):
     if self.__lock: return
     self.__lock=True
     v=str(int(b.get_active()))
-    self.ccw.mechanism('hosts','enable_black_list', v)
+    r=self.ccw.mechanism('hosts','enable_black_list', v)
+    if r == 'NotAuth': return
     b.set_active(os.path.exists(self.__blacklist_f))
     self.__lock=False
     info(_('Done. You may need to restart your browser.'))

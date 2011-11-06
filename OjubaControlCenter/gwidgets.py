@@ -61,9 +61,9 @@ class comboBox(gtk.HBox):
 
   def build_list_cb(self, List):
     cb_list = gtk.ListStore(str)
+    self.cb.set_model(cb_list)
     for i in List:
       cb_list.append([i])
-    self.cb.set_model(cb_list)
         
   def update(self,*args, **kw):
     v=self.gs.get_string(self.k)
@@ -79,15 +79,26 @@ class comboBox(gtk.HBox):
       self.gs.set_string(self.k,cv)
 
 class comboBoxWithFolder(comboBox):
-  def __init__(self,caption,k,gs, List, btCap, target):
+  def __init__(self,caption,k,gs, List, btCap, target, ls_function):
     comboBox.__init__(self,caption,k,gs, List)
-    bt=gtk.Button(btCap)
+    self.cb.set_size_request(250,-1)
     self.targetdir=target
+    self.ls_function=ls_function
+    bt=gtk.Button(btCap)
     bt.connect('clicked', self.opendir_cb)
-    bt.set_size_request(250,-1)
+    bt.set_size_request(170,-1)
+    self.pack_end(bt,False,False,0)
+    bt=gtk.Button(_('Refresh'))
+    bt.connect('clicked', self.refresh_combo_cb)
+    bt.set_size_request(80,-1)
     self.pack_end(bt,False,False,0)
   
-  def opendir_cb(self, w):
+  def refresh_combo_cb(self, b):
+    self.List = List = self.ls_function()
+    self.build_list_cb(List)
+    self.update()
+    
+  def opendir_cb(self, b):
     if not os.path.isdir(self.targetdir):
       try:
         os.makedirs(self.targetdir)

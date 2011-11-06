@@ -204,6 +204,7 @@ This tool will overwrite xorg.conf with a new one that is not based on your work
   def delete(self, b):
     if not sure(_('Do you like to remove xorg.conf file to use default settings?')): return
     s=self.ccw.mechanism('run', 'system', 'rm /etc/X11/xorg.conf')
+    if s == 'NotAuth': return
     if s=='0': info(_('Done. Changes will take effect when you login next time.'))
     else: error(_('unexpected return code, possible an error had occurred.')); return
 
@@ -247,6 +248,7 @@ This tool will overwrite xorg.conf with a new one that is not based on your work
     if not sure(_('Are you sure you want to overwrite your currently working xorg.conf file and generate a new one ?')): return
     xorgconf=self.xorgconf_t % v
     s=self.ccw.mechanism('vga', 'saveXorgConf', xorgconf)
+    if s == 'NotAuth': return
     if s=='0': info(_('Done. Changes will take effect when you login next time.'))
     else: error(_('unexpected return code, possible an error had occurred.')); return
     self.mkinitrd(b)
@@ -254,6 +256,7 @@ This tool will overwrite xorg.conf with a new one that is not based on your work
   def mkinitrd(self, b):
     if not sure(_('Some proprietary require rebuild initrd.\nWould you like to do that?')): return
     s=self.ccw.mechanism('run', 'system','mkinitrd -f --allow-missing /boot/initrd-`uname -r`.img `uname -r`')
+    if s == 'NotAuth': return
     if s=='0': info(_('Done. Changes will take effect when you reboot.'))
     else: error(_('unexpected return code, possible an error had occurred.')); return
 

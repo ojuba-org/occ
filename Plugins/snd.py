@@ -112,17 +112,20 @@ class occPlugin(PluginsClass):
   def hda_verb_now(self,*args):
     if not self.sure(): return
     r=self.ccw.mechanism('snd','hda_verb','/dev/snd/hwC0D0 0x15 SET_EAPD_BTLENABLE 2')
+    if r == 'NotAuth': return
     #os.system("hda-verb /dev/snd/hwC0D0 0x15 SET_EAPD_BTLENABLE 2")
     info(_('Done.'))
 
   def hda_verb_at_boot(self,*args):
     if not self.sure(): return
     r=self.ccw.mechanism('snd','add_hda_verb','/dev/snd/hwC0D0 0x15 SET_EAPD_BTLENABLE 2')
+    if r == 'NotAuth': return
     info(_('Done. New settings will take effect on next boot.'))
 
   def remove_from_boot(self,*args):
     if not sure(_("Are you sure you want to disable an already enabled hda fix ?")): return
     r=self.ccw.mechanism('snd','remove_hda_verb')
+    if r == 'NotAuth': return
     info(_('Done. New settings will take effect on next boot.'))
 
   def is_hda_verb_needed(self):
@@ -143,12 +146,14 @@ class occPlugin(PluginsClass):
   def tbs_cb(self,b):
     if self.tbs.get_active(): r=self.ccw.mechanism('snd','enable_tsched')
     else: r=self.ccw.mechanism('snd','disable_tsched')
+    if r == 'NotAuth': return
     self.set_checkbox()
     info(_('Done. New settings will take effect on next boot.'))
 
   def rt_cb(self,b):
     if self.rt_b.get_active(): r=self.ccw.mechanism('snd','enable_rt')
     else: r=self.ccw.mechanism('snd','reset_rt')
+    if r == 'NotAuth': return
     self.set_checkbox()
     info(_('Done. New settings will take effect on next boot.'))
 

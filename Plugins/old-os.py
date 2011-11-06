@@ -41,6 +41,7 @@ class occPlugin(PluginsClass):
     dlg.show_all()
     r=self.ccw.mechanism('grub','set_grub_items')
     dlg.hide()
+    if r == 'NotAuth': return 
     if not r: return info(_('No operating systems were found'))
     info(_('Operating systems found:\n%s') % r,self.ccw)
     
