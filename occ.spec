@@ -32,7 +32,7 @@ rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/usr/local/bin/
 
 echo -e '#! /bin/sh\nLC_ALL=en_US.UTF-8 exec RunOrInstall audacity-freeworld /usr/bin/audacity "$@"' >$RPM_BUILD_ROOT/usr/local/bin/audacity
-echo -e '#! /bin/sh\nlib=`[[ $( arch ) -eq x86_64 ]] && echo "lib64" || echo "lib"`\nLD_PRELOAD=/usr/$lib/libv4l/v4l1compat.so exec RunOrInstall skype /usr/bin/skype "$@"' >$RPM_BUILD_ROOT/usr/local/bin/skype
+echo -e '#! /bin/sh\nlib=`[[ "$( arch )" == "x86_64" ]] && echo "lib64" || echo "lib"`\nLD_PRELOAD=/usr/$lib/libv4l/v4l1compat.so exec RunOrInstall skype /usr/bin/skype "$@"' >$RPM_BUILD_ROOT/usr/local/bin/skype
 chmod +x $RPM_BUILD_ROOT/usr/local/bin/*
 
 %clean
