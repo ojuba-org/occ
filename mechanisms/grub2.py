@@ -27,22 +27,34 @@ class OccMechanism(mechanismClass):
   def __init__(self):
     mechanismClass.__init__(self,'grub2')
 
+  def update_grub(self):
+    return commands.getstatusoutput('su -l -c "grub2-mkconfig -o /boot/grub2/grub.cfg"')
+    
   def os_prober_cb(self):
     other_os_re=re.compile(r"""Found\s*.*on.*""")
-    cmdstat,cmdstr=commands.getstatusoutput('su -l -c "grub2-mkconfig -o /boot/grub2/grub.cfg"')
+    cmdstat,cmdstr=self.update_grub()
     if cmdstat:
       r="Error: %d" %cmdstat
     else:
       r="\n".join(other_os_re.findall(cmdstr))
     return r
     
-  def _write_cfg(self, fn, l):
+  def apply_cfg(self, fn,t):
+    self.write_file(fn, t)
+    cmdstat,cmdstr=self.update_grub()
+    if cmdstat:
+      r="Error: %d" %cmdstat
+    else:
+      r=str(cmdstat)
+    return r
+    
+  def write_file(self, fn, t):
     try: os.makedirs(os.path.dirname(fn))
     except OSError: pass
-    open(fn, 'w+').write(l)
-
-  def _read_cfg(self, cfg_fn):
-    try: return open(cfg_fn,'r').read().strip()
+    open(fn, 'w+').write(t)
+    
+  def read_file(self, fn):
+    try: return open(fn, 'r').read().strip()
     except IOError: return ''
     
 
