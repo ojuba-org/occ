@@ -33,19 +33,19 @@ class OccMechanism(mechanismClass):
   def os_prober_cb(self):
     other_os_re=re.compile(r"""Found\s*.*on.*""")
     cmdstat,cmdstr=self.update_grub()
-    if cmdstat:
-      r="Error: %d" %cmdstat
-    else:
-      r="\n".join(other_os_re.findall(cmdstr))
+    if cmdstat: r="Error: %d" %cmdstat
+    else: r="\n".join(other_os_re.findall(cmdstr))
     return r
     
-  def apply_cfg(self, fn,t):
+  def apply_cfg(self, fn, t, font):
+    if font and os.path.isfile(font): 
+      cmdstat,cmdstr=commands.getstatusoutput('su -l -c "grub2-mkfont --output=/boot/grub2/unicode.pf2 %s"'%font)
+    else: 
+      if os.path.isfile('/boot/grub2/unicode.pf2'): os.unlink('/boot/grub2/unicode.pf2')
     self.write_file(fn, t)
     cmdstat,cmdstr=self.update_grub()
-    if cmdstat:
-      r="Error: %d" %cmdstat
-    else:
-      r=str(cmdstat)
+    if cmdstat: r="Error: %d" %cmdstat
+    else: r=str(cmdstat)
     return r
     
   def write_file(self, fn, t):
