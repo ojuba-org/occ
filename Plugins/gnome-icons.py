@@ -18,35 +18,18 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
 
 import gtk 
 from OjubaControlCenter.pluginsClass import PluginsClass
-from OjubaControlCenter.gwidgets import resetButton, GSCheckButton, mainGSCheckButton, not_installed
+from OjubaControlCenter.gwidgets import resetButton, GSCheckButton, mainGSCheckButton, creatVBox
 
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('Desktop Icons'),'gnome',20)
-    vbox=gtk.VBox(False,2)
-    vb=gtk.VBox(False,2)
-    #FIXME: Toggle comment state for next 7 lines to disable expander
-    expander=gtk.Expander(_("Select the icons you want to be visible on desktop"))
-    expander.add(vbox)
-    self.add(expander)
-    #self.add(vbox)
-    #h=gtk.HBox(False,0)
-    #h.pack_start(gtk.Label(_('Select the icons you want to be visible on desktop')),False,False,0)
-    #vbox.pack_start(h,False,False,6)
-    vbox.pack_start(vb,False,False,1)
-    
-    if not ccw.GSettings:
-      not_installed(vbox)
-    else:
-      if self.GioSettings(vb, ccw):
-        vbox.pack_start(resetButton(vb),False,False,1)
+    description=_("Select the icons you want to be visible on desktop")
+    creatVBox(self, ccw, description, self.GioSettings) 
     
   def GioSettings(self, vb, ccw):
     SD_P='org.gnome.desktop.background'
     DT_P='org.gnome.nautilus.desktop'
-    if not SD_P in ccw.GSchemas_List:
-      not_installed(vb)
-      return False
+    if not SD_P in ccw.GSchemas_List: return False
     GS = ccw.GSettings(SD_P)
     c=mainGSCheckButton(vb,_('Show desktop icons'),'show-desktop-icons',GS)
     vb.pack_start(c,False,False,1)

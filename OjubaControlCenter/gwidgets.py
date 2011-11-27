@@ -37,7 +37,7 @@ def setup_reset_button(widget):
   else:
     widget.pack_end(gtk.Label(RL),False,False,6)
 
-def not_installed(vb):
+def not_installed(vb, ccw):
   h=gtk.HBox(False,0)
   h.pack_start(gtk.Label(_('Not installed')),False,False,0)
   vb.pack_start(h,False,False,6)
@@ -221,3 +221,23 @@ class resetButton(gtk.HBox):
          if child and hasattr(child, 'rb'): child.reset()
        except AttributeError: print child
 
+def creatVBox(parent, ccw, description, gsFuc, nogsFunc=not_installed, resetBtton=True):
+  vbox=gtk.VBox(False,2)
+  vb=gtk.VBox(False,2)
+  #FIXME: Toggle comment state for next 7 lines to disable expander 
+  expander=gtk.Expander(description)
+  expander.add(vbox)
+  parent.add(expander)
+  #parent.add(vbox)
+  #h=gtk.HBox(False,0)
+  #h.pack_start(gtk.Label(_('Adjust desktop fonts')),False,False,0)
+  #vbox.pack_start(h,False,False,6)
+  vbox.pack_start(vb,False,False,6)
+  
+  if not ccw.GSettings:
+    nogsFunc(vb, ccw)
+  else:
+    if gsFuc(vb, ccw):
+      vbox.pack_start(resetButton(vb),False,False,1)
+    else:
+      if resetBtton: not_installed(vb)

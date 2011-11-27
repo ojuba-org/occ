@@ -19,36 +19,18 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
 import os, os.path
 import gtk 
 from OjubaControlCenter.pluginsClass import PluginsClass
-from OjubaControlCenter.gwidgets import resetButton, GSCheckButton, comboBox, not_installed
+from OjubaControlCenter.gwidgets import resetButton, GSCheckButton, comboBox, creatVBox
 from OjubaControlCenter.widgets import LaunchFileManager
 
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('Shell'),'gnome',40)
-    vbox=gtk.VBox(False,2)
-    vb=gtk.VBox(False,2)
-    #FIXME: Toggle comment state for next 7 lines to disable expander
-    expander=gtk.Expander(_("Shell interface setup"))
-    expander.add(vbox)
-    self.add(expander)
-    #self.add(vbox)
-    #h=gtk.HBox(False,0)
-    #h.pack_start(gtk.Label(_('Shell interface setup')),False,False,0)
-    #vbox.pack_start(h,False,False,6)
-    vbox.pack_start(vb,False,False,6)
-    
+    description=_("Shell interface setup")
+    creatVBox(self, ccw, description, self.GioSettings) 
 
-    if not ccw.GSettings:
-      not_installed(vbox)
-    else:
-      if self.GioSettings(vb, ccw):
-        vbox.pack_start(resetButton(vb),False,False,1)
-    
   def GioSettings(self, vb, ccw):
     P='org.gnome.desktop.interface'
-    if not P in ccw.GSchemas_List:
-      not_installed(vb)
-      return False
+    if not P in ccw.GSchemas_List: return False
     h=gtk.HBox(False,0)
     h.pack_start(LaunchFileManager(_("Personal shell extensions folder"), os.path.expanduser('~/.local/share/gnome-shell/')),False,False,2)
     vb.pack_start(h,False,False,6)

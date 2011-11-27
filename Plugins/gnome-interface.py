@@ -19,34 +19,17 @@ import os.path
 import logging
 import gtk 
 from OjubaControlCenter.pluginsClass import PluginsClass
-from OjubaControlCenter.gwidgets import resetButton, GSCheckButton, comboBox, comboBoxWithFolder, not_installed
+from OjubaControlCenter.gwidgets import resetButton, GSCheckButton, comboBox, comboBoxWithFolder, creatVBox
 
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('Interface'),'gnome',50)
-    vbox=gtk.VBox(False,2)
-    vb=gtk.VBox(False,2)
-    #FIXME: Toggle comment state for next 7 lines to disable expander
-    expander=gtk.Expander(_("Adjust interface settings"))
-    expander.add(vbox)
-    self.add(expander)
-    #self.add(vbox)
-    #h=gtk.HBox(False,0)
-    #h.pack_start(gtk.Label(_('Adjust interface settings')),False,False,0)
-    #vbox.pack_start(h,False,False,6)
-    vbox.pack_start(vb,False,False,6)
-    
-    if not ccw.GSettings:
-      not_installed(vbox)
-    else:
-      if self.GioSettings(vb, ccw):
-        vbox.pack_start(resetButton(vb),False,False,1)
+    description=_("Adjust interface settings")
+    creatVBox(self, ccw, description, self.GioSettings) 
     
   def GioSettings(self, vb, ccw):
     P='org.gnome.desktop.interface'
-    if not P in ccw.GSchemas_List:
-      not_installed(vb)
-      return False
+    if not P in ccw.GSchemas_List: return False
     GS = ccw.GSettings(P)
     FB_l=( \
        (_('Menus have icons'),'menus-have-icons'),

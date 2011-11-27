@@ -17,7 +17,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
 """
 import re
 import os
-import commands
+from commands
 import os.path
 from OjubaControlCenter.mechanismClass import mechanismClass
 from OjubaControlCenter.utils import get_mounts

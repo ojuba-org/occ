@@ -20,10 +20,10 @@ import os
 import os.path
 from OjubaControlCenter.mechanismClass import mechanismClass
 class OccMechanism(mechanismClass):
-  grub_kernels_re=re.compile(r'^(\s*kernel\b.*)$',re.M)
-  grub_kms_re=re.compile(r'^(\s*kernel\b.*)(\snomodeset\b)(.*?)$',re.M)
-  grub_kernel_vga_re=re.compile(r'^(\s*kernel\b.*)(\svga=\S+\b)(.*?)$',re.M)
-  grub_conf='/boot/grub/grub.conf'
+  grub_kernels_re=re.compile(r'^(\s*linux\b.*)$',re.M)
+  grub_kms_re=re.compile(r'^(\s*linux\b.*)(\snomodeset\b)(.*?)$',re.M)
+  grub_kernel_vga_re=re.compile(r'^(\s*linux\b.*)(\svga=\S+\b)(.*?)$',re.M)
+  grub_conf='/boot/grub2/grub.cfg'
   xorg_conf='/etc/X11/xorg.conf'
   drivers='|'.join(['intel','i740','ati','radeon','radeonhd','openchrome'])
   xorg_accel=re.compile(r'^\s*Option\s+"AccelMethod"\s+"([^"]*)"\s*$',re.M | re.I)

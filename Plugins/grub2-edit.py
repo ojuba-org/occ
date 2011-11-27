@@ -17,6 +17,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
 """
 import gtk
 import os
+from subprocess import PIPE, Popen
 from OjubaControlCenter.widgets import InstallOrInactive, sure, info, error, wait
 from OjubaControlCenter.pluginsClass import PluginsClass
 
@@ -24,6 +25,7 @@ class occPlugin(PluginsClass):
   conf={}
   conf_fn='/etc/default/grub'
   font_fn='/usr/share/fonts/dejavu/DejaVuSansMono.ttf'
+  font_nm='Sans'
   bg_fn='/usr/share/backgrounds/verne/default/normalish/verne.png'
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('Grub2 settings:'),'boot',30)
@@ -56,6 +58,8 @@ class occPlugin(PluginsClass):
     c.connect('toggled',self.update_theme_f)
     h.pack_start(c, False,False,2)
     
+    if os.path.isfile(self.conf['FONT_FILE']): self.font_fn=self.conf['FONT_FILE']
+    self.font_nm = self.conf['FONT_NAME'] = self.conf['FONT_NAME'].replace('_',' ')
     # Grub2 theme frame
     self.tf = f = gtk.Frame(_('Grub2 Theme:')); vb.pack_start(f,False,False,6)
     vbox = gtk.VBox(False,2)
@@ -76,8 +80,12 @@ class occPlugin(PluginsClass):
     h.pack_start(l, False,False,2)
     
     h=gtk.HBox(False,2); vbox.pack_start(h,False,False,6)
-    # TODO: customizable FONT
-    l=gtk.Label("%s = '%s'" %(_("We Will Set FONT"),self.font_fn))
+    l=gtk.Label("%s: '%s'" %(_("Font name"),self.font_fn))
+    b = gtk.FontButton()
+    b.connect('font-set', self.fc_match_cb, l)
+    b.set_font_name(self.conf['FONT_NAME']  + ' 12')
+    b.set_size_request(300,-1)
+    h.pack_start(b, False,False,2)
     h.pack_start(l, False,False,2)
     
     # Apply buuton
@@ -97,6 +105,21 @@ class occPlugin(PluginsClass):
   def update_theme_f(self, b):
     self.tf.set_sensitive(b.get_active())
     
+  def fc_match_cb(self, b, l):
+    font=b.get_font_name().split()[:-1]
+    font = ' '.join(font)
+    pipe = Popen("fc-match -f '%%{file}\n' '%s'" % font, shell=True, stdout=PIPE).stdout
+    fn=pipe.read().split()[0]
+    pipe.close()
+    if os.path.splitext(fn)[1][1:] != 'ttf':
+      b.set_font_name(self.font_nm) 
+      return error('%s (%s)' %(_('Error: Can not use this font!'),font),self.ccw)
+    #print font, fn
+    if os.path.isfile(fn):
+      self.font_nm=font
+      self.font_fn=fn
+      l.set_text("%s: '%s'" %(_("Font name"),self.font_fn))
+    
   def apply_cb(self, w):
     if not sure(_('Are you sure you want to changes?'), self.ccw): return
     dlg=wait()
@@ -109,6 +132,8 @@ class occPlugin(PluginsClass):
     self.conf['GRUB_GFXMODE'] = "800x600x32"
     self.conf['GRUB_GFXPAYLOAD_LINUX'] = "keep"
     self.conf['GRUB_BACKGROUND'] = self.bg_fn
+    self.conf['FONT_FILE'] = self.font_fn
+    self.conf['FONT_NAME'] = self.font_nm.replace(' ','_')
     font=self.font_fn
     if not self.theme_c.get_active():
     # grub2-mkconfig will ignore those options if /boot/grub2/unicode.pf2 not found
@@ -116,12 +141,12 @@ class occPlugin(PluginsClass):
       font=''
     s = '\n'.join(map(lambda k: "%s=%s" % (k,str(self.conf[k])), self.conf.keys()))
     s +='\n'
-    #print s
+    print s,font
     #return
     r = self.ccw.mechanism('grub2', 'apply_cfg', self.conf_fn, s, font)
     dlg.hide()
     if r == 'NotAuth': return 
-    if r.startswith("Error"): return error('%s: %s' %(_('Error!'),r))
+    if r.startswith("Error"): return error('%s: %s' %(_('Error!'),r),self.ccw)
     info(_('Done!'),self.ccw)
     
   def load_conf(self):
@@ -151,4 +176,6 @@ class occPlugin(PluginsClass):
     self.conf['GRUB_GFXMODE'] = "800x600x32"
     self.conf['GRUB_GFXPAYLOAD_LINUX'] = "keep"
     self.conf['GRUB_BACKGROUND'] = self.bg_fn
+    self.conf['FONT_FILE'] = self.font_fn
+    self.conf['FONT_NAME'] = self.font_nm
 

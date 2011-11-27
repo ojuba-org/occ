@@ -20,36 +20,19 @@ import gtk
 import gconf
 import os
 from OjubaControlCenter.pluginsClass import PluginsClass
-from OjubaControlCenter.gwidgets import resetButton, comboBox, hscale, fontButton
+from OjubaControlCenter.gwidgets import resetButton, comboBox, hscale, fontButton, creatVBox
 
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('windows'),'gnome',45)
-    vbox=gtk.VBox(False,2)
-    vb=gtk.VBox(False,2)
-    #FIXME: Toggle comment state for next 7 lines to disable expander 
-    expander=gtk.Expander(_("Adjust windows settings"))
-    expander.add(vbox)
-    self.add(expander)
-    #self.add(vbox)
-    #h=gtk.HBox(False,0)
-    #h.pack_start(gtk.Label(_('Adjust desktop fonts')),False,False,0)
-    #vbox.pack_start(h,False,False,6)
-    vbox.pack_start(vb,False,False,6)
-    
-    self.gconfsettings(vb)
-    
-    #if not ccw.GSettings:
-    #  self.gconfsettings(vb)
-    #else:
-    #  self.GioSettings(vb, ccw)
-    #  vbox.pack_start(resetButton(vb),False,False,1)
+    description=_("Adjust windows settings")
+    creatVBox(self, ccw, description, self.gconfsettings, self.gconfsettings, False) 
 
   def GioSettings(self, vb, ccw):
     # TODO: add window theme ( GTK3-theme )
     pass
   
-  def gconfsettings(self,vb):
+  def gconfsettings(self, vb, ccw):
     # FIXME: User titled menu items
     TActions_ls=['lower', 'menu', 'minmize', 'none', 'shade', 'toggle_maximize', 
                    'toggle_maximize_horizontally', 'toggle_maximize_vertically', 'toggle_shade']
