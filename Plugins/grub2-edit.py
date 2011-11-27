@@ -97,7 +97,7 @@ class occPlugin(PluginsClass):
     
     self.Time_Out.set_value(self.conf['GRUB_TIMEOUT'])
     self.Kernel_Opt.set_text(self.conf['GRUB_CMDLINE_LINUX'][1:-1])
-    self.recovery_c.set_active(str(self.conf['GRUB_DISABLE_RECOVERY'][1:-1]).endswith('alse'))
+    self.recovery_c.set_active(str(self.conf['GRUB_DISABLE_RECOVERY']).endswith('alse'))
     self.theme_c.set_active(True)
     #self.theme_c.set_active(self.conf.has_key('GRUB_BACKGROUND') and self.conf['GRUB_BACKGROUND'] != '')
     self.theme_c.set_active(os.path.isfile('/boot/grub2/unicode.pf2'))
@@ -141,7 +141,7 @@ class occPlugin(PluginsClass):
       font=''
     s = '\n'.join(map(lambda k: "%s=%s" % (k,str(self.conf[k])), self.conf.keys()))
     s +='\n'
-    print s,font
+    #print s,font
     #return
     r = self.ccw.mechanism('grub2', 'apply_cfg', self.conf_fn, s, font)
     dlg.hide()
@@ -170,7 +170,7 @@ class occPlugin(PluginsClass):
     self.conf = {}
     self.conf['GRUB_TIMEOUT'] = 0
     self.conf['GRUB_DISTRIBUTOR'] = "Fedora"
-    self.conf['GRUB_DISABLE_RECOVERY'] = False  
+    self.conf['GRUB_DISABLE_RECOVERY'] = "false"
     self.conf['GRUB_DEFAULT'] = "saved"
     self.conf['GRUB_CMDLINE_LINUX'] = '''"rd.md=0 rd.lvm=0 rd.dm=0  KEYTABLE=us quiet SYSFONT=latarcyrheb-sun16 rhgb rd.luks=0 LANG=en_US.UTF-8"'''
     self.conf['GRUB_GFXMODE'] = "800x600x32"
