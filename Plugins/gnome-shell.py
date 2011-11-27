@@ -19,7 +19,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
 import os, os.path
 import gtk 
 from OjubaControlCenter.pluginsClass import PluginsClass
-from OjubaControlCenter.gwidgets import resetButton, GSCheckButton, comboBox
+from OjubaControlCenter.gwidgets import resetButton, GSCheckButton, comboBox, not_installed
 from OjubaControlCenter.widgets import LaunchFileManager
 
 class occPlugin(PluginsClass):
@@ -39,18 +39,19 @@ class occPlugin(PluginsClass):
     
 
     if not ccw.GSettings:
-      h=gtk.HBox(False,0)
-      h.pack_start(gtk.Label(_('Not installed')),False,False,0)
-      vbox.pack_start(h,False,False,6)
+      not_installed(vbox)
     else:
-      h=gtk.HBox(False,0)
-      h.pack_start(LaunchFileManager(_("Personal shell extensions folder"), os.path.expanduser('~/.local/share/gnome-shell/')),False,False,2)
-      vb.pack_start(h,False,False,6)
-      self.GioSettings(vb, ccw)
-      vbox.pack_start(resetButton(vb),False,False,1)
+      if self.GioSettings(vb, ccw):
+        vbox.pack_start(resetButton(vb),False,False,1)
     
   def GioSettings(self, vb, ccw):
     P='org.gnome.desktop.interface'
+    if not P in ccw.GSchemas_List:
+      not_installed(vb)
+      return False
+    h=gtk.HBox(False,0)
+    h.pack_start(LaunchFileManager(_("Personal shell extensions folder"), os.path.expanduser('~/.local/share/gnome-shell/')),False,False,2)
+    vb.pack_start(h,False,False,6)
     GS = ccw.GSettings(P)
     tf=comboBox(_('Clock format'),'clock-format',GS, GS.get_range('clock-format')[1])
     vb.pack_start(tf,False,False,1)
@@ -64,5 +65,5 @@ class occPlugin(PluginsClass):
     for t,k in DT_l:
       g=GSCheckButton(t,k,GS)
       vb.pack_start(g,False,False,1)
-
+    return True
 

@@ -18,7 +18,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
 
 import gtk 
 from OjubaControlCenter.pluginsClass import PluginsClass
-from OjubaControlCenter.gwidgets import resetButton, GSCheckButton, mainGSCheckButton
+from OjubaControlCenter.gwidgets import resetButton, GSCheckButton, mainGSCheckButton, not_installed
 
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
@@ -36,17 +36,17 @@ class occPlugin(PluginsClass):
     vbox.pack_start(vb,False,False,1)
     
     if not ccw.GSettings:
-      h=gtk.HBox(False,0)
-      h.pack_start(gtk.Label(_('Not installed')),False,False,0)
-      vbox.pack_start(h,False,False,6)
+      not_installed(vbox)
     else:
-      self.GioSettings(vb, ccw)
-      vbox.pack_start(resetButton(vb),False,False,1)
+      if self.GioSettings(vb, ccw):
+        vbox.pack_start(resetButton(vb),False,False,1)
     
   def GioSettings(self, vb, ccw):
     SD_P='org.gnome.desktop.background'
     DT_P='org.gnome.nautilus.desktop'
-    
+    if not SD_P in ccw.GSchemas_List:
+      not_installed(vb)
+      return False
     GS = ccw.GSettings(SD_P)
     c=mainGSCheckButton(vb,_('Show desktop icons'),'show-desktop-icons',GS)
     vb.pack_start(c,False,False,1)
@@ -62,5 +62,5 @@ class occPlugin(PluginsClass):
       g=GSCheckButton(t,k,GS)
       vb.pack_start(g,False,False,1)
     c.update_cboxs()
-    
+    return True
 

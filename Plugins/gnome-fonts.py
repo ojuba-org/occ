@@ -20,7 +20,7 @@ import gtk
 import gconf
 import os
 from OjubaControlCenter.pluginsClass import PluginsClass
-from OjubaControlCenter.gwidgets import resetButton, comboBox, hscale, fontButton
+from OjubaControlCenter.gwidgets import resetButton, comboBox, hscale, fontButton, not_installed
 
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
@@ -40,11 +40,14 @@ class occPlugin(PluginsClass):
     if not ccw.GSettings:
       self.gconfsettings(vb)
     else:
-      self.GioSettings(vb, ccw)
-      vbox.pack_start(resetButton(vb),False,False,1)
+      if self.GioSettings(vb, ccw):
+        vbox.pack_start(resetButton(vb),False,False,1)
 
   def GioSettings(self, vb, ccw):
     P='org.gnome.desktop.interface'
+    if not P in ccw.GSchemas_List:
+      not_installed(vb)
+      return False
     GS = ccw.GSettings(P)
     s=hscale(_('Text scaling factor'), 'text-scaling-factor',GS)
     vb.pack_start(s,False,False,6)
@@ -66,7 +69,8 @@ class occPlugin(PluginsClass):
     for t,k in FD_l:
       cb=comboBox(t,k,GS, GS.get_range(k)[1])
       vb.pack_start(cb,False,False,1)
-  
+    return True
+    
   def gconfsettings(self,vb):
     GC = gconf.client_get_default()
     P = '/apps/metacity/general/titlebar_font'

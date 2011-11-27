@@ -104,7 +104,9 @@ class CCWindow(gtk.Window):
     dbus_loop = DBusGMainLoop(set_as_default=True)
     bus = dbus.SystemBus()
     self.GSettings=None
-    if Gio and hasattr(Gio, 'Settings'): self.GSettings=Gio.Settings
+    if Gio and hasattr(Gio, 'Settings'):
+      self.GSettings=Gio.Settings
+      self.GSchemas_List=self.GSettings.list_schemas()
     self.__init_about_dialog()
     self.__init_pk()
     self.__mechanism = Backend(bus = bus)

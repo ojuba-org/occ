@@ -37,6 +37,11 @@ def setup_reset_button(widget):
   else:
     widget.pack_end(gtk.Label(RL),False,False,6)
 
+def not_installed(vb):
+  h=gtk.HBox(False,0)
+  h.pack_start(gtk.Label(_('Not installed')),False,False,0)
+  vb.pack_start(h,False,False,6)
+  
 class comboBox(gtk.HBox):
   def __init__(self,caption,k,gs, List):
     gtk.HBox.__init__(self,False,0)

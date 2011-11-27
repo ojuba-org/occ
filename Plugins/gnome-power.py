@@ -19,7 +19,7 @@ import os.path
 import logging
 import gtk 
 from OjubaControlCenter.pluginsClass import PluginsClass
-from OjubaControlCenter.gwidgets import resetButton, comboBox
+from OjubaControlCenter.gwidgets import resetButton, comboBox, not_installed
 
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
@@ -37,15 +37,16 @@ class occPlugin(PluginsClass):
     vbox.pack_start(vb,False,False,6)
     
     if not ccw.GSettings:
-      h=gtk.HBox(False,0)
-      h.pack_start(gtk.Label(_('Not installed')),False,False,0)
-      vbox.pack_start(h,False,False,6)
+      not_installed(vbox)
     else:
-      self.GioSettings(vb, ccw)
-      vbox.pack_start(resetButton(vb),False,False,1)
+      if self.GioSettings(vb, ccw):
+        vbox.pack_start(resetButton(vb),False,False,1)
     
   def GioSettings(self, vb, ccw):
     P='org.gnome.settings-daemon.plugins.power'
+    if not P in ccw.GSchemas_List:
+      not_installed(vb)
+      return False
     GS = ccw.GSettings(P)
     FD_l=( \
        (_('Power button'),'button-power'),
@@ -62,4 +63,4 @@ class occPlugin(PluginsClass):
     for t,k in FD_l:
       cb=comboBox(t,k,GS, GS.get_range(k)[1])
       vb.pack_start(cb,False,False,1)
-
+    return True
