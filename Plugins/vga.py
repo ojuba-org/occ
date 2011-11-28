@@ -120,8 +120,8 @@ class occPlugin(PluginsClass):
   def call_vga_mechanism(self,b,m):
     s=self.ccw.mechanism('vga',m)
     if s == 'NotAuth': return
-    if s=='0': info(_('Done.'))
-    else: error(_('unexpected return code, possible an error had occurred.'))
+    if s=='0': info(_('Done.'),self.ccw)
+    else: error(_('unexpected return code, possible an error had occurred.'),self.ccw)
 
   def __nvidia_gui_init(self,vb):
     nv=self.is_nvidia()
@@ -151,7 +151,7 @@ class occPlugin(PluginsClass):
     print kmod
     print self.ccw.is_installed([kmod])
     if self.ccw.is_installed([kmod]):
-      info(_('proprietary nVidia drivers [%s] already installed.') % kmod)
+      info(_('proprietary nVidia drivers [%s] already installed.') % kmod,self.ccw)
     else: self.ccw.install_packages([kmod])
 
   def __nvidia_settings_cb(self,b):
@@ -192,20 +192,20 @@ class occPlugin(PluginsClass):
   def checkKMS(self,*args):
     s=self.ccw.mechanism('vga','checkKMS')
     if s == 'NotAuth': return
-    if s=='2': info(_('KMS is enabled for all kernels.'))
-    elif s=='1': info(_('KMS is enabled for some kernels, and disabled for others.'))
-    elif s=='0': info(_('KMS is disabled for all kernels.'))
-    else: error(_('unexpected return code, possible an error had occurred.'))
+    if s=='2': info(_('KMS is enabled for all kernels.\nNote: You may need to remake grub config file.'),self.ccw)
+    elif s=='1': info(_('KMS is enabled for some kernels, and disabled for others.'),self.ccw)
+    elif s=='0': info(_('KMS is disabled for all kernels.\nNote: You may need to remake grub config file.'),self.ccw)
+    else: error(_('unexpected return code, possible an error had occurred.'),self.ccw)
   def disableKMS(self,*args):
     s=self.ccw.mechanism('vga','disableKMS')
     if s == 'NotAuth': return
-    if s=='0': info(_('KMS is now disabled for all kernels.'))
-    else: error(_('unexpected return code, possible an error had occurred.'))
+    if s=='0': info(_('KMS is now disabled for all kernels.'),self.ccw)
+    else: error(_('unexpected return code, possible an error had occurred.'%s),self.ccw)
   def enableKMS(self,*args):
     s=self.ccw.mechanism('vga','enableKMS')
     if s == 'NotAuth': return
-    if s=='0': info(_('KMS is now enabled for all kernels.'))
-    else: error(_('unexpected return code, possible an error had occurred.'))
+    if s=='0': info(_('KMS is now enabled for all kernels.'),self.ccw)
+    else: error(_('unexpected return code, possible an error had occurred.'),self.ccw)
     
   def isdri(self):
     if self.__dri!=None: return self.__dri

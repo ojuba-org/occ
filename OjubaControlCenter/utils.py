@@ -104,3 +104,6 @@ def get_mounts(unique=True, mnt_filter=None, dev_filter=None):
     by_dev[d]=p
   return by_mnt, by_dev
 
+def cmd_out(cmd):
+  out, err = Popen(cmd , shell=True, stdout=PIPE, stderr=PIPE).communicate()
+  return (out.strip(), err.strip())

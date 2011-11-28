@@ -17,7 +17,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
 """
 import gtk
 import os
-from subprocess import PIPE, Popen
+from OjubaControlCenter.utils import cmd_out
 from OjubaControlCenter.widgets import InstallOrInactive, sure, info, error, wait
 from OjubaControlCenter.pluginsClass import PluginsClass
 
@@ -27,6 +27,7 @@ class occPlugin(PluginsClass):
   font_fn='/usr/share/fonts/dejavu/DejaVuSansMono.ttf'
   font_nm='Sans'
   bg_fn='/usr/share/backgrounds/verne/default/normalish/verne.png'
+  gfxmode='800x600'
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('Grub2 settings:'),'boot',30)
     self.load_conf()
@@ -55,11 +56,13 @@ class occPlugin(PluginsClass):
     
     h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
     self.theme_c = c = gtk.CheckButton(_('Enabel Grub2 theme'))
-    c.connect('toggled',self.update_theme_f)
+    c.connect('toggled',self.update_theme_cb)
     h.pack_start(c, False,False,2)
     
     if os.path.isfile(self.conf['FONT_FILE']): self.font_fn=self.conf['FONT_FILE']
     self.font_nm = self.conf['FONT_NAME'] = self.conf['FONT_NAME'].replace('_',' ')
+    self.gfxmode = self.conf['GRUB_GFXMODE']
+    
     # Grub2 theme frame
     self.tf = f = gtk.Frame(_('Grub2 Theme:')); vb.pack_start(f,False,False,6)
     vbox = gtk.VBox(False,2)
@@ -75,9 +78,11 @@ class occPlugin(PluginsClass):
     h.pack_start(l, False,False,2)
     
     h=gtk.HBox(False,2); vbox.pack_start(h,False,False,6)
-    # TODO: customizable GFXMODE
-    l=gtk.Label(_("We Will Set GFXMODE = 800x600x32"))
-    h.pack_start(l, False,False,2)
+    self.gfxmode_c = c = gtk.CheckButton('%s  = %s' %(_("Set GFXMODE"), self.gfxmode))
+    c.connect('toggled',self.set_gfxmode_cb)
+    c.set_tooltip_markup(_('Enable this optin if you have boot trubles'))
+    c.set_active(self.conf['GRUB_GFXMODE']=='800x600')
+    h.pack_start(c, False,False,2)
     
     h=gtk.HBox(False,2); vbox.pack_start(h,False,False,6)
     l=gtk.Label("%s: '%s'" %(_("Font name"),self.font_fn))
@@ -102,17 +107,21 @@ class occPlugin(PluginsClass):
     #self.theme_c.set_active(self.conf.has_key('GRUB_BACKGROUND') and self.conf['GRUB_BACKGROUND'] != '')
     self.theme_c.set_active(os.path.isfile('/boot/grub2/unicode.pf2'))
     
-  def update_theme_f(self, b):
+  def update_theme_cb(self, b):
     self.tf.set_sensitive(b.get_active())
-    
+
+  def set_gfxmode_cb(self, b):
+    if b.get_active():
+      self.gfxmode='800x600'
+    else:
+      self.gfxmode='auto'
+      
   def fc_match_cb(self, b, l):
     font=b.get_font_name().split()[:-1]
     font = ' '.join(font)
-    pipe = Popen("fc-match -f '%%{file}\n' '%s'" % font, shell=True, stdout=PIPE).stdout
-    fn=pipe.read().split()[0]
-    pipe.close()
+    fn = cmd_out("fc-match -f '%%{file}\n' '%s'" % font)[0]
     if os.path.splitext(fn)[1][1:] != 'ttf':
-      b.set_font_name(self.font_nm) 
+      b.set_font_name(self.font_nm + ' 12') 
       return error('%s (%s)' %(_('Error: Can not use this font!'),font),self.ccw)
     #print font, fn
     if os.path.isfile(fn):
@@ -129,7 +138,7 @@ class occPlugin(PluginsClass):
     self.conf['GRUB_DISABLE_RECOVERY'] = str(not self.recovery_c.get_active()).lower()
     self.conf['GRUB_DEFAULT'] = self.conf['GRUB_DEFAULT']
     self.conf['GRUB_CMDLINE_LINUX'] = '"' + self.Kernel_Opt.get_text() + '"'
-    self.conf['GRUB_GFXMODE'] = "800x600x32"
+    self.conf['GRUB_GFXMODE'] = self.gfxmode
     self.conf['GRUB_GFXPAYLOAD_LINUX'] = "keep"
     self.conf['GRUB_BACKGROUND'] = self.bg_fn
     self.conf['FONT_FILE'] = self.font_fn
@@ -173,7 +182,7 @@ class occPlugin(PluginsClass):
     self.conf['GRUB_DISABLE_RECOVERY'] = "false"
     self.conf['GRUB_DEFAULT'] = "saved"
     self.conf['GRUB_CMDLINE_LINUX'] = '''"rd.md=0 rd.lvm=0 rd.dm=0  KEYTABLE=us quiet SYSFONT=latarcyrheb-sun16 rhgb rd.luks=0 LANG=en_US.UTF-8"'''
-    self.conf['GRUB_GFXMODE'] = "800x600x32"
+    self.conf['GRUB_GFXMODE'] = self.gfxmode
     self.conf['GRUB_GFXPAYLOAD_LINUX'] = "keep"
     self.conf['GRUB_BACKGROUND'] = self.bg_fn
     self.conf['FONT_FILE'] = self.font_fn

@@ -17,7 +17,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
 """
 import re
 import os
-from commands
+from OjubaControlCenter.utils import cmd_out
 import os.path
 from OjubaControlCenter.mechanismClass import mechanismClass
 from OjubaControlCenter.utils import get_mounts
@@ -28,24 +28,24 @@ class OccMechanism(mechanismClass):
     mechanismClass.__init__(self,'grub2')
 
   def update_grub(self):
-    return commands.getstatusoutput('su -l -c "grub2-mkconfig -o /boot/grub2/grub.cfg"')
+    return cmd_out('su -l -c "grub2-mkconfig -o /boot/grub2/grub.cfg"')
     
   def os_prober_cb(self):
     other_os_re=re.compile(r"""Found\s*.*on.*""")
-    cmdstat,cmdstr=self.update_grub()
-    if cmdstat: r="Error: %d" %cmdstat
-    else: r="\n".join(other_os_re.findall(cmdstr))
+    cmdout,cmderr=self.update_grub()
+    if cmdout: r="Error: %d" %cmdstat
+    else: r="\n".join(other_os_re.findall(cmderr))
     return r
     
   def apply_cfg(self, fn, t, font):
     if font and os.path.isfile(font): 
-      cmdstat,cmdstr=commands.getstatusoutput('su -l -c "grub2-mkfont --output=/boot/grub2/unicode.pf2 %s"'%font)
+      cmd_out('su -l -c "grub2-mkfont --output=/boot/grub2/unicode.pf2 %s"'%font)
     else: 
       if os.path.isfile('/boot/grub2/unicode.pf2'): os.unlink('/boot/grub2/unicode.pf2')
     self.write_file(fn, t)
-    cmdstat,cmdstr=self.update_grub()
-    if cmdstat: r="Error: %d" %cmdstat
-    else: r=str(cmdstat)
+    cmdout,cmderr=self.update_grub()
+    if cmdout: r="Error: %d" %cmderr
+    else: r='0'
     return r
     
   def write_file(self, fn, t):

@@ -18,12 +18,13 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
 import re
 import os
 import os.path
+from OjubaControlCenter.utils import cmd_out
 from OjubaControlCenter.mechanismClass import mechanismClass
 class OccMechanism(mechanismClass):
-  grub_kernels_re=re.compile(r'^(\s*linux\b.*)$',re.M)
-  grub_kms_re=re.compile(r'^(\s*linux\b.*)(\snomodeset\b)(.*?)$',re.M)
-  grub_kernel_vga_re=re.compile(r'^(\s*linux\b.*)(\svga=\S+\b)(.*?)$',re.M)
-  grub_conf='/boot/grub2/grub.cfg'
+  grub_kernels_re=re.compile(r'''(GRUB_CMDLINE_LINUX=["'][^'"]*)''',re.M)
+  grub_kms_re=re.compile(r'''^(\s*GRUB_CMDLINE_LINUX=['"][^"']*)(\snomodeset\b)(.*?)$''',re.M)
+  grub_kernel_vga_re=re.compile(r'''^(\s*GRUB_CMDLINE_LINUX=['"][^"']*)(\svga=\S+\b)(.*?)$''',re.M)
+  grub_conf='/etc/default/grub'
   xorg_conf='/etc/X11/xorg.conf'
   drivers='|'.join(['intel','i740','ati','radeon','radeonhd','openchrome'])
   xorg_accel=re.compile(r'^\s*Option\s+"AccelMethod"\s+"([^"]*)"\s*$',re.M | re.I)
@@ -35,33 +36,44 @@ class OccMechanism(mechanismClass):
   def __init__(self):
     mechanismClass.__init__(self,'vga')
   def checkKMS(self):
-    l=open(self.grub_conf,'rt').read()
-    k=self.grub_kernels_re.findall(l)
-    m=map(lambda i: 'nomodeset' not in i, k)
-    if all(m): return '2'
-    elif any(m): return '1'
-    else: return '0'
+    m=self.chkstr(self.grub_conf, self.grub_kernels_re)
+    r=0
+    if any(m): r=2
+    # TODO: check file /boot/grub2/grub.cfg too
+    #m=self.chkstr(self.grub_conf, self.grub_kernels_re)
+    #if all(m): return str(r+2)
+    #elif any(m): return str(r+1)
+    return str(r+0)
+  def chkstr(self, fn, s_re, s='nomodeset'):
+    l=open(fn,'rt').read()
+    k=s_re.findall(l)
+    return map(lambda i: s not in i, k)
+    
   def disableKMS(self):
     l=open(self.grub_conf,'rt').read()
     l=self.grub_kms_re.sub(r'\1\3',l) # remove nomodeset
     l=self.grub_kernels_re.sub(r'\1 nomodeset',l)
     open(self.grub_conf,'wt').write(l)
+    cmd_out('su -l -c "grub2-mkconfig -o /boot/grub2/grub.cfg"')
     return '0'
   def enableKMS(self):
     l=open(self.grub_conf,'rt').read()
     l=self.grub_kms_re.sub(r'\1\3',l) # remove nomodeset
     open(self.grub_conf,'wt').write(l)
+    cmd_out('su -l -c "grub2-mkconfig -o /boot/grub2/grub.cfg"')
     return '0'
   def rm_kernel_vga(self):
     l=open(self.grub_conf,'rt').read()
     l=self.grub_kernel_vga_re.sub(r'\1\3',l) # remove vga=XYZ
     open(self.grub_conf,'wt').write(l)
+    cmd_out('su -l -c "grub2-mkconfig -o /boot/grub2/grub.cfg"')
     return '0'
   def set_kernel_vga(self,n):
     l=open(self.grub_conf,'rt').read()
     l=self.grub_kernel_vga_re.sub(r'\1\3',l) # remove vga=XYZ
     l=self.grub_kernels_re.sub(r'\1 vga='+n,l)
     open(self.grub_conf,'wt').write(l)
+    cmd_out('su -l -c "grub2-mkconfig -o /boot/grub2/grub.cfg"')
     return '0'
 
   # xorg.cong manipulation
