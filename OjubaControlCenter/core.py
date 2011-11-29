@@ -43,6 +43,12 @@ import dbus
 from dbus.mainloop.glib import DBusGMainLoop
 bus = dbus.SessionBus()
 
+#if not os.environ.has_key('DESKTOP_SESSION') or not os.environ['DESKTOP_SESSION'] == 'gnome':
+#  Gio=None
+ts = rpm.TransactionSet()
+if not ts.dbMatch('name','gnome-shell').count(): Gio=None
+del ts
+
 def getSpecialIcon(icon,size=gtk.ICON_SIZE_DIALOG):
   return gtk.image_new_from_icon_name(icon, size)
   
