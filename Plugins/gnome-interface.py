@@ -20,6 +20,7 @@ import logging
 import gtk 
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.gwidgets import resetButton, GSCheckButton, comboBox, comboBoxWithFolder, creatVBox
+from OjubaControlCenter.widgets import InstallOrInactive
 
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
@@ -38,8 +39,17 @@ class occPlugin(PluginsClass):
     for t,k in FB_l:
       b=GSCheckButton(t,k,GS)
       vb.pack_start(b,False,False,1)
+    PP="org.gnome.shell.extensions.user-theme"
+    b=InstallOrInactive(self, 'Install Gnome shell extension user theme','Gnome shell extension user theme installed','Package used to change Gnome shell theme',['gnome-shell-extension-user-theme'],'/usr/share/glib-2.0/schemas/org.gnome.shell.extensions.user-theme.gschema.xml')
+    P_Stst=b.get_sensitive()
+    if not P_Stst:
+      GSP = ccw.GSettings(PP)
+      cb=comboBoxWithFolder(_('Shell theme'),'name',GSP,self.get_shell_themes(),_('Add Shell theme'),os.path.expanduser('~/.themes'), self.get_shell_themes)
+      vb.pack_start(cb,False,False,1)
+    else:
+      vb.pack_start(b,False,False,1)
     FD_l=( \
-       (_('GTK+ theme'),'gtk-theme',self.get_valid_themes(),_('Add GTK+ theme'),os.path.expanduser('~/.themes'), self.get_valid_themes),
+       (_('GTK+ theme'),'gtk-theme',self.get_gtk_themes(),_('Add GTK+ theme'),os.path.expanduser('~/.themes'), self.get_gtk_themes),
        (_('Icon theme'),'icon-theme',self.get_valid_icon_themes(),_('Add icons theme'),os.path.expanduser('~/.icons'), self.get_valid_icon_themes),
        (_('Cursor theme'),'cursor-theme',self.get_valid_cursor_themes(),_('Add cursor theme'),os.path.expanduser('~/.icons'), self.get_valid_cursor_themes)
     )
@@ -48,7 +58,7 @@ class occPlugin(PluginsClass):
       vb.pack_start(cb,False,False,1)
     return True
     
-  def get_valid_themes(self):
+  def get_gtk_themes(self):
     """ Only shows themes that have variations for gtk+-3 and gtk+-2 """
     dirs = ( os.path.join('/usr/share/', "themes"),
              os.path.join(os.path.expanduser("~"), ".themes"))
@@ -57,6 +67,16 @@ class occPlugin(PluginsClass):
              os.path.exists(os.path.join(d, "gtk-3.0")))
     return valid
   
+  def get_shell_themes(self):
+    """ Only shows themes that have variations for gtk+-3 and gtk+-2 """
+    dirs = ( os.path.join('/usr/share/', "themes"),
+             os.path.join(os.path.expanduser("~"), ".themes"))
+    valid = self.walk_directories(dirs, lambda d:
+             os.path.exists(os.path.join(d, "gnome-shell")) and \
+             os.path.exists(os.path.join(d, "gnome-shell", "gnome-shell.css")))
+    valid.append('')
+    return valid
+    
   def get_valid_cursor_themes(self):
     dirs = ( os.path.join('/usr/share/', "icons"),
              os.path.join(os.path.expanduser("~"), ".icons"))

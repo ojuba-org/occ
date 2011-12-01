@@ -17,7 +17,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
 """
 import re
 import os
-from OjubaControlCenter.utils import cmd_out
+from OjubaControlCenter.utils import cmd_out, copyfile
 import os.path
 from OjubaControlCenter.mechanismClass import mechanismClass
 from OjubaControlCenter.utils import get_mounts
@@ -26,7 +26,7 @@ from OjubaControlCenter.utils import get_mounts
 class OccMechanism(mechanismClass):
   def __init__(self):
     mechanismClass.__init__(self,'grub2')
-
+  
   def update_grub(self):
     return cmd_out('su -l -c "grub2-mkconfig -o /boot/grub2/grub.cfg"')
     
@@ -37,12 +37,17 @@ class OccMechanism(mechanismClass):
     else: r="\n".join(other_os_re.findall(cmderr))
     return r
     
-  def apply_cfg(self, fn, t, font):
+  def apply_cfg(self, fn, t, font, pic):
+    old_t=self.read_file(fn)
+    bg='/boot/grub2/oj.grub2.png'
+    if not self.write_file(fn, t):
+      self.write_file(fn, t)
+      return "Error: Cant not write config file"
+    copyfile(pic, bg)
     if font and os.path.isfile(font): 
       cmd_out('su -l -c "grub2-mkfont --output=/boot/grub2/unicode.pf2 %s"'%font)
     else: 
       if os.path.isfile('/boot/grub2/unicode.pf2'): os.unlink('/boot/grub2/unicode.pf2')
-    self.write_file(fn, t)
     cmdout,cmderr=self.update_grub()
     if cmdout: r="Error: %d" %cmderr
     else: r='0'
@@ -51,11 +56,15 @@ class OccMechanism(mechanismClass):
   def write_file(self, fn, t):
     try: os.makedirs(os.path.dirname(fn))
     except OSError: pass
-    open(fn, 'w+').write(t)
+    try: open(fn, 'w+').write(t)
+    except UnicodeEncodeError: return False
+    except IOError: return False
+    return True
     
   def read_file(self, fn):
     try: return open(fn, 'r').read().strip()
     except IOError: return ''
+    except UnicodeEncodeError: return ''
     
 
 

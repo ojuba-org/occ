@@ -107,3 +107,23 @@ def get_mounts(unique=True, mnt_filter=None, dev_filter=None):
 def cmd_out(cmd):
   out, err = Popen(cmd , shell=True, stdout=PIPE, stderr=PIPE).communicate()
   return (out.strip(), err.strip())
+  
+def copyfile(source, dest, buffer_size=1024*1024):
+  """
+  Copy a file from source to dest. source and dest
+  can either be strings or any object with a read or
+  write method, like StringIO for example.
+  """
+  if not hasattr(source, 'read'):
+    source = open(source, 'rb')
+  if not hasattr(dest, 'write'):
+    dest = open(dest, 'wb')
+  while 1:
+    copy_buffer = source.read(buffer_size)
+    if copy_buffer:
+      dest.write(copy_buffer)
+    else:
+      break
+  source.close()
+  dest.close()
+  return True
