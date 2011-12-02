@@ -29,17 +29,14 @@ class occPlugin(PluginsClass):
     creatVBox(self, ccw, description, self.gconfsettings, self.gconfsettings, False) 
 
   def GioSettings(self, vb, ccw):
-    # TODO: add window theme ( GTK3-theme )
     pass
   
   def gconfsettings(self, vb, ccw):
-    # FIXME: User titled menu items
     TActions_ls=['lower', 'menu', 'minmize', 'none', 'shade', 'toggle_maximize', 
                    'toggle_maximize_horizontally', 'toggle_maximize_vertically', 'toggle_shade']
     FMode_ls=['click', 'mouse', 'sloppy']
     BTLayout_ls=[':close', ':minimize', ':maximize', ':minimize,close',
                  ':maximize,close', ':minimize,maximize', ':minimize,maximize,close']
-    # TODO: add the fallback (metacity) window theme
     L=( \
       (_('Action on title bar double-click'), '/apps/metacity/general/action_double_click_titlebar', TActions_ls, ''),
       (_('Action on title bar middle-click'), '/apps/metacity/general/action_middle_click_titlebar', TActions_ls, ''),

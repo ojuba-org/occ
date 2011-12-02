@@ -207,14 +207,15 @@ class mainGSCheckButton(GSCheckButton):
          child.set_sensitive(self.chkb.get_active())
      
 class resetButton(gtk.HBox):
-  def __init__(self,vbox):
+  def __init__(self,vbox, ccw):
+    self.ccw=ccw
     gtk.HBox.__init__(self,False,0)
     self.b = b = gtk.Button(_("Reset all"))
     b.connect("clicked", self.reset_cb,vbox)
     self.pack_end(b,False,False,0)
   
   def reset_cb(self, b, vb):
-    if not sure(_('Are you sure?')): return
+    if not sure(_('Are you sure?'), self.ccw): return
     childs = vb.get_children()
     for child in childs:
        try:
@@ -238,6 +239,6 @@ def creatVBox(parent, ccw, description, gsFuc, nogsFunc=not_installed, resetBtto
     nogsFunc(vb, ccw)
   else:
     if gsFuc(vb, ccw):
-      vbox.pack_start(resetButton(vb),False,False,1)
+      vbox.pack_start(resetButton(vb, ccw),False,False,1)
     else:
-      if resetBtton: not_installed(vb)
+      if resetBtton: not_installed(vb, ccw)

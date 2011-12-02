@@ -143,7 +143,8 @@ class CCWindow(gtk.Window):
     self.cat.connect('switch-page', self.__activate_page)
     for i in categories.ls: self.__newCat(i)
     skip=sum(map(lambda a: a[15:].split(','),
-      filter(lambda s: s.startswith('--skip-plugins='), sys.argv)),[])
+      filter(lambda s: s.startswith('--skip-plugins='), sys.argv[1:])),[])
+    self.debug='--debug' in sys.argv[1:]
     self.__loadPlugins(skip)
     self.show_all()
     gtk.main()
@@ -252,7 +253,7 @@ class CCWindow(gtk.Window):
     self.__pluginsDir=os.path.join(self.__exeDir,'Plugins')
     if not os.path.isdir(self.__pluginsDir):
       self.__pluginsDir=os.path.join(self.__exeDir,'..','share','occ','Plugins')
-    p=loader.loadPlugins(self.__pluginsDir,PluginsClass,'occPlugin',skip,self)
+    p=loader.loadPlugins(self.__pluginsDir,PluginsClass,'occPlugin',skip,self.debug,self)
     p.sort(lambda a,b: a.priority-b.priority)
     for i in p:
       try: self.cat_v[i.category].pack_start(i,False,False,0)

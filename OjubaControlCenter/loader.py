@@ -22,7 +22,7 @@ import os.path
 import sys
 
 
-def loadPlugins(pluginsDir,baseClass, pluginClassName='occPlugin', skip=[], *args):
+def loadPlugins(pluginsDir,baseClass, pluginClassName='occPlugin', skip=[], debug=False, *args):
   # Make sure pluginsDir is in the system path so imputil works.
   if not pluginsDir in sys.path:
     sys.path.append(pluginsDir)
@@ -34,13 +34,16 @@ def loadPlugins(pluginsDir,baseClass, pluginClassName='occPlugin', skip=[], *arg
     #print module
     # Attempt to load the found module.
     if module in skip: continue
+    e=''
     try:
       f, fn, d = imp.find_module(module,[pluginsDir])
       if not fn.startswith(pluginsDir): continue
       loaded = imp.load_module(module, f, fn, d)
-    except Exception, e: print e; continue # FIXME: reconsider this should it be continue/raise
-    if loaded.__dict__.has_key(pluginClassName): obj = loaded.__dict__[pluginClassName](*args)
-    else: continue
+      if loaded.__dict__.has_key(pluginClassName): obj = loaded.__dict__[pluginClassName](*args)
+      else: continue
+    except Exception, e: e=e
+    if e and debug: raise
+    elif e: print "Error: %s: %s" %(module,e); continue # FIXME: reconsider this should it be continue/raise
     if not isinstance(obj, baseClass): continue
     pluginsList.append(obj)
   return pluginsList
