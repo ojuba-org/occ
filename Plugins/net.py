@@ -15,9 +15,9 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
-import re
-import gtk
 
+import gtk
+import re
 from glob import glob
 from OjubaControlCenter.utils import chkconfig
 from OjubaControlCenter.widgets import LaunchOrInstall, sure, info, error

@@ -15,6 +15,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
+
 import gtk
 from OjubaControlCenter.widgets import InstallOrInactive, sure, info, error, wait
 from OjubaControlCenter.pluginsClass import PluginsClass
@@ -38,7 +39,7 @@ class occPlugin(PluginsClass):
     
   def apply_cb(self, w):
     if not sure(_('Are you sure you want to detect and add other operating systems?'), self.ccw): return
-    dlg=wait()
+    dlg=wait(self.ccw)
     dlg.show_all()
     r=self.ccw.mechanism('grub2','os_prober_cb')
     dlg.hide()

@@ -15,6 +15,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
+
 import gtk
 import os
 from OjubaControlCenter.utils import cmd_out, copyfile
@@ -169,7 +170,7 @@ class occPlugin(PluginsClass):
       os.mkdir(os.path.dirname(self.bg_nm))
     if not copyfile(self.bg_fn,self.bg_nm):
       return error('%s\n%s' %(_('This file can not be used, As Grub back ground:'),self.bg_fn),self.ccw)
-    dlg=wait()
+    dlg=wait(self.ccw)
     dlg.show_all()
     self.conf[0]['GRUB_TIMEOUT'] = int(self.Time_Out.get_value())
     self.conf[0]['GRUB_DISTRIBUTOR'] = self.conf[0]['GRUB_DISTRIBUTOR']

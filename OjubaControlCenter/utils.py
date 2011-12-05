@@ -15,7 +15,9 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
-import sys, os, os.path, re
+
+import os
+import re
 from glob import glob
 from itertools import groupby
 from subprocess import Popen, PIPE

@@ -18,7 +18,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
 
 import gtk 
 import gconf
-import os
+import os.path
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.gwidgets import resetButton, comboBox, hscale, fontButton, creatVBox
 

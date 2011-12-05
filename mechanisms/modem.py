@@ -15,11 +15,10 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
-import os
-import os.path
-import re
 
+import re
 from OjubaControlCenter.mechanismClass import mechanismClass
+
 class OccMechanism(mechanismClass):
   sl_interface_re=re.compile(r'^\s*(INTERFACE)\s*=\s*(\S*)\s*$', re.M)
   def __init__(self):

@@ -2,13 +2,10 @@
 # -*- coding: utf-8 -*-
 
 import gobject
-import dbus
+#import dbus
 import dbus.mainloop.glib
-
 import slip.dbus.service
-
 from OCCBackend import Backend
-
 from OjubaControlCenter.odbus import dbus_service_name, dbus_service_path
 
 def run_service ():

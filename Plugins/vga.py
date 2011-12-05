@@ -15,15 +15,15 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
-import pty
-import signal
+
+#TODO: replace os by subprocess
+#import time
+import gtk
 import os
 import re
-import time
-import gtk
-
+import signal
 from subprocess import Popen, PIPE
-
+from pty import fork as pty_fork
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.widgets import run_in_bg
 from OjubaControlCenter.widgets import LaunchOrInstall, info, error
@@ -257,7 +257,7 @@ You may want to check how slow is your VGA card by performing 5 second glxgears 
     while (gtk.events_pending ()): gtk.main_iteration ()
     env=os.environ.copy()
     env['LC_ALL']='C'
-    pid,fd=pty.fork()
+    pid,fd=pty_fork()
     if pid==0: os.execvpe('glxgears',['glxgears',],env=env)
     f=os.fdopen(fd)
     n=0

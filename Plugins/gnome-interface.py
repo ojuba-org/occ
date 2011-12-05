@@ -15,9 +15,9 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
-import os.path
-import logging
-import gtk 
+
+import gtk
+import os
 import gconf
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.gwidgets import resetButton, GSCheckButton, comboBox, comboBoxWithFolder, creatVBox
@@ -27,12 +27,12 @@ class occPlugin(PluginsClass):
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('Shell Interface'),'gnome',40)
     description=_("Adjust interface settings")
-    self.dirs={}
+    self.dirs=self.get_dirs()
     creatVBox(self, ccw, description, self.GioSettings, self.gconfsettings) 
     
   def GioSettings(self, vb, ccw):
     P='org.gnome.shell.clock'
-    if not P in ccw.GSchemas_List: return False
+    if not P in ccw.GSchemas_List or not ccw.GSettings: return False
     GS = ccw.GSettings(P)
     DT_l=( \
        (_('Show seconds in clock'),'show-seconds'),
@@ -59,7 +59,6 @@ class occPlugin(PluginsClass):
     PP="org.gnome.shell.extensions.user-theme"
     b=InstallOrInactive(self, 'Install Gnome shell extension user theme','Gnome shell extension user theme installed','Package used to change Gnome shell theme',['gnome-shell-extension-user-theme'],'/usr/share/glib-2.0/schemas/org.gnome.shell.extensions.user-theme.gschema.xml')
     P_Stst=b.get_sensitive()
-    self.dirs=self.get_dirs()
     if not P_Stst:
       GSP = ccw.GSettings(PP)
       cb=comboBoxWithFolder(_('Shell theme'),'name',GSP,self.get_shell_themes(),_('Add Shell theme'),os.path.expanduser('~/.themes'), self.get_shell_themes)
@@ -134,6 +133,7 @@ class occPlugin(PluginsClass):
     dirs['themes'] = ( os.path.join('/usr/share/', "themes"),
                        os.path.join(os.path.expanduser("~"), ".themes"))
     return dirs
+
   def walk_directories(self, dirs, filter_func):
     valid = []
     try:
@@ -142,6 +142,5 @@ class occPlugin(PluginsClass):
                 for t in os.listdir(thdir):
                     if filter_func(os.path.join(thdir, t)):
                          valid.append(t)
-    except:
-        logging.critical("Error parsing directories", exc_info=True)
+    except: pass
     return valid

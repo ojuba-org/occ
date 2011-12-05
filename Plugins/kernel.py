@@ -15,8 +15,11 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
+
 import gtk
-import re, os, rpm
+import os
+import re
+import rpm
 from glob import glob
 from OjubaControlCenter.widgets import NiceButton, InstallOrInactive, sure, info, error
 from OjubaControlCenter.pluginsClass import PluginsClass

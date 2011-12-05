@@ -16,8 +16,10 @@ Copyright © 2011, Ojuba.org <core@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 import gtk
-import os, os.path, shutil
-import rpm
+import os
+import shutil
+from rpm import TransactionSet as rpm_TransactionSet, _RPMVSF_NOSIGNATURES as rpm_RPMVSF_NOSIGNATURES,\
+                RPMTAG_NAME as rpm_RPMTAG_NAME, versionCompare as rpm_versionCompare
 from glob import glob
 from OjubaControlCenter.widgets import NiceButton, InstallOrInactive, wait, sure, info, error
 from OjubaControlCenter.pluginsClass import PluginsClass
@@ -25,8 +27,8 @@ from functools  import cmp_to_key
 
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
-    self.ts = rpm.TransactionSet()
-    self.ts.setVSFlags(rpm._RPMVSF_NOSIGNATURES)
+    self.ts = rpm_TransactionSet()
+    self.ts.setVSFlags(rpm_RPMVSF_NOSIGNATURES)
     # will be used to save 450 MB avaliable after copying
     self.LFREE = 450*1024*1024
     
@@ -94,13 +96,13 @@ class occPlugin(PluginsClass):
     for fn in rpm_ls:
       hdr = self.get_rpm_hdr(fn)
       if not hdr: continue
-      n = hdr[rpm.RPMTAG_NAME]
+      n = hdr[rpm_RPMTAG_NAME]
       if rpm_h.has_key(n): rpm_h[n].append({"h":hdr, "fn":fn})
       else: rpm_h[n] = [{"h":hdr, "fn":fn}]
     latest_ls = []
     old_ls = []
     for n,l in rpm_h.items():
-      latest = max(l, key=cmp_to_key(lambda x,y: rpm.versionCompare(x["h"], y["h"])))
+      latest = max(l, key=cmp_to_key(lambda x,y: rpm_versionCompare(x["h"], y["h"])))
       old = map(lambda a: a['fn'],filter(lambda i: i!=latest, l))
       latest_ls.append(latest['fn'])
       old_ls.extend(old)

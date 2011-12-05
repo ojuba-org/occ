@@ -15,8 +15,9 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
-import sys, os, os.path
+
 import gtk
+import os.path
 from utils import *
 
 class NiceImage(gtk.Image):

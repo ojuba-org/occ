@@ -15,10 +15,11 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
+
 import re
 import os
-import os.path
 from OjubaControlCenter.mechanismClass import mechanismClass
+
 class OccMechanism(mechanismClass):
   pa_conf='/etc/pulse/default.pa'
   pa_daemon_conf='/etc/pulse/daemon.conf'

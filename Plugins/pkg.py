@@ -15,17 +15,15 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
+
 import gtk
-import pango
-import os, os.path
 import re
-import shutil
+import os.path
 from glob import glob
 from OjubaControlCenter.widgets import LaunchButton, info, error, sure
 from OjubaControlCenter.pluginsClass import PluginsClass
-
 import dbus
-import dbus.service
+#import dbus.service
 from dbus.mainloop.glib import DBusGMainLoop
 dbus_loop = DBusGMainLoop(set_as_default = True)
 bus = dbus.SystemBus()

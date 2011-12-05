@@ -16,14 +16,15 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 
+import gtk
 import os
 import json
-import gtk 
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.widgets import LaunchFileManager
 from OjubaControlCenter.gwidgets import creatVBox
+
 class extHBox(gtk.HBox):
-  def __init__(self, parent, ext):
+  def __init__(self, parent, ext, ccw):
     gtk.HBox.__init__(self,False,0)
     self.Parent=parent
     self.Uuid=self.Name=self.Description=self.Shell_version=''
@@ -38,11 +39,15 @@ class extHBox(gtk.HBox):
     self.set_tooltip_text(self.Description)
     self.chkb = c = gtk.CheckButton(self.Name)
     c.set_active(self.Parent.is_enabled(self.Uuid))
-    # TODO: check shell version compatibility
-    c.set_sensitive(bool(self.Shell_version))
+    c.set_sensitive(self.is_compatible())
+    #print self.Name,self.Shell_version
     c.connect('toggled',self.set_stat)
     self.pack_start(self.chkb,True,True,1)
   
+  def is_compatible(self):
+    return self.Parent.s_shell_ver in self.Shell_version or \
+           self.Parent.l_shell_ver in self.Shell_version
+    
   def set_stat(self, b):
     f=self.Parent.set_disabled
     if self.chkb.get_active(): f=self.Parent.set_enabled
@@ -51,25 +56,31 @@ class extHBox(gtk.HBox):
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('Gnome shell extension'),'gnome',50)
+    description=_("Gnome shell extension manager")
+    shell_ver=ccw.installed_info('gnome-shell')
+    if not shell_ver or not ccw.GSettings:
+      creatVBox(self, ccw, description, resetBtton=False) 
+      return
+    self.l_shell_ver=shell_ver['version']
+    self.s_shell_ver='.'.join(self.l_shell_ver.split('.')[:2])
     self.key='enabled-extensions'
     self.dirs=['/usr/share/gnome-shell/extensions/','/home/ehab/.local/share/gnome-shell/extensions']
     self.extensions={}
     self.GS=None
-    description=_("Gnome shell extension manager")
     creatVBox(self, ccw, description, self.GioSettings, resetBtton=False) 
 
   def GioSettings(self, vb, ccw):
     P='org.gnome.shell'
-    if not P in ccw.GSchemas_List: print 'p';return False
+    if not P in ccw.GSchemas_List: return False
     self.GS=ccw.GSettings(P)
-    if not self.key in self.GS.keys(): print 'k';return False
+    if not self.key in self.GS.keys(): return False
     self.extensions=self.get_installed_dict()
     h=gtk.HBox(False,0)
     h.pack_start(LaunchFileManager(_("Personal shell extensions folder"), os.path.expanduser('~/.local/share/gnome-shell/')),False,False,2)
     vb.pack_start(h,False,False,6)
     
     for ext in self.extensions:
-      c = extHBox(self, self.extensions[ext])
+      c = extHBox(self, self.extensions[ext], ccw)
       vb.pack_start(c,False,False,6)
       
   def enabled_list(self):

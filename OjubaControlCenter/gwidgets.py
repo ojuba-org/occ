@@ -15,10 +15,11 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
+
 import gtk
+import os
 from widgets import sure, error
 from utils import run_file_man
-import os
 
 unavail_txt=_('This setting Unavailable ')
 def setup_reset_button(widget):
@@ -72,7 +73,8 @@ class comboBox(gtk.HBox):
         
   def update(self,*args, **kw):
     v=self.gs.get_string(self.k)
-    self.cb.set_active(self.List.index(v))
+    try: self.cb.set_active(self.List.index(v))
+    except ValueError: pass
     
   def reset(self, *args):
     self.gs.reset(self.k)
@@ -222,7 +224,7 @@ class resetButton(gtk.HBox):
          if child and hasattr(child, 'rb'): child.reset()
        except AttributeError: print child
 
-def creatVBox(parent, ccw, description, gsFuc, nogsFunc=not_installed, resetBtton=True):
+def creatVBox(parent, ccw, description, gsFuc=not_installed, nogsFunc=not_installed, resetBtton=True):
   vbox=gtk.VBox(False,2)
   vb=gtk.VBox(False,2)
   #FIXME: Toggle comment state for next 7 lines to disable expander 

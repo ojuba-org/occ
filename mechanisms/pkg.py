@@ -15,11 +15,12 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
+
 import re
 import os
-import os.path
 from glob import glob
 from OjubaControlCenter.mechanismClass import mechanismClass
+
 class OccMechanism(mechanismClass):
   name_re=re.compile(r'^\s*name\s*=\s*(.*)\s*$',re.M)
   name_s_re=re.compile(r'^(\s*name\s*=\s*(.*?))\s*$',re.M)

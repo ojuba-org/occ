@@ -16,12 +16,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 
-import re
-import os
-import os.path
 import gtk
-from subprocess import *
-
 from OjubaControlCenter.utils import chkconfig
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.widgets import InstallOrInactive, error, info, sure

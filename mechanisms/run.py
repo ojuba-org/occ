@@ -15,10 +15,11 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
-import os
-import os.path
+
+import os.system
 from OjubaControlCenter.utils import *
 from OjubaControlCenter.mechanismClass import mechanismClass
+
 class OccMechanism(mechanismClass):
   def __init__(self):
     mechanismClass.__init__(self,'run')

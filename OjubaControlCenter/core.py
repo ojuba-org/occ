@@ -17,11 +17,11 @@ Copyright © 2009-2011, ojuba.org <core@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 import gettext
-import os
+#import os
 import os.path
 import sys
-import glob
-import imputil
+#import glob
+#import imputil
 try: from gi.repository import Gio
 except ImportError: Gio=None
 ld=os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])),'..','share','locale')
@@ -30,7 +30,7 @@ gettext.install('occ', ld, unicode=0)
 
 import rpm
 import gtk
-import gtk.gdk
+#import gtk.gdk
 
 
 from OjubaControlCenter import loader
@@ -42,12 +42,6 @@ from OjubaControlCenter.odbus.proxy.OCCBackend import Backend
 import dbus
 from dbus.mainloop.glib import DBusGMainLoop
 bus = dbus.SessionBus()
-
-#if not os.environ.has_key('DESKTOP_SESSION') or not os.environ['DESKTOP_SESSION'] == 'gnome':
-#  Gio=None
-ts = rpm.TransactionSet()
-if not ts.dbMatch('name','gnome-shell').count(): Gio=None
-del ts
 
 def getSpecialIcon(icon,size=gtk.ICON_SIZE_DIALOG):
   return gtk.image_new_from_icon_name(icon, size)
@@ -208,6 +202,13 @@ class CCWindow(gtk.Window):
     for p in pkgs:
       if not ts.dbMatch('name',p).count(): return False
     return True
+  
+  def installed_info(self, pkg):
+    ts = rpm.TransactionSet()
+    r = ts.dbMatch('name',pkg)
+    if not r: return None
+    return r.next()
+    
   def mechanism(self,*args, **kw):
     try: return self.__mechanism.call(args)
     except dbus.exceptions.DBusException, msg:

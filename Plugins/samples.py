@@ -16,7 +16,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 import gtk
-import os, os.path
+import os
 import re
 from glob import glob
 from OjubaControlCenter.widgets import info,error

@@ -16,17 +16,14 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 
-import glob
-import imputil
-import os
+#import glob
+#import imputil
+#import os
 import os.path
 import sys
 from OjubaControlCenter import loader
 from OjubaControlCenter.mechanismClass import mechanismClass
-
-
 from OjubaControlCenter.odbus import dbus_service_name, dbus_service_path
-
 import dbus.service
 import slip.dbus.service
 import slip.dbus.polkit as polkit
@@ -48,7 +45,7 @@ class Backend (slip.dbus.service.Object):
     #self.__m['ping'].call('foo','bar')
 
   @polkit.require_auth("org.ojuba.occ.call")
-  @dbus.service.method(dbus_interface = dbus_service_name + ".Backend", in_signature = "as", out_signature = "s")
+  @dbus.service.method(dbus_interface = dbus_service_name + ".Backend")
   def call(self,args):
     M=args[0]
     a=args[1:]
@@ -56,7 +53,7 @@ class Backend (slip.dbus.service.Object):
     else: r=''
     return r
 
-  @dbus.service.method(dbus_interface = dbus_service_name + ".Backend", in_signature = "", out_signature = "s")
+  @dbus.service.method(dbus_interface = dbus_service_name + ".Backend")
   def Version(self):
     return "0.1"
 

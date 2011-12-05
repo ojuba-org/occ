@@ -15,7 +15,9 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
-import gtk, os
+
+import gtk
+import os
 import urllib
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.utils import  which_exe
@@ -137,27 +139,38 @@ class occPlugin(PluginsClass):
     hb.pack_end(LaunchOrInstall(self,'K Stars','/usr/bin/kstars',['kdeedu-kstars']),False,False,2)
 
   def inst_opera(self, b):
-    opera_url=get_latest_opera_url()
+    dlg=wait(self.ccw)
+    dlg.show()
+    opera_url=self.get_latest_opera_url()
+    if not opera_url:
+      dlg.hide()
+      return error(_("Can not get latest opera url, make sure that you are online!"), self.ccw)
     print opera_url
-    if which_exe('opera'): info(_('already installed')); return
-    dlg=wait()
+    if which_exe('opera'):
+      dlg.hide()
+      return info(_('already installed'), self.ccw)
     r=self.ccw.mechanism('run','system','rpm -Uvh "%s"' % opera_url, on_fail='-1')
     dlg.hide()
     if r == 'NotAuth': return
     if dlg: dlg.destroy()
-    info(_("You can wait about 5-15 minutes while downloading opera browser."))
+    info(_("You can wait about 5-15 minutes while downloading opera browser."), self.ccw)
 
   def get_ftp_cont(self, url):
-    sock = urllib.urlopen(url)
+    try: sock = urllib.urlopen(url)
+    except IOError: return None
     opera_ver_ls = map(lambda a: a.split()[-1].strip(), sock.readlines())
     sock.close()
     return opera_ver_ls
 
   def get_latest_opera_url(self):
     opera_base_url="ftp://ftp.opera.com/pub/opera/linux/"
-    opera_ver_ls=map(lambda a: int(a), filter(lambda a: 'b' not in a, self.get_ftp_cont(opera_base_url)))
+    ftp_cont=self.get_ftp_cont(opera_base_url)
+    if not ftp_cont: return None
+    opera_ver_ls=map(lambda a: int(a), filter(lambda a: 'b' not in a, ftp_cont))
     latest_opera_dir="%s%d/"%(opera_base_url,max(opera_ver_ls))
-    latest_files_ls = map(lambda a: a.split()[-1].strip(), self.get_ftp_cont(latest_opera_dir))
+    ftp_cont=self.get_ftp_cont(latest_opera_dir)
+    if not ftp_cont: return None
+    latest_files_ls = map(lambda a: a.split()[-1].strip(),ftp_cont )
     basearch=os.uname()[4]
     if basearch=='i686': basearch='i386'
     basearch_rpm='.%s.rpm'%basearch

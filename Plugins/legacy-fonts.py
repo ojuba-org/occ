@@ -15,14 +15,16 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
+
 import gtk
-import sys, os, os.path
+import os
+import sys
 import re
 from urllib import unquote
-import shutil
 from glob import glob
 from OjubaControlCenter.widgets import InstallOrInactive, error
 from OjubaControlCenter.pluginsClass import PluginsClass
+
 class occPlugin(PluginsClass):
   __ch_re=re.compile(r'\\(0\d\d)')
   def __init__(self,ccw):

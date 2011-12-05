@@ -15,8 +15,8 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
-import gtk
 
+import gtk
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.widgets import LaunchButton
 

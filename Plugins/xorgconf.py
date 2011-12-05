@@ -15,15 +15,14 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
-import pty
-import signal
-import os
-import re
-import time
+
+#import pty
+#import signal
+#import os
+#import re
+#import time
 import gtk
-
 from subprocess import Popen, PIPE
-
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.widgets import run_in_bg
 from OjubaControlCenter.widgets import LaunchOrInstall, sure, info, error

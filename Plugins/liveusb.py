@@ -15,17 +15,16 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
+
 import gtk
-import pango
-import os, os.path
+import os
 import re
-import shutil
 from glob import glob
 from OjubaControlCenter.widgets import wait, info, sure, error
 from OjubaControlCenter.pluginsClass import PluginsClass
 
 import dbus
-import dbus.service
+#import dbus.service
 from dbus.mainloop.glib import DBusGMainLoop
 dbus_loop = DBusGMainLoop(set_as_default = True)
 bus = dbus.SystemBus()
@@ -142,7 +141,7 @@ class occPlugin(PluginsClass):
     os.system("umount '%s'" % dst)
     cmd='''%s %s "%s" "%s"''' % (f, opt,src,dst)
     print cmd
-    dlg=wait()
+    dlg=wait(self.ccw)
     p=self.__dev_re.findall(dst)[0]
     dst0=self.__dev_re.sub('',dst)
     self.ccw.mechanism('run','system','''echo ",,,*" | sfdisk %s -N%s''' % (dst0, p))

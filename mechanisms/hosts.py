@@ -15,11 +15,12 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
+
 import os
-import os.path
 import re
 from OjubaControlCenter.utils import *
 from OjubaControlCenter.mechanismClass import mechanismClass
+
 class OccMechanism(mechanismClass):
   __local_ls_f='/etc/occ/blocked_hosts_local'
   __blocked_ls_f='/etc/occ/blocked_hosts'

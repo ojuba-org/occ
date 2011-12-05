@@ -15,10 +15,11 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
-import os, os.path
-import re
 
+import os
+import re
 from OjubaControlCenter.mechanismClass import mechanismClass
+
 class OccMechanism(mechanismClass):
   smb_conf='/etc/samba/smb.conf'
   smb_global_re=re.compile(r'''^(\s*\[global\])''', re.M)

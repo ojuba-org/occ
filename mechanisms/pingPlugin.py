@@ -15,6 +15,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
+
 from OjubaControlCenter.mechanismClass import mechanismClass
 class OccMechanism(mechanismClass):
   def __init__(self):

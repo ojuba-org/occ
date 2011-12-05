@@ -15,12 +15,11 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
-import glob
+
 import imp
 import os
-import os.path
 import sys
-
+from glob import glob
 
 def loadPlugins(pluginsDir,baseClass, pluginClassName='occPlugin', skip=[], debug=False, *args):
   # Make sure pluginsDir is in the system path so imputil works.
@@ -29,7 +28,7 @@ def loadPlugins(pluginsDir,baseClass, pluginClassName='occPlugin', skip=[], debu
   pluginsList = []
 
   # python files list with extention stripped
-  lst = map(lambda x: os.path.splitext(os.path.basename(x))[0], glob.glob(os.path.join(pluginsDir, "*.py")))
+  lst = map(lambda x: os.path.splitext(os.path.basename(x))[0], glob(os.path.join(pluginsDir, "*.py")))
   for module in lst:
     #print module
     # Attempt to load the found module.

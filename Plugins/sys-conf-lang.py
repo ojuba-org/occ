@@ -15,8 +15,8 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
+
 import gtk
-import os, os.path
 import re
 from OjubaControlCenter.widgets import LaunchOrInstall,info,error
 from OjubaControlCenter.pluginsClass import PluginsClass

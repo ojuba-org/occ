@@ -15,11 +15,11 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
-import os
-import os.path
-import re
 
+import os.system
+import re
 from OjubaControlCenter.mechanismClass import mechanismClass
+
 class OccMechanism(mechanismClass):
   onboot_re=re.compile(r'^\s*(ONBOOT)\s*=\s*(\S*)\s*$', re.M)
   nm_ctl_re=re.compile(r'^\s*(NM_CONTROLLED)\s*=\s*(\S*)\s*$', re.M)
