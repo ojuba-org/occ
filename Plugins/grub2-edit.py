@@ -22,6 +22,24 @@ from OjubaControlCenter.utils import cmd_out, copyfile
 from OjubaControlCenter.widgets import InstallOrInactive, sure, info, error, wait
 from OjubaControlCenter.pluginsClass import PluginsClass
 
+class filechooser_b(gtk.FileChooserButton):
+  def __init__(self, title):
+    gtk.FileChooserButton.__init__(self, title)
+    preview = gtk.Image()
+    self.set_preview_widget(preview)
+    self.connect("update-preview", self.update_preview_cb, preview)
+    
+  def update_preview_cb(self, s,preview):
+    filename = self.get_preview_filename()
+    try:
+      pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(filename, 128, 128)
+      preview.set_from_pixbuf(pixbuf)
+      have_preview = True
+    except:
+      have_preview = False
+    self.set_preview_widget_active(have_preview)
+    return
+    
 class occPlugin(PluginsClass):
   conf={}
   conf[0]={}
@@ -30,7 +48,7 @@ class occPlugin(PluginsClass):
   user_conf=os.path.join(os.path.expanduser('~'),'.occ','grub')
   font_fn='/usr/share/fonts/dejavu/DejaVuSansMono.ttf'
   font_nm='Sans'
-  bg_nm=os.path.join(os.path.expanduser('~'),'.occ','grub2.png')
+  bg_nm='/tmp/grubbg.png' #os.path.join(os.path.expanduser('~'),'.occ','grub2.png')
   bg_fn='/usr/share/backgrounds/verne/default/normalish/verne.png'
   gfxmode='auto'
   def __init__(self,ccw):
@@ -81,12 +99,30 @@ class occPlugin(PluginsClass):
     h.pack_start(l, False,False,2)
     
     h=gtk.HBox(False,2); vbox.pack_start(h,False,False,6)
-    # TODO: customizable BACKGROUND
     l=gtk.Label("%s: %s" %(_("Background"),self.bg_fn))
-    b=gtk.Button(_('Change picture'))
-    b.connect('clicked', self.open_pic_cb, l)
-    h.pack_start(b, False,False,2)
+    #b=gtk.Button(_('Change picture'))
+    #b.connect('clicked', self.open_pic_cb, l)
+    #h.pack_start(b, False,False,2)
+    fc=filechooser_b(_('Choose boot background'))
+    ff=f=gtk.FileFilter()
+    #ff.set_name(_('PNG image files'))
+    #ff.add_mime_type('image/png')
+    #fc.add_filter(ff)
+    ff=gtk.FileFilter()
+    ff.set_name(_('All image files'))
+    ff.add_mime_type('image/*')
+    fc.set_filter(ff)
+    if self.conf[1].has_key('BACKGROUND') and os.path.exists(self.conf[1]['BACKGROUND']):
+      fc.set_filename(self.conf[1]['BACKGROUND'])
+    fc.connect('file-set', self.img_changed, l)
+    h.pack_start(fc, False,False,2)
     h.pack_start(l, False,False,2)
+    
+    h=gtk.HBox(False,2); vbox.pack_start(h,False,False,6)
+    self.img=img=gtk.Image()
+    self.img_preview()
+    h.pack_start(img, False, False, 2)
+    self.img_preview()
     
     h=gtk.HBox(False,2); vbox.pack_start(h,False,False,6)
     self.gfxmode_c = c = gtk.CheckButton('%s  = %s' %(_("Set GFXMODE"), self.gfxmode))
@@ -117,25 +153,30 @@ class occPlugin(PluginsClass):
     #self.theme_c.set_active(self.conf.has_key('GRUB_BACKGROUND') and self.conf['GRUB_BACKGROUND'] != '')
     self.theme_c.set_active(os.path.isfile('/boot/grub2/unicode.pf2'))
     
-  def open_pic_cb(self, b, l):
-    dlg=gtk.FileChooserDialog(_("Select PNG image data 8-bit/color RGBA file"),buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT, gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
-    ff=gtk.FileFilter()
-    ff.add_mime_type('image/png')
-    #ff.add_pattern('*.png')
-    dlg.set_filter(ff)
-    dlg.set_filename(self.bg_fn)
-    dlg.connect('delete-event', lambda w, *a: w.hide() or True)
-    dlg.connect('response', lambda w, *a: w.hide() or True)
-    err=0
-    if (dlg.run()==gtk.RESPONSE_ACCEPT):
-      fn=dlg.get_filename()
-      if self.png_match(fn):
-        self.bg_fn=fn
-        l.set_text("%s: %s" %(_("Background"),self.bg_fn))
-      else: err=1
-    dlg.hide()
-    if err: error('%s:\n%s\n%s %s' %(_('Error: This file'),fn,_('is not'),'8-bit/color RGBA, PNG image data'),self.ccw)
-  
+  def img_preview(self, fn=None):
+    if not fn:
+      if not self.conf[1].has_key('BACKGROUND'): return False
+      fn=self.conf[1]['BACKGROUND']
+    # FIXME: show broken image instead of return
+    if not os.path.exists(fn): return False
+    W=gtk.gdk.screen_width()
+    H=gtk.gdk.screen_height()
+    try: pixbuf = gtk.gdk.pixbuf_new_from_file(fn)
+    except: return False
+    scaled_buf = pixbuf.scale_simple(int(W*128/H),128,gtk.gdk.INTERP_BILINEAR)
+    self.img.set_from_pixbuf(scaled_buf)
+    return True
+    
+  def convert_img(self, in_fn, out_fn, t='png'):
+    im=gtk.gdk.pixbuf_new_from_file(in_fn)
+    im.save(out_fn, t)
+    
+  def img_changed(self, b,l):
+    fn=b.get_filename()
+    if not self.img_preview(fn): return
+    self.bg_fn=fn
+    l.set_text("%s: %s" %(_("Background"),self.bg_fn))
+    
   def png_match(self, fn):
     if not os.path.isfile(fn): return False
     f = ' '.join(cmd_out("file \"%s\"" % fn)[0].split(':')[1].split()[0:-1])
@@ -166,12 +207,9 @@ class occPlugin(PluginsClass):
     
   def apply_cb(self, w):
     if not sure(_('Are you sure you want to changes?'), self.ccw): return
-    if not os.path.isdir(os.path.dirname(self.bg_nm)):
-      os.mkdir(os.path.dirname(self.bg_nm))
-    if not copyfile(self.bg_fn,self.bg_nm):
-      return error('%s\n%s' %(_('This file can not be used, As Grub back ground:'),self.bg_fn),self.ccw)
     dlg=wait(self.ccw)
     dlg.show_all()
+    self.convert_img(self.bg_fn, self.bg_nm)
     self.conf[0]['GRUB_TIMEOUT'] = int(self.Time_Out.get_value())
     self.conf[0]['GRUB_DISTRIBUTOR'] = self.conf[0]['GRUB_DISTRIBUTOR']
     self.conf[0]['GRUB_DISABLE_RECOVERY'] = str(not self.recovery_c.get_active()).lower()
@@ -185,12 +223,13 @@ class occPlugin(PluginsClass):
     self.conf[1]['FONT_NAME'] = self.font_nm
     font=self.font_fn
     if not self.theme_c.get_active(): font=''
-    s = '\n'.join(map(lambda k: "%s=%s" % (k,str(self.conf[0][k])), self.conf[0].keys()))
-    m = '\n'.join(map(lambda k: "%s=%s" % (k,str(self.conf[1][k])), self.conf[1].keys()))
-    open(self.user_conf, 'w+').write(m)
-    #print m, '\n\n',s,font, self.bg_fn,self.bg_nm
+    cfg = '\n'.join(map(lambda k: "%s=%s" % (k,str(self.conf[0][k])), self.conf[0].keys()))
+    cfg +='\n'
+    usr_cfg = '\n'.join(map(lambda k: "%s=%s" % (k,str(self.conf[1][k])), self.conf[1].keys()))
+    open(self.user_conf, 'w+').write(usr_cfg)
+    #print usr_cfg, '\n\n',cfg,font, self.bg_fn,self.bg_nm
     #return
-    r = self.ccw.mechanism('grub2', 'apply_cfg', self.conf_fn, s, font, self.bg_nm)
+    r = self.ccw.mechanism('grub2', 'apply_cfg', self.conf_fn, cfg, font, self.bg_nm)
     dlg.hide()
     if r == 'NotAuth': return 
     if r.startswith("Error"): return error('%s: %s' %(_('Error!'),r),self.ccw)
