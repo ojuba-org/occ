@@ -56,7 +56,9 @@ class occPlugin(PluginsClass):
     self.default_conf()
     self.load_conf(0,self.conf_fn)
     self.load_conf(1,self.user_conf)
-    
+    cfg_dir=os.path.dirname(self.user_conf)
+    if os.path.isfile(cfg_dir): os.unlink(cfg_dir)
+    if not os.path.exists(cfg_dir): os.mkdir(cfg_dir)
     vb=gtk.VBox(False,2)
     self.add(vb)
 
