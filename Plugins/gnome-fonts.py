@@ -44,6 +44,7 @@ class occPlugin(PluginsClass):
       vb.pack_start(b,False,False,1)
     self.gconfsettings(vb, ccw)
     P='org.gnome.settings-daemon.plugins.xsettings'
+    if not P in ccw.GSchemas_List: return True
     GS = ccw.GSettings(P)
     FD_l=( \
        (_('Hinting'),'hinting'),

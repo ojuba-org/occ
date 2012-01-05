@@ -27,13 +27,14 @@ class occPlugin(PluginsClass):
     creatVBox(self, ccw, description, self.GioSettings) 
     
   def GioSettings(self, vb, ccw):
-    SD_P='org.gnome.desktop.background'
-    DT_P='org.gnome.nautilus.desktop'
-    if not SD_P in ccw.GSchemas_List: return False
-    GS = ccw.GSettings(SD_P)
+    P='org.gnome.desktop.background'
+    if not P in ccw.GSchemas_List: return False
+    GS = ccw.GSettings(P)
     c=mainGSCheckButton(vb,_('Show desktop icons'),'show-desktop-icons',GS)
     vb.pack_start(c,False,False,1)
-    GS = ccw.GSettings(DT_P)
+    P='org.gnome.nautilus.desktop'
+    if not P in ccw.GSchemas_List: return True
+    GS = ccw.GSettings(P)
     DT_l=( \
        (_('Computer'),'computer-icon-visible'),
        (_('Home'),'home-icon-visible'),
