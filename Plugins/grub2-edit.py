@@ -38,7 +38,6 @@ class filechooser_b(gtk.FileChooserButton):
     except:
       have_preview = False
     self.set_preview_widget_active(have_preview)
-    return
     
 class occPlugin(PluginsClass):
   conf={}
@@ -53,14 +52,20 @@ class occPlugin(PluginsClass):
   gfxmode='auto'
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('Grub2 settings:'),'boot',30)
+    vb=gtk.VBox(False,2)
+    self.add(vb)
+    if not ccw.installed_info('grub2'): 
+      h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+      l=gtk.Label(_("Grub2 not isntalled!"))
+      h.pack_start(l, False,False,2)
+      return
     self.default_conf()
     self.load_conf(0,self.conf_fn)
     self.load_conf(1,self.user_conf)
     cfg_dir=os.path.dirname(self.user_conf)
     if os.path.isfile(cfg_dir): os.unlink(cfg_dir)
     if not os.path.exists(cfg_dir): os.mkdir(cfg_dir)
-    vb=gtk.VBox(False,2)
-    self.add(vb)
+    
 
     h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
     l=gtk.Label(_("This section will help you to change grub2 settings"))
@@ -122,7 +127,7 @@ class occPlugin(PluginsClass):
     
     h=gtk.HBox(False,2); vbox.pack_start(h,False,False,6)
     self.img=img=gtk.Image()
-    self.img_preview()
+    #self.img_preview()
     h.pack_start(img, False, False, 2)
     self.img_preview()
     
@@ -170,8 +175,14 @@ class occPlugin(PluginsClass):
     return True
     
   def convert_img(self, in_fn, out_fn, t='png'):
-    im=gtk.gdk.pixbuf_new_from_file(in_fn)
-    im.save(out_fn, t)
+    if not os.path.isfile(in_fn):
+      self.bg_nm=''
+      return
+    try:
+      im=gtk.gdk.pixbuf_new_from_file(in_fn)
+      im.save(out_fn, t)
+    except:
+      self.bg_nm=''
     
   def img_changed(self, b,l):
     fn=b.get_filename()
@@ -228,7 +239,8 @@ class occPlugin(PluginsClass):
     cfg = '\n'.join(map(lambda k: "%s=%s" % (k,str(self.conf[0][k])), self.conf[0].keys()))
     cfg +='\n'
     usr_cfg = '\n'.join(map(lambda k: "%s=%s" % (k,str(self.conf[1][k])), self.conf[1].keys()))
-    open(self.user_conf, 'w+').write(usr_cfg)
+    try: open(self.user_conf, 'w+').write(usr_cfg)
+    except IOError: pass
     #print usr_cfg, '\n\n',cfg,font, self.bg_fn,self.bg_nm
     #return
     r = self.ccw.mechanism('grub2', 'apply_cfg', self.conf_fn, cfg, font, self.bg_nm)

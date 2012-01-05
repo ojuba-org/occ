@@ -41,9 +41,10 @@ class OccMechanism(mechanismClass):
     old_t=self.read_file(fn)
     bg='/boot/grub2/oj.grub2.png'
     if not self.write_file(fn, t):
-      self.write_file(fn, t)
+      self.write_file(fn, old_t)
       return "Error: Cant not write config file"
-    copyfile(pic, bg)
+    try: copyfile(pic, bg)
+    except IOError: pass
     if font and os.path.isfile(font): 
       cmd_out('su -l -c "grub2-mkfont --output=/boot/grub2/unicode.pf2 %s"'%font)
     else: 
