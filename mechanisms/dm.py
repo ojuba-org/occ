@@ -58,11 +58,11 @@ class OccMechanism(mechanismClass):
     self.__gdm_disable_autologin()
     t=open(self.gdm_conf,'rt').read()
     # instead of modifying the lines if they exists
-    #t,n=gdm_re_subn(r'\1AutomaticLoginEnable=true',t)
-    #t,n=gdm_user_re_subn(r'\1AutomaticLogin='+u,t)
+    #t,n=gdm_re.subn(r'\1AutomaticLoginEnable=true',t)
+    #t,n=gdm_user_re.subn(r'\1AutomaticLogin='+u,t)
 
     # I'm going to remove them then add the new values
-    t,n=self.gdm_daemon_re_subn(r'\1\nAutomaticLoginEnable=true\nAutomaticLogin=%s\n' % u,t)
+    t,n=self.gdm_daemon_re.subn(r'\1\nAutomaticLoginEnable=true\nAutomaticLogin=%s\n' % u,t)
     # if no daemon section add it
     if n==0:
       t+='\n[daemon]\nAutomaticLoginEnable=true\nAutomaticLogin=%s\n' % u
@@ -72,24 +72,24 @@ class OccMechanism(mechanismClass):
   def __gdm_disable_autologin(self):
     t=open(self.gdm_conf,'rt').read()
     n=1
-    while(n): t,n=self.gdm_re_subn(r'\1',t)
+    while(n): t,n=self.gdm_re.subn(r'\1',t)
     n=1
-    while(n): t,n=self.gdm_user_re_subn(r'\1',t)
+    while(n): t,n=self.gdm_user_re.subn(r'\1',t)
     # disable timedlogin
     n=1
-    while(n): t,n=self.gdm_clean_re_subn(r'\1',t)
+    while(n): t,n=self.gdm_clean_re.subn(r'\1',t)
     open(self.gdm_conf,'wt+').write(t)
     return True
 
   def __kdm_autologin(self, u):
     t=open(self.kdm_conf,'rt').read()
-    t,n=self.kdm_re_subn(r'\1AutoLoginEnable=true',t)
+    t,n=self.kdm_re.subn(r'\1AutoLoginEnable=true',t)
     if n==0:
-      t,n=self.kdm_core_re_subn(r'\1AutoLoginEnable=true',t)
+      t,n=self.kdm_core_re.subn(r'\1AutoLoginEnable=true',t)
       if n==0: return False # could not find core section
-    t,n=self.kdm_user_re_subn(r'\1AutoLoginUser='+u,t)
+    t,n=self.kdm_user_re.subn(r'\1AutoLoginUser='+u,t)
     if n==0:
-      t,n=self.kdm_core_re_subn(r'\1\nAutoLoginUser=%s\n' % u,t)
+      t,n=self.kdm_core_re.subn(r'\1\nAutoLoginUser=%s\n' % u,t)
       if n==0: return False # could not find core section
     open(self.kdm_conf,'wt+').write(t)
     return True
@@ -97,9 +97,9 @@ class OccMechanism(mechanismClass):
   def __kdm_disable_autologin(self):
     t=open(self.kdm_conf,'rt').read()
     n=1
-    while(n): t,n=self.kdm_re_subn(r'\1',t)
+    while(n): t,n=self.kdm_re.subn(r'\1',t)
     n=1
-    while(n): t,n=self.kdm_user_re_subn(r'\1',t)
+    while(n): t,n=self.kdm_user_re.subn(r'\1',t)
     open(self.kdm_conf,'wt+').write(t)
     return True
 
