@@ -1,8 +1,5 @@
-# sitelib for noarch packages, sitearch for others (remove the unneeded one)
-%{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
-
 Name:           occ
-Version:        1.21.1
+Version:        1.22.0
 Release:        1%{?dist}
 Summary:        Ojuba Control Center
 
@@ -16,6 +13,10 @@ BuildArch:      noarch
 Requires:       hda-verb usb_modeswitch xdg-utils system-switch-displaymanager glx-utils python-slip-dbus udisks PackageKit system-config-network
 Obsoletes:	media-repo
 BuildRequires:  python-devel
+
+# sitelib for noarch packages, sitearch for others (remove the unneeded one)
+%{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+
 %description
 Ojuba Control Center is a central place to control your computer.
 
