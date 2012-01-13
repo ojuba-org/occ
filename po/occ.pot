@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-08 12:04+0300\n"
+"POT-Creation-Date: 2012-01-14 00:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,46 +21,54 @@ msgstr ""
 msgid "Control your preferences and settings"
 msgstr ""
 
-#: ../occ.desktop.in.h:2 ../OjubaControlCenter/core.py:115
-#: ../OjubaControlCenter/core.py:122 ../OjubaControlCenter/core.py:155
+#: ../occ.desktop.in.h:2 ../OjubaControlCenter/core.py:117
+#: ../OjubaControlCenter/core.py:124 ../OjubaControlCenter/core.py:158
 msgid "Ojuba Control Center"
 msgstr ""
 
-#: ../OjubaControlCenter/core.py:152
+#: ../OjubaControlCenter/core.py:155
 msgid "OCC"
 msgstr ""
 
-#: ../OjubaControlCenter/gwidgets.py:23
-msgid "This setting Unavailable "
-msgstr ""
-
-#: ../OjubaControlCenter/gwidgets.py:26
-msgid "Reset"
-msgstr ""
-
-#: ../OjubaControlCenter/gwidgets.py:96
-msgid "Could not create folder"
-msgstr ""
-
-#: ../OjubaControlCenter/gwidgets.py:196
-msgid "Reset all"
-msgstr ""
-
-#: ../OjubaControlCenter/gwidgets.py:201
-msgid "Are you sure?"
-msgstr ""
-
-#: ../OjubaControlCenter/widgets.py:42
+#: ../OjubaControlCenter/widgets.py:43
 #, python-format
 msgid "File [%s] not found."
 msgstr ""
 
-#: ../OjubaControlCenter/widgets.py:53
+#: ../OjubaControlCenter/widgets.py:54
 msgid "not available"
 msgstr ""
 
-#: ../OjubaControlCenter/widgets.py:139
+#: ../OjubaControlCenter/widgets.py:140
 msgid "Please wait..."
+msgstr ""
+
+#: ../OjubaControlCenter/gwidgets.py:24
+msgid "This setting Unavailable "
+msgstr ""
+
+#: ../OjubaControlCenter/gwidgets.py:27
+msgid "Reset"
+msgstr ""
+
+#: ../OjubaControlCenter/gwidgets.py:43
+msgid "Not installed"
+msgstr ""
+
+#: ../OjubaControlCenter/gwidgets.py:98
+msgid "Refresh"
+msgstr ""
+
+#: ../OjubaControlCenter/gwidgets.py:114
+msgid "Could not create folder"
+msgstr ""
+
+#: ../OjubaControlCenter/gwidgets.py:215
+msgid "Reset all"
+msgstr ""
+
+#: ../OjubaControlCenter/gwidgets.py:220
+msgid "Are you sure?"
 msgstr ""
 
 #. each element is category_id, category_caption, icon_id, category_tip
@@ -96,7 +104,7 @@ msgstr ""
 msgid "Configure hardware"
 msgstr ""
 
-#: ../OjubaControlCenter/categories.py:24 ../Plugins/gnome-icons.py:57
+#: ../OjubaControlCenter/categories.py:24 ../Plugins/gnome-icons.py:41
 msgid "Network"
 msgstr ""
 
@@ -112,45 +120,131 @@ msgstr ""
 msgid "Desktop Icons"
 msgstr ""
 
-#. FIXME: Toggle comment state for next 7 lines to disable expander
-#: ../Plugins/gnome-icons.py:29
+#: ../Plugins/gnome-icons.py:26
 msgid "Select the icons you want to be visible on desktop"
 msgstr ""
 
-#: ../Plugins/gnome-icons.py:40 ../Plugins/gnome-power.py:41
-#: ../Plugins/gnome-interface.py:41 ../Plugins/gnome-shell.py:43
-msgid "Not installed"
-msgstr ""
-
-#: ../Plugins/gnome-icons.py:51
+#: ../Plugins/gnome-icons.py:33
 msgid "Show desktop icons"
 msgstr ""
 
-#: ../Plugins/gnome-icons.py:55
+#: ../Plugins/gnome-icons.py:39
 msgid "Computer"
 msgstr ""
 
-#: ../Plugins/gnome-icons.py:56
+#: ../Plugins/gnome-icons.py:40
 msgid "Home"
 msgstr ""
 
-#: ../Plugins/gnome-icons.py:58
+#: ../Plugins/gnome-icons.py:42
 msgid "Trash"
 msgstr ""
 
-#: ../Plugins/gnome-icons.py:59
+#: ../Plugins/gnome-icons.py:43
 msgid "Mounted volumes"
 msgstr ""
 
-#: ../Plugins/boot-options.py:33
+#: ../Plugins/grub2-edit.py:54
+msgid "Grub2 settings:"
+msgstr ""
+
+#: ../Plugins/grub2-edit.py:59
+msgid "Grub2 not isntalled!"
+msgstr ""
+
+#: ../Plugins/grub2-edit.py:71
+msgid "This section will help you to change grub2 settings"
+msgstr ""
+
+#: ../Plugins/grub2-edit.py:75
+msgid "Time out"
+msgstr ""
+
+#: ../Plugins/grub2-edit.py:78
+msgid "Seconds"
+msgstr ""
+
+#: ../Plugins/grub2-edit.py:81
+msgid "Kernel options"
+msgstr ""
+
+#: ../Plugins/grub2-edit.py:87
+msgid "Enabel recovery option"
+msgstr ""
+
+#: ../Plugins/grub2-edit.py:91
+msgid "Enabel Grub2 theme"
+msgstr ""
+
+#. Grub2 theme frame
+#: ../Plugins/grub2-edit.py:100
+msgid "Grub2 Theme:"
+msgstr ""
+
+#: ../Plugins/grub2-edit.py:105
+msgid "This section will help you to change grub2 Font and background (theme)."
+msgstr ""
+
+#: ../Plugins/grub2-edit.py:109 ../Plugins/grub2-edit.py:191
+msgid "Background"
+msgstr ""
+
+#. b=gtk.Button(_('Change picture'))
+#. b.connect('clicked', self.open_pic_cb, l)
+#. h.pack_start(b, False,False,2)
+#: ../Plugins/grub2-edit.py:113
+msgid "Choose boot background"
+msgstr ""
+
+#: ../Plugins/grub2-edit.py:119
+msgid "All image files"
+msgstr ""
+
+#: ../Plugins/grub2-edit.py:135
+msgid "Set GFXMODE"
+msgstr ""
+
+#: ../Plugins/grub2-edit.py:137
+msgid ""
+"Enable this option if you have boot troubles\n"
+"\n"
+"If your monitor got out sync or turned off, While grub2 menu\n"
+"Press enter to continue booting, And enable this option."
+msgstr ""
+
+#: ../Plugins/grub2-edit.py:142 ../Plugins/grub2-edit.py:219
+msgid "Font name"
+msgstr ""
+
+#: ../Plugins/grub2-edit.py:152
+msgid "Apply"
+msgstr ""
+
+#: ../Plugins/grub2-edit.py:214
+msgid "Error: Can not use this font!"
+msgstr ""
+
+#: ../Plugins/grub2-edit.py:222
+msgid "Are you sure you want to apply changes?"
+msgstr ""
+
+#: ../Plugins/grub2-edit.py:249
+msgid "Error!"
+msgstr ""
+
+#: ../Plugins/grub2-edit.py:250
+msgid "Done!"
+msgstr ""
+
+#: ../Plugins/boot-options.py:32
 msgid "Boot options"
 msgstr ""
 
-#: ../Plugins/boot-options.py:38
+#: ../Plugins/boot-options.py:37
 msgid "Graphical Boot:"
 msgstr ""
 
-#: ../Plugins/boot-options.py:40
+#: ../Plugins/boot-options.py:39
 msgid "Default"
 msgstr ""
 
@@ -162,11 +256,11 @@ msgstr ""
 msgid "glxgears Result:"
 msgstr ""
 
-#: ../Plugins/vga.py:58 ../Plugins/vga.py:271
+#: ../Plugins/vga.py:58 ../Plugins/vga.py:275
 msgid "N/A"
 msgstr ""
 
-#: ../Plugins/vga.py:68 ../Plugins/snd.py:60
+#: ../Plugins/vga.py:68 ../Plugins/snd.py:59
 msgid "Advanced options"
 msgstr ""
 
@@ -215,65 +309,70 @@ msgid "default DFS settings"
 msgstr ""
 
 #. os.system("hda-verb /dev/snd/hwC0D0 0x15 SET_EAPD_BTLENABLE 2")
-#: ../Plugins/vga.py:122 ../Plugins/hardware-info.py:52 ../Plugins/pkg.py:139
-#: ../Plugins/kernel.py:94 ../Plugins/samples.py:60 ../Plugins/samples.py:67
-#: ../Plugins/net-adv.py:74 ../Plugins/net-adv.py:78 ../Plugins/snd.py:116
+#: ../Plugins/vga.py:123 ../Plugins/pkg.py:140 ../Plugins/kernel.py:98
+#: ../Plugins/snd.py:116 ../Plugins/hardware-info.py:53
+#: ../Plugins/samples.py:60 ../Plugins/samples.py:67 ../Plugins/net-adv.py:76
+#: ../Plugins/net-adv.py:81
 msgid "Done."
 msgstr ""
 
-#: ../Plugins/vga.py:123 ../Plugins/vga.py:196 ../Plugins/vga.py:200
-#: ../Plugins/vga.py:204 ../Plugins/hardware-info.py:51
-#: ../Plugins/kernel.py:95 ../Plugins/xorgconf.py:208
-#: ../Plugins/xorgconf.py:251 ../Plugins/xorgconf.py:258
-#: ../Plugins/modem.py:62 ../Plugins/modem.py:67
+#: ../Plugins/vga.py:124 ../Plugins/vga.py:198 ../Plugins/vga.py:203
+#: ../Plugins/vga.py:208 ../Plugins/kernel.py:99 ../Plugins/xorgconf.py:208
+#: ../Plugins/xorgconf.py:252 ../Plugins/xorgconf.py:260
+#: ../Plugins/hardware-info.py:52 ../Plugins/modem.py:58
+#: ../Plugins/modem.py:64
 msgid "unexpected return code, possible an error had occurred."
 msgstr ""
 
-#: ../Plugins/vga.py:129
+#: ../Plugins/vga.py:130
 msgid "Install proprietary nVidia drivers:"
 msgstr ""
 
-#: ../Plugins/vga.py:142
+#: ../Plugins/vga.py:143
 msgid "Enable proprietary drivers"
 msgstr ""
 
-#: ../Plugins/vga.py:143
+#: ../Plugins/vga.py:144
 msgid "nVidia Settings"
 msgstr ""
 
-#: ../Plugins/vga.py:153
+#: ../Plugins/vga.py:154
 #, python-format
 msgid "proprietary nVidia drivers [%s] already installed."
 msgstr ""
 
-#: ../Plugins/vga.py:193
-msgid "KMS is enabled for all kernels."
+#: ../Plugins/vga.py:195
+msgid ""
+"KMS is enabled for all kernels.\n"
+"Note: You may need to remake grub config file."
 msgstr ""
 
-#: ../Plugins/vga.py:194
+#: ../Plugins/vga.py:196
 msgid "KMS is enabled for some kernels, and disabled for others."
 msgstr ""
 
-#: ../Plugins/vga.py:195
-msgid "KMS is disabled for all kernels."
+#: ../Plugins/vga.py:197
+msgid ""
+"KMS is disabled for all kernels.\n"
+"Note: You may need to remake grub config file."
 msgstr ""
 
-#: ../Plugins/vga.py:199
+#: ../Plugins/vga.py:202
 msgid "KMS is now disabled for all kernels."
 msgstr ""
 
-#: ../Plugins/vga.py:203
+#: ../Plugins/vga.py:207
 msgid "KMS is now enabled for all kernels."
 msgstr ""
 
-#: ../Plugins/vga.py:219
+#: ../Plugins/vga.py:223
 msgid ""
 "Your VGA driver supports direct rendering.\n"
 "Before you enable special effects please perform 5 second glxgears speed "
 "test."
 msgstr ""
 
-#: ../Plugins/vga.py:222
+#: ../Plugins/vga.py:226
 msgid ""
 "Your VGA driver does <span color='red'><b>not</b></span> support direct "
 "rendering.\n"
@@ -282,119 +381,159 @@ msgid ""
 "glxgears speed test."
 msgstr ""
 
-#: ../Plugins/vga.py:231
+#: ../Plugins/vga.py:235
 msgid ""
 "If you got more than <b>500 FPS</b> then you may use special effects "
 "efficiently."
 msgstr ""
 
-#: ../Plugins/vga.py:233
+#: ../Plugins/vga.py:237
 msgid "Your VGA card performance is good. you may enjoy special effects."
 msgstr ""
 
-#: ../Plugins/vga.py:235
+#: ../Plugins/vga.py:239
 msgid ""
 "Although your VGA card driver supports direct rendering, it has poor "
 "performance."
 msgstr ""
 
-#: ../Plugins/vga.py:236
+#: ../Plugins/vga.py:240
 msgid ""
 "we don't recommend enabling special effects until you fix this issue by one "
 "or more of the advanced options below."
 msgstr ""
 
-#: ../Plugins/vga.py:239
+#: ../Plugins/vga.py:243
 msgid ""
 "You might enhance your VGA performance by trying one or more of the advanced "
 "options below."
 msgstr ""
 
-#: ../Plugins/vga.py:242
+#: ../Plugins/vga.py:246
 msgid ""
 "nVidia Proprietary drivers are not loaded. You may enhance graphics "
 "performance by installing nvidia proprietary drivers."
 msgstr ""
 
-#: ../Plugins/vga.py:245
+#: ../Plugins/vga.py:249
 msgid "Some cards have problems with KMS, try to disable KMS and reboot."
 msgstr ""
 
-#: ../Plugins/vga.py:252
+#: ../Plugins/vga.py:256
 msgid "wait 5 seconds"
 msgstr ""
 
-#: ../Plugins/vga.py:271
+#: ../Plugins/vga.py:275
 msgid " FPS"
 msgstr ""
 
-#: ../Plugins/hardware-info.py:31
-msgid "Hardware Information"
+#: ../Plugins/gnome-interface.py:28
+msgid "Shell Interface"
 msgstr ""
 
-#: ../Plugins/hardware-info.py:43
-msgid "Details"
+#: ../Plugins/gnome-interface.py:29
+msgid "Adjust interface settings"
 msgstr ""
 
-#: ../Plugins/hardware-info.py:44
-msgid "Update PCI ID database"
+#: ../Plugins/gnome-interface.py:38
+msgid "Show seconds in clock"
 msgstr ""
 
-#: ../Plugins/hardware-info.py:81
-msgid "CPU"
+#: ../Plugins/gnome-interface.py:39
+msgid "Show date in clock"
 msgstr ""
 
-#: ../Plugins/hardware-info.py:82
-msgid "Memory"
+#: ../Plugins/gnome-interface.py:51
+msgid "Menus have icons"
 msgstr ""
 
-#: ../Plugins/hardware-info.py:83
-msgid "VGA"
+#: ../Plugins/gnome-interface.py:52
+msgid "Buttons have icons"
 msgstr ""
 
-#: ../Plugins/hardware-info.py:83
-msgid "Sound card"
+#: ../Plugins/gnome-interface.py:57
+msgid "Clock format"
 msgstr ""
 
-#: ../Plugins/hardware-info.py:83
-msgid "USB"
+#: ../Plugins/gnome-interface.py:64
+msgid "Shell theme"
 msgstr ""
 
-#: ../Plugins/pkg.py:40
+#: ../Plugins/gnome-interface.py:64
+msgid "Add Shell theme"
+msgstr ""
+
+#: ../Plugins/gnome-interface.py:69
+msgid "GTK+ theme"
+msgstr ""
+
+#: ../Plugins/gnome-interface.py:69
+msgid "Add GTK+ theme"
+msgstr ""
+
+#: ../Plugins/gnome-interface.py:70
+msgid "Icon theme"
+msgstr ""
+
+#: ../Plugins/gnome-interface.py:70
+msgid "Add icons theme"
+msgstr ""
+
+#: ../Plugins/gnome-interface.py:71
+msgid "Cursor theme"
+msgstr ""
+
+#: ../Plugins/gnome-interface.py:71
+msgid "Add cursor theme"
+msgstr ""
+
+#: ../Plugins/gnome-interface.py:88
+msgid "Windows theme"
+msgstr ""
+
+#: ../Plugins/gnome-interface.py:88
+msgid "Add Windows theme"
+msgstr ""
+
+#: ../Plugins/gnome-interface.py:88
+msgid "This option requires shell reload"
+msgstr ""
+
+#: ../Plugins/pkg.py:38
 msgid "Package Manager:"
 msgstr ""
 
-#: ../Plugins/pkg.py:44
+#: ../Plugins/pkg.py:42
 msgid ""
 "Package Manager allows you to install software.\n"
 "It saves you the effort downloading, tracing versions and resolving "
 "dependencies."
 msgstr ""
 
-#: ../Plugins/pkg.py:47
+#: ../Plugins/pkg.py:45
 msgid "Add/Remove applications"
 msgstr ""
 
-#: ../Plugins/pkg.py:48
+#: ../Plugins/pkg.py:46
 msgid "KPackageKit"
 msgstr ""
 
-#: ../Plugins/pkg.py:49
+#: ../Plugins/pkg.py:47
 msgid "Yum Extender"
 msgstr ""
 
-#: ../Plugins/pkg.py:51
+#: ../Plugins/pkg.py:49
 msgid ""
 "Package Manager uses predefined software sources (called repositories) to "
 "get software.\n"
 "By using official repositories you will get signed packages."
 msgstr ""
 
-#: ../Plugins/pkg.py:54
+#: ../Plugins/pkg.py:52
 msgid "Software Sources Editor"
 msgstr ""
 
-#: ../Plugins/pkg.py:56
+#: ../Plugins/pkg.py:54
 msgid ""
 "You may add installation medium (CD/DVD) which contains packages.\n"
 "They are used to install packages offline or save bandwidth.\n"
@@ -402,55 +541,55 @@ msgid ""
 "packages over the internet."
 msgstr ""
 
-#: ../Plugins/pkg.py:59
+#: ../Plugins/pkg.py:57
 msgid "Add a media repository"
 msgstr ""
 
-#: ../Plugins/pkg.py:62
+#: ../Plugins/pkg.py:60
 msgid "Disable all media repositories"
 msgstr ""
 
-#: ../Plugins/pkg.py:67
+#: ../Plugins/pkg.py:65
 msgid ""
 "If you don't have internet access you may want to disable internet "
 "repositories."
 msgstr ""
 
-#: ../Plugins/pkg.py:70
+#: ../Plugins/pkg.py:68
 msgid "Disable all internet repositories"
 msgstr ""
 
-#: ../Plugins/pkg.py:73
+#: ../Plugins/pkg.py:71
 msgid "Restore enabled repositories"
 msgstr ""
 
-#: ../Plugins/pkg.py:74
+#: ../Plugins/pkg.py:72
 msgid ""
 "Restore the enabled repositories as they were before disabling internet "
 "repositories"
 msgstr ""
 
-#: ../Plugins/pkg.py:80
+#: ../Plugins/pkg.py:78
 msgid ""
 "You may keep the downloaded packages to pass them to other people.\n"
 "Those packages are kept under /var/cache/yum"
 msgstr ""
 
-#: ../Plugins/pkg.py:83
+#: ../Plugins/pkg.py:81
 msgid "keep downloaded packages"
 msgstr ""
 
-#: ../Plugins/pkg.py:99
+#: ../Plugins/pkg.py:97
 msgid ""
 "Please make sure the media you want to add is inserted before you add it.\n"
 "Do you want to continue?"
 msgstr ""
 
-#: ../Plugins/pkg.py:115
+#: ../Plugins/pkg.py:113
 msgid "No valid media were found."
 msgstr ""
 
-#: ../Plugins/pkg.py:117
+#: ../Plugins/pkg.py:116
 #, python-format
 msgid ""
 "Done. %s repositories were added.\n"
@@ -462,120 +601,119 @@ msgstr ""
 msgid "Done. %s repositories were disabled."
 msgstr ""
 
-#: ../Plugins/pkg.py:147
+#: ../Plugins/pkg.py:149
 msgid "no repository was disabled"
 msgstr ""
 
-#: ../Plugins/pkg.py:148
+#: ../Plugins/pkg.py:150
 #, python-format
 msgid "Done. %d repositories were disabled"
 msgstr ""
 
-#: ../Plugins/pkg.py:156
+#: ../Plugins/pkg.py:159
 msgid "no repository was enabled"
 msgstr ""
 
-#: ../Plugins/pkg.py:157
+#: ../Plugins/pkg.py:160
 #, python-format
 msgid "Done. %d repositories were enabled"
 msgstr ""
 
-#: ../Plugins/printers.py:35
+#: ../Plugins/printers.py:34
 msgid "Printer settings and tools"
 msgstr ""
 
-#: ../Plugins/printers.py:39
+#: ../Plugins/printers.py:38
 msgid "Configure printers"
 msgstr ""
 
-#: ../Plugins/printers.py:41
+#: ../Plugins/printers.py:40
 msgid "Install support for non-standard printers (GDI or winprinters)"
 msgstr ""
 
-#: ../Plugins/printers.py:41
+#: ../Plugins/printers.py:40
 msgid "extra packages are already installed"
 msgstr ""
 
-#: ../Plugins/printers.py:41
+#: ../Plugins/printers.py:40
 msgid "Install foo2* packages"
 msgstr ""
 
-#: ../Plugins/gnome-power.py:26
+#: ../Plugins/gnome-power.py:25
 msgid "Power settings"
 msgstr ""
 
-#. FIXME: Toggle comment state for next 7 lines to disable expander
-#: ../Plugins/gnome-power.py:30
+#: ../Plugins/gnome-power.py:26
 msgid "Adjust power settings"
 msgstr ""
 
-#: ../Plugins/gnome-power.py:51
+#: ../Plugins/gnome-power.py:34
 msgid "Power button"
 msgstr ""
 
-#: ../Plugins/gnome-power.py:52
+#: ../Plugins/gnome-power.py:35
 msgid "Hibernate button"
 msgstr ""
 
-#: ../Plugins/gnome-power.py:53
+#: ../Plugins/gnome-power.py:36
 msgid "Sleep button"
 msgstr ""
 
-#: ../Plugins/gnome-power.py:54
+#: ../Plugins/gnome-power.py:37
 msgid "Suspend button"
 msgstr ""
 
 #. (_('Cursor theme'),'button-sleep'),
-#: ../Plugins/gnome-power.py:56
+#: ../Plugins/gnome-power.py:39
 msgid "Critical battery action"
 msgstr ""
 
-#: ../Plugins/gnome-power.py:57
+#: ../Plugins/gnome-power.py:40
 msgid "Laptop lid close action on AC"
 msgstr ""
 
-#: ../Plugins/gnome-power.py:58
+#: ../Plugins/gnome-power.py:41
 msgid "Laptop lid close action on battery"
 msgstr ""
 
-#: ../Plugins/gnome-power.py:59
+#: ../Plugins/gnome-power.py:42
 msgid "Sleep inactive type on AC"
 msgstr ""
 
-#: ../Plugins/gnome-power.py:60
+#: ../Plugins/gnome-power.py:43
 msgid "Sleep inactive type on power"
 msgstr ""
 
-#: ../Plugins/block-hosts.py:82
+#: ../Plugins/block-hosts.py:80
 msgid "Site Blocking"
 msgstr ""
 
-#: ../Plugins/block-hosts.py:87
+#: ../Plugins/block-hosts.py:85
 msgid "Filter sites with explicit contents"
 msgstr ""
 
-#: ../Plugins/block-hosts.py:92
+#: ../Plugins/block-hosts.py:90
 msgid "Block ads and spyware sites"
 msgstr ""
 
-#: ../Plugins/block-hosts.py:96
+#: ../Plugins/block-hosts.py:94
 msgid "View blocked sites list"
 msgstr ""
 
-#: ../Plugins/block-hosts.py:99
+#: ../Plugins/block-hosts.py:97
 msgid "connect to ojuba.org to get the updated list"
 msgstr ""
 
-#: ../Plugins/block-hosts.py:103
+#: ../Plugins/block-hosts.py:101
 msgid "Block sites in your personal black list"
 msgstr ""
 
-#: ../Plugins/block-hosts.py:113
+#: ../Plugins/block-hosts.py:111
 msgid "Personal black list"
 msgstr ""
 
-#: ../Plugins/block-hosts.py:131 ../Plugins/block-hosts.py:145
-#: ../Plugins/block-hosts.py:158 ../Plugins/block-hosts.py:167
+#: ../Plugins/block-hosts.py:130 ../Plugins/block-hosts.py:144
+#: ../Plugins/block-hosts.py:159 ../Plugins/block-hosts.py:169
 msgid "Done. You may need to restart your browser."
 msgstr ""
 
@@ -583,141 +721,143 @@ msgstr ""
 msgid "windows"
 msgstr ""
 
-#. FIXME: Toggle comment state for next 7 lines to disable expander
-#: ../Plugins/gnome-windows.py:31
+#: ../Plugins/gnome-windows.py:28
 msgid "Adjust windows settings"
 msgstr ""
 
-#. TODO: add the fallback (metacity) window theme
-#: ../Plugins/gnome-windows.py:61
+#: ../Plugins/gnome-windows.py:41
 msgid "Action on title bar double-click"
 msgstr ""
 
-#: ../Plugins/gnome-windows.py:62
+#: ../Plugins/gnome-windows.py:42
 msgid "Action on title bar middle-click"
 msgstr ""
 
-#: ../Plugins/gnome-windows.py:63
+#: ../Plugins/gnome-windows.py:43
 msgid "Action on title bar right-click"
 msgstr ""
 
-#: ../Plugins/gnome-windows.py:64
+#: ../Plugins/gnome-windows.py:44
 msgid "Window focus mode"
 msgstr ""
 
-#: ../Plugins/gnome-windows.py:65
+#: ../Plugins/gnome-windows.py:45
 msgid "Windows button layout"
 msgstr ""
 
-#: ../Plugins/gnome-windows.py:65
+#: ../Plugins/gnome-windows.py:45
 msgid "Require Gnome-Shell Restart"
 msgstr ""
 
-#: ../Plugins/fav-apps.py:41
+#: ../Plugins/fav-apps.py:38
 msgid "Favorite Packages"
 msgstr ""
 
-#: ../Plugins/fav-apps.py:45
+#: ../Plugins/fav-apps.py:42
 msgid ""
 "Those are some selected software packages.\n"
 "If you got packages DVD, you may like to enable it before installing the "
 "packages."
 msgstr ""
 
-#: ../Plugins/fav-apps.py:48
+#: ../Plugins/fav-apps.py:45
 msgid "Desktop:"
 msgstr ""
 
 #. hb.pack_start(LaunchOrInstall(self,'screenlets','/usr/bin/screenlets',['screenlets']),False,False,2)
-#: ../Plugins/fav-apps.py:54
+#: ../Plugins/fav-apps.py:51
 msgid "extra screensavers"
 msgstr ""
 
-#: ../Plugins/fav-apps.py:58
+#: ../Plugins/fav-apps.py:55
 msgid "Internet:"
 msgstr ""
 
-#: ../Plugins/fav-apps.py:70
+#: ../Plugins/fav-apps.py:67
 msgid "Mobile related:"
 msgstr ""
 
-#: ../Plugins/fav-apps.py:76
+#: ../Plugins/fav-apps.py:73
 msgid "Multimedia and Grpahics:"
 msgstr ""
 
-#: ../Plugins/fav-apps.py:90
+#: ../Plugins/fav-apps.py:87
 msgid "Games:"
 msgstr ""
 
-#: ../Plugins/fav-apps.py:93
+#: ../Plugins/fav-apps.py:90
 msgid "Secret Maryo Chronicles"
 msgstr ""
 
-#: ../Plugins/fav-apps.py:117
+#: ../Plugins/fav-apps.py:114
 msgid "Development:"
 msgstr ""
 
-#: ../Plugins/fav-apps.py:128
+#: ../Plugins/fav-apps.py:125
 msgid "Servers:"
 msgstr ""
 
-#: ../Plugins/fav-apps.py:129
+#: ../Plugins/fav-apps.py:126
 msgid "web server collection"
 msgstr ""
 
-#: ../Plugins/fav-apps.py:129
+#: ../Plugins/fav-apps.py:126
 msgid "collection of LAMP web server related packages"
 msgstr ""
 
-#: ../Plugins/fav-apps.py:130
+#: ../Plugins/fav-apps.py:127
 msgid "ftp server"
 msgstr ""
 
-#: ../Plugins/fav-apps.py:130
+#: ../Plugins/fav-apps.py:127
 msgid "collection of ftp server related packages"
 msgstr ""
 
-#: ../Plugins/fav-apps.py:131
+#: ../Plugins/fav-apps.py:128
 msgid "tomcat collection"
 msgstr ""
 
-#: ../Plugins/fav-apps.py:131
+#: ../Plugins/fav-apps.py:128
 msgid "collection of tomcat related packages"
 msgstr ""
 
-#: ../Plugins/fav-apps.py:132
+#: ../Plugins/fav-apps.py:129
 msgid "Jetty Java Servlet"
 msgstr ""
 
-#: ../Plugins/fav-apps.py:132
+#: ../Plugins/fav-apps.py:129
 msgid "Jetty is a pure Java HTTP Server and Servlet Container"
 msgstr ""
 
-#: ../Plugins/fav-apps.py:137
+#: ../Plugins/fav-apps.py:134
 msgid "Engineering:"
 msgstr ""
 
-#: ../Plugins/fav-apps.py:141
+#: ../Plugins/fav-apps.py:138
 msgid "Circuits collection"
 msgstr ""
 
-#: ../Plugins/fav-apps.py:141
+#: ../Plugins/fav-apps.py:138
 msgid "Circuits collection already installed"
 msgstr ""
 
-#: ../Plugins/fav-apps.py:146
-msgid "already installed"
+#: ../Plugins/fav-apps.py:147
+msgid "Can not get latest opera url, make sure that you are online!"
 msgstr ""
 
 #: ../Plugins/fav-apps.py:151
+msgid "already installed"
+msgstr ""
+
+#: ../Plugins/fav-apps.py:156
 msgid "You can wait about 5-15 minutes while downloading opera browser."
 msgstr ""
 
-#: ../Plugins/kernel.py:27
+#: ../Plugins/kernel.py:30
 msgid "System Kernel:"
 msgstr ""
 
-#: ../Plugins/kernel.py:35
+#: ../Plugins/kernel.py:38
 msgid ""
 "Linux kernel is the part of the system that deal with the hardware.\n"
 "For safety the system will keep older kernels,\n"
@@ -725,29 +865,29 @@ msgid ""
 "But usually you don't need to keep them if the newer one works fine."
 msgstr ""
 
-#: ../Plugins/kernel.py:38
+#: ../Plugins/kernel.py:41
 msgid "Keep only one kernel"
 msgstr ""
 
-#: ../Plugins/kernel.py:44
+#: ../Plugins/kernel.py:47
 msgid ""
 "A typical kernel can deal with up to 4GB of RAM.\n"
 "PAE kernels can deal with much much more than that."
 msgstr ""
 
-#: ../Plugins/kernel.py:47
+#: ../Plugins/kernel.py:50
 msgid "Install PAE kernel"
 msgstr ""
 
-#: ../Plugins/kernel.py:47
+#: ../Plugins/kernel.py:50
 msgid "PAE kernel is installed"
 msgstr ""
 
-#: ../Plugins/kernel.py:47
+#: ../Plugins/kernel.py:50
 msgid "kernel which supports larger memory"
 msgstr ""
 
-#: ../Plugins/kernel.py:52
+#: ../Plugins/kernel.py:55
 msgid ""
 "There are two types of drivers: <i>kmods</i> and <i><b>a</b>kmods</i>.\n"
 "Although <b>akmod</b> drivers requires: more disk space for the development "
@@ -757,76 +897,76 @@ msgid ""
 "We strongly recommend that you use <b>akmod</b>."
 msgstr ""
 
-#: ../Plugins/kernel.py:55
+#: ../Plugins/kernel.py:58
 msgid "Install corresponding akmods for installed kmods"
 msgstr ""
 
-#: ../Plugins/kernel.py:59
+#: ../Plugins/kernel.py:62
 msgid "Developers need kernel documentation and kernel development tools"
 msgstr ""
 
-#: ../Plugins/kernel.py:62
+#: ../Plugins/kernel.py:65
 msgid "Install kernel documentation"
 msgstr ""
 
-#: ../Plugins/kernel.py:62
+#: ../Plugins/kernel.py:65
 msgid "kernel documentation is already installed"
 msgstr ""
 
-#: ../Plugins/kernel.py:62
+#: ../Plugins/kernel.py:65
 msgid "Kernel documentation"
 msgstr ""
 
-#: ../Plugins/kernel.py:64
+#: ../Plugins/kernel.py:67
 msgid "Install kernel development tools"
 msgstr ""
 
-#: ../Plugins/kernel.py:64
+#: ../Plugins/kernel.py:67
 msgid "kernel development package is already installed"
 msgstr ""
 
-#: ../Plugins/kernel.py:64
+#: ../Plugins/kernel.py:67
 msgid "needed for building kernel module"
 msgstr ""
 
-#: ../Plugins/kernel.py:100
+#: ../Plugins/kernel.py:104
 msgid "all needed akmods are already installed."
 msgstr ""
 
-#: ../Plugins/xorgconf.py:99
+#: ../Plugins/xorgconf.py:98
 msgid "Fallback X procedures:"
 msgstr ""
 
-#: ../Plugins/xorgconf.py:106
+#: ../Plugins/xorgconf.py:105
 msgid ""
 "This is an advanced tool that should <b>NOT</b> be used in normal cases.\n"
 "If you tried other tools and it fails you may use this tool."
 msgstr ""
 
-#: ../Plugins/xorgconf.py:111
+#: ../Plugins/xorgconf.py:110
 msgid "Show Advanced options"
 msgstr ""
 
-#: ../Plugins/xorgconf.py:116
+#: ../Plugins/xorgconf.py:115
 msgid "initrd generation"
 msgstr ""
 
-#: ../Plugins/xorgconf.py:121
+#: ../Plugins/xorgconf.py:120
 msgid ""
 "initrd file could contain old modules that conflict some proprietary "
 "drivers.\n"
 "You may want to generate a new initrd file."
 msgstr ""
 
-#: ../Plugins/xorgconf.py:125
+#: ../Plugins/xorgconf.py:124
 msgid "Generate initrd"
 msgstr ""
 
-#: ../Plugins/xorgconf.py:130
+#: ../Plugins/xorgconf.py:129
 msgid "Xorg.conf creation tool"
 msgstr ""
 
-#: ../Plugins/xorgconf.py:135
+#: ../Plugins/xorgconf.py:134
 msgid ""
 "Xorg.conf is the file that controls X server which is the base of the "
 "graphical environment.\n"
@@ -834,76 +974,76 @@ msgid ""
 "working one."
 msgstr ""
 
-#: ../Plugins/xorgconf.py:139
+#: ../Plugins/xorgconf.py:138
 msgid "Driver:"
 msgstr ""
 
-#: ../Plugins/xorgconf.py:143
+#: ../Plugins/xorgconf.py:142
 #, python-format
 msgid "usually a single lower case word like: %s"
 msgstr ""
 
-#: ../Plugins/xorgconf.py:147
+#: ../Plugins/xorgconf.py:146
 msgid "Enable Composite extension"
 msgstr ""
 
-#: ../Plugins/xorgconf.py:149
+#: ../Plugins/xorgconf.py:148
 msgid ""
 "This extention is needed by special effects but could case problems in rare "
 "cases."
 msgstr ""
 
-#: ../Plugins/xorgconf.py:151
+#: ../Plugins/xorgconf.py:150
 msgid "Enable AIGLX"
 msgstr ""
 
-#: ../Plugins/xorgconf.py:153
+#: ../Plugins/xorgconf.py:152
 msgid "Enable Accelerated indirect rendering."
 msgstr ""
 
-#: ../Plugins/xorgconf.py:157
+#: ../Plugins/xorgconf.py:156
 msgid "Vertical Refresh Rate:"
 msgstr ""
 
-#: ../Plugins/xorgconf.py:158
+#: ../Plugins/xorgconf.py:157
 msgid "auto"
 msgstr ""
 
-#: ../Plugins/xorgconf.py:161
+#: ../Plugins/xorgconf.py:160
 msgid "manual:"
 msgstr ""
 
-#: ../Plugins/xorgconf.py:165
+#: ../Plugins/xorgconf.py:164
 msgid ""
 "a value of 85Hz would be nicer on your eyes, lower values like 60Hz would "
 "work with LCD or old CRT monitors."
 msgstr ""
 
-#: ../Plugins/xorgconf.py:172
+#: ../Plugins/xorgconf.py:171
 msgid "HD Resolutions:"
 msgstr ""
 
-#: ../Plugins/xorgconf.py:178
+#: ../Plugins/xorgconf.py:177
 msgid "LCD Wide Resolutions:"
 msgstr ""
 
-#: ../Plugins/xorgconf.py:185
+#: ../Plugins/xorgconf.py:184
 msgid "Normal Resolutions:"
 msgstr ""
 
-#: ../Plugins/xorgconf.py:198
+#: ../Plugins/xorgconf.py:197
 msgid "Delete xorg.conf"
 msgstr ""
 
-#: ../Plugins/xorgconf.py:200
+#: ../Plugins/xorgconf.py:199
 msgid "This will make X use default settings."
 msgstr ""
 
-#: ../Plugins/xorgconf.py:205
+#: ../Plugins/xorgconf.py:204
 msgid "Do you like to remove xorg.conf file to use default settings?"
 msgstr ""
 
-#: ../Plugins/xorgconf.py:207 ../Plugins/xorgconf.py:250
+#: ../Plugins/xorgconf.py:207 ../Plugins/xorgconf.py:251
 msgid "Done. Changes will take effect when you login next time."
 msgstr ""
 
@@ -921,58 +1061,92 @@ msgid ""
 "generate a new one ?"
 msgstr ""
 
-#: ../Plugins/xorgconf.py:255
+#: ../Plugins/xorgconf.py:256
 msgid ""
 "Some proprietary require rebuild initrd.\n"
 "Would you like to do that?"
 msgstr ""
 
-#: ../Plugins/xorgconf.py:257
+#: ../Plugins/xorgconf.py:259
 msgid "Done. Changes will take effect when you reboot."
 msgstr ""
 
-#: ../Plugins/gnome-fonts.py:27
-msgid "Desktop Fonts"
+#: ../Plugins/snd.py:38
+msgid "Sound settings and tools"
 msgstr ""
 
-#. FIXME: Toggle comment state for next 7 lines to disable expander
-#: ../Plugins/gnome-fonts.py:31
-msgid "Adjust desktop fonts"
+#: ../Plugins/snd.py:42
+msgid "Warning: using headphone at high volume may harm your ears."
 msgstr ""
 
-#: ../Plugins/gnome-fonts.py:49
-msgid "Text scaling factor"
+#: ../Plugins/snd.py:44
+msgid "volume up!"
 msgstr ""
 
-#: ../Plugins/gnome-fonts.py:52
-msgid "Default font"
+#: ../Plugins/snd.py:47
+msgid "Simple gnome mixer"
 msgstr ""
 
-#: ../Plugins/gnome-fonts.py:53
-msgid "Document font"
+#: ../Plugins/snd.py:48
+msgid "Advanced mixer"
 msgstr ""
 
-#: ../Plugins/gnome-fonts.py:54
-msgid "Monospace font"
+#: ../Plugins/snd.py:52
+msgid "You may need to use HDA fix from advanced options below."
 msgstr ""
 
-#: ../Plugins/gnome-fonts.py:63
-msgid "Hinting"
+#: ../Plugins/snd.py:64
+msgid "HDA fix for Acer Aspire 8920G:"
 msgstr ""
 
-#: ../Plugins/gnome-fonts.py:64
-msgid "Antialiasing"
+#: ../Plugins/snd.py:65
+msgid "apply now"
 msgstr ""
 
-#: ../Plugins/gnome-fonts.py:74
-msgid "Window title"
+#: ../Plugins/snd.py:68
+msgid "enable at boot"
 msgstr ""
 
-#: ../Plugins/oldrpms.py:33
+#: ../Plugins/snd.py:71
+msgid "remove from boot"
+msgstr ""
+
+#: ../Plugins/snd.py:76
+msgid ""
+"By default sound works in time-based scheduling which consumes less power "
+"and CPU load.\n"
+"But some drivers have a problem with time mode.\n"
+"If you experience skipping in sound you may disable this feature."
+msgstr ""
+
+#: ../Plugins/snd.py:78
+msgid "Time-based scheduling"
+msgstr ""
+
+#: ../Plugins/snd.py:84
+msgid ""
+"If you have disabled time-based scheduling and the sound still skips, try "
+"setting realtime scheduling."
+msgstr ""
+
+#: ../Plugins/snd.py:86
+msgid "Realtime scheduling"
+msgstr ""
+
+#: ../Plugins/snd.py:122 ../Plugins/snd.py:128 ../Plugins/snd.py:150
+#: ../Plugins/snd.py:157
+msgid "Done. New settings will take effect on next boot."
+msgstr ""
+
+#: ../Plugins/snd.py:125
+msgid "Are you sure you want to disable an already enabled hda fix ?"
+msgstr ""
+
+#: ../Plugins/oldrpms.py:35
 msgid "Old RPM Files:"
 msgstr ""
 
-#: ../Plugins/oldrpms.py:37
+#: ../Plugins/oldrpms.py:39
 msgid ""
 "Ojuba keeps an archive of all the RPM packages downloaded from the internet\n"
 "Allowing you to use them when necessary\n"
@@ -981,37 +1155,37 @@ msgid ""
 "You can also have a backup which you can use later"
 msgstr ""
 
-#: ../Plugins/oldrpms.py:40
+#: ../Plugins/oldrpms.py:42
 msgid "Remove old RPM files"
 msgstr ""
 
-#: ../Plugins/oldrpms.py:43
+#: ../Plugins/oldrpms.py:45
 msgid "Backup new RPM files"
 msgstr ""
 
-#: ../Plugins/oldrpms.py:54
+#: ../Plugins/oldrpms.py:56
 msgid "There are no repeated RPM files!"
 msgstr ""
 
-#: ../Plugins/oldrpms.py:58
+#: ../Plugins/oldrpms.py:60
 #, python-format
 msgid ""
 "Delete %d RPM Files, will save %s!\n"
 "Are you sure?"
 msgstr ""
 
-#: ../Plugins/oldrpms.py:64
+#: ../Plugins/oldrpms.py:66
 #, python-format
 msgid "%d RPM files has been deleted, TO save %s!"
 msgstr ""
 
-#: ../Plugins/oldrpms.py:65
+#: ../Plugins/oldrpms.py:67
 msgid ""
 "We can't complete this action at this time, due unknown error, you can try "
 "again!"
 msgstr ""
 
-#: ../Plugins/oldrpms.py:80
+#: ../Plugins/oldrpms.py:82
 #, python-format
 msgid ""
 "%d RPM files has been copied\n"
@@ -1019,214 +1193,227 @@ msgid ""
 "%d Repeated RPMS removed!"
 msgstr ""
 
-#: ../Plugins/oldrpms.py:168
+#: ../Plugins/oldrpms.py:170
 msgid "Select directory"
 msgstr ""
 
-#: ../Plugins/old-os.py:24
+#: ../Plugins/gnome-shell-ext.py:58
+msgid "Gnome shell extensions manager"
+msgstr ""
+
+#: ../Plugins/gnome-shell-ext.py:59
+msgid "Gnome shell extensions"
+msgstr ""
+
+#: ../Plugins/gnome-shell-ext.py:79
+msgid "Personal shell extensions folder"
+msgstr ""
+
+#: ../Plugins/hardware-info.py:31
+msgid "Hardware Information"
+msgstr ""
+
+#: ../Plugins/hardware-info.py:43
+msgid "Details"
+msgstr ""
+
+#: ../Plugins/hardware-info.py:44
+msgid "Update PCI ID database"
+msgstr ""
+
+#: ../Plugins/hardware-info.py:82
+msgid "CPU"
+msgstr ""
+
+#: ../Plugins/hardware-info.py:83
+msgid "Memory"
+msgstr ""
+
+#: ../Plugins/hardware-info.py:84
+msgid "VGA"
+msgstr ""
+
+#: ../Plugins/hardware-info.py:84
+msgid "Sound card"
+msgstr ""
+
+#: ../Plugins/hardware-info.py:84
+msgid "USB"
+msgstr ""
+
+#: ../Plugins/os-prob.py:25
 msgid "Installed systems:"
 msgstr ""
 
-#: ../Plugins/old-os.py:29
+#: ../Plugins/os-prob.py:30
 msgid ""
-"This section will help you to search your plugged disks \n"
+"This section will help you to search your disks \n"
 "for installed system and add them to grub menu"
 msgstr ""
 
-#: ../Plugins/old-os.py:34
+#: ../Plugins/os-prob.py:35
+msgid "Install os prober"
+msgstr ""
+
+#: ../Plugins/os-prob.py:35
+msgid "os prober is installed"
+msgstr ""
+
+#: ../Plugins/os-prob.py:35
+msgid "package detects other OSes available on a system"
+msgstr ""
+
+#: ../Plugins/os-prob.py:36
 msgid "Find and add installed systems to grub menu"
 msgstr ""
 
-#: ../Plugins/old-os.py:39
-msgid ""
-"Make sure all disks are mounted. Are you sure you want to detect and add "
-"other operating systems?"
+#: ../Plugins/os-prob.py:41
+msgid "Are you sure you want to detect and add other operating systems?"
 msgstr ""
 
-#: ../Plugins/old-os.py:44
-msgid "No operating systems were found"
+#: ../Plugins/os-prob.py:47
+msgid "Error"
 msgstr ""
 
-#: ../Plugins/old-os.py:45
+#: ../Plugins/os-prob.py:48
 #, python-format
 msgid ""
 "Operating systems found:\n"
 "%s"
 msgstr ""
 
-#: ../Plugins/gnome-interface.py:26
-msgid "Interface"
-msgstr ""
-
-#. FIXME: Toggle comment state for next 7 lines to disable expander
-#: ../Plugins/gnome-interface.py:30
-msgid "Adjust interface settings"
-msgstr ""
-
-#: ../Plugins/gnome-interface.py:51
-msgid "Menus have icons"
-msgstr ""
-
-#: ../Plugins/gnome-interface.py:52
-msgid "Buttons have icons"
-msgstr ""
-
-#: ../Plugins/gnome-interface.py:58
-msgid "GTK+ theme"
-msgstr ""
-
-#: ../Plugins/gnome-interface.py:58
-msgid "Add GTK+ theme"
-msgstr ""
-
-#: ../Plugins/gnome-interface.py:59
-msgid "Icon theme"
-msgstr ""
-
-#: ../Plugins/gnome-interface.py:59
-msgid "Add icons theme"
-msgstr ""
-
-#: ../Plugins/gnome-interface.py:60
-msgid "Cursor theme"
-msgstr ""
-
-#: ../Plugins/gnome-interface.py:60
-msgid "Add cursor theme"
-msgstr ""
-
-#: ../Plugins/legacy-fonts.py:29
+#: ../Plugins/legacy-fonts.py:31
 msgid "Fixing legacy fonts:"
 msgstr ""
 
-#: ../Plugins/legacy-fonts.py:35
+#: ../Plugins/legacy-fonts.py:37
 msgid ""
 "Some legacy fonts do not use any standard encoding.\n"
 "This tool helps you to convert them to standard openType fonts.\n"
 "Drag and drop the files into the list then click convert."
 msgstr ""
 
-#: ../Plugins/legacy-fonts.py:52
+#: ../Plugins/legacy-fonts.py:54
 msgid "Install FontForge"
 msgstr ""
 
-#: ../Plugins/legacy-fonts.py:52
+#: ../Plugins/legacy-fonts.py:54
 msgid "FontForge is installed"
 msgstr ""
 
-#: ../Plugins/legacy-fonts.py:52
+#: ../Plugins/legacy-fonts.py:54
 msgid "FontForge is a font editing tool"
 msgstr ""
 
-#: ../Plugins/legacy-fonts.py:63
+#: ../Plugins/legacy-fonts.py:65
 msgid "Converting ..."
 msgstr ""
 
-#: ../Plugins/legacy-fonts.py:68
+#: ../Plugins/legacy-fonts.py:70
 msgid "Done"
 msgstr ""
 
-#: ../Plugins/legacy-fonts.py:69
+#: ../Plugins/legacy-fonts.py:71
 msgid "Skipped"
 msgstr ""
 
-#: ../Plugins/legacy-fonts.py:73
+#: ../Plugins/legacy-fonts.py:75
 msgid "Not started"
 msgstr ""
 
-#: ../Plugins/legacy-fonts.py:81
+#: ../Plugins/legacy-fonts.py:83
 msgid "Files"
 msgstr ""
 
-#: ../Plugins/liveusb.py:38
+#: ../Plugins/liveusb.py:37
 msgid "LiveUSB"
 msgstr ""
 
-#: ../Plugins/liveusb.py:42
+#: ../Plugins/liveusb.py:41
 msgid ""
 "A Live System enables you to carry your operating system with you.\n"
 "Also, You may add persistent layer so that it can hold your modification to "
 "the system."
 msgstr ""
 
-#: ../Plugins/liveusb.py:45
+#: ../Plugins/liveusb.py:44
 msgid "Source:"
 msgstr ""
 
-#: ../Plugins/liveusb.py:46
+#: ../Plugins/liveusb.py:45
 msgid "from iso file"
 msgstr ""
 
-#: ../Plugins/liveusb.py:49
+#: ../Plugins/liveusb.py:48
 msgid "Choose live iso file"
 msgstr ""
 
-#: ../Plugins/liveusb.py:53
+#: ../Plugins/liveusb.py:52
 msgid "from CD/DVD device"
 msgstr ""
 
-#: ../Plugins/liveusb.py:66
+#: ../Plugins/liveusb.py:65
 msgid "Target Device:"
 msgstr ""
 
-#: ../Plugins/liveusb.py:74
+#: ../Plugins/liveusb.py:73
 msgid "Target Options:"
 msgstr ""
 
-#: ../Plugins/liveusb.py:75
+#: ../Plugins/liveusb.py:74
 msgid "Format target partition"
 msgstr ""
 
-#: ../Plugins/liveusb.py:76
+#: ../Plugins/liveusb.py:75
 msgid "uncheck this button to preserve data on target device"
 msgstr ""
 
-#: ../Plugins/liveusb.py:78
+#: ../Plugins/liveusb.py:77
 msgid "Reset MBR"
 msgstr ""
 
-#: ../Plugins/liveusb.py:81
+#: ../Plugins/liveusb.py:80
 msgid "Overlay size:"
 msgstr ""
 
-#: ../Plugins/liveusb.py:83
+#: ../Plugins/liveusb.py:82
 msgid "size of persistent overlay in MB, 0 to disable"
 msgstr ""
 
-#: ../Plugins/liveusb.py:86
+#: ../Plugins/liveusb.py:85
 msgid "MB"
 msgstr ""
 
-#: ../Plugins/liveusb.py:100
+#: ../Plugins/liveusb.py:99
 msgid "This will take some time."
 msgstr ""
 
-#: ../Plugins/liveusb.py:118
+#: ../Plugins/liveusb.py:117
 msgid "The package 'livecd-tools' is not installed."
 msgstr ""
 
-#: ../Plugins/liveusb.py:119
+#: ../Plugins/liveusb.py:118
 msgid "Would you like to install 'livecd-tools'?"
 msgstr ""
 
-#: ../Plugins/liveusb.py:126
+#: ../Plugins/liveusb.py:125
 msgid "Please choose valid target device."
 msgstr ""
 
-#: ../Plugins/liveusb.py:130
+#: ../Plugins/liveusb.py:129
 #, python-format
 msgid "Are you sure you want to format target device (labeled %s)?"
 msgstr ""
 
-#: ../Plugins/liveusb.py:137
+#: ../Plugins/liveusb.py:136
 msgid "Please choose a valid iso file"
 msgstr ""
 
-#: ../Plugins/liveusb.py:141
+#: ../Plugins/liveusb.py:140
 msgid "Please choose a source device."
 msgstr ""
 
-#: ../Plugins/liveusb.py:151
+#: ../Plugins/liveusb.py:150
 #, python-format
 msgid ""
 "An error occurred while creating the live system.\n"
@@ -1300,6 +1487,46 @@ msgid ""
 "If you have made any changes it will take effect on next boot"
 msgstr ""
 
+#: ../Plugins/fonts.py:30
+msgid "Installing fonts:"
+msgstr ""
+
+#: ../Plugins/fonts.py:34
+msgid ""
+"Open your personal fonts folder and manage your fonts there.\n"
+"Just drag and drop or copy and past font files there."
+msgstr ""
+
+#: ../Plugins/fonts.py:39
+msgid "Personal fonts folder"
+msgstr ""
+
+#. b=gtk.Button(_("System fonts folder"))
+#. b.connect('clicked',self.__sys_fonts_cb)
+#. h.pack_start(b,False,False,2)
+#: ../Plugins/fonts.py:45
+msgid "Import fonts from another installed OS"
+msgstr ""
+
+#: ../Plugins/fonts.py:56
+msgid ""
+"Are you sure you want to search and install fonts ?\n"
+"Make sure that the partitions are mounted and you have a license to use the "
+"fonts.\n"
+msgstr ""
+
+#: ../Plugins/fonts.py:71
+#, python-format
+msgid ""
+"There are %i fonts found, only %i could be important to you. Do you want to "
+"install all the fonts?\n"
+msgstr ""
+
+#: ../Plugins/fonts.py:78
+#, python-format
+msgid "Done. %d font were installed."
+msgstr ""
+
 #: ../Plugins/sys-conf-lang.py:28
 msgid "System Language:"
 msgstr ""
@@ -1312,70 +1539,30 @@ msgstr ""
 msgid "Other Language"
 msgstr ""
 
-#: ../Plugins/fonts.py:29
-msgid "Installing fonts:"
-msgstr ""
-
-#: ../Plugins/fonts.py:33
-msgid ""
-"Open your personal fonts folder and manage your fonts there.\n"
-"Just drag and drop or copy and past font files there."
-msgstr ""
-
-#: ../Plugins/fonts.py:38
-msgid "Personal fonts folder"
-msgstr ""
-
-#. b=gtk.Button(_("System fonts folder"))
-#. b.connect('clicked',self.__sys_fonts_cb)
-#. h.pack_start(b,False,False,2)
-#: ../Plugins/fonts.py:44
-msgid "Import fonts from another installed OS"
-msgstr ""
-
-#: ../Plugins/fonts.py:55
-msgid ""
-"Are you sure you want to search and install fonts ?\n"
-"Make sure that the partitions are mounted and you have a license to use the "
-"fonts.\n"
-msgstr ""
-
-#: ../Plugins/fonts.py:70
-#, python-format
-msgid ""
-"There are %i fonts found, only %i could be important to you. Do you want to "
-"install all the fonts?\n"
-msgstr ""
-
-#: ../Plugins/fonts.py:77
-#, python-format
-msgid "Done. %d font were installed."
-msgstr ""
-
-#: ../Plugins/dm.py:30
+#: ../Plugins/dm.py:29
 msgid "Graphical Login Manager"
 msgstr ""
 
-#: ../Plugins/dm.py:34
+#: ../Plugins/dm.py:33
 msgid ""
 "Display Manager is the application that allow you to log into your desktop.\n"
 "It's the application that might ask you to authenticate with your username "
 "and password"
 msgstr ""
 
-#: ../Plugins/dm.py:43
+#: ../Plugins/dm.py:42
 msgid "Available display managers:"
 msgstr ""
 
-#: ../Plugins/dm.py:45
+#: ../Plugins/dm.py:44
 msgid "save change"
 msgstr ""
 
-#: ../Plugins/dm.py:49
+#: ../Plugins/dm.py:48
 msgid "Enable Automatic Login as this user"
 msgstr ""
 
-#: ../Plugins/dm.py:52
+#: ../Plugins/dm.py:51
 msgid "Disable Automatic Login"
 msgstr ""
 
@@ -1388,30 +1575,30 @@ msgstr ""
 msgid "Unable to set display managed."
 msgstr ""
 
-#: ../Plugins/dm.py:83
+#: ../Plugins/dm.py:84
 #, python-format
 msgid "could not set automatic login in %s"
 msgstr ""
 
-#: ../Plugins/dm.py:84
+#: ../Plugins/dm.py:85
 #, python-format
 msgid "Automatic login as %s was set in %s"
 msgstr ""
 
-#: ../Plugins/dm.py:85
+#: ../Plugins/dm.py:86
 msgid "could not set automatic login"
 msgstr ""
 
-#: ../Plugins/dm.py:90
+#: ../Plugins/dm.py:92
 msgid "could not disable automatic login"
 msgstr ""
 
-#: ../Plugins/dm.py:91
+#: ../Plugins/dm.py:93
 #, python-format
 msgid "could not disable automatic login in %s"
 msgstr ""
 
-#: ../Plugins/dm.py:92
+#: ../Plugins/dm.py:94
 msgid "automatic login is now disabled"
 msgstr ""
 
@@ -1441,31 +1628,31 @@ msgstr ""
 msgid "Unable to remove samples icon."
 msgstr ""
 
-#: ../Plugins/net-adv.py:28
+#: ../Plugins/net-adv.py:29
 msgid "Advanced Network settings:"
 msgstr ""
 
-#: ../Plugins/net-adv.py:32
+#: ../Plugins/net-adv.py:33
 msgid "Firewall protects your system by filtering unwanted network access."
 msgstr ""
 
-#: ../Plugins/net-adv.py:37
+#: ../Plugins/net-adv.py:38
 msgid "Configure firewall"
 msgstr ""
 
-#: ../Plugins/net-adv.py:41
+#: ../Plugins/net-adv.py:42
 msgid "Samba is used to share folders and printers in LAN"
 msgstr ""
 
-#: ../Plugins/net-adv.py:45
+#: ../Plugins/net-adv.py:46
 msgid "Start samba on boot"
 msgstr ""
 
-#: ../Plugins/net-adv.py:48
+#: ../Plugins/net-adv.py:49
 msgid "Create or modify shares"
 msgstr ""
 
-#: ../Plugins/net-adv.py:51
+#: ../Plugins/net-adv.py:52
 msgid "Allow unprivileged users to create shares"
 msgstr ""
 
@@ -1483,125 +1670,65 @@ msgstr ""
 msgid "GNOME Menu Editor"
 msgstr ""
 
-#: ../Plugins/modem.py:31
+#: ../Plugins/modem.py:26
 msgid "Dialup modem"
 msgstr ""
 
-#: ../Plugins/modem.py:35
+#: ../Plugins/modem.py:30
 msgid ""
 "Some software dialup modems are supported by slmodem driver.\n"
 "If you have a supported modem select a proper interface for it and activate "
 "its daemon before using it."
 msgstr ""
 
-#: ../Plugins/modem.py:37
+#: ../Plugins/modem.py:32
 msgid "Install slmodem driver"
 msgstr ""
 
-#: ../Plugins/modem.py:37
+#: ../Plugins/modem.py:32
 msgid "slmodem driver is installed"
 msgstr ""
 
-#: ../Plugins/modem.py:37
+#: ../Plugins/modem.py:32
 msgid "driver for some software modems"
 msgstr ""
 
-#: ../Plugins/modem.py:38
+#: ../Plugins/modem.py:33
 msgid "Start slmodem daemon on boot"
 msgstr ""
 
-#: ../Plugins/snd.py:39
-msgid "Sound settings and tools"
+#: ../Plugins/gnome-fonts.py:27
+msgid "Desktop Fonts"
 msgstr ""
 
-#: ../Plugins/snd.py:43
-msgid "Warning: using headphone at high volume may harm your ears."
+#: ../Plugins/gnome-fonts.py:28
+msgid "Adjust desktop fonts"
 msgstr ""
 
-#: ../Plugins/snd.py:45
-msgid "volume up!"
+#: ../Plugins/gnome-fonts.py:35
+msgid "Text scaling factor"
 msgstr ""
 
-#: ../Plugins/snd.py:48
-msgid "Simple gnome mixer"
+#: ../Plugins/gnome-fonts.py:38
+msgid "Default font"
 msgstr ""
 
-#: ../Plugins/snd.py:49
-msgid "Advanced mixer"
+#: ../Plugins/gnome-fonts.py:39
+msgid "Document font"
 msgstr ""
 
-#: ../Plugins/snd.py:53
-msgid "You may need to use HDA fix from advanced options below."
+#: ../Plugins/gnome-fonts.py:40
+msgid "Monospace font"
 msgstr ""
 
-#: ../Plugins/snd.py:65
-msgid "HDA fix for Acer Aspire 8920G:"
+#: ../Plugins/gnome-fonts.py:50
+msgid "Hinting"
 msgstr ""
 
-#: ../Plugins/snd.py:66
-msgid "apply now"
+#: ../Plugins/gnome-fonts.py:51
+msgid "Antialiasing"
 msgstr ""
 
-#: ../Plugins/snd.py:69
-msgid "enable at boot"
-msgstr ""
-
-#: ../Plugins/snd.py:72
-msgid "remove from boot"
-msgstr ""
-
-#: ../Plugins/snd.py:77
-msgid ""
-"By default sound works in time-based scheduling which consumes less power "
-"and CPU load.\n"
-"But some drivers have a problem with time mode.\n"
-"If you experience skipping in sound you may disable this feature."
-msgstr ""
-
-#: ../Plugins/snd.py:79
-msgid "Time-based scheduling"
-msgstr ""
-
-#: ../Plugins/snd.py:85
-msgid ""
-"If you have disabled time-based scheduling and the sound still skips, try "
-"setting realtime scheduling."
-msgstr ""
-
-#: ../Plugins/snd.py:87
-msgid "Realtime scheduling"
-msgstr ""
-
-#: ../Plugins/snd.py:121 ../Plugins/snd.py:126 ../Plugins/snd.py:147
-#: ../Plugins/snd.py:153
-msgid "Done. New settings will take effect on next boot."
-msgstr ""
-
-#: ../Plugins/snd.py:124
-msgid "Are you sure you want to disable an already enabled hda fix ?"
-msgstr ""
-
-#: ../Plugins/gnome-shell.py:27
-msgid "Shell"
-msgstr ""
-
-#. FIXME: Toggle comment state for next 7 lines to disable expander
-#: ../Plugins/gnome-shell.py:31
-msgid "Shell interface setup"
-msgstr ""
-
-#: ../Plugins/gnome-shell.py:47
-msgid "Personal shell extensions folder"
-msgstr ""
-
-#: ../Plugins/gnome-shell.py:55
-msgid "Clock format"
-msgstr ""
-
-#: ../Plugins/gnome-shell.py:60
-msgid "Show seconds in clock"
-msgstr ""
-
-#: ../Plugins/gnome-shell.py:61
-msgid "Show date in clock"
+#: ../Plugins/gnome-fonts.py:62
+msgid "Window title"
 msgstr ""

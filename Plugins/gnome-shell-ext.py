@@ -55,8 +55,8 @@ class extHBox(gtk.HBox):
     
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
-    PluginsClass.__init__(self, ccw,_('Gnome shell extension'),'gnome',50)
-    description=_("Gnome shell extension manager")
+    PluginsClass.__init__(self, ccw,_('Gnome shell extensions manager'),'gnome',50)
+    description=_("Gnome shell extensions")
     shell_ver=ccw.installed_info('gnome-shell')
     if not shell_ver or not ccw.GSettings:
       creatVBox(self, ccw, description, resetBtton=False) 

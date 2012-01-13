@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: occ 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-10-19 21:18+0300\n"
+"POT-Creation-Date: 2012-01-13 23:34+0200\n"
 "PO-Revision-Date: 2009-06-25 17:44+0300\n"
 "Last-Translator: Muayyd Saleh Alsadi <alsadi@ojuba.org>\n"
 "Language-Team: Arabic <ar@li.org>\n"
@@ -21,47 +20,55 @@ msgstr ""
 msgid "Control your preferences and settings"
 msgstr "تحكم في التفضيلات والإعدادات"
 
-#: ../occ.desktop.in.h:2 ../OjubaControlCenter/core.py:115
-#: ../OjubaControlCenter/core.py:122 ../OjubaControlCenter/core.py:155
+#: ../occ.desktop.in.h:2 ../OjubaControlCenter/core.py:117
+#: ../OjubaControlCenter/core.py:124 ../OjubaControlCenter/core.py:158
 msgid "Ojuba Control Center"
 msgstr "مركز تحكم أعجوبة"
 
-#: ../OjubaControlCenter/core.py:152
+#: ../OjubaControlCenter/core.py:155
 msgid "OCC"
 msgstr ""
 
-#: ../OjubaControlCenter/gwidgets.py:23
-msgid "This setting Unavailable "
-msgstr "هذه الإعدادات غير متوفرة "
-
-#: ../OjubaControlCenter/gwidgets.py:26
-msgid "Reset"
-msgstr "استعادة"
-
-#: ../OjubaControlCenter/gwidgets.py:96
-msgid "Could not create folder"
-msgstr "غير قادر على إنشاء المجلد"
-
-#: ../OjubaControlCenter/gwidgets.py:196
-msgid "Reset all"
-msgstr "استعادة الكل"
-
-#: ../OjubaControlCenter/gwidgets.py:201
-msgid "Are you sure?"
-msgstr "هل أنت متأكد"
-
-#: ../OjubaControlCenter/widgets.py:42
+#: ../OjubaControlCenter/widgets.py:43
 #, python-format
 msgid "File [%s] not found."
 msgstr "الملف [%s] غير موجود."
 
-#: ../OjubaControlCenter/widgets.py:53
+#: ../OjubaControlCenter/widgets.py:54
 msgid "not available"
 msgstr "غير متوفر"
 
-#: ../OjubaControlCenter/widgets.py:139
+#: ../OjubaControlCenter/widgets.py:140
 msgid "Please wait..."
 msgstr "فضلا انتظر..."
+
+#: ../OjubaControlCenter/gwidgets.py:24
+msgid "This setting Unavailable "
+msgstr "هذه الإعدادات غير متوفرة "
+
+#: ../OjubaControlCenter/gwidgets.py:27
+msgid "Reset"
+msgstr "استعادة"
+
+#: ../OjubaControlCenter/gwidgets.py:43
+msgid "Not installed"
+msgstr "غير مثبت"
+
+#: ../OjubaControlCenter/gwidgets.py:98
+msgid "Refresh"
+msgstr ""
+
+#: ../OjubaControlCenter/gwidgets.py:114
+msgid "Could not create folder"
+msgstr "غير قادر على إنشاء المجلد"
+
+#: ../OjubaControlCenter/gwidgets.py:215
+msgid "Reset all"
+msgstr "استعادة الكل"
+
+#: ../OjubaControlCenter/gwidgets.py:220
+msgid "Are you sure?"
+msgstr "هل أنت متأكد"
 
 #. each element is category_id, category_caption, icon_id, category_tip
 #: ../OjubaControlCenter/categories.py:20
@@ -96,7 +103,7 @@ msgstr "عتاد"
 msgid "Configure hardware"
 msgstr "إعداد العتاد"
 
-#: ../OjubaControlCenter/categories.py:24 ../Plugins/gnome-icons.py:57
+#: ../OjubaControlCenter/categories.py:24 ../Plugins/gnome-icons.py:41
 msgid "Network"
 msgstr "الشبكة"
 
@@ -112,45 +119,135 @@ msgstr "الإقلاع والنواة"
 msgid "Desktop Icons"
 msgstr "أيقونات سطح المكتب"
 
-#. FIXME: Toggle comment state for next 7 lines to disable expander
-#: ../Plugins/gnome-icons.py:29
+#: ../Plugins/gnome-icons.py:26
 msgid "Select the icons you want to be visible on desktop"
 msgstr "اختر الأيقونات التي تريدها أن تظهر على سطح المكتب"
 
-#: ../Plugins/gnome-icons.py:40 ../Plugins/gnome-power.py:41
-#: ../Plugins/gnome-interface.py:41 ../Plugins/gnome-shell.py:43
-msgid "Not installed"
-msgstr "غير مثبت"
-
-#: ../Plugins/gnome-icons.py:51
+#: ../Plugins/gnome-icons.py:33
 msgid "Show desktop icons"
 msgstr "إظهار أيقونات سطح المكتب"
 
-#: ../Plugins/gnome-icons.py:55
+#: ../Plugins/gnome-icons.py:39
 msgid "Computer"
 msgstr "الحاسوب"
 
-#: ../Plugins/gnome-icons.py:56
+#: ../Plugins/gnome-icons.py:40
 msgid "Home"
 msgstr "البيت"
 
-#: ../Plugins/gnome-icons.py:58
+#: ../Plugins/gnome-icons.py:42
 msgid "Trash"
 msgstr "المهملات"
 
-#: ../Plugins/gnome-icons.py:59
+#: ../Plugins/gnome-icons.py:43
 msgid "Mounted volumes"
 msgstr "الأقراص المضمومة"
 
-#: ../Plugins/boot-options.py:33
+#: ../Plugins/grub2-edit.py:54
+msgid "Grub2 settings:"
+msgstr "إعدادات محمل الإقلاع Grub2"
+
+#: ../Plugins/grub2-edit.py:59
+msgid "Grub2 not isntalled!"
+msgstr "Grub2 غير مثبت"
+
+#: ../Plugins/grub2-edit.py:71
+msgid "This section will help you to change grub2 settings"
+msgstr "فى هذا القسم يمكن التحكم فى إعدادات محمل الإقلاع Grub2"
+
+#: ../Plugins/grub2-edit.py:75
+msgid "Time out"
+msgstr "المهلة"
+
+#: ../Plugins/grub2-edit.py:78
+msgid "Seconds"
+msgstr "ثوان"
+
+#: ../Plugins/grub2-edit.py:81
+msgid "Kernel options"
+msgstr "خيارات النواة"
+
+#: ../Plugins/grub2-edit.py:87
+msgid "Enabel recovery option"
+msgstr "تفعيل خيار الإنقاذ"
+
+#: ../Plugins/grub2-edit.py:91
+msgid "Enabel Grub2 theme"
+msgstr "تفعيل سمات محمل الإقلاع Grub2"
+
+#. Grub2 theme frame
+#: ../Plugins/grub2-edit.py:100
+msgid "Grub2 Theme:"
+msgstr "سمات محمل الإقلاع Grub2"
+
+#: ../Plugins/grub2-edit.py:105
+msgid "This section will help you to change grub2 Font and background (theme)."
+msgstr "فى هذا القسم يمكن التحكم فى خط وخلفية قائمة محمل الإقلاع (السمة )"
+
+#: ../Plugins/grub2-edit.py:109 ../Plugins/grub2-edit.py:191
+msgid "Background"
+msgstr "الخلفية"
+
+#. b=gtk.Button(_('Change picture'))
+#. b.connect('clicked', self.open_pic_cb, l)
+#. h.pack_start(b, False,False,2)
+#: ../Plugins/grub2-edit.py:113
+msgid "Choose boot background"
+msgstr "إختر خلفية محمل الإقلاع"
+
+#: ../Plugins/grub2-edit.py:119
+msgid "All image files"
+msgstr "جميع ملفات الصور"
+
+#: ../Plugins/grub2-edit.py:135
+msgid "Set GFXMODE"
+msgstr "إجعل قيمة GFXMODE"
+
+#: ../Plugins/grub2-edit.py:137
+msgid ""
+"Enable this option if you have boot troubles\n"
+"\n"
+"If your monitor got out sync or turned off, While grub2 menu\n"
+"Press enter to continue booting, And enable this option."
+msgstr ""
+"فعل هذا الخيار عند مواجهة مشاكل أثناء الإقلاع\n"
+"\n"
+"إذا واجهت شاشة سوداء عوضاً عن قائمة محمل الإقلاع\n"
+"إضغط مفتاح الإدخال من لوحة المفاتيح ؛ لاستكمال الإقلاع ، ثم فعل هذا الخيار لحل المشكلة"
+
+#: ../Plugins/grub2-edit.py:142 ../Plugins/grub2-edit.py:219
+msgid "Font name"
+msgstr "الخط"
+
+#: ../Plugins/grub2-edit.py:152
+msgid "Apply"
+msgstr "تطبيق"
+
+#: ../Plugins/grub2-edit.py:214
+msgid "Error: Can not use this font!"
+msgstr "خطأ : لا يمكن استخدام هذا الخط!"
+
+#: ../Plugins/grub2-edit.py:222
+msgid "Are you sure you want to apply changes?"
+msgstr "هل انت متأكد أنك ترغب في تطبيق الإعدادات ؟"
+
+#: ../Plugins/grub2-edit.py:249
+msgid "Error!"
+msgstr "خطأ!"
+
+#: ../Plugins/grub2-edit.py:250
+msgid "Done!"
+msgstr "تم."
+
+#: ../Plugins/boot-options.py:32
 msgid "Boot options"
 msgstr "خيارات الإقلاع"
 
-#: ../Plugins/boot-options.py:38
+#: ../Plugins/boot-options.py:37
 msgid "Graphical Boot:"
 msgstr "الإقلاع الرسومي:"
 
-#: ../Plugins/boot-options.py:40
+#: ../Plugins/boot-options.py:39
 msgid "Default"
 msgstr "تلقائي"
 
@@ -162,11 +259,11 @@ msgstr "إعدادات العرض وأدواته"
 msgid "glxgears Result:"
 msgstr "نتيجة اختبار المسننات"
 
-#: ../Plugins/vga.py:58 ../Plugins/vga.py:271
+#: ../Plugins/vga.py:58 ../Plugins/vga.py:275
 msgid "N/A"
 msgstr "بلا"
 
-#: ../Plugins/vga.py:68 ../Plugins/snd.py:60
+#: ../Plugins/vga.py:68 ../Plugins/snd.py:59
 msgid "Advanced options"
 msgstr "خيارات متقدمة"
 
@@ -215,58 +312,65 @@ msgid "default DFS settings"
 msgstr "إعدادات DFS التلقائية"
 
 #. os.system("hda-verb /dev/snd/hwC0D0 0x15 SET_EAPD_BTLENABLE 2")
-#: ../Plugins/vga.py:122 ../Plugins/hardware-info.py:52 ../Plugins/pkg.py:139
-#: ../Plugins/kernel.py:94 ../Plugins/samples.py:60 ../Plugins/samples.py:67
-#: ../Plugins/net-adv.py:74 ../Plugins/net-adv.py:78 ../Plugins/snd.py:116
+#: ../Plugins/vga.py:123 ../Plugins/pkg.py:140 ../Plugins/kernel.py:98
+#: ../Plugins/snd.py:116 ../Plugins/hardware-info.py:53
+#: ../Plugins/samples.py:60 ../Plugins/samples.py:67 ../Plugins/net-adv.py:76
+#: ../Plugins/net-adv.py:81
 msgid "Done."
 msgstr "تم."
 
-#: ../Plugins/vga.py:123 ../Plugins/vga.py:196 ../Plugins/vga.py:200
-#: ../Plugins/vga.py:204 ../Plugins/hardware-info.py:51
-#: ../Plugins/kernel.py:95 ../Plugins/xorgconf.py:208
-#: ../Plugins/xorgconf.py:251 ../Plugins/xorgconf.py:258
-#: ../Plugins/modem.py:62 ../Plugins/modem.py:67
+#: ../Plugins/vga.py:124 ../Plugins/vga.py:198 ../Plugins/vga.py:203
+#: ../Plugins/vga.py:208 ../Plugins/kernel.py:99 ../Plugins/xorgconf.py:208
+#: ../Plugins/xorgconf.py:252 ../Plugins/xorgconf.py:260
+#: ../Plugins/hardware-info.py:52 ../Plugins/modem.py:58
+#: ../Plugins/modem.py:64
 msgid "unexpected return code, possible an error had occurred."
 msgstr "كود غير متوقع، غالبا حدث خطأ."
 
-#: ../Plugins/vga.py:129
+#: ../Plugins/vga.py:130
 msgid "Install proprietary nVidia drivers:"
 msgstr "تثبيت تعريفات nVidia المملوكة:"
 
-#: ../Plugins/vga.py:142
+#: ../Plugins/vga.py:143
 msgid "Enable proprietary drivers"
 msgstr "تفعيل التعريفات المملوكة"
 
-#: ../Plugins/vga.py:143
+#: ../Plugins/vga.py:144
 msgid "nVidia Settings"
 msgstr "إعدادات nVidia"
 
-#: ../Plugins/vga.py:153
+#: ../Plugins/vga.py:154
 #, python-format
 msgid "proprietary nVidia drivers [%s] already installed."
 msgstr "تعريفات nVidia المملوكة [%s] مثبتة مسبقا."
 
-#: ../Plugins/vga.py:193
-msgid "KMS is enabled for all kernels."
-msgstr "الخيار KMS مفعّل لكل الأنوية."
-
-#: ../Plugins/vga.py:194
+#: ../Plugins/vga.py:195
+msgid ""
+"KMS is enabled for all kernels.\n"
+"Note: You may need to remake grub config file."
+msgstr ""
+"أصبح الخيار KMS مفعّلا لكل الأنوية.\n"
+"تنبيه: قد تكون فى حاجة لإعادة توليد ملف إعداد Grub."
+#: ../Plugins/vga.py:196
 msgid "KMS is enabled for some kernels, and disabled for others."
 msgstr "الخيار KMS مفعّل لبعض الأنوية و معطل في بعضها الآخر."
 
-#: ../Plugins/vga.py:195
-msgid "KMS is disabled for all kernels."
-msgstr "الخيار KMS معطّل لكل الأنوية."
-
-#: ../Plugins/vga.py:199
+#: ../Plugins/vga.py:197
+msgid ""
+"KMS is disabled for all kernels.\n"
+"Note: You may need to remake grub config file."
+msgstr ""
+"أصبح الخيار KMS معطّلا لكل الأنوية.\n"
+"تنبيه: قد تكون فى حاجة لإعادة توليد ملف إعداد Grub."
+#: ../Plugins/vga.py:202
 msgid "KMS is now disabled for all kernels."
 msgstr "أصبح الخيار KMS معطّلا لكل الأنوية."
 
-#: ../Plugins/vga.py:203
+#: ../Plugins/vga.py:207
 msgid "KMS is now enabled for all kernels."
 msgstr "أصبح الخيار KMS مفعّلا لكل الأنوية."
 
-#: ../Plugins/vga.py:219
+#: ../Plugins/vga.py:223
 msgid ""
 "Your VGA driver supports direct rendering.\n"
 "Before you enable special effects please perform 5 second glxgears speed "
@@ -275,7 +379,7 @@ msgstr ""
 "تعريف بطاقة العرض عندك يدعم تسريع DRI.\n"
 "قبل تفعيل المؤثرات البصرية الخاصة فضلا قم بعمل اختبار المسننات لمدة 5 ثوان."
 
-#: ../Plugins/vga.py:222
+#: ../Plugins/vga.py:226
 msgid ""
 "Your VGA driver does <span color='red'><b>not</b></span> support direct "
 "rendering.\n"
@@ -287,7 +391,7 @@ msgstr ""
 "يجب أن <b>لا</b> تفعل المؤثرات الخاصة حتى تحل هذه المشكلة.\n"
 "قد ترغب بإجراء اختبار المسننات لمدة 5 ثوان لتدرك مدى بطء البطاقة."
 
-#: ../Plugins/vga.py:231
+#: ../Plugins/vga.py:235
 msgid ""
 "If you got more than <b>500 FPS</b> then you may use special effects "
 "efficiently."
@@ -295,17 +399,17 @@ msgstr ""
 "إن حصلت على أكثر من  <b>500 إطار بالثانية</b> عندها يمكنك تفعيل المؤثرات "
 "البصرية بكل أريحية."
 
-#: ../Plugins/vga.py:233
+#: ../Plugins/vga.py:237
 msgid "Your VGA card performance is good. you may enjoy special effects."
 msgstr "أداء بطاقة العرض عندك جيد. تمتع بالمؤثرات البصرية."
 
-#: ../Plugins/vga.py:235
+#: ../Plugins/vga.py:239
 msgid ""
 "Although your VGA card driver supports direct rendering, it has poor "
 "performance."
 msgstr "مع أن بطاقة العرض تدعم DRI إلا أن أداءها سيء."
 
-#: ../Plugins/vga.py:236
+#: ../Plugins/vga.py:240
 msgid ""
 "we don't recommend enabling special effects until you fix this issue by one "
 "or more of the advanced options below."
@@ -313,68 +417,108 @@ msgstr ""
 "لا ننصح بتفعيل المؤثرات الخاصة حتى تحل هذه المشكلة بواحدة أو أكثر من "
 "الخيارات المتقدمة المبينة أدناه."
 
-#: ../Plugins/vga.py:239
+#: ../Plugins/vga.py:243
 msgid ""
 "You might enhance your VGA performance by trying one or more of the advanced "
 "options below."
 msgstr ""
 "قد يتحسن أداء بطاقة العرض بتجربة واحدة أو أكثر من الخيارات المتقدمة أدناه."
 
-#: ../Plugins/vga.py:242
+#: ../Plugins/vga.py:246
 msgid ""
 "nVidia Proprietary drivers are not loaded. You may enhance graphics "
 "performance by installing nvidia proprietary drivers."
 msgstr "تعريفات nVidia المملوكة غير محملة. قد يتحسن أداء العرض بتثبيتها."
 
-#: ../Plugins/vga.py:245
+#: ../Plugins/vga.py:249
 msgid "Some cards have problems with KMS, try to disable KMS and reboot."
 msgstr "بعض البطاقات تواجه مشكلة مع KMS, جرب تعطيل KMS ثم إعادة التشغيل."
 
-#: ../Plugins/vga.py:252
+#: ../Plugins/vga.py:256
 msgid "wait 5 seconds"
 msgstr "انتظر 5 ثوان"
 
-#: ../Plugins/vga.py:271
+#: ../Plugins/vga.py:275
 msgid " FPS"
 msgstr " إطار بالثانية"
 
-#: ../Plugins/hardware-info.py:31
-msgid "Hardware Information"
-msgstr "معلومات عن العتاد"
+#: ../Plugins/gnome-interface.py:28
+msgid "Shell Interface"
+msgstr "إعداد واجهة الصدفة"
 
-#: ../Plugins/hardware-info.py:43
-msgid "Details"
-msgstr "تفاصيل"
+#: ../Plugins/gnome-interface.py:29
+msgid "Adjust interface settings"
+msgstr "ضبط إعدادات الواجهة"
 
-#: ../Plugins/hardware-info.py:44
-msgid "Update PCI ID database"
-msgstr "تحديث قاعدة بيانات معرّفات PCI"
+#: ../Plugins/gnome-interface.py:38
+msgid "Show seconds in clock"
+msgstr "إظهار الثوانى مع الساعة"
 
-#: ../Plugins/hardware-info.py:81
-msgid "CPU"
-msgstr "المعالج"
+#: ../Plugins/gnome-interface.py:39
+msgid "Show date in clock"
+msgstr "إظهار التاريخ مع الساعة"
 
-#: ../Plugins/hardware-info.py:82
-msgid "Memory"
-msgstr "الذاكرة"
+#: ../Plugins/gnome-interface.py:51
+msgid "Menus have icons"
+msgstr "إظهار رموز القوائم"
 
-#: ../Plugins/hardware-info.py:83
-msgid "VGA"
-msgstr "بطاقة العرض VGA"
+#: ../Plugins/gnome-interface.py:52
+msgid "Buttons have icons"
+msgstr "إظهار رموز الأزرار"
 
-#: ../Plugins/hardware-info.py:83
-msgid "Sound card"
-msgstr "بطاقة الصوت"
+#: ../Plugins/gnome-interface.py:57
+msgid "Clock format"
+msgstr "تنسيق الوقت"
 
-#: ../Plugins/hardware-info.py:83
-msgid "USB"
-msgstr "الناقل المتسلسل العالمي USB"
+#: ../Plugins/gnome-interface.py:64
+msgid "Shell theme"
+msgstr "سمة الصدفة"
 
-#: ../Plugins/pkg.py:40
+#: ../Plugins/gnome-interface.py:64
+msgid "Add Shell theme"
+msgstr "أضف سمة للصدفة"
+
+#: ../Plugins/gnome-interface.py:69
+msgid "GTK+ theme"
+msgstr "سمة GTK+"
+
+#: ../Plugins/gnome-interface.py:69
+msgid "Add GTK+ theme"
+msgstr "أضف سمة GTK+"
+
+#: ../Plugins/gnome-interface.py:70
+msgid "Icon theme"
+msgstr "سمة الأيقونات"
+
+#: ../Plugins/gnome-interface.py:70
+msgid "Add icons theme"
+msgstr "أضف سمة للأيقونات"
+
+#: ../Plugins/gnome-interface.py:71
+msgid "Cursor theme"
+msgstr "سمة المؤشرات"
+
+#: ../Plugins/gnome-interface.py:71
+msgid "Add cursor theme"
+msgstr "أضف سمة المؤشرات"
+
+#: ../Plugins/gnome-interface.py:88
+msgid "Windows theme"
+msgstr "سمة النوافذ"
+
+#: ../Plugins/gnome-interface.py:88
+msgid "Add Windows theme"
+msgstr "أضف سمة للنوافذ"
+
+#: ../Plugins/gnome-interface.py:88
+msgid "This option requires shell reload"
+msgstr "هذا الخيار يحتاج إعادة تشغيل الصدفة"
+
+#: ../Plugins/pkg.py:38
 msgid "Package Manager:"
 msgstr "مدير الحزم:"
 
-#: ../Plugins/pkg.py:44
+#: ../Plugins/pkg.py:42
 msgid ""
 "Package Manager allows you to install software.\n"
 "It saves you the effort downloading, tracing versions and resolving "
@@ -383,19 +527,19 @@ msgstr ""
 "مدير الحزم يُمكنك من تثبيت البرمجيات.\n"
 "إنه يوفر عليك جهد التنزيل وتتبع الإصدارات وحلحلت الاعتماديات."
 
-#: ../Plugins/pkg.py:47
+#: ../Plugins/pkg.py:45
 msgid "Add/Remove applications"
 msgstr "إضافة وإزالة التطبيقات"
 
-#: ../Plugins/pkg.py:48
+#: ../Plugins/pkg.py:46
 msgid "KPackageKit"
 msgstr ""
 
-#: ../Plugins/pkg.py:49
+#: ../Plugins/pkg.py:47
 msgid "Yum Extender"
 msgstr "يم المتقدم"
 
-#: ../Plugins/pkg.py:51
+#: ../Plugins/pkg.py:49
 msgid ""
 "Package Manager uses predefined software sources (called repositories) to "
 "get software.\n"
@@ -404,11 +548,11 @@ msgstr ""
 "يستخدم مدير الحزم مصادر معرفة مسبقا للحصول على البرمجيات تسمى مستودعات.\n"
 "إن كنت تستخدم المستودعات الرسمية فإنك ستحصل على حزم ممهورة بتواقيع إلكترونية."
 
-#: ../Plugins/pkg.py:54
+#: ../Plugins/pkg.py:52
 msgid "Software Sources Editor"
 msgstr "محرر مصادر البرمجيات"
 
-#: ../Plugins/pkg.py:56
+#: ../Plugins/pkg.py:54
 msgid ""
 "You may add installation medium (CD/DVD) which contains packages.\n"
 "They are used to install packages offline or save bandwidth.\n"
@@ -420,36 +564,36 @@ msgstr ""
 "بعض الناس يعتبر إدخال الوسيط عند التثبيت أمر مزعج ويفضلون تنزيل الحزم عبر "
 "الإنترنت."
 
-#: ../Plugins/pkg.py:59
+#: ../Plugins/pkg.py:57
 msgid "Add a media repository"
 msgstr "إضافة وسيط كمستودع"
 
-#: ../Plugins/pkg.py:62
+#: ../Plugins/pkg.py:60
 msgid "Disable all media repositories"
 msgstr "إزالة كل مستودعات الوسائط"
 
-#: ../Plugins/pkg.py:67
+#: ../Plugins/pkg.py:65
 msgid ""
 "If you don't have internet access you may want to disable internet "
 "repositories."
 msgstr "إن لم تملك اتصال بالإنترنت فإنك قد ترغب في تعطيل مستودعات الإنترنت."
 
-#: ../Plugins/pkg.py:70
+#: ../Plugins/pkg.py:68
 msgid "Disable all internet repositories"
 msgstr "تعطيل كل مستودعات الإنترنت"
 
-#: ../Plugins/pkg.py:73
+#: ../Plugins/pkg.py:71
 msgid "Restore enabled repositories"
 msgstr "استعادة المستودعات المفعّلة سابقا"
 
-#: ../Plugins/pkg.py:74
+#: ../Plugins/pkg.py:72
 msgid ""
 "Restore the enabled repositories as they were before disabling internet "
 "repositories"
 msgstr ""
 "استعادة المستودعات التي كانت مفعلة كما كانت قبل تعطيل مستودعات الإنترنت"
 
-#: ../Plugins/pkg.py:80
+#: ../Plugins/pkg.py:78
 msgid ""
 "You may keep the downloaded packages to pass them to other people.\n"
 "Those packages are kept under /var/cache/yum"
@@ -457,11 +601,11 @@ msgstr ""
 "يُمكنك الاحتفاظ بالحزم المثبتة كي تمررها للآخرين.\n"
 "يتم الاحتفاظ بتلك الحزم في /var/cache/yum/"
 
-#: ../Plugins/pkg.py:83
+#: ../Plugins/pkg.py:81
 msgid "keep downloaded packages"
 msgstr "الاحتفاظ بالحزم بعد تنزيلها"
 
-#: ../Plugins/pkg.py:99
+#: ../Plugins/pkg.py:97
 msgid ""
 "Please make sure the media you want to add is inserted before you add it.\n"
 "Do you want to continue?"
@@ -469,11 +613,11 @@ msgstr ""
 "فضلا تأكد من أن الوسيط الذي تريد إضافته مُدخل قبل أن تتابع.\n"
 "هل ترغب بالمتابعة؟"
 
-#: ../Plugins/pkg.py:115
+#: ../Plugins/pkg.py:113
 msgid "No valid media were found."
 msgstr "لم أجد أي وسيط صالح."
 
-#: ../Plugins/pkg.py:117
+#: ../Plugins/pkg.py:116
 #, python-format
 msgid ""
 "Done. %s repositories were added.\n"
@@ -487,162 +631,159 @@ msgstr ""
 msgid "Done. %s repositories were disabled."
 msgstr "تم تعطيل %s مستودعا."
 
-#: ../Plugins/pkg.py:147
+#: ../Plugins/pkg.py:149
 msgid "no repository was disabled"
 msgstr "لم يتم تعطيل أي مستودع"
 
-#: ../Plugins/pkg.py:148
+#: ../Plugins/pkg.py:150
 #, python-format
 msgid "Done. %d repositories were disabled"
 msgstr "تم تعطيل %d مستودعا."
 
-#: ../Plugins/pkg.py:156
+#: ../Plugins/pkg.py:159
 msgid "no repository was enabled"
 msgstr "لم يتم تفعيل أي مستودع"
 
-#: ../Plugins/pkg.py:157
+#: ../Plugins/pkg.py:160
 #, python-format
 msgid "Done. %d repositories were enabled"
 msgstr "تم تفعيل %d مستودعا."
 
-#: ../Plugins/printers.py:35
+#: ../Plugins/printers.py:34
 msgid "Printer settings and tools"
 msgstr "إعدادات الطابعة وأدواتها"
 
-#: ../Plugins/printers.py:39
+#: ../Plugins/printers.py:38
 msgid "Configure printers"
 msgstr "إعداد الطابعات"
 
-#: ../Plugins/printers.py:41
+#: ../Plugins/printers.py:40
 msgid "Install support for non-standard printers (GDI or winprinters)"
 msgstr "تثبيت دعم للطابعات غير القياسية (طابعات GDI أو winprinters)"
 
-#: ../Plugins/printers.py:41
+#: ../Plugins/printers.py:40
 msgid "extra packages are already installed"
 msgstr "الحزم الإضافية مثبتة مسبقا"
 
-#: ../Plugins/printers.py:41
+#: ../Plugins/printers.py:40
 msgid "Install foo2* packages"
 msgstr "تثبيت حزم foo2"
 
-#: ../Plugins/gnome-power.py:26
+#: ../Plugins/gnome-power.py:25
 msgid "Power settings"
 msgstr "إعدادات الطاقة"
 
-#. FIXME: Toggle comment state for next 7 lines to disable expander
-#: ../Plugins/gnome-power.py:30
+#: ../Plugins/gnome-power.py:26
 msgid "Adjust power settings"
 msgstr "ضبط إعدادات الطاقة"
 
-#: ../Plugins/gnome-power.py:51
+#: ../Plugins/gnome-power.py:34
 msgid "Power button"
 msgstr "عند ضغط زر الطاقة"
 
-#: ../Plugins/gnome-power.py:52
+#: ../Plugins/gnome-power.py:35
 msgid "Hibernate button"
 msgstr "عند ضغط زر الإثبات"
 
-#: ../Plugins/gnome-power.py:53
+#: ../Plugins/gnome-power.py:36
 msgid "Sleep button"
 msgstr "عند ضغط زر الخمول"
 
-#: ../Plugins/gnome-power.py:54
+#: ../Plugins/gnome-power.py:37
 msgid "Suspend button"
 msgstr "عند ضغط زر التعليق"
 
 #. (_('Cursor theme'),'button-sleep'),
-#: ../Plugins/gnome-power.py:56
+#: ../Plugins/gnome-power.py:39
 msgid "Critical battery action"
 msgstr "وضع البطارية الحرج"
 
-#: ../Plugins/gnome-power.py:57
+#: ../Plugins/gnome-power.py:40
 msgid "Laptop lid close action on AC"
 msgstr "إغلاق غطاء الكمبيوتر المحمول أثناء وصل الطاقة"
 
-#: ../Plugins/gnome-power.py:58
+#: ../Plugins/gnome-power.py:41
 msgid "Laptop lid close action on battery"
 msgstr "إغلاق غطاء الكمبيوتر المحمول مع البطارية"
 
-#: ../Plugins/gnome-power.py:59
+#: ../Plugins/gnome-power.py:42
 msgid "Sleep inactive type on AC"
 msgstr "الخمول فى حالة إنعدام النشاط أثناء وصل الطاقة"
 
-#: ../Plugins/gnome-power.py:60
+#: ../Plugins/gnome-power.py:43
 msgid "Sleep inactive type on power"
 msgstr "الخمول فى حالة إنعدام النشاط مع البطارية"
 
-#: ../Plugins/block-hosts.py:82
+#: ../Plugins/block-hosts.py:80
 msgid "Site Blocking"
 msgstr "حظر المواقع"
 
-#: ../Plugins/block-hosts.py:87
+#: ../Plugins/block-hosts.py:85
 msgid "Filter sites with explicit contents"
 msgstr "حجب المواقع ذات المحتويات الفاضحة"
 
-#: ../Plugins/block-hosts.py:92
+#: ../Plugins/block-hosts.py:90
 msgid "Block ads and spyware sites"
 msgstr "حظر مواقع الإعلانات والتجسس وانتهاك الخصوصية"
 
-#: ../Plugins/block-hosts.py:96
+#: ../Plugins/block-hosts.py:94
 msgid "View blocked sites list"
 msgstr "عرض المواقع المحظورة"
 
-#: ../Plugins/block-hosts.py:99
+#: ../Plugins/block-hosts.py:97
 msgid "connect to ojuba.org to get the updated list"
 msgstr "اتصل بموقع أعجوبة للحصول على قائمة محدّثة"
 
-#: ../Plugins/block-hosts.py:103
+#: ../Plugins/block-hosts.py:101
 msgid "Block sites in your personal black list"
 msgstr "حظر المواقع الموجودة في قائمتك السوداء الخاصة"
 
-#: ../Plugins/block-hosts.py:113
+#: ../Plugins/block-hosts.py:111
 msgid "Personal black list"
 msgstr "القائمة السوداء الخاصة"
 
-#: ../Plugins/block-hosts.py:131 ../Plugins/block-hosts.py:145
-#: ../Plugins/block-hosts.py:158 ../Plugins/block-hosts.py:167
+#: ../Plugins/block-hosts.py:130 ../Plugins/block-hosts.py:144
+#: ../Plugins/block-hosts.py:159 ../Plugins/block-hosts.py:169
 msgid "Done. You may need to restart your browser."
 msgstr "تم. قد يتوجب عليك إعادة تشغيل المتصفح."
 
 #: ../Plugins/gnome-windows.py:27
 msgid "windows"
-msgstr ""
+msgstr "النوافذ"
 
-#. FIXME: Toggle comment state for next 7 lines to disable expander
-#: ../Plugins/gnome-windows.py:31
+#: ../Plugins/gnome-windows.py:28
 msgid "Adjust windows settings"
 msgstr "ضبط إعدادات النوافذ"
 
-#. TODO: add the fallback (metacity) window theme
-#: ../Plugins/gnome-windows.py:61
+#: ../Plugins/gnome-windows.py:41
 msgid "Action on title bar double-click"
 msgstr "عمل النقر المزدوج على شريط العنوان"
 
-#: ../Plugins/gnome-windows.py:62
+#: ../Plugins/gnome-windows.py:42
 msgid "Action on title bar middle-click"
 msgstr "عمل النقر الأوسط على شريط العنوان"
 
-#: ../Plugins/gnome-windows.py:63
+#: ../Plugins/gnome-windows.py:43
 msgid "Action on title bar right-click"
 msgstr "عمل النقر الأيمن على شريط العنوان"
 
-#: ../Plugins/gnome-windows.py:64
+#: ../Plugins/gnome-windows.py:44
 msgid "Window focus mode"
 msgstr "طور تبئير النوافذ"
 
-#: ../Plugins/gnome-windows.py:65
+#: ../Plugins/gnome-windows.py:45
 msgid "Windows button layout"
 msgstr "توزيع أزرار النوافذ"
 
-#: ../Plugins/gnome-windows.py:65
+#: ../Plugins/gnome-windows.py:45
 msgid "Require Gnome-Shell Restart"
 msgstr "أنت بحاجة لإعادة تشغيل غنوم شل"
 
-#: ../Plugins/fav-apps.py:41
+#: ../Plugins/fav-apps.py:38
 msgid "Favorite Packages"
 msgstr "الحزم المفضلة"
 
-#: ../Plugins/fav-apps.py:45
+#: ../Plugins/fav-apps.py:42
 msgid ""
 "Those are some selected software packages.\n"
 "If you got packages DVD, you may like to enable it before installing the "
@@ -652,100 +793,104 @@ msgstr ""
 "إن كنت تمتلك قرص DVD يحتوي على حزم، قد ترغب في تفعيله قبل تثبيت أي من هذه "
 "الحزم."
 
-#: ../Plugins/fav-apps.py:48
+#: ../Plugins/fav-apps.py:45
 msgid "Desktop:"
 msgstr "سطح المكتب:"
 
 #. hb.pack_start(LaunchOrInstall(self,'screenlets','/usr/bin/screenlets',['screenlets']),False,False,2)
-#: ../Plugins/fav-apps.py:54
+#: ../Plugins/fav-apps.py:51
 msgid "extra screensavers"
 msgstr "حافظات شاشة إضافية"
 
-#: ../Plugins/fav-apps.py:58
+#: ../Plugins/fav-apps.py:55
 msgid "Internet:"
 msgstr "إنترنت:"
 
-#: ../Plugins/fav-apps.py:70
+#: ../Plugins/fav-apps.py:67
 msgid "Mobile related:"
 msgstr "متعلقة بالجوال :"
 
-#: ../Plugins/fav-apps.py:76
+#: ../Plugins/fav-apps.py:73
 msgid "Multimedia and Grpahics:"
 msgstr "الوسائط المتعددة والرسوميات :"
 
-#: ../Plugins/fav-apps.py:90
+#: ../Plugins/fav-apps.py:87
 msgid "Games:"
 msgstr "ألعاب:"
 
-#: ../Plugins/fav-apps.py:93
+#: ../Plugins/fav-apps.py:90
 msgid "Secret Maryo Chronicles"
 msgstr "أسرار مغامرات ماريو"
 
-#: ../Plugins/fav-apps.py:117
+#: ../Plugins/fav-apps.py:114
 msgid "Development:"
 msgstr "التطوير:"
 
-#: ../Plugins/fav-apps.py:128
+#: ../Plugins/fav-apps.py:125
 msgid "Servers:"
 msgstr "الخوادم:"
 
-#: ../Plugins/fav-apps.py:129
+#: ../Plugins/fav-apps.py:126
 msgid "web server collection"
 msgstr "مجموعة حزم خادم الويب"
 
-#: ../Plugins/fav-apps.py:129
+#: ../Plugins/fav-apps.py:126
 msgid "collection of LAMP web server related packages"
 msgstr "حزم منتقاة متعلقة بخادم الويب LAMP"
 
-#: ../Plugins/fav-apps.py:130
+#: ../Plugins/fav-apps.py:127
 msgid "ftp server"
 msgstr "خادم ftp"
 
-#: ../Plugins/fav-apps.py:130
+#: ../Plugins/fav-apps.py:127
 msgid "collection of ftp server related packages"
 msgstr "حزم منتقاة متعلقة بخادم ftp"
 
-#: ../Plugins/fav-apps.py:131
+#: ../Plugins/fav-apps.py:128
 msgid "tomcat collection"
 msgstr "مجموعة tomcat :"
 
-#: ../Plugins/fav-apps.py:131
+#: ../Plugins/fav-apps.py:128
 msgid "collection of tomcat related packages"
 msgstr "مجموعة الحزم المتعلقة بـ tomcat"
 
-#: ../Plugins/fav-apps.py:132
+#: ../Plugins/fav-apps.py:129
 msgid "Jetty Java Servlet"
 msgstr ""
 
-#: ../Plugins/fav-apps.py:132
+#: ../Plugins/fav-apps.py:129
 msgid "Jetty is a pure Java HTTP Server and Servlet Container"
 msgstr ""
 
-#: ../Plugins/fav-apps.py:137
+#: ../Plugins/fav-apps.py:134
 msgid "Engineering:"
 msgstr "الهندسة:"
 
-#: ../Plugins/fav-apps.py:141
+#: ../Plugins/fav-apps.py:138
 msgid "Circuits collection"
 msgstr "حزم الدوائر الإلكترونية"
 
-#: ../Plugins/fav-apps.py:141
+#: ../Plugins/fav-apps.py:138
 msgid "Circuits collection already installed"
 msgstr "مجموعة حزم الدوائر الإلكترونية مثبتة مسبقا"
 
-#: ../Plugins/fav-apps.py:146
+#: ../Plugins/fav-apps.py:147
+msgid "Can not get latest opera url, make sure that you are online!"
+msgstr ""
+
+#: ../Plugins/fav-apps.py:151
 msgid "already installed"
 msgstr "الحزم مثبتة مسبقا"
 
-#: ../Plugins/fav-apps.py:151
+#: ../Plugins/fav-apps.py:156
 msgid "You can wait about 5-15 minutes while downloading opera browser."
 msgstr ""
 
-#: ../Plugins/kernel.py:27
+#: ../Plugins/kernel.py:30
 msgid "System Kernel:"
 msgstr "النواة:"
 
-#: ../Plugins/kernel.py:35
+#: ../Plugins/kernel.py:38
 msgid ""
 "Linux kernel is the part of the system that deal with the hardware.\n"
 "For safety the system will keep older kernels,\n"
@@ -756,11 +901,11 @@ msgstr ""
 "النظام قد يحتفظ بالأنوية القديمة في حال تعثر النظام مع النواة الجديدة.\n"
 "لكن إن كان النظام يعمل جيدا بالنواة الجديدة فإنك لا تحتاج للقديمة."
 
-#: ../Plugins/kernel.py:38
+#: ../Plugins/kernel.py:41
 msgid "Keep only one kernel"
 msgstr "الاحتفاظ بنواة واحدة"
 
-#: ../Plugins/kernel.py:44
+#: ../Plugins/kernel.py:47
 msgid ""
 "A typical kernel can deal with up to 4GB of RAM.\n"
 "PAE kernels can deal with much much more than that."
@@ -768,19 +913,19 @@ msgstr ""
 "النواة التقليدية تدعم حتى 4 غيغابايت من الذاكرة رام.\n"
 "الأنوية بتقنية PAE تستطيع التعامل مع كميات أكبر بكثير من ذلك."
 
-#: ../Plugins/kernel.py:47
+#: ../Plugins/kernel.py:50
 msgid "Install PAE kernel"
 msgstr "تثبيت نواة PAE"
 
-#: ../Plugins/kernel.py:47
+#: ../Plugins/kernel.py:50
 msgid "PAE kernel is installed"
 msgstr "نواة PAE مثبتة"
 
-#: ../Plugins/kernel.py:47
+#: ../Plugins/kernel.py:50
 msgid "kernel which supports larger memory"
 msgstr "نواة تدعم حجوم أكبر من الذاكرة"
 
-#: ../Plugins/kernel.py:52
+#: ../Plugins/kernel.py:55
 msgid ""
 "There are two types of drivers: <i>kmods</i> and <i><b>a</b>kmods</i>.\n"
 "Although <b>akmod</b> drivers requires: more disk space for the development "
@@ -794,47 +939,47 @@ msgstr ""
 "إلا أنها تولد التعريفات الخاصة بالأنوية الجديدة تلقائيا دون كسر الاعتمادية.\n"
 "ننصحك بشدة أن تستخدم تعريفات <b>akmod</b>."
 
-#: ../Plugins/kernel.py:55
+#: ../Plugins/kernel.py:58
 msgid "Install corresponding akmods for installed kmods"
 msgstr "تثبيت تعريفات akmods المقابلة لكل تعريفات kmods المثبتة حاليا"
 
-#: ../Plugins/kernel.py:59
+#: ../Plugins/kernel.py:62
 msgid "Developers need kernel documentation and kernel development tools"
 msgstr "المطورون قد يرغبون بالحصول على وثائق النواة وأدواتها التطويرية"
 
-#: ../Plugins/kernel.py:62
+#: ../Plugins/kernel.py:65
 msgid "Install kernel documentation"
 msgstr "تثبيت وثائق النواة"
 
-#: ../Plugins/kernel.py:62
+#: ../Plugins/kernel.py:65
 msgid "kernel documentation is already installed"
 msgstr "وثائق النواة مثبتة مسبقا"
 
-#: ../Plugins/kernel.py:62
+#: ../Plugins/kernel.py:65
 msgid "Kernel documentation"
 msgstr "وثائق النواة"
 
-#: ../Plugins/kernel.py:64
+#: ../Plugins/kernel.py:67
 msgid "Install kernel development tools"
 msgstr "تثبيت أدوات تطوير النواة"
 
-#: ../Plugins/kernel.py:64
+#: ../Plugins/kernel.py:67
 msgid "kernel development package is already installed"
 msgstr "حزمة تطوير النواة مثبتة مسبقا"
 
-#: ../Plugins/kernel.py:64
+#: ../Plugins/kernel.py:67
 msgid "needed for building kernel module"
 msgstr "تلزم لمن يبني وحدات للنواة"
 
-#: ../Plugins/kernel.py:100
+#: ../Plugins/kernel.py:104
 msgid "all needed akmods are already installed."
 msgstr "كل حزم kmods اللازمة مثبتة مسبقا"
 
-#: ../Plugins/xorgconf.py:99
+#: ../Plugins/xorgconf.py:98
 msgid "Fallback X procedures:"
 msgstr "إجراءات إصلاح إكس:"
 
-#: ../Plugins/xorgconf.py:106
+#: ../Plugins/xorgconf.py:105
 msgid ""
 "This is an advanced tool that should <b>NOT</b> be used in normal cases.\n"
 "If you tried other tools and it fails you may use this tool."
@@ -842,15 +987,15 @@ msgstr ""
 "هذه أداة متقدمة يجب أن <b>لا</b> تستخدم في الحالات العادية.\n"
 "إن فشلت الأدوات الأخرى قد تفيدك هذه الأداة."
 
-#: ../Plugins/xorgconf.py:111
+#: ../Plugins/xorgconf.py:110
 msgid "Show Advanced options"
 msgstr "إظهار الخيارات المتقدمة"
 
-#: ../Plugins/xorgconf.py:116
+#: ../Plugins/xorgconf.py:115
 msgid "initrd generation"
 msgstr "توليد initrd"
 
-#: ../Plugins/xorgconf.py:121
+#: ../Plugins/xorgconf.py:120
 msgid ""
 "initrd file could contain old modules that conflict some proprietary "
 "drivers.\n"
@@ -859,15 +1004,15 @@ msgstr ""
 "قد يحتوي ملف initrd على وحدات تعريف قديمة تتضارب مع التعريفات المملوكة.\n"
 "قد ترغب في توليد ملف جديد."
 
-#: ../Plugins/xorgconf.py:125
+#: ../Plugins/xorgconf.py:124
 msgid "Generate initrd"
 msgstr "توليد initrd"
 
-#: ../Plugins/xorgconf.py:130
+#: ../Plugins/xorgconf.py:129
 msgid "Xorg.conf creation tool"
 msgstr "أداة إنشاء ملف إعداد إكس xorg.conf"
 
-#: ../Plugins/xorgconf.py:135
+#: ../Plugins/xorgconf.py:134
 msgid ""
 "Xorg.conf is the file that controls X server which is the base of the "
 "graphical environment.\n"
@@ -877,20 +1022,20 @@ msgstr ""
 "ملف xorg.conf هو الملف الذي يتحكم في خادم إكس الذي هو أساس البيئة الرسومية.\n"
 "هذه الأداة ستطمس ملف xorg.conf العامل حاليا وتنشئ واحد جديد من الصفر."
 
-#: ../Plugins/xorgconf.py:139
+#: ../Plugins/xorgconf.py:138
 msgid "Driver:"
 msgstr "التعريف:"
 
-#: ../Plugins/xorgconf.py:143
+#: ../Plugins/xorgconf.py:142
 #, python-format
 msgid "usually a single lower case word like: %s"
 msgstr "عادة كلمة واحدة من حروف صغيرة مثل: %s"
 
-#: ../Plugins/xorgconf.py:147
+#: ../Plugins/xorgconf.py:146
 msgid "Enable Composite extension"
 msgstr "تفعيل إمتداد composite"
 
-#: ../Plugins/xorgconf.py:149
+#: ../Plugins/xorgconf.py:148
 msgid ""
 "This extention is needed by special effects but could case problems in rare "
 "cases."
@@ -898,27 +1043,27 @@ msgstr ""
 "تفعيل المؤثرات الخاصة يحتاج هذه الإضافة لكنها قد تتسبب في مشاكل في بعض "
 "الحالات النادرة."
 
-#: ../Plugins/xorgconf.py:151
+#: ../Plugins/xorgconf.py:150
 msgid "Enable AIGLX"
 msgstr "تفعيل AIGLX"
 
-#: ../Plugins/xorgconf.py:153
+#: ../Plugins/xorgconf.py:152
 msgid "Enable Accelerated indirect rendering."
 msgstr "تفعيل التسريع غير المباشر Accelerated indirect rendering."
 
-#: ../Plugins/xorgconf.py:157
+#: ../Plugins/xorgconf.py:156
 msgid "Vertical Refresh Rate:"
-msgstr ""
+msgstr "معدل التحديث الرأسى :"
 
-#: ../Plugins/xorgconf.py:158
+#: ../Plugins/xorgconf.py:157
 msgid "auto"
 msgstr "تلقائي"
 
-#: ../Plugins/xorgconf.py:161
+#: ../Plugins/xorgconf.py:160
 msgid "manual:"
 msgstr "يدوي:"
 
-#: ../Plugins/xorgconf.py:165
+#: ../Plugins/xorgconf.py:164
 msgid ""
 "a value of 85Hz would be nicer on your eyes, lower values like 60Hz would "
 "work with LCD or old CRT monitors."
@@ -926,31 +1071,31 @@ msgstr ""
 "قيم عالية مثل 85 هيرتز تكون لطيفة على العين، بالمقابل قيم منخفضة مثل 60 "
 "هيرتز تصلح لشاشات LCD أو CRT القديمة"
 
-#: ../Plugins/xorgconf.py:172
+#: ../Plugins/xorgconf.py:171
 msgid "HD Resolutions:"
 msgstr "استبانة عالية HD:"
 
-#: ../Plugins/xorgconf.py:178
+#: ../Plugins/xorgconf.py:177
 msgid "LCD Wide Resolutions:"
 msgstr "استبانات LCD Wide العريضة:"
 
-#: ../Plugins/xorgconf.py:185
+#: ../Plugins/xorgconf.py:184
 msgid "Normal Resolutions:"
 msgstr "استبانة طبيعية:"
 
-#: ../Plugins/xorgconf.py:198
+#: ../Plugins/xorgconf.py:197
 msgid "Delete xorg.conf"
 msgstr "حذف ملف xorg.conf"
 
-#: ../Plugins/xorgconf.py:200
+#: ../Plugins/xorgconf.py:199
 msgid "This will make X use default settings."
 msgstr "هذا سيعيد إكس للإعدادات التلقائية."
 
-#: ../Plugins/xorgconf.py:205
+#: ../Plugins/xorgconf.py:204
 msgid "Do you like to remove xorg.conf file to use default settings?"
 msgstr "هل ترغب في حذف ملف xorg.conf للعودة للإعدادات التلقائية؟"
 
-#: ../Plugins/xorgconf.py:207 ../Plugins/xorgconf.py:250
+#: ../Plugins/xorgconf.py:207 ../Plugins/xorgconf.py:251
 msgid "Done. Changes will take effect when you login next time."
 msgstr "تم. ستأخذ الإعدادات الجديدة مفعولها عند إعادة الولوج."
 
@@ -970,7 +1115,7 @@ msgstr ""
 "هل أنت متأكد من رغبتك في طمس ملف الإعدادات xorg.cong العامل حاليا لتوليد "
 "واحد جديد؟"
 
-#: ../Plugins/xorgconf.py:255
+#: ../Plugins/xorgconf.py:256
 msgid ""
 "Some proprietary require rebuild initrd.\n"
 "Would you like to do that?"
@@ -978,52 +1123,90 @@ msgstr ""
 "بعض التعريفات المملوكة تتطلب إعادة إنشاء initrd.\n"
 "؟هل ترغب بعمل ذلك"
 
-#: ../Plugins/xorgconf.py:257
+#: ../Plugins/xorgconf.py:259
 msgid "Done. Changes will take effect when you reboot."
 msgstr "تم. ستأخذ الإعدادات الجديدة مفعولها عند إعادة التشغيل."
 
-#: ../Plugins/gnome-fonts.py:27
-msgid "Desktop Fonts"
-msgstr "خطوط سطح المكتب"
+#: ../Plugins/snd.py:38
+msgid "Sound settings and tools"
+msgstr "إعدادات الصوت وأدواته"
 
-#. FIXME: Toggle comment state for next 7 lines to disable expander
-#: ../Plugins/gnome-fonts.py:31
-msgid "Adjust desktop fonts"
-msgstr "ضبط خطوط سطح المكتب"
+#: ../Plugins/snd.py:42
+msgid "Warning: using headphone at high volume may harm your ears."
+msgstr "تحذير: استخدام سماعة الرأس على صوت مرتفع تؤذي أذنيك."
 
-#: ../Plugins/gnome-fonts.py:49
-msgid "Text scaling factor"
-msgstr "حجم النص"
+#: ../Plugins/snd.py:44
+msgid "volume up!"
+msgstr "رفع شدة الصوت!"
 
-#: ../Plugins/gnome-fonts.py:52
-msgid "Default font"
-msgstr "الخط التلقائى"
+#: ../Plugins/snd.py:47
+msgid "Simple gnome mixer"
+msgstr "مازج الصوت البسيط في غنوم"
 
-#: ../Plugins/gnome-fonts.py:53
-msgid "Document font"
-msgstr "خط المستندات"
+#: ../Plugins/snd.py:48
+msgid "Advanced mixer"
+msgstr "مازج الصوت المتقدم"
 
-#: ../Plugins/gnome-fonts.py:54
-msgid "Monospace font"
-msgstr "خط Monospace"
+#: ../Plugins/snd.py:52
+msgid "You may need to use HDA fix from advanced options below."
+msgstr "قد يلزمك استعمال إصلاح HDA من الخيارات المتقدمة أدناه."
 
-#: ../Plugins/gnome-fonts.py:63
-msgid "Hinting"
-msgstr "التلميحات"
+#: ../Plugins/snd.py:64
+msgid "HDA fix for Acer Aspire 8920G:"
+msgstr "إصلاح HDA لجهاز Acer Aspire 8920G:"
 
-#: ../Plugins/gnome-fonts.py:64
-msgid "Antialiasing"
-msgstr "الحواف"
+#: ../Plugins/snd.py:65
+msgid "apply now"
+msgstr "تطبيق الآن"
 
-#: ../Plugins/gnome-fonts.py:74
-msgid "Window title"
-msgstr "عنوان النافذة"
+#: ../Plugins/snd.py:68
+msgid "enable at boot"
+msgstr "التطبيق عند الإقلاع"
 
-#: ../Plugins/oldrpms.py:33
+#: ../Plugins/snd.py:71
+msgid "remove from boot"
+msgstr "حذفها من الإقلاع"
+
+#: ../Plugins/snd.py:76
+msgid ""
+"By default sound works in time-based scheduling which consumes less power "
+"and CPU load.\n"
+"But some drivers have a problem with time mode.\n"
+"If you experience skipping in sound you may disable this feature."
+msgstr ""
+"يأتي الصوت تلقائيا بطور الجدولة الزمنية فهو يستهلك طاقة أقل ولا يشغل "
+"المعالج.\n"
+"بعض التعريفات بها مشاكل مع الطور الزمني.\n"
+"إن واجهت قفزات تخطي في الصوت يمكنك تعطيل هذه الميزة."
+
+#: ../Plugins/snd.py:78
+msgid "Time-based scheduling"
+msgstr "الجدولة الزمنية"
+
+#: ../Plugins/snd.py:84
+msgid ""
+"If you have disabled time-based scheduling and the sound still skips, try "
+"setting realtime scheduling."
+msgstr "إن قمت بتعطيل الجدولة الزمنية وبقي الصوت يقفز جرب تفعيل الوقت الحقيقي."
+
+#: ../Plugins/snd.py:86
+msgid "Realtime scheduling"
+msgstr "الجدولة في الوقت الحقيقي"
+
+#: ../Plugins/snd.py:122 ../Plugins/snd.py:128 ../Plugins/snd.py:150
+#: ../Plugins/snd.py:157
+msgid "Done. New settings will take effect on next boot."
+msgstr "تم. ستأخذ الإعدادات الجديدة مفعولها عند إعادة التشغيل."
+
+#: ../Plugins/snd.py:125
+msgid "Are you sure you want to disable an already enabled hda fix ?"
+msgstr "هل أنت متأكد من رغبتك في تعطيل ما كنت قد فعّلته من إصلاح hda ?"
+
+#: ../Plugins/oldrpms.py:35
 msgid "Old RPM Files:"
 msgstr "حزم RPM القديمة"
 
-#: ../Plugins/oldrpms.py:37
+#: ../Plugins/oldrpms.py:39
 msgid ""
 "Ojuba keeps an archive of all the RPM packages downloaded from the internet\n"
 "Allowing you to use them when necessary\n"
@@ -1031,20 +1214,25 @@ msgid ""
 "You can save some space by deleting those files.\n"
 "You can also have a backup which you can use later"
 msgstr ""
+"تتيح أعجوبة خاصية حفظ الحزم المحملة من الإنترنت ؛ لاستخدامها عند الحاجة\n"
+"\n"
+"بينما تحتل هذه الحزم مساحة كبيرة من القرص\n"
+"يمكنك توفير بعض المساحة الخالية بحذف هذه الملفات\n"
+"كما يمكنك أخذ نسخة احتياطية لإستخدامها لاحقاً"
 
-#: ../Plugins/oldrpms.py:40
+#: ../Plugins/oldrpms.py:42
 msgid "Remove old RPM files"
 msgstr "حذف الحزم القديمة"
 
-#: ../Plugins/oldrpms.py:43
+#: ../Plugins/oldrpms.py:45
 msgid "Backup new RPM files"
 msgstr "نسخ الحزم احتياطياً"
 
-#: ../Plugins/oldrpms.py:54
+#: ../Plugins/oldrpms.py:56
 msgid "There are no repeated RPM files!"
 msgstr "لم يتم العثور على أى حزم مكررة !"
 
-#: ../Plugins/oldrpms.py:58
+#: ../Plugins/oldrpms.py:60
 #, python-format
 msgid ""
 "Delete %d RPM Files, will save %s!\n"
@@ -1053,18 +1241,18 @@ msgstr ""
 "حذف %d ملفات RPM ، سيم تحرير %s\n"
 "هل أنت متأكد ؟"
 
-#: ../Plugins/oldrpms.py:64
+#: ../Plugins/oldrpms.py:66
 #, python-format
 msgid "%d RPM files has been deleted, TO save %s!"
 msgstr "تم حذف %d ملفات RPM, تم تحرير %s!"
 
-#: ../Plugins/oldrpms.py:65
+#: ../Plugins/oldrpms.py:67
 msgid ""
 "We can't complete this action at this time, due unknown error, you can try "
 "again!"
 msgstr "لا يمكن إتمام العملية الآن ، بسبب خطأ غير معروف يمكنك المحاولة لاحقاً"
 
-#: ../Plugins/oldrpms.py:80
+#: ../Plugins/oldrpms.py:82
 #, python-format
 msgid ""
 "%d RPM files has been copied\n"
@@ -1075,39 +1263,92 @@ msgstr ""
 "إلى :%s\n"
 "وتم حذف %d حزم مكررة!"
 
-#: ../Plugins/oldrpms.py:168
+#: ../Plugins/oldrpms.py:170
 msgid "Select directory"
 msgstr "إختر الدليل"
 
-#: ../Plugins/old-os.py:24
+#: ../Plugins/gnome-shell-ext.py:58
+msgid "Gnome shell extensions manager"
+msgstr "مدير إضافات غنوم شل"
+
+#: ../Plugins/gnome-shell-ext.py:59
+msgid "Gnome shell extensions"
+msgstr "إضافات غنوم شل"
+
+#: ../Plugins/gnome-shell-ext.py:79
+msgid "Personal shell extensions folder"
+msgstr "مجلد إضافات غنوم شل الشخصي"
+
+#: ../Plugins/hardware-info.py:31
+msgid "Hardware Information"
+msgstr "معلومات عن العتاد"
+
+#: ../Plugins/hardware-info.py:43
+msgid "Details"
+msgstr "تفاصيل"
+
+#: ../Plugins/hardware-info.py:44
+msgid "Update PCI ID database"
+msgstr "تحديث قاعدة بيانات معرّفات PCI"
+
+#: ../Plugins/hardware-info.py:82
+msgid "CPU"
+msgstr "المعالج"
+
+#: ../Plugins/hardware-info.py:83
+msgid "Memory"
+msgstr "الذاكرة"
+
+#: ../Plugins/hardware-info.py:84
+msgid "VGA"
+msgstr "بطاقة العرض VGA"
+
+#: ../Plugins/hardware-info.py:84
+msgid "Sound card"
+msgstr "بطاقة الصوت"
+
+#: ../Plugins/hardware-info.py:84
+msgid "USB"
+msgstr "الناقل المتسلسل العالمي USB"
+
+#: ../Plugins/os-prob.py:25
 msgid "Installed systems:"
 msgstr "الأنظمة المثبتة"
 
-#: ../Plugins/old-os.py:29
+#: ../Plugins/os-prob.py:30
 msgid ""
-"This section will help you to search your plugged disks \n"
+"This section will help you to search your disks \n"
 "for installed system and add them to grub menu"
 msgstr ""
-"هذا القسم يساعدك على البحث في الأقسام المضمومة عن أنظمة تشغيل أخرى ويضيفها "
+"هذا القسم يساعدك على البحث فى الأقراص الموصولة عن أنظمة تشغيل أخرى ويضيفها "
 "لك في قائمة محمل الإقلاع grub."
 
-#: ../Plugins/old-os.py:34
+#: ../Plugins/os-prob.py:35
+msgid "Install os prober"
+msgstr "تثبيت os prober"
+
+#: ../Plugins/os-prob.py:35
+msgid "os prober is installed"
+msgstr "os prober مثبت مسبقا"
+
+#: ../Plugins/os-prob.py:35
+msgid "package detects other OSes available on a system"
+msgstr "حزمة تستكشف الأنظمة الأخرى المثبتة فى جهازك"
+
+#: ../Plugins/os-prob.py:36
 msgid "Find and add installed systems to grub menu"
 msgstr "البحث عن أنظمة مثبتة وإضافتها للقائمة."
 
-#: ../Plugins/old-os.py:39
-msgid ""
-"Make sure all disks are mounted. Are you sure you want to detect and add "
-"other operating systems?"
+#: ../Plugins/os-prob.py:41
+msgid "Are you sure you want to detect and add other operating systems?"
 msgstr ""
-"تأكد من أن كل الأقراص مضمومة. هل أنت متأكد من رغبتك في الكشف وإضافة الأنظمة "
-"الأخرى."
+"هل أنت متأكد من رغبتك في الكشف وإضافة الأنظمة الأخرى."
 
-#: ../Plugins/old-os.py:44
-msgid "No operating systems were found"
-msgstr "لم نجد أي نظام تشغيل"
+#: ../Plugins/os-prob.py:47
+msgid "Error"
+msgstr ""
 
-#: ../Plugins/old-os.py:45
+#: ../Plugins/os-prob.py:48
 #, python-format
 msgid ""
 "Operating systems found:\n"
@@ -1116,52 +1357,11 @@ msgstr ""
 "الأنظمة التي وجدناها هي:\n"
 "%s"
 
-#: ../Plugins/gnome-interface.py:26
-msgid "Interface"
-msgstr "الواجهة:"
-
-#. FIXME: Toggle comment state for next 7 lines to disable expander
-#: ../Plugins/gnome-interface.py:30
-msgid "Adjust interface settings"
-msgstr "ضبط إعدادات الواجهة"
-
-#: ../Plugins/gnome-interface.py:51
-msgid "Menus have icons"
-msgstr "إظهار رموز القوائم"
-
-#: ../Plugins/gnome-interface.py:52
-msgid "Buttons have icons"
-msgstr "إظهار رموز الأزرار"
-
-#: ../Plugins/gnome-interface.py:58
-msgid "GTK+ theme"
-msgstr "سمة GTK+"
-
-#: ../Plugins/gnome-interface.py:58
-msgid "Add GTK+ theme"
-msgstr "أضف سمة GTK+"
-
-#: ../Plugins/gnome-interface.py:59
-msgid "Icon theme"
-msgstr "سمة الأيقونات"
-
-#: ../Plugins/gnome-interface.py:59
-msgid "Add icons theme"
-msgstr "أضف سمة للأيقونات"
-
-#: ../Plugins/gnome-interface.py:60
-msgid "Cursor theme"
-msgstr "سمة المؤشرات"
-
-#: ../Plugins/gnome-interface.py:60
-msgid "Add cursor theme"
-msgstr "أضف سمة المؤشرات"
-
-#: ../Plugins/legacy-fonts.py:29
+#: ../Plugins/legacy-fonts.py:31
 msgid "Fixing legacy fonts:"
 msgstr "إصلاح الخطوط القديمة:"
 
-#: ../Plugins/legacy-fonts.py:35
+#: ../Plugins/legacy-fonts.py:37
 msgid ""
 "Some legacy fonts do not use any standard encoding.\n"
 "This tool helps you to convert them to standard openType fonts.\n"
@@ -1171,43 +1371,43 @@ msgstr ""
 "هذه الأداة تساعدك على تحويلها إلى خطوط OpenType القياسية.\n"
 "قم بسحب ملفات الخطوط إلى القائمة أدناه ثم انقر زر التحويل."
 
-#: ../Plugins/legacy-fonts.py:52
+#: ../Plugins/legacy-fonts.py:54
 msgid "Install FontForge"
 msgstr "تثبيت محرر الخطوط FontForge"
 
-#: ../Plugins/legacy-fonts.py:52
+#: ../Plugins/legacy-fonts.py:54
 msgid "FontForge is installed"
 msgstr "محرر الخطوط FontForge مثبت"
 
-#: ../Plugins/legacy-fonts.py:52
+#: ../Plugins/legacy-fonts.py:54
 msgid "FontForge is a font editing tool"
 msgstr "بوتقة الخطوط FontForge هو أداة لتحرير الخطوط"
 
-#: ../Plugins/legacy-fonts.py:63
+#: ../Plugins/legacy-fonts.py:65
 msgid "Converting ..."
 msgstr "يجري التحويل ..."
 
-#: ../Plugins/legacy-fonts.py:68
+#: ../Plugins/legacy-fonts.py:70
 msgid "Done"
 msgstr "تم."
 
-#: ../Plugins/legacy-fonts.py:69
+#: ../Plugins/legacy-fonts.py:71
 msgid "Skipped"
 msgstr "متخطاة"
 
-#: ../Plugins/legacy-fonts.py:73
+#: ../Plugins/legacy-fonts.py:75
 msgid "Not started"
 msgstr "لم نبدأ بعد"
 
-#: ../Plugins/legacy-fonts.py:81
+#: ../Plugins/legacy-fonts.py:83
 msgid "Files"
 msgstr "الملفات"
 
-#: ../Plugins/liveusb.py:38
+#: ../Plugins/liveusb.py:37
 msgid "LiveUSB"
 msgstr ""
 
-#: ../Plugins/liveusb.py:42
+#: ../Plugins/liveusb.py:41
 msgid ""
 "A Live System enables you to carry your operating system with you.\n"
 "Also, You may add persistent layer so that it can hold your modification to "
@@ -1216,91 +1416,93 @@ msgstr ""
 "يُمكنك النظام الحي من أن تحمل نظام التشغيل معك.\n"
 "كما يمكنك إضافة طبقة غير فاقدة تمكنك من حفظ التعديلات على النظام."
 
-#: ../Plugins/liveusb.py:45
+#: ../Plugins/liveusb.py:44
 msgid "Source:"
 msgstr "المصدر:"
 
-#: ../Plugins/liveusb.py:46
+#: ../Plugins/liveusb.py:45
 msgid "from iso file"
 msgstr "من ملف iso"
 
-#: ../Plugins/liveusb.py:49
+#: ../Plugins/liveusb.py:48
 msgid "Choose live iso file"
 msgstr "اختر ملف iso حي"
 
-#: ../Plugins/liveusb.py:53
+#: ../Plugins/liveusb.py:52
 msgid "from CD/DVD device"
 msgstr "من قرص CD أو DVD"
 
-#: ../Plugins/liveusb.py:66
+#: ../Plugins/liveusb.py:65
 msgid "Target Device:"
 msgstr "الجهاز الهدف"
 
-#: ../Plugins/liveusb.py:74
+#: ../Plugins/liveusb.py:73
 msgid "Target Options:"
 msgstr "خيارات الهدف:"
 
-#: ../Plugins/liveusb.py:75
+#: ../Plugins/liveusb.py:74
 msgid "Format target partition"
 msgstr "تهيئة القسم الهدف"
 
-#: ../Plugins/liveusb.py:76
+#: ../Plugins/liveusb.py:75
 msgid "uncheck this button to preserve data on target device"
 msgstr "تأكد من إزالة هذا الخيار للحفاظ على بياناتك الموجودة على الهدف"
 
-#: ../Plugins/liveusb.py:78
+#: ../Plugins/liveusb.py:77
 msgid "Reset MBR"
 msgstr "إعادة ضبط MBR"
 
-#: ../Plugins/liveusb.py:81
+#: ../Plugins/liveusb.py:80
 msgid "Overlay size:"
 msgstr "حجم الطبقة:"
 
-#: ../Plugins/liveusb.py:83
+#: ../Plugins/liveusb.py:82
 msgid "size of persistent overlay in MB, 0 to disable"
 msgstr "حجم الطبقة غير الفاقدة بوحدة م.ب. صفر لتعطيلها"
 
-#: ../Plugins/liveusb.py:86
+#: ../Plugins/liveusb.py:85
 msgid "MB"
 msgstr "م.ب"
 
-#: ../Plugins/liveusb.py:100
+#: ../Plugins/liveusb.py:99
 msgid "This will take some time."
 msgstr "سيأخذ هذا بعض الوقت"
 
-#: ../Plugins/liveusb.py:118
+#: ../Plugins/liveusb.py:117
 msgid "The package 'livecd-tools' is not installed."
 msgstr "الحزمة livecd-tools غير مثبتة"
 
-#: ../Plugins/liveusb.py:119
+#: ../Plugins/liveusb.py:118
 msgid "Would you like to install 'livecd-tools'?"
 msgstr "هل ترغب بتثبيت livecd-tools?"
 
-#: ../Plugins/liveusb.py:126
+#: ../Plugins/liveusb.py:125
 msgid "Please choose valid target device."
 msgstr "فضلا اختر جهاز هدف صالح."
 
-#: ../Plugins/liveusb.py:130
+#: ../Plugins/liveusb.py:129
 #, python-format
 msgid "Are you sure you want to format target device (labeled %s)?"
 msgstr "هل انت متأكد أنك ترغب في تهيئة الجهاز الهدف (يحمل العنوان %s)؟"
 
-#: ../Plugins/liveusb.py:137
+#: ../Plugins/liveusb.py:136
 msgid "Please choose a valid iso file"
 msgstr "فضلا، اختر ملف iso صالح"
 
-#: ../Plugins/liveusb.py:141
+#: ../Plugins/liveusb.py:140
 msgid "Please choose a source device."
 msgstr "فضلا اختر الجهاز المصدر."
 
-#: ../Plugins/liveusb.py:151
+#: ../Plugins/liveusb.py:150
 #, python-format
 msgid ""
 "An error occurred while creating the live system.\n"
 "You may run the following command in terminal to see the error:\n"
 "%s"
 msgstr ""
-
+"حدث خطأ أثناء إنشاء القرص الحى\n"
+"يمكنك استخدام هذا الأمر فى الطرفية لمعرفة الخطأ:\n"
+"%s"
 #: ../Plugins/net.py:29
 msgid "Network settings:"
 msgstr "إعدادات الشبكة:"
@@ -1382,6 +1584,51 @@ msgstr ""
 "لم يعد هناك أي نصائح.\n"
 "إن قمت بأي تغييرات فإنها قد تحتاج إلى إعادة تشغيل الجهاز كي تُفعّل."
 
+#: ../Plugins/fonts.py:30
+msgid "Installing fonts:"
+msgstr "تثبيت الخطوط"
+
+#: ../Plugins/fonts.py:34
+msgid ""
+"Open your personal fonts folder and manage your fonts there.\n"
+"Just drag and drop or copy and past font files there."
+msgstr ""
+"افتح مجلد الخطوط الشخصي حيث يمكنك إدارة ملفات الخطوط.\n"
+"كل ما عليك هو سحب وإفلات ملفات الخطوط أو نسخها ولصقها."
+
+#: ../Plugins/fonts.py:39
+msgid "Personal fonts folder"
+msgstr "مجلد الخطوط الشخصي"
+
+#. b=gtk.Button(_("System fonts folder"))
+#. b.connect('clicked',self.__sys_fonts_cb)
+#. h.pack_start(b,False,False,2)
+#: ../Plugins/fonts.py:45
+msgid "Import fonts from another installed OS"
+msgstr "استيراد الخطوط من نظام تشغيل آخر مثبت على هذا الجهاز."
+
+#: ../Plugins/fonts.py:56
+msgid ""
+"Are you sure you want to search and install fonts ?\n"
+"Make sure that the partitions are mounted and you have a license to use the "
+"fonts.\n"
+msgstr ""
+"هل أنت متأكد أنك تريد البحث عن الخطوط وتثبيتها ؟\n"
+"تأكد من أن أقسام القرص الصلب مضمومة وأنك تمتلك رخصة لاستعمال تلك الخطوط.\n"
+
+#: ../Plugins/fonts.py:71
+#, python-format
+msgid ""
+"There are %i fonts found, only %i could be important to you. Do you want to "
+"install all the fonts?\n"
+msgstr ""
+"هناك %i خطا، قد لا تكون مهتما إلا ب %i منها. هل تريد تثبيت كل الخطوط؟\n"
+
+#: ../Plugins/fonts.py:78
+#, python-format
+msgid "Done. %d font were installed."
+msgstr "تم تثبيت خطوط بعدد %d."
+
 #: ../Plugins/sys-conf-lang.py:28
 msgid "System Language:"
 msgstr "لغة النظام:"
@@ -1394,56 +1641,11 @@ msgstr "اختر لغة النظام التلقائية"
 msgid "Other Language"
 msgstr "لغة أخرى"
 
-#: ../Plugins/fonts.py:29
-msgid "Installing fonts:"
-msgstr "تثبيت الخطوط"
-
-#: ../Plugins/fonts.py:33
-msgid ""
-"Open your personal fonts folder and manage your fonts there.\n"
-"Just drag and drop or copy and past font files there."
-msgstr ""
-"افتح مجلد الخطوط الشخصي حيث يمكنك إدارة ملفات الخطوط.\n"
-"كل ما عليك هو سحب وإفلات ملفات الخطوط أو نسخها ولصقها."
-
-#: ../Plugins/fonts.py:38
-msgid "Personal fonts folder"
-msgstr "مجلد الخطوط الشخصي"
-
-#. b=gtk.Button(_("System fonts folder"))
-#. b.connect('clicked',self.__sys_fonts_cb)
-#. h.pack_start(b,False,False,2)
-#: ../Plugins/fonts.py:44
-msgid "Import fonts from another installed OS"
-msgstr "استيراد الخطوط من نظام تشغيل آخر مثبت على هذا الجهاز."
-
-#: ../Plugins/fonts.py:55
-msgid ""
-"Are you sure you want to search and install fonts ?\n"
-"Make sure that the partitions are mounted and you have a license to use the "
-"fonts.\n"
-msgstr ""
-"هل أنت متأكد أنك تريد البحث عن الخطوط وتثبيتها ؟\n"
-"تأكد من أن أقسام القرص الصلب مضمومة وأنك تمتلك رخصة لاستعمال تلك الخطوط.\n"
-
-#: ../Plugins/fonts.py:70
-#, python-format
-msgid ""
-"There are %i fonts found, only %i could be important to you. Do you want to "
-"install all the fonts?\n"
-msgstr ""
-"هناك %i خطا، قد لا تكون مهتما إلا ب %i منها. هل تريد تثبيت كل الخطوط؟\n"
-
-#: ../Plugins/fonts.py:77
-#, python-format
-msgid "Done. %d font were installed."
-msgstr "تم تثبيت خطوط بعدد %d."
-
-#: ../Plugins/dm.py:30
+#: ../Plugins/dm.py:29
 msgid "Graphical Login Manager"
 msgstr "مدير الولوج الرسومي"
 
-#: ../Plugins/dm.py:34
+#: ../Plugins/dm.py:33
 msgid ""
 "Display Manager is the application that allow you to log into your desktop.\n"
 "It's the application that might ask you to authenticate with your username "
@@ -1452,19 +1654,19 @@ msgstr ""
 "مدير الولوج الرسومي هو البرنامج الذي قد يسألك عن اسم المستخدم وكلمة السر "
 "للقيام بعملية المواثقة ثم السماح لك بالدخول إلى سطح المكتب"
 
-#: ../Plugins/dm.py:43
+#: ../Plugins/dm.py:42
 msgid "Available display managers:"
 msgstr "المتوفرة"
 
-#: ../Plugins/dm.py:45
+#: ../Plugins/dm.py:44
 msgid "save change"
 msgstr "حفظ التغييرات"
 
-#: ../Plugins/dm.py:49
+#: ../Plugins/dm.py:48
 msgid "Enable Automatic Login as this user"
 msgstr "تفعيل الولوج التلقائي إلى حساب المستخدم الحالي"
 
-#: ../Plugins/dm.py:52
+#: ../Plugins/dm.py:51
 msgid "Disable Automatic Login"
 msgstr "تعطيل الولوج التلقائي"
 
@@ -1477,30 +1679,30 @@ msgstr "تم تحديد مدير الولوج الرسومي ليكون %s"
 msgid "Unable to set display managed."
 msgstr "غير قادر على اختيار مدير الولوج."
 
-#: ../Plugins/dm.py:83
+#: ../Plugins/dm.py:84
 #, python-format
 msgid "could not set automatic login in %s"
 msgstr "غير قادر على إعداد الولوج التلقائي في %s"
 
-#: ../Plugins/dm.py:84
+#: ../Plugins/dm.py:85
 #, python-format
 msgid "Automatic login as %s was set in %s"
 msgstr "تم تفعيل الولوج التلقائي إلى حساب %s في %s"
 
-#: ../Plugins/dm.py:85
+#: ../Plugins/dm.py:86
 msgid "could not set automatic login"
 msgstr "غير قادر على إعداد الولوج التلقائي"
 
-#: ../Plugins/dm.py:90
+#: ../Plugins/dm.py:92
 msgid "could not disable automatic login"
 msgstr "غير قادر على تعطيل الولوج التلقائي"
 
-#: ../Plugins/dm.py:91
+#: ../Plugins/dm.py:93
 #, python-format
 msgid "could not disable automatic login in %s"
 msgstr "غير قادر على تعطيل الولوج التلقائي في %s"
 
-#: ../Plugins/dm.py:92
+#: ../Plugins/dm.py:94
 msgid "automatic login is now disabled"
 msgstr "الولوج التلقائي أصبح الآن معطلا"
 
@@ -1531,31 +1733,31 @@ msgstr ""
 msgid "Unable to remove samples icon."
 msgstr "غير قادر على إزالة أيقونة العينات."
 
-#: ../Plugins/net-adv.py:28
+#: ../Plugins/net-adv.py:29
 msgid "Advanced Network settings:"
 msgstr "إعدادات متقدمة للشبكة:"
 
-#: ../Plugins/net-adv.py:32
+#: ../Plugins/net-adv.py:33
 msgid "Firewall protects your system by filtering unwanted network access."
 msgstr "جدار النار يحمي النظام من خلال تصفية/فلترة الوصول غير المرغوب به."
 
-#: ../Plugins/net-adv.py:37
+#: ../Plugins/net-adv.py:38
 msgid "Configure firewall"
 msgstr "إعداد جدار النار"
 
-#: ../Plugins/net-adv.py:41
+#: ../Plugins/net-adv.py:42
 msgid "Samba is used to share folders and printers in LAN"
 msgstr "تستخدم سامبا لمشاركة المجلدات والطابعات في الشبكة المحلية LAN"
 
-#: ../Plugins/net-adv.py:45
+#: ../Plugins/net-adv.py:46
 msgid "Start samba on boot"
 msgstr "تشغيل سامبا عند الإقلاع"
 
-#: ../Plugins/net-adv.py:48
+#: ../Plugins/net-adv.py:49
 msgid "Create or modify shares"
 msgstr "إنشاء وتعديل المشاركات"
 
-#: ../Plugins/net-adv.py:51
+#: ../Plugins/net-adv.py:52
 msgid "Allow unprivileged users to create shares"
 msgstr "السماح بالمشاركة من مستخدمين دون صلاحيات"
 
@@ -1573,11 +1775,11 @@ msgstr "مركز تحكم غنوم"
 msgid "GNOME Menu Editor"
 msgstr "محرر قوائم غنوم"
 
-#: ../Plugins/modem.py:31
+#: ../Plugins/modem.py:26
 msgid "Dialup modem"
 msgstr "مودم الطلب الهاتفي"
 
-#: ../Plugins/modem.py:35
+#: ../Plugins/modem.py:30
 msgid ""
 "Some software dialup modems are supported by slmodem driver.\n"
 "If you have a supported modem select a proper interface for it and activate "
@@ -1586,121 +1788,69 @@ msgstr ""
 "يدعم تعريف slmodem بعض مودمات الطلب الهاتفي البرمجية.\n"
 "إن كان مودمك مدعوما اختر واجهة مناسبة وفعّل التعريف قبل استعماله."
 
-#: ../Plugins/modem.py:37
+#: ../Plugins/modem.py:32
 msgid "Install slmodem driver"
 msgstr "تثبيت تعريف slmodem"
 
-#: ../Plugins/modem.py:37
+#: ../Plugins/modem.py:32
 msgid "slmodem driver is installed"
 msgstr "تعريف slmodem مثبت مسبقا"
 
-#: ../Plugins/modem.py:37
+#: ../Plugins/modem.py:32
 msgid "driver for some software modems"
 msgstr "تعريف لعدد من المودمات البرمجية"
 
-#: ../Plugins/modem.py:38
+#: ../Plugins/modem.py:33
 msgid "Start slmodem daemon on boot"
 msgstr "تشغيل تعريف slmodem عند الإقلاع"
 
-#: ../Plugins/snd.py:39
-msgid "Sound settings and tools"
-msgstr "إعدادات الصوت وأدواته"
+#: ../Plugins/gnome-fonts.py:27
+msgid "Desktop Fonts"
+msgstr "خطوط سطح المكتب"
 
-#: ../Plugins/snd.py:43
-msgid "Warning: using headphone at high volume may harm your ears."
-msgstr "تحذير: استخدام سماعة الرأس على صوت مرتفع تؤذي أذنيك."
+#: ../Plugins/gnome-fonts.py:28
+msgid "Adjust desktop fonts"
+msgstr "ضبط خطوط سطح المكتب"
 
-#: ../Plugins/snd.py:45
-msgid "volume up!"
-msgstr "رفع شدة الصوت!"
+#: ../Plugins/gnome-fonts.py:35
+msgid "Text scaling factor"
+msgstr "حجم النص"
 
-#: ../Plugins/snd.py:48
-msgid "Simple gnome mixer"
-msgstr "مازج الصوت البسيط في غنوم"
+#: ../Plugins/gnome-fonts.py:38
+msgid "Default font"
+msgstr "الخط التلقائى"
 
-#: ../Plugins/snd.py:49
-msgid "Advanced mixer"
-msgstr "مازج الصوت المتقدم"
+#: ../Plugins/gnome-fonts.py:39
+msgid "Document font"
+msgstr "خط المستندات"
 
-#: ../Plugins/snd.py:53
-msgid "You may need to use HDA fix from advanced options below."
-msgstr "قد يلزمك استعمال إصلاح HDA من الخيارات المتقدمة أدناه."
+#: ../Plugins/gnome-fonts.py:40
+msgid "Monospace font"
+msgstr "خط Monospace"
 
-#: ../Plugins/snd.py:65
-msgid "HDA fix for Acer Aspire 8920G:"
-msgstr "إصلاح HDA لجهاز Acer Aspire 8920G:"
+#: ../Plugins/gnome-fonts.py:50
+msgid "Hinting"
+msgstr "التلميحات"
 
-#: ../Plugins/snd.py:66
-msgid "apply now"
-msgstr "تطبيق الآن"
+#: ../Plugins/gnome-fonts.py:51
+msgid "Antialiasing"
+msgstr "الحواف"
 
-#: ../Plugins/snd.py:69
-msgid "enable at boot"
-msgstr "التطبيق عند الإقلاع"
+#: ../Plugins/gnome-fonts.py:62
+msgid "Window title"
+msgstr "عنوان النافذة"
 
-#: ../Plugins/snd.py:72
-msgid "remove from boot"
-msgstr "حذفها من الإقلاع"
+#~ msgid "KMS is enabled for all kernels."
+#~ msgstr "الخيار KMS مفعّل لكل الأنوية."
 
-#: ../Plugins/snd.py:77
-msgid ""
-"By default sound works in time-based scheduling which consumes less power "
-"and CPU load.\n"
-"But some drivers have a problem with time mode.\n"
-"If you experience skipping in sound you may disable this feature."
-msgstr ""
-"يأتي الصوت تلقائيا بطور الجدولة الزمنية فهو يستهلك طاقة أقل ولا يشغل "
-"المعالج.\n"
-"بعض التعريفات بها مشاكل مع الطور الزمني.\n"
-"إن واجهت قفزات تخطي في الصوت يمكنك تعطيل هذه الميزة."
+#~ msgid "KMS is disabled for all kernels."
+#~ msgstr "الخيار KMS معطّل لكل الأنوية."
 
-#: ../Plugins/snd.py:79
-msgid "Time-based scheduling"
-msgstr "الجدولة الزمنية"
+#~ msgid "No operating systems were found"
+#~ msgstr "لم نجد أي نظام تشغيل"
 
-#: ../Plugins/snd.py:85
-msgid ""
-"If you have disabled time-based scheduling and the sound still skips, try "
-"setting realtime scheduling."
-msgstr "إن قمت بتعطيل الجدولة الزمنية وبقي الصوت يقفز جرب تفعيل الوقت الحقيقي."
-
-#: ../Plugins/snd.py:87
-msgid "Realtime scheduling"
-msgstr "الجدولة في الوقت الحقيقي"
-
-#: ../Plugins/snd.py:121 ../Plugins/snd.py:126 ../Plugins/snd.py:147
-#: ../Plugins/snd.py:153
-msgid "Done. New settings will take effect on next boot."
-msgstr "تم. ستأخذ الإعدادات الجديدة مفعولها عند إعادة التشغيل."
-
-#: ../Plugins/snd.py:124
-msgid "Are you sure you want to disable an already enabled hda fix ?"
-msgstr "هل أنت متأكد من رغبتك في تعطيل ما كنت قد فعّلته من إصلاح hda ?"
-
-#: ../Plugins/gnome-shell.py:27
-msgid "Shell"
-msgstr "الصدفة"
-
-#. FIXME: Toggle comment state for next 7 lines to disable expander
-#: ../Plugins/gnome-shell.py:31
-msgid "Shell interface setup"
-msgstr "إعداد واجهة الصدفة"
-
-#: ../Plugins/gnome-shell.py:47
-msgid "Personal shell extensions folder"
-msgstr "مجلد إضافات غنوم شل الشخصي"
-
-#: ../Plugins/gnome-shell.py:55
-msgid "Clock format"
-msgstr "تنسيق الوقت"
-
-#: ../Plugins/gnome-shell.py:60
-msgid "Show seconds in clock"
-msgstr "إظهار الثوانى مع الساعة"
-
-#: ../Plugins/gnome-shell.py:61
-msgid "Show date in clock"
-msgstr "إظهار التاريخ مع الساعة"
+#~ msgid "Interface"
+#~ msgstr "الواجهة:"
 
 #~ msgid "Icons and Cursors"
 #~ msgstr "أيقونات ومؤشرات"

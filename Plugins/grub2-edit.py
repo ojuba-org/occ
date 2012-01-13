@@ -219,7 +219,7 @@ class occPlugin(PluginsClass):
       l.set_text("%s: %s" %(_("Font name"),self.font_fn))
     
   def apply_cb(self, w):
-    if not sure(_('Are you sure you want to changes?'), self.ccw): return
+    if not sure(_('Are you sure you want to apply changes?'), self.ccw): return
     dlg=wait(self.ccw)
     dlg.show_all()
     self.convert_img(self.bg_fn, self.bg_nm)
