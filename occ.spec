@@ -1,5 +1,5 @@
 Name:           occ
-Version:        1.22.0
+Version:        1.22.1
 Release:        1%{?dist}
 Summary:        Ojuba Control Center
 
