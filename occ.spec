@@ -46,6 +46,15 @@ touch --no-create %{_datadir}/icons/hicolor || :
 if [ -x %{_bindir}/gtk-update-icon-cache ] ; then
 %{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
 fi
+# allow dbus-daemon-launch-helper to have execute access on the occ-mechanism.py
+# FIXME: is colord_exec_t correct type ?
+# FIXME: we need del file context in postun ?
+if [ -x /usr/sbin/semanage ] ; then
+/usr/sbin/semanage fcontext -a -t colord_exec_t /usr/share/occ/occ-mechanism.py
+fi
+if [ -x /sbin/restorecon ] ; then
+/sbin/restorecon /usr/share/occ/occ-mechanism.py
+fi
 
 %postun
 touch --no-create %{_datadir}/icons/hicolor || :
