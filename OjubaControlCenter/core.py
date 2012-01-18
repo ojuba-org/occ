@@ -109,7 +109,11 @@ class CCWindow(gtk.Window):
       self.GSchemas_List=self.GSettings.list_schemas()
     self.__init_about_dialog()
     self.__init_pk()
-    self.__mechanism = Backend(bus = bus)
+    try: self.__mechanism = Backend(bus = bus)
+    except dbus.DBusException, e:
+      error(_("Error loading DBus:\n\tStop Selinux and try again, Use sestop, as root to do this."),self)
+      print e
+      sys.exit(1)
     self.__pk=None
     self.__pkc=None
     self.connect("delete_event", gtk.main_quit)

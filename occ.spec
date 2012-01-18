@@ -34,7 +34,9 @@ mkdir -p $RPM_BUILD_ROOT/usr/local/bin/
 
 echo -e '#! /bin/sh\nLC_ALL=en_US.UTF-8 exec RunOrInstall audacity-freeworld /usr/bin/audacity "$@"' >$RPM_BUILD_ROOT/usr/local/bin/audacity
 echo -e '#! /bin/sh\nlib=`[[ "$( arch )" == "x86_64" ]] && echo "lib64" || echo "lib"`\nLD_PRELOAD=/usr/$lib/libv4l/v4l1compat.so exec RunOrInstall skype /usr/bin/skype "$@"' >$RPM_BUILD_ROOT/usr/local/bin/skype
+echo -e '#! /bin/sh\n[ $UID -ne 0 ] && echo -e "Permission denied" && exit\nsetenforce 0\nsed -rie "s/^(SELINUX=).*/\1disabled/" /etc/selinux/config' >$RPM_BUILD_ROOT/usr/local/sbin/sestop
 chmod +x $RPM_BUILD_ROOT/usr/local/bin/*
+chmod +x $RPM_BUILD_ROOT/usr/local/sbin/*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -67,7 +69,7 @@ fi
 %{_datadir}/locale/*/*/*.mo
 %{_bindir}/*
 /usr/local/bin/*
-
+/usr/local/sbin/*
 
 %changelog
 * Wed Jul 13 2011 Muayyad Saleh Alsadi <alsadi@ojuba.org> - 1.20.0-1
