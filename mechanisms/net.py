@@ -16,7 +16,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 
-import os.system
+import os
 import re
 from OjubaControlCenter.mechanismClass import mechanismClass
 

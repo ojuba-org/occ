@@ -111,7 +111,7 @@ class CCWindow(gtk.Window):
     self.__init_pk()
     try: self.__mechanism = Backend(bus = bus)
     except dbus.DBusException, e:
-      error(_("Error loading DBus:\n\tStop Selinux and try again, Use sestop, as root to do this."),self)
+      error(_("Error loading DBus:\n\tRun (setenforce 0) as root to stop SELinux, and try again.\nNote: You can disable SELinux by running (sestop) as root."),self)
       print e
       sys.exit(1)
     self.__pk=None
