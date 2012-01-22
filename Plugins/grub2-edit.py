@@ -19,26 +19,9 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
 import gtk
 import os
 from OjubaControlCenter.utils import cmd_out, copyfile
-from OjubaControlCenter.widgets import InstallOrInactive, sure, info, error, wait
+from OjubaControlCenter.widgets import InstallOrInactive, sure, info, error, wait, imgchooser
 from OjubaControlCenter.pluginsClass import PluginsClass
 
-class filechooser_b(gtk.FileChooserButton):
-  def __init__(self, title):
-    gtk.FileChooserButton.__init__(self, title)
-    preview = gtk.Image()
-    self.set_preview_widget(preview)
-    self.connect("update-preview", self.update_preview_cb, preview)
-    
-  def update_preview_cb(self, s,preview):
-    filename = self.get_preview_filename()
-    try:
-      pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(filename, 128, 128)
-      preview.set_from_pixbuf(pixbuf)
-      have_preview = True
-    except:
-      have_preview = False
-    self.set_preview_widget_active(have_preview)
-    
 class occPlugin(PluginsClass):
   conf={}
   conf[0]={}
@@ -110,17 +93,10 @@ class occPlugin(PluginsClass):
     #b=gtk.Button(_('Change picture'))
     #b.connect('clicked', self.open_pic_cb, l)
     #h.pack_start(b, False,False,2)
-    fc=filechooser_b(_('Choose boot background'))
-    ff=f=gtk.FileFilter()
-    #ff.set_name(_('PNG image files'))
-    #ff.add_mime_type('image/png')
-    #fc.add_filter(ff)
-    ff=gtk.FileFilter()
-    ff.set_name(_('All image files'))
-    ff.add_mime_type('image/*')
-    fc.set_filter(ff)
+    fc=imgchooser(_('Choose boot background'))
     if self.conf[1].has_key('BACKGROUND') and os.path.exists(self.conf[1]['BACKGROUND']):
       fc.set_filename(self.conf[1]['BACKGROUND'])
+      fc.update_preview_cb(fn=self.conf[1]['BACKGROUND'])
     fc.connect('file-set', self.img_changed, l)
     h.pack_start(fc, False,False,2)
     h.pack_start(l, False,False,2)

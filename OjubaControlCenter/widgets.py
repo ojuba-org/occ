@@ -115,8 +115,32 @@ class InstallOrInactive(gtk.Button):
   def __clicked(self,*args):
     self.__plugin.ccw.install_packages(self.__pkgs)
 
-
-
+class imgchooser(gtk.FileChooserButton):
+  def __init__(self, title):
+    gtk.FileChooserButton.__init__(self, title)
+    self.preview = preview = gtk.Image()
+    self.set_preview_widget(preview)
+    self.connect("update-preview", self.update_preview_cb)
+    ff=f=gtk.FileFilter()
+    #ff.set_name(_('PNG image files'))
+    #ff.add_mime_type('image/png')
+    #fc.add_filter(ff)
+    ff=gtk.FileFilter()
+    ff.set_name(_('All image files'))
+    ff.add_mime_type('image/*')
+    self.set_filter(ff)
+    
+  def update_preview_cb(self, s=None, fn=None):
+    filename = self.get_preview_filename()
+    if fn and not filename: filename=fn
+    try:
+      pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(filename, 200, 200)
+      self.preview.set_from_pixbuf(pixbuf)
+      have_preview = True
+    except:
+      have_preview = False
+    self.set_preview_widget_active(have_preview)
+    
 def sure(msg, win=None):
   dlg=gtk.MessageDialog(win,gtk.DIALOG_MODAL,gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, msg)
   dlg.connect("response", lambda *args: dlg.hide())
