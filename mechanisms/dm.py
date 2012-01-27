@@ -23,6 +23,7 @@ from OjubaControlCenter.mechanismClass import mechanismClass
 class OccMechanism(mechanismClass):
   gdm_conf="/etc/gdm/custom.conf"
   kdm_conf="/etc/kde/kdm/kdmrc"
+  lxdm_conf="/etc/lxdm/lxdm.conf"
   dm_re=re.compile(r'''^\s*DISPLAYMANAGER\s*=\s*['"]?([^'"]+)['"]?\s*$''',re.M)
   gdm_daemon_re=re.compile(r'''^(\s*\[daemon\])''', re.M)
   gdm_re=re.compile(r'''^(\s*\[daemon\][^\[]*)^\s*(AutomaticLoginEnable[ \t]*=[ \t]*([^\n]*))\s*$''',re.M | re.S)
@@ -31,8 +32,8 @@ class OccMechanism(mechanismClass):
   kdm_core_re=re.compile(r'''^(\s*\[X-:0-Core\])''', re.M)
   kdm_re=re.compile(r'''^(\s*\[X-:0-Core\][^\[]*)^\s*(AutoLoginEnable[ \t]*=[ \t]*([^\n]*))\s*$''',re.M | re.S)
   kdm_user_re=re.compile(r'''^(\s*\[X-:0-Core\][^\[]*)^\s*(AutoLoginUser[ \t]*=[ \t]*([^\n]*))\s*$''',re.M | re.S)
-
-
+  lxdm_re=re.compile(r'''^(\s*\[base\][^\[]*)^#?\s*(autologin[ \t]*=[ \t]*([^\n]*))?\s*$''',re.M | re.S)
+  lxdm_clean_re=re.compile(r'''^\s*(autologin[ \t]*=[ \t]*([^\n]*))\s*$''',re.M | re.S)
 
   def __init__(self):
     mechanismClass.__init__(self,'dm')
@@ -54,6 +55,20 @@ class OccMechanism(mechanismClass):
     elif v=='kde': v='kdm'
     return v
 
+  def lxdm_autologin(self, u):
+    t=open(self.lxdm_conf,'rt').read()
+    t,n=self.lxdm_re.subn(r'\1autologin=%s'%u,t)
+    if n==0: return False
+    open(self.lxdm_conf,'wt+').write(t)
+    return True
+    
+  def lxdm_disable_autologin(self):
+    t=open(self.lxdm_conf,'rt').read()
+    n=1
+    while(n): t,n=self.lxdm_clean_re.subn(r'# \1',t)
+    open(self.lxdm_conf,'wt+').write(t)
+    return True
+    
   def __gdm_autologin(self, u):
     self.__gdm_disable_autologin()
     t=open(self.gdm_conf,'rt').read()
@@ -109,6 +124,7 @@ class OccMechanism(mechanismClass):
     if not dm: return ''
     if dm=='gdm' and self.__gdm_autologin(u): return dm
     elif dm=='kdm' and self.__kdm_autologin(u): return dm
+    elif dm=='lxdm' and self.lxdm_autologin(u): return dm
     return '-'+dm
 
   def disable_autologin(self):
@@ -116,5 +132,6 @@ class OccMechanism(mechanismClass):
     if not dm: return ''
     if dm=='gdm' and self.__gdm_disable_autologin(): return dm
     elif dm=='kdm' and self.__kdm_disable_autologin(): return dm
+    elif dm=='lxdm' and self.lxdm_disable_autologin(): return dm
     return '-'+dm
 

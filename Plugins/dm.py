@@ -34,7 +34,7 @@ class occPlugin(PluginsClass):
     #l.set_line_wrap(True)
     hb.pack_start(l,False,False,2)
     hb=gtk.HBox(False,2); vb.pack_start(hb,True,True,2)
-    self.dm_ls=['gdm','kdm','wdm','xdm']
+    self.dm_ls=['gdm','kdm','wdm','xdm', 'lxdm']
     self.dm_ls=filter(lambda i: os.path.exists('/usr/sbin/'+i) or os.path.exists('/usr/bin/'+i),self.dm_ls)
     self.dm=gtk.combo_box_new_text()
     for i in self.dm_ls: self.dm.append_text(i)
@@ -71,12 +71,23 @@ class occPlugin(PluginsClass):
     except ValueError: return 0
 
   def set_dm(self,*args):
+    if os.path.exists("/etc/sysconfig/desktop"):
+      ss=self.ccw.mechanism('run','system', 'rm -f /etc/sysconfig/desktop')
+      if ss == 'NotAuth': return
     i=self.dm.get_active_text()
-    s=self.ccw.mechanism('run','system', 'system-switch-displaymanager "%s"' % i)
+    s=self.set_sysconf_disktop(i)
+    if i != 'lxdm':
+      s=self.ccw.mechanism('run','system', 'system-switch-displaymanager "%s"' % i)
     if s == 'NotAuth': return
     if s=='0': info(_('Display manager is now set to %s') % i)
     else: error(_('Unable to set display managed.'))
 
+  def set_sysconf_disktop(self, dm):
+    dm_txt='''DISPLAYMANAGER="%s"''' %dm
+    print dm_txt
+    s=self.ccw.mechanism('run','write_conf', '/etc/sysconfig/desktop', dm_txt)
+    return '0'
+    
   def autologin_cb(self, *args):
     u=pwd.getpwuid(os.geteuid())[0]
     s=self.ccw.mechanism('dm','enable_autologin', u)
