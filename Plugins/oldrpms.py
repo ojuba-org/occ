@@ -21,7 +21,7 @@ import shutil
 from rpm import TransactionSet as rpm_TransactionSet, _RPMVSF_NOSIGNATURES as rpm_RPMVSF_NOSIGNATURES,\
                 RPMTAG_NAME as rpm_RPMTAG_NAME, versionCompare as rpm_versionCompare
 from glob import glob
-from OjubaControlCenter.widgets import NiceButton, InstallOrInactive, wait, sure, info, error
+from OjubaControlCenter.widgets import NiceButton, InstallOrInactive, wait, sure, info, error, sel_dir_dlg
 from OjubaControlCenter.pluginsClass import PluginsClass
 from functools  import cmp_to_key
 
@@ -45,7 +45,7 @@ class occPlugin(PluginsClass):
     self.ccw.cp_new_rpms_b=b=gtk.Button(_('Backup new RPM files'))
     b.connect('clicked', self.cp_rpms_cb)
     h.pack_start(b, False,False,2)
-  
+    
   def rm_rpms_cb(self, b):
     cmd = '/bin/rm -f'
     dlg=wait(self.ccw)
@@ -164,13 +164,5 @@ class occPlugin(PluginsClass):
         os.unlink(f)
         removed.append(f)
     return copied, removed
-
-class sel_dir_dlg(gtk.FileChooserDialog):
-  def __init__(self):
-    gtk.FileChooserDialog.__init__(self,_("Select directory"), parent=self, buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT, gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
-    self.set_action(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
-    self.set_position(gtk.WIN_POS_CENTER)
-    self.connect('delete-event', lambda w, *a: w.hide() or True)
-    self.connect('response', lambda w, *a: w.hide() or True)
-
+    
 

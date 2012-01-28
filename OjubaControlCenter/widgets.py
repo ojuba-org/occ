@@ -140,7 +140,15 @@ class imgchooser(gtk.FileChooserButton):
     except:
       have_preview = False
     self.set_preview_widget_active(have_preview)
-    
+
+class sel_dir_dlg(gtk.FileChooserDialog):
+  def __init__(self):
+    gtk.FileChooserDialog.__init__(self,_("Select directory"), parent=self, buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT, gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
+    self.set_action(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
+    self.set_position(gtk.WIN_POS_CENTER)
+    self.connect('delete-event', lambda w, *a: w.hide() or True)
+    self.connect('response', lambda w, *a: w.hide() or True)
+        
 def sure(msg, win=None):
   dlg=gtk.MessageDialog(win,gtk.DIALOG_MODAL,gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, msg)
   dlg.connect("response", lambda *args: dlg.hide())
