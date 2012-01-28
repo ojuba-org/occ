@@ -32,8 +32,10 @@ class occPlugin(PluginsClass):
     
     
     h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    h.pack_start(InstallOrInactive(self, _("Install os prober"),_("os prober is installed"), _('package detects other OSes available on a system'), ['os-prober']),False,False,2)
+    m=InstallOrInactive(self, _("Install os prober"),_("os prober is installed"), _('package detects other OSes available on a system'), ['os-prober'])
+    h.pack_start(m,False,False,2)
     self.apply_b = b = gtk.Button(_('Find and add installed systems to grub menu'))
+    b.set_sensitive(not m.get_sensitive())
     b.connect('clicked', self.apply_cb)
     h.pack_start(b, False,False,2)
     
