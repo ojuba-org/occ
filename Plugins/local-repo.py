@@ -59,6 +59,14 @@ class occPlugin(PluginsClass):
     h.pack_start(b, False,False,2)
     self.ch_apply_b_sens()
     
+    self.rm_repo_b = b = gtk.Button(_('Remove local repository'))
+    b.connect('clicked', self.rm_repo_cb)
+    h.pack_end(b, False,False,2)
+    self.ch_rm_repo_b_sens()
+    
+  def ch_rm_repo_b_sens(self, *b):
+    self.rm_repo_b.set_sensitive(os.path.isfile(self.repo_fn))
+    
   def ch_apply_b_sens(self, *b):
     s=(self.gen_info_c.get_active() or self.write_config_c.get_active()) and os.path.isdir(self.tdir)
     self.apply_b.set_sensitive(s)
@@ -87,8 +95,10 @@ class occPlugin(PluginsClass):
       ret=True
     if self.write_config_c.get_active():
       if self.write_repo_cb(self.tdir) == '0': ret=True
+      else: self.write_config_c.set_active(False)
     dlg.hide()
     if ret:info(_("Done!"), self.ccw)
+    self.ch_rm_repo_b_sens()
     
   def get_repo_path_cb(self):
     fn=self.repo_fn
@@ -111,3 +121,10 @@ class occPlugin(PluginsClass):
     cmd='mv -f "%s" "%s"' %(tfn, self.repo_fn)
     return self.ccw.mechanism('run', 'system', cmd)
     
+  def rm_repo_cb(self, *b):
+    cmd='rm -f "%s"' %self.repo_fn
+    s = self.ccw.mechanism('run', 'system', cmd)
+    self.ch_rm_repo_b_sens()
+    if s == 'NotAuth': return
+    if s == '0': info(_("Done!"), self.ccw)
+    else: error(_("unexpected return code, possible an error had occurred."), self.ccw)

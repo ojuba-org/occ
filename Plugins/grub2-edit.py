@@ -31,7 +31,10 @@ class occPlugin(PluginsClass):
   font_fn='/usr/share/fonts/dejavu/DejaVuSansMono.ttf'
   font_nm='Sans'
   bg_nm='/tmp/grubbg.png' #os.path.join(os.path.expanduser('~'),'.occ','grub2.png')
-  bg_fn='/usr/share/backgrounds/verne/default/normalish/verne.png'
+  # FIXME: make this standard
+  #bg_fn='/usr/share/backgrounds/verne/default/normalish/verne.png'
+  bg_fn='/usr/share/backgrounds/images/default.jpg'
+  #bg_fn='/usr/share/backgrounds/default.png'
   gfxmode='auto'
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('Grub2 settings:'),'boot',30)
