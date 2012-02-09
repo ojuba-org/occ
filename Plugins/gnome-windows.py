@@ -17,7 +17,8 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
 """
 
 import gtk 
-import gconf
+try: import gconf
+except ImportError: gconf=None
 import os.path
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.gwidgets import resetButton, comboBox, hscale, fontButton, creatVBox
@@ -32,6 +33,7 @@ class occPlugin(PluginsClass):
     pass
   
   def gconfsettings(self, vb, ccw):
+    if not gconf: return False
     TActions_ls=['lower', 'menu', 'minmize', 'none', 'shade', 'toggle_maximize', 
                    'toggle_maximize_horizontally', 'toggle_maximize_vertically', 'toggle_shade']
     FMode_ls=['click', 'mouse', 'sloppy']

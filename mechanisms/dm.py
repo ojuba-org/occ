@@ -53,6 +53,7 @@ class OccMechanism(mechanismClass):
     v=v.lower()
     if v=='gnome': v='gdm'
     elif v=='kde': v='kdm'
+    v=v.split('/')[-1]
     return v
 
   def lxdm_autologin(self, u):

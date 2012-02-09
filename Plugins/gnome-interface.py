@@ -18,7 +18,8 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
 
 import gtk
 import os
-import gconf
+try: import gconf
+except ImportError: gconf=None
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.gwidgets import resetButton, GSCheckButton, comboBox, comboBoxWithFolder, creatVBox
 from OjubaControlCenter.widgets import InstallOrInactive
@@ -77,6 +78,7 @@ class occPlugin(PluginsClass):
     return True
     
   def gconfsettings(self, vb, ccw):
+    if not gconf: return False
     # FIXME: User titled menu items
     TActions_ls=['lower', 'menu', 'minmize', 'none', 'shade', 'toggle_maximize', 
                    'toggle_maximize_horizontally', 'toggle_maximize_vertically', 'toggle_shade']

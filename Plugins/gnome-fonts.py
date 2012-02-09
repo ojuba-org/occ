@@ -17,7 +17,8 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
 """
 
 import gtk 
-import gconf
+try: import gconf
+except ImportError: gconf=None
 import os.path
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.gwidgets import resetButton, comboBox, hscale, fontButton, creatVBox
@@ -56,6 +57,7 @@ class occPlugin(PluginsClass):
     return True
     
   def gconfsettings(self, vb, ccw):
+    if not gconf: return False
     GC = gconf.client_get_default()
     P = '/apps/metacity/general/titlebar_font'
     GC.add_dir(os.path.dirname(P),gconf.CLIENT_PRELOAD_NONE)
