@@ -30,13 +30,18 @@ make %{?_smp_mflags}
 rm -rf $RPM_BUILD_ROOT
 %makeinstall DESTDIR=$RPM_BUILD_ROOT
 
-mkdir -p $RPM_BUILD_ROOT/usr/local/bin/
+mkdir -p $RPM_BUILD_ROOT/usr/sbin/
 
-echo -e '#! /bin/sh\nLC_ALL=en_US.UTF-8 exec RunOrInstall audacity-freeworld /usr/bin/audacity "$@"' >$RPM_BUILD_ROOT/usr/local/bin/audacity
+# local is used because we fix files from other packages, this is wrong but we do not have skype source to fix it
+mkdir -p $RPM_BUILD_ROOT/usr/local/bin/ 
+
+echo -e '#! /bin/sh\n[ $UID -ne 0 ] && echo -e "Permission denied, be root" && exit\nsetenforce 0\nsed -rie "s/^(SELINUX=).*/\1disabled/" /etc/selinux/config' >$RPM_BUILD_ROOT/usr/sbin/sestop
+
 echo -e '#! /bin/sh\nlib=`[[ "$( arch )" == "x86_64" ]] && echo "lib64" || echo "lib"`\nLD_PRELOAD=/usr/$lib/libv4l/v4l1compat.so exec RunOrInstall skype /usr/bin/skype "$@"' >$RPM_BUILD_ROOT/usr/local/bin/skype
-echo -e '#! /bin/sh\n[ $UID -ne 0 ] && echo -e "Permission denied" && exit\nsetenforce 0\nsed -rie "s/^(SELINUX=).*/\1disabled/" /etc/selinux/config' >$RPM_BUILD_ROOT/usr/local/sbin/sestop
+echo -e '#! /bin/sh\nLC_ALL=en_US.UTF-8 exec RunOrInstall audacity-freeworld /usr/bin/audacity "$@"' >$RPM_BUILD_ROOT/usr/local/bin/audacity
+
 chmod +x $RPM_BUILD_ROOT/usr/local/bin/*
-chmod +x $RPM_BUILD_ROOT/usr/local/sbin/*
+chmod +x $RPM_BUILD_ROOT/usr/sbin/*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -68,8 +73,9 @@ fi
 %{_datadir}/occ/Plugins/*.py*
 %{_datadir}/locale/*/*/*.mo
 %{_bindir}/*
+%{_sbindir}/*
 /usr/local/bin/*
-/usr/local/sbin/*
+
 
 %changelog
 * Wed Jul 13 2011 Muayyad Saleh Alsadi <alsadi@ojuba.org> - 1.20.0-1
