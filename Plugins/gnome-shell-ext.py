@@ -16,16 +16,16 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 
-import gtk
+from gi.repository import Gtk
 import os
 import json
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.widgets import LaunchFileManager
 from OjubaControlCenter.gwidgets import creatVBox
 
-class extHBox(gtk.HBox):
+class extHBox(Gtk.HBox):
   def __init__(self, parent, ext, ccw):
-    gtk.HBox.__init__(self,False,0)
+    Gtk.HBox.__init__(self,False,0)
     self.Parent=parent
     self.Uuid=self.Name=self.Description=self.Shell_version=''
     self.Url=self.Localedir=self.Path=''
@@ -37,7 +37,7 @@ class extHBox(gtk.HBox):
     if ext.has_key('url'): self.Url=ext['url']
     if ext.has_key('path'): self.Path=ext['path']
     self.set_tooltip_text(self.Description)
-    self.chkb = c = gtk.CheckButton(self.Name)
+    self.chkb = c = Gtk.CheckButton(self.Name)
     c.set_active(self.Parent.is_enabled(self.Uuid))
     c.set_sensitive(self.is_compatible())
     #print self.Name,self.Shell_version
@@ -75,7 +75,7 @@ class occPlugin(PluginsClass):
     self.GS=ccw.GSettings(P)
     if not self.key in self.GS.keys(): return False
     self.extensions=self.get_installed_dict()
-    h=gtk.HBox(False,0)
+    h=Gtk.HBox(False,0)
     h.pack_start(LaunchFileManager(_("Personal shell extensions folder"), os.path.expanduser('~/.local/share/gnome-shell/')),False,False,2)
     vb.pack_start(h,False,False,6)
     

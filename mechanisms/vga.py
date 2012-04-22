@@ -72,7 +72,8 @@ class OccMechanism(mechanismClass):
   def set_kernel_vga(self,n):
     l=open(self.grub_conf,'rt').read()
     l=self.grub_kernel_vga_re.sub(r'\1\3',l) # remove vga=XYZ
-    l=self.grub_kernels_re.sub(r'\1 vga='+n,l)
+    if n != 'None':
+      l=self.grub_kernels_re.sub(r'\1 vga='+n,l)
     open(self.grub_conf,'wt').write(l)
     cmd_out('su -l -c "grub2-mkconfig -o /boot/grub2/grub.cfg"')
     return '0'

@@ -15,7 +15,7 @@ Copyright © 2011, Ojuba.org <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
-import gtk
+from gi.repository import Gtk
 import os
 import shutil
 from rpm import TransactionSet as rpm_TransactionSet, _RPMVSF_NOSIGNATURES as rpm_RPMVSF_NOSIGNATURES,\
@@ -33,16 +33,16 @@ class occPlugin(PluginsClass):
     self.LFREE = 450*1024*1024
     
     PluginsClass.__init__(self, ccw,_('Old RPM Files:'),'install',9)
-    vb=gtk.VBox(False,2)
+    vb=Gtk.VBox(False,2)
     self.add(vb)
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=gtk.Label(_("Ojuba keeps an archive of all the RPM packages downloaded from the internet\nAllowing you to use them when necessary\nHowever, These packages take precious hard disk space.\nYou can save some space by deleting those files.\nYou can also have a backup which you can use later"))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    l=Gtk.Label(_("Ojuba keeps an archive of all the RPM packages downloaded from the internet\nAllowing you to use them when necessary\nHowever, These packages take precious hard disk space.\nYou can save some space by deleting those files.\nYou can also have a backup which you can use later"))
     h.pack_start(l,False,False,2)
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    self.ccw.rm_old_rpms_b=b=gtk.Button(_('Remove old RPM files'))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    self.ccw.rm_old_rpms_b=b=Gtk.Button(_('Remove old RPM files'))
     b.connect('clicked', self.rm_rpms_cb)
     h.pack_start(b, False,False,2)
-    self.ccw.cp_new_rpms_b=b=gtk.Button(_('Backup new RPM files'))
+    self.ccw.cp_new_rpms_b=b=Gtk.Button(_('Backup new RPM files'))
     b.connect('clicked', self.cp_rpms_cb)
     h.pack_start(b, False,False,2)
     
@@ -67,8 +67,8 @@ class occPlugin(PluginsClass):
     else: info(_("We can't complete this action at this time, due unknown error, you can try again!"), self.ccw)
     
   def cp_rpms_cb(self, b):
-    tdir_dlg=sel_dir_dlg()
-    if (tdir_dlg.run()==gtk.RESPONSE_ACCEPT):
+    tdir_dlg=sel_dir_dlg(self.ccw)
+    if (tdir_dlg.run()==Gtk.ResponseType.ACCEPT):
       tdir = tdir_dlg.get_filename()
       tdir_dlg.hide()
     else:

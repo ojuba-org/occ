@@ -16,7 +16,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 
-import gtk
+from gi.repository import Gtk
 import re
 from subprocess import Popen, PIPE
 from OjubaControlCenter.pluginsClass import PluginsClass
@@ -29,19 +29,19 @@ class occPlugin(PluginsClass):
   swap_re=re.compile(r"^\s*SwapTotal\s*:\s*(.*)\s*$",re.M)
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('Hardware Information'),'hw',0)
-    vb=gtk.VBox(False,2)
+    vb=Gtk.VBox(False,2)
     self.add(vb)
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    self.l=gtk.Label()
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    self.l=Gtk.Label()
     h.pack_start(self.l,False,False,0)
-    hb=gtk.HBox(False,2)
+    hb=Gtk.HBox(False,2)
     vb.pack_start(hb,False,False,0)
-    #hb.pack_start(gtk.VBox(False,0),True,True,6)
-    self.r=gtk.Button(stock=gtk.STOCK_REFRESH)
+    #hb.pack_start(Gtk.VBox(False,0),True,True,6)
+    self.r=Gtk.Button(stock=Gtk.STOCK_REFRESH)
     self.r.connect('clicked',self.__update)
     hb.pack_start(self.r,False,False,6)
     hb.pack_start(LaunchOrInstall(self,_('Details'),'/usr/bin/hardinfo',['hardinfo']),False,False,0)
-    b=gtk.Button(_('Update PCI ID database'))
+    b=Gtk.Button(_('Update PCI ID database'))
     b.connect('clicked', self.__update_pciid_cb)
     hb.pack_start(b,False,False,0)
     self.__update()
@@ -49,8 +49,8 @@ class occPlugin(PluginsClass):
   def __update_pciid_cb(self, b):
     r=self.ccw.mechanism('run','system','update-pciids -q')
     if r == 'NotAuth': return
-    if r!='0': error(_("unexpected return code, possible an error had occurred."))
-    else: info(_('Done.'))
+    if r!='0': error(_("unexpected return code, possible an error had occurred."), self.ccw)
+    else: info(_('Done.'), self.ccw)
 
   def __cpu_and_mem(self):
     l=open('/proc/cpuinfo','rt').read()

@@ -15,7 +15,7 @@ Copyright © 2011, Ojuba.org <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
-import gtk
+from gi.repository import Gtk
 import os
 import re
 from OjubaControlCenter.utils import cmd_out
@@ -28,38 +28,38 @@ class occPlugin(PluginsClass):
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('Local repository:'),'install',8)
     self.tdir=self.get_repo_path_cb()
-    vb=gtk.VBox(False,2)
+    vb=Gtk.VBox(False,2)
     self.add(vb)
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=gtk.Label(_("Ojuba can create local rpository for you!"))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    l=Gtk.Label(_("Ojuba can create local rpository for you!"))
     h.pack_start(l,False,False,2)
     
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    b=gtk.Button(_('Change directory'))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    b=Gtk.Button(_('Change directory'))
     b.connect('clicked', self.ch_dir_cb)
     h.pack_start(b, False,False,2)
-    l=gtk.Label(_("Repository directory:"))
+    l=Gtk.Label(_("Repository directory:"))
     h.pack_start(l,False,False,2)
-    self.repo_dir_l = l = gtk.Label(self.tdir)
+    self.repo_dir_l = l = Gtk.Label(self.tdir)
     h.pack_start(l,False,False,2)
     
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    self.gen_info_c = c = gtk.CheckButton(_("Generate local repository informations"))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    self.gen_info_c = c = Gtk.CheckButton(_("Generate local repository informations"))
     #c.set_active(True)
     c.connect("toggled", self.ch_apply_b_sens)
     h.pack_start(c, False,False,2)
-    self.write_config_c = c = gtk.CheckButton(_("Write local repository configuration"))
+    self.write_config_c = c = Gtk.CheckButton(_("Write local repository configuration"))
     #c.set_active(True)
     c.connect("toggled", self.ch_apply_b_sens)
     h.pack_start(c, False,False,2)
     
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    self.apply_b = b = gtk.Button(_('Create local repository'))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    self.apply_b = b = Gtk.Button(_('Create local repository'))
     b.connect('clicked', self.apply_cb)
     h.pack_start(b, False,False,2)
     self.ch_apply_b_sens()
     
-    self.rm_repo_b = b = gtk.Button(_('Remove local repository'))
+    self.rm_repo_b = b = Gtk.Button(_('Remove local repository'))
     b.connect('clicked', self.rm_repo_cb)
     h.pack_end(b, False,False,2)
     self.ch_rm_repo_b_sens()
@@ -72,10 +72,10 @@ class occPlugin(PluginsClass):
     self.apply_b.set_sensitive(s)
         
   def ch_dir_cb(self, *b):
-    tdir_dlg=sel_dir_dlg()
+    tdir_dlg=sel_dir_dlg(self.ccw)
     if os.path.isdir(self.tdir):
       tdir_dlg.set_filename(self.tdir)
-    if (tdir_dlg.run()==gtk.RESPONSE_ACCEPT):
+    if (tdir_dlg.run()==Gtk.ResponseType.ACCEPT):
       self.tdir = tdir_dlg.get_filename()
       tdir_dlg.hide()
       self.repo_dir_l.set_text(self.tdir)
@@ -91,7 +91,7 @@ class occPlugin(PluginsClass):
     ret=False
     if self.gen_info_c.get_active():
       s=self.create_repo_cb(self.tdir)
-      if s: dlg.hide(); return error(s)
+      if s: dlg.hide(); return error(s, self.ccw)
       ret=True
     if self.write_config_c.get_active():
       if self.write_repo_cb(self.tdir) == '0': ret=True

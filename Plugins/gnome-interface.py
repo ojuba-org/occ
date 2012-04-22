@@ -16,10 +16,8 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 
-import gtk
+from gi.repository import Gtk
 import os
-try: import gconf
-except ImportError: gconf=None
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.gwidgets import resetButton, GSCheckButton, comboBox, comboBoxWithFolder, creatVBox
 from OjubaControlCenter.widgets import InstallOrInactive
@@ -28,6 +26,7 @@ class occPlugin(PluginsClass):
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('Shell Interface'),'gnome',40)
     description=_("Adjust interface settings")
+    self.GConf=ccw.GConf
     self.dirs=self.get_dirs()
     creatVBox(self, ccw, description, self.GioSettings, self.gconfsettings) 
     
@@ -78,7 +77,7 @@ class occPlugin(PluginsClass):
     return True
     
   def gconfsettings(self, vb, ccw):
-    if not gconf: return False
+    if not self.GConf: return False
     # FIXME: User titled menu items
     TActions_ls=['lower', 'menu', 'minmize', 'none', 'shade', 'toggle_maximize', 
                    'toggle_maximize_horizontally', 'toggle_maximize_vertically', 'toggle_shade']
@@ -89,9 +88,9 @@ class occPlugin(PluginsClass):
     L=( 
       (_('Windows theme'), '/desktop/gnome/shell/windows/theme', self.get_metacity_themes(), _('Add Windows theme'),os.path.expanduser('~/.themes'), self.get_metacity_themes, _('This option requires shell reload')),
       )
-    GC = gconf.client_get_default()
+    GC, CPT = self.GConf
     for t,k,l,bt, dst, ls_func,h in L:
-      GC.add_dir(os.path.dirname(k),gconf.CLIENT_PRELOAD_NONE)
+      GC.add_dir(os.path.dirname(k), CPT)
       cb=comboBoxWithFolder(t, k, GC, l, bt, dst, ls_func)
       cb.set_tooltip_text(h)
       vb.pack_start(cb,False,False,1)

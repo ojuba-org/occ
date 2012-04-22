@@ -16,7 +16,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 
-import gtk
+from gi.repository import Gtk
 import os
 import re
 from glob import glob
@@ -35,70 +35,70 @@ class occPlugin(PluginsClass):
   def __init__(self,ccw):
     self.__dev = bus.get_object(interface, "/org/freedesktop/UDisks")
     PluginsClass.__init__(self, ccw,_('LiveUSB'),'install', 150)
-    vb=gtk.VBox(False,2)
+    vb=Gtk.VBox(False,2)
     self.add(vb)
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=gtk.Label(_('A Live System enables you to carry your operating system with you.\nAlso, You may add persistent layer so that it can hold your modification to the system.'))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    l=Gtk.Label(_('A Live System enables you to carry your operating system with you.\nAlso, You may add persistent layer so that it can hold your modification to the system.'))
     h.pack_start(l,False,False,2)
-    hb=gtk.HBox(False,2); vb.pack_start(hb,False,False,6)
-    hb.pack_start(gtk.Label(_('Source:')), False,False,2)
-    self.src_iso_file=gtk.RadioButton(label=_('from iso file'))
+    hb=Gtk.HBox(False,2); vb.pack_start(hb,False,False,6)
+    hb.pack_start(Gtk.Label(_('Source:')), False,False,2)
+    self.src_iso_file=Gtk.RadioButton.new_with_label_from_widget(None, label=_('from iso file'))
     hb.pack_start(self.src_iso_file, False,False,2)
-    h=gtk.HBox(False,2); hb.pack_start(h,False,False,2)
-    self.iso_file_b=gtk.FileChooserButton(_('Choose live iso file'))
+    h=Gtk.HBox(False,2); hb.pack_start(h,False,False,2)
+    self.iso_file_b=Gtk.FileChooserButton(_('Choose live iso file'))
     h.pack_start(self.iso_file_b, False,False,2)
     self.src_iso_file.connect('toggled', lambda b: self.iso_file_b.set_sensitive(b.get_active()))
     
-    self.src_iso_dev=gtk.RadioButton(self.src_iso_file, label=_('from CD/DVD device'))
+    self.src_iso_dev=Gtk.RadioButton.new_with_label_from_widget(self.src_iso_file, label=_('from CD/DVD device'))
     hb.pack_start(self.src_iso_dev, False,False,2)
-    self.src_iso_dev_h=h=gtk.HBox(False,2); hb.pack_start(h,False,False,2)
+    self.src_iso_dev_h=h=Gtk.HBox(False,2); hb.pack_start(h,False,False,2)
     self.src_iso_dev.connect('toggled', lambda b: self.src_iso_dev_h.set_sensitive(b.get_active()))
-    self.iso_dev_ls=gtk.combo_box_new_text()
+    self.iso_dev_ls=Gtk.ComboBoxText()
     h.pack_start(self.iso_dev_ls, False,False,2)
-    b=gtk.Button(stock=gtk.STOCK_REFRESH)
+    b=Gtk.Button(stock=Gtk.STOCK_REFRESH)
     b.connect('clicked', self.refresh_src_dev)
     h.pack_start(b, False,False,2)
     self.src_iso_dev.set_active(True)
     self.src_iso_file.set_active(True)
 
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    h.pack_start(gtk.Label(_('Target Device:')), False,False,2)
-    self.target_dev_ls=gtk.combo_box_new_text()
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    h.pack_start(Gtk.Label(_('Target Device:')), False,False,2)
+    self.target_dev_ls=Gtk.ComboBoxText()
     h.pack_start(self.target_dev_ls, True,True,2)
-    b=gtk.Button(stock=gtk.STOCK_REFRESH)
+    b=Gtk.Button(stock=Gtk.STOCK_REFRESH)
     b.connect('clicked', self.refresh_target_dev)
     h.pack_start(b, False,False,2)
 
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    h.pack_start(gtk.Label(_('Target Options:')), False,False,2)
-    self.format=gtk.CheckButton(_('Format target partition'))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    h.pack_start(Gtk.Label(_('Target Options:')), False,False,2)
+    self.format=Gtk.CheckButton(_('Format target partition'))
     self.format.set_tooltip_text(_('uncheck this button to preserve data on target device'))
     h.pack_start(self.format, False,False,2)
-    self.reset_mbr=gtk.CheckButton(_('Reset MBR'))
+    self.reset_mbr=Gtk.CheckButton(_('Reset MBR'))
     self.reset_mbr.set_active(True)
     h.pack_start(self.reset_mbr, False,False,2)
-    h.pack_start(gtk.Label(_('Overlay size:')), False,False,2)
-    self.overlay_size=gtk.SpinButton()
+    h.pack_start(Gtk.Label(_('Overlay size:')), False,False,2)
+    self.overlay_size=Gtk.SpinButton()
     self.overlay_size.set_tooltip_text(_('size of persistent overlay in MB, 0 to disable'))
-    self.overlay_size.get_adjustment().set_all(200, 0, 10240, 10, 0, 0)
+    self.overlay_size.set_adjustment(Gtk.Adjustment(200, 0, 10240, 10, 0, 0))
     h.pack_start(self.overlay_size, False,False,2)
-    h.pack_start(gtk.Label(_('MB')), False,False,0)
+    h.pack_start(Gtk.Label(_('MB')), False,False,0)
 #    TODO: all the below options needs interaction to enter the pass-phrase
-#    h.pack_start(gtk.Label('Home image size:'), False,False,2)
-#    self.home_size=gtk.SpinButton()
+#    h.pack_start(Gtk.Label('Home image size:'), False,False,2)
+#    self.home_size=Gtk.SpinButton()
 #    self.home_size.set_tooltip_text(_('size of home image in MB, 0 to use the overlay'))
 #    self.home_size.set_range(0,10240)
 #    self.home_size.set_value(0)
 #    h.pack_start(self.home_size, False,False,2)
-#    self.home_enc=gtk.CheckButton(_('encrypted'))
+#    self.home_enc=Gtk.CheckButton(_('encrypted'))
 #    self.home_enc.set_tooltip_text(_('Encrypt Home image'))
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    b=gtk.Button(stock=gtk.STOCK_EXECUTE)
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    b=Gtk.Button(stock=Gtk.STOCK_EXECUTE)
     b.connect('clicked', self.execute)
     h.pack_start(b, False,False,2)
-    h.pack_start(gtk.Label(_("This will take some time.")), False,False,2)
+    h.pack_start(Gtk.Label(_("This will take some time.")), False,False,2)
 
-    ff=gtk.FileFilter(); ff.add_pattern('*.[Ii][Ss][Oo]')
+    ff=Gtk.FileFilter(); ff.add_pattern('*.[Ii][Ss][Oo]')
     self.iso_file_b.set_filter(ff)
     self.refresh_src_dev()
     self.refresh_target_dev()
@@ -114,30 +114,30 @@ class occPlugin(PluginsClass):
     f="/usr/bin/livecd-iso-to-disk"
     if not os.path.exists(f): f="/mnt/live/LiveOS/livecd-iso-to-disk"
     if not os.path.exists(f):
-      error(_("The package 'livecd-tools' is not installed."))
-      if sure(_("Would you like to install 'livecd-tools'?")):
+      error(_("The package 'livecd-tools' is not installed."), self.ccw)
+      if sure(_("Would you like to install 'livecd-tools'?"), self.ccw):
         self.ccw.install_packages(['livecd-tools'])
-        info("Please try again.")
+        info(_("Please try again."), self.ccw)
       return
     ov=self.overlay_size.get_value()
     opt="--noverify"
     dst,s,l=self.dst_parse(self.target_dev_ls.get_active_text())
-    if not dst: error(_('Please choose valid target device.')); return
+    if not dst: error(_('Please choose valid target device.'), self.ccw); return
 
     if self.format.get_active():
       opt+=" --format"
-      if not sure(_("Are you sure you want to format target device (labeled %s)?") % l): return
+      if not sure(_("Are you sure you want to format target device (labeled %s)?") % l, self.ccw): return
     if self.reset_mbr.get_active(): opt+=" --reset-mbr"
     if ov>0: opt+=" --overlay-size-mb %i" % ov
     
     if self.src_iso_file.get_active():
       src=self.iso_file_b.get_filename()
       if not src or not os.path.exists(src) or not src.lower().endswith('.iso'):
-        error(_('Please choose a valid iso file')); return
+        error(_('Please choose a valid iso file'), self.ccw); return
     else:
       src=self.iso_dev_ls.get_active_text()
       if not src:
-        error(_('Please choose a source device.')); return
+        error(_('Please choose a source device.'), self.ccw); return
     os.system("umount '%s'" % dst)
     cmd='''%s %s "%s" "%s"''' % (f, opt,src,dst)
     print cmd
@@ -145,10 +145,10 @@ class occPlugin(PluginsClass):
     p=self.__dev_re.findall(dst)[0]
     dst0=self.__dev_re.sub('',dst)
     self.ccw.mechanism('run','system','''echo ",,,*" | sfdisk %s -N%s''' % (dst0, p))
-    while(gtk.main_iteration_do()): pass
+    while(Gtk.main_iteration_do()): pass
     r=self.ccw.mechanism('run','system',cmd, on_fail='0')
-    if r!='0' and r!='NotAuth': error(_("An error occurred while creating the live system.\nYou may run the following command in terminal to see the error:\n%s") % cmd)
-    while(gtk.main_iteration_do()): pass
+    if r!='0' and r!='NotAuth': error(_("An error occurred while creating the live system.\nYou may run the following command in terminal to see the error:\n%s") % cmd, self.ccw)
+    while(Gtk.main_iteration_do()): pass
     dlg.hide()
     if dlg: dlg.destroy()
 

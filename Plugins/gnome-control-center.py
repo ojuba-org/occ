@@ -16,17 +16,17 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 
-import gtk
+from gi.repository import Gtk
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.widgets import LaunchButton
 
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('Gnome Control Center'),'gnome',10)
-    vb=gtk.VBox(False,2)
+    vb=Gtk.VBox(False,2)
     self.add(vb)
-    hb=gtk.HBox(False,0)
-    #hb.pack_start(gtk.image_new_from_icon_name('gnome-control-center', gtk.ICON_SIZE_BUTTON),False,False,0)
+    hb=Gtk.HBox(False,0)
+    #hb.pack_start(Gtk.Image.new_from_icon_name('gnome-control-center', Gtk.IconSize.BUTTON),False,False,0)
     #hb.pack_start(LaunchOrInstall(self,_('GNOME Control Center'),'/usr/bin/gnome-control-center',['control-center']),False,False,0)
     hb.pack_start(LaunchButton(_('GNOME Control Center'),'/usr/bin/gnome-control-center',icon='gnome-control-center'),False,False,0)
     hb.pack_start(LaunchButton(_('GNOME Menu Editor'),'/usr/bin/alacarte',icon='alacarte'),False,False,0)

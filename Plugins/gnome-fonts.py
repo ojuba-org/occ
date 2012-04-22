@@ -16,9 +16,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 
-import gtk 
-try: import gconf
-except ImportError: gconf=None
+from gi.repository import Gtk 
 import os.path
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.gwidgets import resetButton, comboBox, hscale, fontButton, creatVBox
@@ -27,6 +25,7 @@ class occPlugin(PluginsClass):
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('Desktop Fonts'),'gnome',30)
     description=_("Adjust desktop fonts")
+    self.GConf=ccw.GConf
     creatVBox(self, ccw, description, self.GioSettings, self.gconfsettings) 
 
   def GioSettings(self, vb, ccw):
@@ -41,7 +40,7 @@ class occPlugin(PluginsClass):
        (_('Monospace font'),'monospace-font-name'),
     )
     for t,k in FB_l:
-      b=fontButton(t,k,GS)
+      b=fontButton(t,k,GS, ccw)
       vb.pack_start(b,False,False,1)
     self.gconfsettings(vb, ccw)
     P='org.gnome.settings-daemon.plugins.xsettings'
@@ -57,8 +56,8 @@ class occPlugin(PluginsClass):
     return True
     
   def gconfsettings(self, vb, ccw):
-    if not gconf: return False
-    GC = gconf.client_get_default()
+    if not self.GConf: return False
+    GC,CPT = self.GConf
     P = '/apps/metacity/general/titlebar_font'
-    GC.add_dir(os.path.dirname(P),gconf.CLIENT_PRELOAD_NONE)
-    vb.pack_start(fontButton(_('Window title'),P,GC),False,False,1)
+    GC.add_dir(os.path.dirname(P),CPT)
+    vb.pack_start(fontButton(_('Window title'),P,GC, ccw),False,False,1)

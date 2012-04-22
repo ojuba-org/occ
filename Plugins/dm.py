@@ -16,7 +16,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 
-import gtk
+from gi.repository import Gtk
 import os
 import re
 import pwd
@@ -27,28 +27,28 @@ class occPlugin(PluginsClass):
   dm_re=re.compile(r'''^\s*DISPLAYMANAGER\s*=\s*['"]?([^'"]+)['"]?\s*$''',re.M)
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('Graphical Login Manager'),'desktop',150)
-    vb=gtk.VBox(False,2)
+    vb=Gtk.VBox(False,2)
     self.add(vb)
-    hb=gtk.HBox(False,2); vb.pack_start(hb,True,True,6)
-    l=gtk.Label(_("Display Manager is the application that allow you to log into your desktop.\nIt's the application that might ask you to authenticate with your username and password"))
+    hb=Gtk.HBox(False,2); vb.pack_start(hb,True,True,6)
+    l=Gtk.Label(_("Display Manager is the application that allow you to log into your desktop.\nIt's the application that might ask you to authenticate with your username and password"))
     #l.set_line_wrap(True)
     hb.pack_start(l,False,False,2)
-    hb=gtk.HBox(False,2); vb.pack_start(hb,True,True,2)
-    self.dm_ls=['gdm','kdm','wdm','xdm', 'lxdm']
+    hb=Gtk.HBox(False,2); vb.pack_start(hb,True,True,2)
+    self.dm_ls=['gdm','kdm','wdm','xdm', 'lxdm', 'fdisk']
     self.dm_ls=filter(lambda i: os.path.exists('/usr/sbin/'+i) or os.path.exists('/usr/bin/'+i),self.dm_ls)
-    self.dm=gtk.combo_box_new_text()
+    self.dm=Gtk.ComboBoxText()
     for i in self.dm_ls: self.dm.append_text(i)
     self.dm.set_active(self.get_current())
-    hb.pack_start(gtk.Label(_("Available display managers:")),False,False,2)
+    hb.pack_start(Gtk.Label(_("Available display managers:")),False,False,2)
     hb.pack_start(self.dm,False,False,2)
-    b=gtk.Button(_("save change"))
+    b=Gtk.Button(_("save change"))
     b.connect('clicked',self.set_dm)
     hb.pack_start(b,False,False,2)
-    hb=gtk.HBox(False,2); vb.pack_start(hb,True,True,2)
-    b=gtk.Button(_('Enable Automatic Login as this user'))
+    hb=Gtk.HBox(False,2); vb.pack_start(hb,True,True,2)
+    b=Gtk.Button(_('Enable Automatic Login as this user'))
     b.connect('clicked',self.autologin_cb)
     hb.pack_start(b,False,False,2)
-    b=gtk.Button(_('Disable Automatic Login'))
+    b=Gtk.Button(_('Disable Automatic Login'))
     b.connect('clicked',self.no_autologin_cb)
     hb.pack_start(b,False,False,2)
 
@@ -74,13 +74,13 @@ class occPlugin(PluginsClass):
     if os.path.exists("/etc/sysconfig/desktop"):
       ss=self.ccw.mechanism('run','system', 'rm -f /etc/sysconfig/desktop')
       if ss == 'NotAuth': return
-    i=self.dm.get_active_text()
+    i=self.dm_ls[self.dm.get_active()]
     s=self.set_sysconf_disktop(i)
     if i != 'lxdm':
       s=self.ccw.mechanism('run','system', 'system-switch-displaymanager "%s"' % i)
     if s == 'NotAuth': return
-    if s=='0': info(_('Display manager is now set to %s') % i)
-    else: error(_('Unable to set display managed.'))
+    if s=='0': info(_('Display manager is now set to %s') % i, self.ccw)
+    else: error(_('Unable to set display managed.'), self.ccw)
 
   def set_sysconf_disktop(self, dm):
     dm_txt='''DISPLAYMANAGER="%s"''' %dm
@@ -92,17 +92,17 @@ class occPlugin(PluginsClass):
     u=pwd.getpwuid(os.geteuid())[0]
     s=self.ccw.mechanism('dm','enable_autologin', u)
     if s == 'NotAuth': return
-    if s.startswith('-'): error(_('could not set automatic login in %s') % s[1:])
-    elif s: info(_('Automatic login as %s was set in %s') % (u,s))
-    else: error(_('could not set automatic login'))
+    if s.startswith('-'): error(_('could not set automatic login in %s') % s[1:], self.ccw)
+    elif s: info(_('Automatic login as %s was set in %s') % (u,s), self.ccw)
+    else: error(_('could not set automatic login'), self.ccw)
 
 
   def no_autologin_cb(self, *args):
     s=self.ccw.mechanism('dm','disable_autologin')
     if s == 'NotAuth': return
-    if not s: error(_('could not disable automatic login'))
-    elif s.startswith('-'): error(_('could not disable automatic login in %s') % s[1:])
-    else: info(_('automatic login is now disabled'))
+    if not s: error(_('could not disable automatic login'), self.ccw)
+    elif s.startswith('-'): error(_('could not disable automatic login in %s') % s[1:], self.ccw)
+    else: info(_('automatic login is now disabled'), self.ccw)
     
 
 

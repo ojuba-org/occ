@@ -15,8 +15,8 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
-import gtk
-class PluginsClass(gtk.Frame):
+from gi.repository import Gtk, Gdk
+class PluginsClass(Gtk.Frame):
   def __init__(self, ccw, caption, category, priority=100):
     self.ccw=ccw
     self.caption=caption
@@ -25,8 +25,20 @@ class PluginsClass(gtk.Frame):
     self.activate_ls=[]
     self.load_ls=[]
     self.loaded=False
-    gtk.Frame.__init__(self,caption)
+    Gtk.Frame.__init__(self)
+    self.set_label(caption)
     self.set_border_width(6)
+    self.set_shadow_type(Gtk.ShadowType(1))
+    #self.modify_bg(Gtk.StateType(0),Gdk.Color(255,0,0))
+    #rc=Gtk.RcStyle()
+    #self.modify_style(rc)
+    #for i in rc.base:
+    #  i.red=255
+    
+    l=Gtk.Label(caption)
+    l.set_markup('<span color="blue">%s</span>' %caption)
+    self.set_label_widget(l)
+    
   def _load(self):
     self.load()
     self.loaded=True

@@ -16,7 +16,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 
-import gtk
+from gi.repository import Gtk
 import os
 import re
 import rpm
@@ -28,40 +28,40 @@ class occPlugin(PluginsClass):
   __rre=re.compile(r"-\d\.")
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('System Kernel:'),'boot',50)
-    vb=gtk.VBox(False,2)
+    vb=Gtk.VBox(False,2)
     self.add(vb)
     self.__k_r=os.uname()[2]
     if self.__k_r.endswith('.PAE'): self.__kernel='kernel-PAE'
     else: self.__kernel='kernel'
     
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=gtk.Label(_("Linux kernel is the part of the system that deal with the hardware.\nFor safety the system will keep older kernels,\nso that you can use them if the new kernel went wrong.\nBut usually you don't need to keep them if the newer one works fine."))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    l=Gtk.Label(_("Linux kernel is the part of the system that deal with the hardware.\nFor safety the system will keep older kernels,\nso that you can use them if the new kernel went wrong.\nBut usually you don't need to keep them if the newer one works fine."))
     h.pack_start(l, False,False,2)
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    b=gtk.Button(_("Keep only one kernel"))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    b=Gtk.Button(_("Keep only one kernel"))
     b.set_sensitive(self.__count_kernels()>1)
     b.connect('clicked', self.__one_kernel)
     h.pack_start(b, False,False,2)
     if os.uname()[4]!='x86_64':
-      h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-      l=gtk.Label(_('A typical kernel can deal with up to 4GB of RAM.\nPAE kernels can deal with much much more than that.'))
+      h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+      l=Gtk.Label(_('A typical kernel can deal with up to 4GB of RAM.\nPAE kernels can deal with much much more than that.'))
       h.pack_start(l,False,False,2)
-      h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+      h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
       b=InstallOrInactive(self, _("Install PAE kernel"),_("PAE kernel is installed"), _('kernel which supports larger memory'), ['kernel-PAE'])
       h.pack_start(b, False,False,2)
 
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=gtk.Label()
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    l=Gtk.Label()
     l.set_markup(_("There are two types of drivers: <i>kmods</i> and <i><b>a</b>kmods</i>.\nAlthough <b>akmod</b> drivers requires: more disk space for the development dependencies,\nthey will automatically generate drivers for\nnewly-installed kernels without breaking the dependency.\nWe strongly recommend that you use <b>akmod</b>."))
     h.pack_start(l, False,False,2)
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    b=gtk.Button(_("Install corresponding akmods for installed kmods"))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    b=Gtk.Button(_("Install corresponding akmods for installed kmods"))
     b.connect('clicked',self.__akmods_cb)
     h.pack_start(b,False,False,2)
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=gtk.Label(_("Developers need kernel documentation and kernel development tools"))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    l=Gtk.Label(_("Developers need kernel documentation and kernel development tools"))
     h.pack_start(l, False,False,2)
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
     b=InstallOrInactive(self, _("Install kernel documentation"),_("kernel documentation is already installed"),_('Kernel documentation'),["kernel-doc"])
     h.pack_start(b, False,False,2)
     b=InstallOrInactive(self, _("Install kernel development tools"),_("kernel development package is already installed"),_('needed for building kernel module'),[self.__kernel+"-devel"])
@@ -95,13 +95,13 @@ class occPlugin(PluginsClass):
   def __one_kernel(self, *args):
     r=self.ccw.mechanism('run','system','package-cleanup -y --oldkernels --count=1')
     if r == 'NotAuth': return
-    if r=='0': info(_("Done."))
-    else: error(_("unexpected return code, possible an error had occurred."))
+    if r=='0': info(_("Done."), self.ccw)
+    else: error(_("unexpected return code, possible an error had occurred."), self.ccw)
 
   def __akmods_cb(self, b):
     p=self.__get_akmods()
     if self.ccw.is_installed(p):
-      info(_("all needed akmods are already installed."))
+      info(_("all needed akmods are already installed."), self.ccw)
     else:
       self.ccw.install_packages(p)
 

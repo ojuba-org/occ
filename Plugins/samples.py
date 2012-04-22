@@ -15,7 +15,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
-import gtk
+from gi.repository import Gtk
 import os
 import re
 from glob import glob
@@ -27,16 +27,16 @@ class occPlugin(PluginsClass):
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('Samples icon:'),'desktop', 50)
     self.load()
-    vb=gtk.VBox(False,2)
+    vb=Gtk.VBox(False,2)
     self.add(vb)
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=gtk.Label(_('ojuba is shipped with samples. You may find an icon to samples on your desktop.'))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    l=Gtk.Label(_('ojuba is shipped with samples. You may find an icon to samples on your desktop.'))
     h.pack_start(l,False,False,2)
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    b=gtk.Button(_("Remove samples icon"))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    b=Gtk.Button(_("Remove samples icon"))
     b.connect('clicked', self.rm_samples)
     h.pack_start(b,False,False,2)
-    b=gtk.Button(_("Recreate samples icon"))
+    b=Gtk.Button(_("Recreate samples icon"))
     b.connect('clicked', self.mk_samples)
     h.pack_start(b,False,False,2)
 
@@ -53,16 +53,16 @@ class occPlugin(PluginsClass):
 
   def rm_samples(self, b):
     if not os.path.exists(self.oj_samples):
-      info(_('Samples icon already removed.'))
+      info(_('Samples icon already removed.'), self.ccw)
       return
     try: os.unlink(self.oj_samples)
-    except OSError: error(_('Unable to remove samples icon.')); return
-    info(_('Done.'))
+    except OSError: error(_('Unable to remove samples icon.'), self.ccw); return
+    info(_('Done.'), self.ccw)
 
   def mk_samples(self, b):
     try: os.unlink(self.oj_conf)
     except OSError: pass
     if os.path.exists('/etc/X11/xinit/xinitrc.d/zz-samples.sh'):
       os.system('bash /etc/X11/xinit/xinitrc.d/zz-samples.sh')
-      info(_('Done.'))
+      info(_('Done.'), self.ccw)
 

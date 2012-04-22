@@ -16,7 +16,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 
-import gtk
+from gi.repository import Gtk
 from OjubaControlCenter.utils import chkconfig
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.widgets import InstallOrInactive, error, info, sure
@@ -24,25 +24,25 @@ from OjubaControlCenter.widgets import InstallOrInactive, error, info, sure
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('Dialup modem'),'net',100)
-    vb=gtk.VBox(False,2)
+    vb=Gtk.VBox(False,2)
     self.add(vb)
-    hb=gtk.HBox(False,6); vb.pack_start(hb,True,True,2)
-    hb.pack_start(gtk.Label(_("Some software dialup modems are supported by slmodem driver.\nIf you have a supported modem select a proper interface for it and activate its daemon before using it.")),False,False,2)
-    hb=gtk.HBox(False,6); vb.pack_start(hb,True,True,2)
+    hb=Gtk.HBox(False,6); vb.pack_start(hb,True,True,2)
+    hb.pack_start(Gtk.Label(_("Some software dialup modems are supported by slmodem driver.\nIf you have a supported modem select a proper interface for it and activate its daemon before using it.")),False,False,2)
+    hb=Gtk.HBox(False,6); vb.pack_start(hb,True,True,2)
     hb.pack_start(InstallOrInactive(self, _("Install slmodem driver"),_("slmodem driver is installed"), _('driver for some software modems'), ['kmod-slmodem']),False,False,2)
-    self.sl_service=gtk.CheckButton(_("Start slmodem daemon on boot"))
+    self.sl_service=Gtk.CheckButton(_("Start slmodem daemon on boot"))
     self.__sl_service_internal=False
     self.sl_service.set_active(chkconfig(5,'slmodem'))
     self.sl_service.connect('toggled', self.sl_service_cb)
     hb.pack_start(self.sl_service,False,False,2)
-    hb=gtk.HBox(False,6); vb.pack_start(hb,True,True,2)
-    self.interface_ls=gtk.combo_box_new_text()
+    hb=Gtk.HBox(False,6); vb.pack_start(hb,True,True,2)
+    self.interface_ls=Gtk.ComboBoxText()
     self.interface_ls.append_text("alsa")
     self.interface_ls.append_text("slamr")
     self.interface_ls.append_text("slusb")
     self.interface_ls.set_active(0)
     hb.pack_start(self.interface_ls,False,False,2)
-    b=gtk.Button(stock=gtk.STOCK_APPLY)
+    b=Gtk.Button(stock=Gtk.STOCK_APPLY)
     b.connect('clicked',self.interface_cb)
     hb.pack_start(b,False,False,2)
 
@@ -55,11 +55,11 @@ class occPlugin(PluginsClass):
     self.sl_service.set_active(chkconfig(5,'slmodem'))
     self.__sl_service_internal=False
     if r!='0':
-      error(_('unexpected return code, possible an error had occurred.'))
+      error(_('unexpected return code, possible an error had occurred.'), self.ccw)
 
   def interface_cb(self, b):
     i=self.interface_ls.get_active_text()
     r=self.ccw.mechanism('modem','set_sl_interface', i)
     if r == 'NotAuth': return
-    if r!='0': error(_('unexpected return code, possible an error had occurred.'))
+    if r!='0': error(_('unexpected return code, possible an error had occurred.'), self.ccw)
 

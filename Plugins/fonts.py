@@ -16,7 +16,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 
-import gtk
+from gi.repository import Gtk
 import os
 import re
 import shutil
@@ -28,21 +28,21 @@ class occPlugin(PluginsClass):
   __ch_re=re.compile(r'\\(0\d\d)')
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('Installing fonts:'),'desktop')
-    vb=gtk.VBox(False,2)
+    vb=Gtk.VBox(False,2)
     self.add(vb)
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=gtk.Label(_('Open your personal fonts folder and manage your fonts there.\nJust drag and drop or copy and past font files there.'))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    l=Gtk.Label(_('Open your personal fonts folder and manage your fonts there.\nJust drag and drop or copy and past font files there.'))
     h.pack_start(l,False,False,2)
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
     p=os.path.expanduser('~/.fonts/')
     if not os.path.exists(p): os.mkdir(p)
-    h.pack_start(LaunchFileManager(_("Personal fonts folder"), os.path.expanduser('~/.fonts/'),stock=gtk.STOCK_SELECT_FONT),False,False,2)
+    h.pack_start(LaunchFileManager(_("Personal fonts folder"), os.path.expanduser('~/.fonts/'),stock=Gtk.STOCK_SELECT_FONT),False,False,2)
 
-    #b=gtk.Button(_("System fonts folder"))
+    #b=Gtk.Button(_("System fonts folder"))
     #b.connect('clicked',self.__sys_fonts_cb)
     #h.pack_start(b,False,False,2)
     
-    b=NiceButton(_("Import fonts from another installed OS"),stock=gtk.STOCK_CONVERT)
+    b=NiceButton(_("Import fonts from another installed OS"),stock=Gtk.STOCK_CONVERT)
     b.connect('clicked',self.import_fonts)
     h.pack_start(b,False,False,2)
   def __sys_fonts_cb(self,b):
@@ -53,7 +53,7 @@ class occPlugin(PluginsClass):
     f=[]
     m=[]
     d=[]
-    if not sure(_("Are you sure you want to search and install fonts ?\nMake sure that the partitions are mounted and you have a license to use the fonts.\n")): return
+    if not sure(_("Are you sure you want to search and install fonts ?\nMake sure that the partitions are mounted and you have a license to use the fonts.\n"), self.ccw): return
     for i in open('/proc/mounts','rt'):
       p=self.__ch_re.sub(lambda m: chr(int(m.group(1),8)), i.split()[1].strip())
       if p=='/': continue
@@ -68,12 +68,12 @@ class occPlugin(PluginsClass):
     m=filter(lambda i: os.path.basename(i).lower()[:2] in M,f)
     a=True
     lf,lm=len(f),len(m)
-    if lf-lm>10: a=sure(_("There are %i fonts found, only %i could be important to you. Do you want to install all the fonts?\n") % (lf,lm))
+    if lf-lm>10: a=sure(_("There are %i fonts found, only %i could be important to you. Do you want to install all the fonts?\n") % (lf,lm), self.ccw)
     d=os.path.expanduser('~/.fonts/')
     if not os.path.exists(d): os.mkdir(d)
     os.system('xdg-open "%s"' % d)
     if not a: f=m
     for i in f:
       shutil.copy(i,d)
-    info(_("Done. %d font were installed.") % len(f))
+    info(_("Done. %d font were installed.") % len(f), self.ccw)
 

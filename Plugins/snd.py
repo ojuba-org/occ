@@ -19,7 +19,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
 #import pty
 #import signal
 #import time
-import gtk
+from gi.repository import Gtk
 import os
 import re
 from glob import glob
@@ -36,12 +36,12 @@ class occPlugin(PluginsClass):
   def __init__(self,ccw):
     self.__hda_verb_needed=None
     PluginsClass.__init__(self, ccw,_('Sound settings and tools'),'hw',20)
-    vb=gtk.VBox(False,2)
+    vb=Gtk.VBox(False,2)
     self.add(vb)
-    hb=gtk.HBox(False,2); vb.pack_start(hb,True,True,2)
-    hb.pack_start(gtk.Label(_("Warning: using headphone at high volume may harm your ears.")),False,False,2)
-    hb=gtk.HBox(False,2); vb.pack_start(hb,True,True,2)
-    b=gtk.Button(_("volume up!"))
+    hb=Gtk.HBox(False,2); vb.pack_start(hb,True,True,2)
+    hb.pack_start(Gtk.Label(_("Warning: using headphone at high volume may harm your ears.")),False,False,2)
+    hb=Gtk.HBox(False,2); vb.pack_start(hb,True,True,2)
+    b=Gtk.Button(_("volume up!"))
     hb.pack_start(b,False,False,2)
     b.connect('clicked',self.vol_up_cb)
     hb.pack_start(LaunchOrInstall(self, _("Simple gnome mixer"), '/usr/bin/gnome-volume-control', ['gnome-media']),False,False,2)
@@ -52,40 +52,41 @@ class occPlugin(PluginsClass):
     if e: s.append(_("You may need to use HDA fix from advanced options below."))
 
     if s:
-      hb=gtk.HBox(False,2); vb.pack_start(hb,True,True,2)
-      hb.pack_start(gtk.Label("\n".join(s)),False,False,2)
+      hb=Gtk.HBox(False,2); vb.pack_start(hb,True,True,2)
+      hb.pack_start(Gtk.Label("\n".join(s)),False,False,2)
 
-    hb.pack_start(gtk.VBox(False,2),False,False,2)
-    self.advanced=gtk.Expander(_("Advanced options"))
+    hb.pack_start(Gtk.VBox(False,2),False,False,2)
+    self.advanced=Gtk.Expander()
+    self.advanced.set_label(_("Advanced options"))
     vb.pack_start(self.advanced,True,True,2)
-    vb=gtk.VBox(False,2)
+    vb=Gtk.VBox(False,2)
     self.advanced.add(vb)
-    hb=gtk.HBox(False,6); vb.pack_start(hb,True,True,2)
-    hb.pack_start(gtk.Label(_("HDA fix for Acer Aspire 8920G:")),False,False,2)
-    b=gtk.Button(_("apply now"))
+    hb=Gtk.HBox(False,6); vb.pack_start(hb,True,True,2)
+    hb.pack_start(Gtk.Label(_("HDA fix for Acer Aspire 8920G:")),False,False,2)
+    b=Gtk.Button(_("apply now"))
     b.connect('clicked', self.hda_verb_now)
     hb.pack_start(b,False,False,2)
-    b=gtk.Button(_("enable at boot"))
+    b=Gtk.Button(_("enable at boot"))
     b.connect('clicked', self.hda_verb_at_boot)
     hb.pack_start(b,False,False,2)
-    b=gtk.Button(_("remove from boot"))
+    b=Gtk.Button(_("remove from boot"))
     b.connect('clicked', self.remove_from_boot)
     hb.pack_start(b,False,False,2)
     
-    hb=gtk.HBox(False,6); vb.pack_start(hb,True,True,2)
-    hb.pack_start(gtk.Label(_("By default sound works in time-based scheduling which consumes less power and CPU load.\nBut some drivers have a problem with time mode.\nIf you experience skipping in sound you may disable this feature.")),False,False,2)
-    hb=gtk.HBox(False,6); vb.pack_start(hb,True,True,2)
-    self.tbs=gtk.CheckButton(_("Time-based scheduling"))
+    hb=Gtk.HBox(False,6); vb.pack_start(hb,True,True,2)
+    hb.pack_start(Gtk.Label(_("By default sound works in time-based scheduling which consumes less power and CPU load.\nBut some drivers have a problem with time mode.\nIf you experience skipping in sound you may disable this feature.")),False,False,2)
+    hb=Gtk.HBox(False,6); vb.pack_start(hb,True,True,2)
+    self.tbs=Gtk.CheckButton(_("Time-based scheduling"))
     hb.pack_start(self.tbs,False,False,2)
-    b=gtk.Button(stock=gtk.STOCK_APPLY)
+    b=Gtk.Button(stock=Gtk.STOCK_APPLY)
     b.connect('clicked', self.tbs_cb)
     hb.pack_start(b,False,False,2)
-    hb=gtk.HBox(False,6); vb.pack_start(hb,True,True,2)
-    hb.pack_start(gtk.Label(_("If you have disabled time-based scheduling and the sound still skips, try setting realtime scheduling.")),False,False,2)
-    hb=gtk.HBox(False,6); vb.pack_start(hb,True,True,2)
-    self.rt_b=gtk.CheckButton(_("Realtime scheduling"))
+    hb=Gtk.HBox(False,6); vb.pack_start(hb,True,True,2)
+    hb.pack_start(Gtk.Label(_("If you have disabled time-based scheduling and the sound still skips, try setting realtime scheduling.")),False,False,2)
+    hb=Gtk.HBox(False,6); vb.pack_start(hb,True,True,2)
+    self.rt_b=Gtk.CheckButton(_("Realtime scheduling"))
     hb.pack_start(self.rt_b,False,False,2)
-    b=gtk.Button(stock=gtk.STOCK_APPLY)
+    b=Gtk.Button(stock=Gtk.STOCK_APPLY)
     b.connect('clicked', self.rt_cb)
     hb.pack_start(b,False,False,2)
     self.set_checkbox()
@@ -106,26 +107,26 @@ class occPlugin(PluginsClass):
   def hda_verb_sure(self):
     if self.is_hda_verb_needed(): msg="It seems that your sound card does not need this fix\nAre you still sure you want to run it?"
     else: msg="Are you sure you want to send HDA fix command?"
-    return sure(msg)
+    return sure(msg, self.ccw)
 
   def hda_verb_now(self,*args):
     if not self.sure(): return
     r=self.ccw.mechanism('snd','hda_verb','/dev/snd/hwC0D0 0x15 SET_EAPD_BTLENABLE 2')
     if r == 'NotAuth': return
     #os.system("hda-verb /dev/snd/hwC0D0 0x15 SET_EAPD_BTLENABLE 2")
-    info(_('Done.'))
+    info(_('Done.'), self.ccw)
 
   def hda_verb_at_boot(self,*args):
     if not self.sure(): return
     r=self.ccw.mechanism('snd','add_hda_verb','/dev/snd/hwC0D0 0x15 SET_EAPD_BTLENABLE 2')
     if r == 'NotAuth': return
-    info(_('Done. New settings will take effect on next boot.'))
+    info(_('Done. New settings will take effect on next boot.'), self.ccw)
 
   def remove_from_boot(self,*args):
-    if not sure(_("Are you sure you want to disable an already enabled hda fix ?")): return
+    if not sure(_("Are you sure you want to disable an already enabled hda fix ?"), self.ccw): return
     r=self.ccw.mechanism('snd','remove_hda_verb')
     if r == 'NotAuth': return
-    info(_('Done. New settings will take effect on next boot.'))
+    info(_('Done. New settings will take effect on next boot.'), self.ccw)
 
   def is_hda_verb_needed(self):
     if self.__hda_verb_needed!=None: return self.__hda_verb_needed
@@ -147,14 +148,14 @@ class occPlugin(PluginsClass):
     else: r=self.ccw.mechanism('snd','disable_tsched')
     if r == 'NotAuth': return
     self.set_checkbox()
-    info(_('Done. New settings will take effect on next boot.'))
+    info(_('Done. New settings will take effect on next boot.'), self.ccw)
 
   def rt_cb(self,b):
     if self.rt_b.get_active(): r=self.ccw.mechanism('snd','enable_rt')
     else: r=self.ccw.mechanism('snd','reset_rt')
     if r == 'NotAuth': return
     self.set_checkbox()
-    info(_('Done. New settings will take effect on next boot.'))
+    info(_('Done. New settings will take effect on next boot.'), self.ccw)
 
   def is_tsched(self):
     t=open(self.pa_conf,'rt').read()

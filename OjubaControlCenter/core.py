@@ -17,21 +17,26 @@ Copyright © 2009-2011, ojuba.org <core@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 import gettext
-#import os
 import os.path
 import sys
-#import glob
-#import imputil
+
 try: from gi.repository import Gio
 except ImportError: Gio=None
+
+try: from gi.repository import GConf
+except ImportError: GConf=None
+gconf=None
+
+if not GConf:
+  try: import gconf
+  except ImportError: pass
+
 ld=os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])),'..','share','locale')
 if not os.path.exists(ld): ld=os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])),'locale')
 gettext.install('occ', ld, unicode=0)
 
 import rpm
-import gtk
-#import gtk.gdk
-
+from gi.repository import Gtk
 
 from OjubaControlCenter import loader
 from OjubaControlCenter import categories
@@ -43,16 +48,16 @@ import dbus
 from dbus.mainloop.glib import DBusGMainLoop
 bus = dbus.SessionBus()
 
-def getSpecialIcon(icon,size=gtk.ICON_SIZE_DIALOG):
-  return gtk.image_new_from_icon_name(icon, size)
+def getSpecialIcon(icon,size=Gtk.IconSize.DIALOG):
+  return Gtk.Image.new_from_icon_name(icon, size)
   
-class TabLabel(gtk.HBox):
+class TabLabel(Gtk.HBox):
   def __init__(self, a):
     cat_id, caption, icon, tip=a
-    l=gtk.Label(caption)
+    l=Gtk.Label(caption)
     l.set_tooltip_text(tip)
-    self.img=getSpecialIcon(icon) # gtk.ICON_SIZE_BUTTON
-    gtk.HBox.__init__(self,False,0)
+    self.img=getSpecialIcon(icon) # Gtk.IconSize.BUTTON
+    Gtk.HBox.__init__(self,False,0)
     self.set_border_width(0)
     self.pack_start(self.img,False,False,0)
     self.pack_start(l,True,True,0)
@@ -95,72 +100,19 @@ class TabLabel(gtk.HBox):
 #yb.remove(name='someotherpackage')
 #yb.resolveDeps()
 #yb.processTransaction()
-
-
-class CCWindow(gtk.Window):
-  def __init__(self):
-    gtk.window_set_default_icon_name('ojuba-control-center')
-    gtk.Window.__init__(self)
-    dbus_loop = DBusGMainLoop(set_as_default=True)
-    bus = dbus.SystemBus()
-    self.GSettings=None
-    if Gio and hasattr(Gio, 'Settings'):
-      self.GSettings=Gio.Settings
-      self.GSchemas_List=self.GSettings.list_schemas()
-    self.__init_about_dialog()
-    self.__init_pk()
-    try: self.__mechanism = Backend(bus = bus)
-    except dbus.DBusException, e:
-      error(_("Error loading DBus:\n\tRun (setenforce 0) as root to stop SELinux, and try again.\nNote: You can disable SELinux by running (sestop) as root."),self)
-      print e
-      sys.exit(1)
-    self.__pk=None
-    self.__pkc=None
-    self.connect("delete_event", gtk.main_quit)
-    self.set_size_request(800,400)
-    self.set_title(_('Ojuba Control Center'))
-    self.maximize()
-    vb=gtk.VBox(False,2)
-    self.add(vb)
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    h.pack_start(gtk.image_new_from_icon_name('ojuba-control-center',gtk.ICON_SIZE_DIALOG),False,False,6)
-    l=gtk.Label()
-    l.set_markup("""<span size="xx-large">%s</span>""" % (_("Ojuba Control Center")))
-    b=gtk.Button()
-    b.add(l)
-    b.connect('clicked', lambda b: self.about_dlg.show_all())
-    h.pack_start(b,True,False,6)
-    h.pack_start(gtk.image_new_from_icon_name('start-here',gtk.ICON_SIZE_DIALOG),False,False,6)
-    self.cat=gtk.Notebook()
-    vb.pack_start(self.cat,True,True,6)
-    self.cat.set_tab_pos(gtk.POS_LEFT)
-    self.cat.set_scrollable(True)
-    self.cat_v={}
-    self.cat_c={}
-    self.cat_plugins={}
-    self.cat.connect('switch-page', self.__activate_page)
-    for i in categories.ls: self.__newCat(i)
-    skip=sum(map(lambda a: a[15:].split(','),
-      filter(lambda s: s.startswith('--skip-plugins='), sys.argv[1:])),[])
-    self.debug='--debug' in sys.argv[1:]
-    self.__loadPlugins(skip)
-    self.show_all()
-    gtk.main()
-
-  def __hide_cb(self, w, *args): w.hide(); return True
-
-  def __init_about_dialog(self):
-    self.about_dlg=gtk.AboutDialog()
-    self.about_dlg.set_default_response(gtk.RESPONSE_CLOSE)
-    self.about_dlg.connect('delete-event', self.__hide_cb)
-    self.about_dlg.connect('response', self.__hide_cb)
-    try: self.about_dlg.set_program_name("OCC")
+class OCCAbout(Gtk.AboutDialog):
+  def __init__(self, parent):
+    Gtk.AboutDialog.__init__(self, parent=parent)
+    self.set_default_response(Gtk.ResponseType.CLOSE)
+    self.connect('delete-event', self.__hide_cb)
+    self.connect('response', self.__hide_cb)
+    try: self.set_program_name("OCC")
     except: pass
-    self.about_dlg.set_name(_("OCC"))
+    self.set_name(_("OCC"))
     #self.about_dlg.set_version(version)
-    self.about_dlg.set_copyright("Copyright © 2009 ojuba.org")
-    self.about_dlg.set_comments(_("Ojuba Control Center"))
-    self.about_dlg.set_license("""\
+    self.set_copyright("Copyright © 2009 ojuba.org")
+    self.set_comments(_("Ojuba Control Center"))
+    self.set_license("""\
     Released under terms of Waqf Public License.
     This program is free software; you can redistribute it and/or modify
     it under the terms of the latest version Waqf Public License as
@@ -173,9 +125,68 @@ class CCWindow(gtk.Window):
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/"
 """)
-    self.about_dlg.set_website("http://linux.ojuba.org")
-    self.about_dlg.set_website_label("ojuba Linux web site")
-    self.about_dlg.set_authors(["Muayyad Saleh Alsadi <alsadi@ojuba.org>", "Ehab El-Gedawy <ehabsas@gmail.com>"])
+    self.set_website("http://linux.ojuba.org")
+    self.set_website_label("ojuba Linux web site")
+    self.set_authors(["Muayyad Saleh Alsadi <alsadi@ojuba.org>", "Ehab El-Gedawy <ehabsas@gmail.com>"])
+  
+  def __hide_cb(self, w, *args):
+    w.hide()
+    return True
+    
+class CCWindow(Gtk.Window):
+  def __init__(self):
+    Gtk.Window.set_default_icon_name('ojuba-control-center')
+    Gtk.Window.__init__(self)
+    dbus_loop = DBusGMainLoop(set_as_default=True)
+    bus = dbus.SystemBus()
+    self.GSettings=None
+    if Gio and hasattr(Gio, 'Settings'):
+      self.GSettings=Gio.Settings
+      self.GSchemas_List=self.GSettings.list_schemas()
+    self.GConf=None
+    if GConf:
+      self.GConf=[GConf.Client.get_default(), GConf.ClientPreloadType.PRELOAD_NONE]
+    elif gconf:
+      self.GConf=[gconf.client_get_default(), gconf.CLIENT_PRELOAD_NONE]
+    self.about_dlg=OCCAbout(self)
+    self.__init_pk()
+    try: self.__mechanism = Backend(bus = bus)
+    except dbus.DBusException, e:
+      error(_("Error loading DBus:\n\tRun (setenforce 0) as root to stop SELinux, and try again.\nNote: You can disable SELinux by running (sestop) as root."),self)
+      print e
+      sys.exit(1)
+    self.__pk=None
+    self.__pkc=None
+    self.connect("delete_event", Gtk.main_quit)
+    self.connect("destroy", Gtk.main_quit)
+    self.set_size_request(800,400)
+    self.set_title(_('Ojuba Control Center'))
+    self.maximize()
+    vb=Gtk.VBox(False,2)
+    self.add(vb)
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    h.pack_start(Gtk.Image.new_from_icon_name('ojuba-control-center',Gtk.IconSize.DIALOG),False,False,6)
+    l=Gtk.Label()
+    l.set_markup("""<span size="xx-large">%s</span>""" % (_("Ojuba Control Center")))
+    b=Gtk.Button()
+    b.add(l)
+    b.connect('clicked', lambda b: self.about_dlg.run())
+    h.pack_start(b,True,False,6)
+    h.pack_start(Gtk.Image.new_from_icon_name('start-here',Gtk.IconSize.DIALOG),False,False,6)
+    self.cat=Gtk.Notebook()
+    vb.pack_start(self.cat,True,True,6)
+    self.cat.set_tab_pos(Gtk.PositionType.LEFT)
+    self.cat.set_scrollable(True)
+    self.cat_v={}
+    self.cat_c={}
+    self.cat_plugins={}
+    self.cat.connect('switch-page', self.__activate_page)
+    for i in categories.ls: self.__newCat(i)
+    skip=sum(map(lambda a: a[15:].split(','),
+      filter(lambda s: s.startswith('--skip-plugins='), sys.argv[1:])),[])
+    self.debug='--debug' in sys.argv[1:]
+    self.__loadPlugins(skip)
+    self.show_all()
 
   def __init_pk(self):
     global bus
@@ -228,23 +239,23 @@ class CCWindow(gtk.Window):
   def __newCat(self,i):
     if type(i)==str:
       k,t1,t2=i,i,''
-      tl=gtk.Label(i)
+      tl=Gtk.Label(i)
       icon=None
     else:
       k,t1,t2=i[0],i[1],i[3]
       tl=TabLabel(i)
       icon=getSpecialIcon(i[2])
-    v=gtk.VBox(False,2)
-    s=gtk.ScrolledWindow()
-    r=gtk.VBox(False,0)
-    l=gtk.Label()
+    v=Gtk.VBox(False,2)
+    s=Gtk.ScrolledWindow()
+    r=Gtk.VBox(False,0)
+    l=Gtk.Label()
     l.set_markup('''<span size="xx-large" weight="bold">%s</span>\n<i>%s</i>''' % (t1,t2))
-    s.set_policy(gtk.POLICY_AUTOMATIC,gtk.POLICY_ALWAYS)
-    h=gtk.HBox(False,2)
+    s.set_policy(Gtk.PolicyType.AUTOMATIC,Gtk.PolicyType.ALWAYS)
+    h=Gtk.HBox(False,2)
     if icon: h.pack_start(icon,False,False,2)
     h.pack_start(l,False,False,2)
     v.pack_start(h,False,False,2)
-    v.pack_start(gtk.HSeparator(),False,False,2)
+    v.pack_start(Gtk.HSeparator(),False,False,2)
     v.pack_start(s,True,True,0)
     n=self.cat.append_page(v, tl)
     self.cat_v[k]=r
@@ -264,11 +275,12 @@ class CCWindow(gtk.Window):
       try: self.cat_v[i.category].pack_start(i,False,False,0)
       except KeyError: self.__newCat(i.category).pack_start(i,False,False,0)
       self.cat_plugins[i.category].append(i)
-
+      
 def main():
-  try: w=CCWindow()
-  except KeyboardInterrupt: print 'Keyboard interrupt!, Exiting...'
+  w=CCWindow()
+  Gtk.main()
 
 if __name__ == '__main__':
   main()
+
 

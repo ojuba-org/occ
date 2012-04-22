@@ -16,9 +16,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 
-import gtk 
-try: import gconf
-except ImportError: gconf=None
+from gi.repository import Gtk 
 import os.path
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.gwidgets import resetButton, comboBox, hscale, fontButton, creatVBox
@@ -27,13 +25,14 @@ class occPlugin(PluginsClass):
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('windows'),'gnome',45)
     description=_("Adjust windows settings")
+    self.GConf=ccw.GConf
     creatVBox(self, ccw, description, self.gconfsettings, self.gconfsettings, False) 
 
   def GioSettings(self, vb, ccw):
     pass
   
   def gconfsettings(self, vb, ccw):
-    if not gconf: return False
+    if not self.GConf: return False
     TActions_ls=['lower', 'menu', 'minmize', 'none', 'shade', 'toggle_maximize', 
                    'toggle_maximize_horizontally', 'toggle_maximize_vertically', 'toggle_shade']
     FMode_ls=['click', 'mouse', 'sloppy']
@@ -46,9 +45,9 @@ class occPlugin(PluginsClass):
       (_('Window focus mode'), '/apps/metacity/general/focus_mode', FMode_ls, ''),
       (_('Windows button layout'), '/desktop/gnome/shell/windows/button_layout', BTLayout_ls, _('Require Gnome-Shell Restart'))
       )
-    GC = gconf.client_get_default()
+    GC, CPT = self.GConf
     for t,k,l,h in L:
-      GC.add_dir(os.path.dirname(k),gconf.CLIENT_PRELOAD_NONE)
+      GC.add_dir(os.path.dirname(k),CPT)
       cb=comboBox(t,k,GC, l)
       cb.set_tooltip_text(h)
       vb.pack_start(cb,False,False,1)

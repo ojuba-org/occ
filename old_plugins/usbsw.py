@@ -19,7 +19,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
 import re
 import os
 import os.path
-import gtk
+from gi.repository import Gtk
 from subprocess import *
 
 from OjubaControlCenter.pluginsClass import PluginsClass
@@ -45,37 +45,37 @@ class occPlugin(PluginsClass):
   }
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('USB Mode Switch'),'net',90)
-    vb=gtk.VBox(False,2)
+    vb=Gtk.VBox(False,2)
     self.add(vb)
-    hb=gtk.HBox(False,6); vb.pack_start(hb,True,True,2)
-    b=gtk.Button(_('Remove all applied methods'))
+    hb=Gtk.HBox(False,6); vb.pack_start(hb,True,True,2)
+    b=Gtk.Button(_('Remove all applied methods'))
     b.connect('clicked',self.remove_applied)
     hb.pack_start(b,False,False,2)
 
-    hb=gtk.HBox(False,6); vb.pack_start(hb,True,True,2)
-    self.k_ls=gtk.combo_box_new_text()
+    hb=Gtk.HBox(False,6); vb.pack_start(hb,True,True,2)
+    self.k_ls=Gtk.ComboBoxText()
     self.k_ls.connect('changed', self.update_methods)
-    hb.pack_start(gtk.Label(_('Device ID:')),False,False,2)
+    hb.pack_start(Gtk.Label(_('Device ID:')),False,False,2)
     hb.pack_start(self.k_ls,False,False,2)
-    b=gtk.Button(stock=gtk.STOCK_REFRESH)
+    b=Gtk.Button(stock=Gtk.STOCK_REFRESH)
     b.connect('clicked',self.refresh)
     hb.pack_start(b,False,False,2)
     self.parse_conf()
       
-    hb=gtk.HBox(False,6); vb.pack_start(hb,True,True,2)
-    self.m_ls=gtk.combo_box_new_text()
+    hb=Gtk.HBox(False,6); vb.pack_start(hb,True,True,2)
+    self.m_ls=Gtk.ComboBoxText()
     self.m_ls.connect('changed', self.update_desc)
-    hb.pack_start(gtk.Label(_('Switch method:')),False,False,2)
+    hb.pack_start(Gtk.Label(_('Switch method:')),False,False,2)
     hb.pack_start(self.m_ls,False,False,2)
     
-    b=gtk.Button(_("apply now"))
+    b=Gtk.Button(_("apply now"))
     b.connect('clicked',self.apply_now)
     hb.pack_start(b,False,False,2)
-    b=gtk.Button(_("always apply this method automatically"))
+    b=Gtk.Button(_("always apply this method automatically"))
     b.connect('clicked',self.always_apply)
     hb.pack_start(b,False,False,2)
-    hb=gtk.HBox(False,6); vb.pack_start(hb,True,True,2)
-    self.desc=gtk.Label("%s: %s" % (_('Method details'),_('N/A')))
+    hb=Gtk.HBox(False,6); vb.pack_start(hb,True,True,2)
+    self.desc=Gtk.Label("%s: %s" % (_('Method details'),_('N/A')))
     hb.pack_start(self.desc,False,False,2)
     self.refresh()
 

@@ -16,7 +16,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 
-import gtk
+from gi.repository import Gtk
 import re
 from OjubaControlCenter.widgets import LaunchOrInstall,info,error
 from OjubaControlCenter.pluginsClass import PluginsClass
@@ -26,16 +26,16 @@ class occPlugin(PluginsClass):
   lang_fn='/etc/sysconfig/i18n'
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('System Language:'),'desktop', 10)
-    vb=gtk.VBox(False,2)
+    vb=Gtk.VBox(False,2)
     self.add(vb)
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=gtk.Label(_('Select the default system language'))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    l=Gtk.Label(_('Select the default system language'))
     h.pack_start(l,False,False,2)
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    self.ar_b = b = gtk.Button("العربية")
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    self.ar_b = b = Gtk.Button("العربية")
     b.connect('clicked', self.set_lang, "ar_EG.UTF-8")
     h.pack_start(b,False,False,2)
-    self.en_b = b = gtk.Button("English")
+    self.en_b = b = Gtk.Button("English")
     b.connect('clicked', self.set_lang)
     h.pack_start(b,False,False,2)
     h.pack_start(LaunchOrInstall(self,_('Other Language'),'/usr/bin/system-config-language',['system-config-language']),False,False,0)

@@ -16,7 +16,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 
-import gtk
+from gi.repository import Gtk, Gdk, GdkPixbuf
 import os
 from OjubaControlCenter.utils import cmd_out, copyfile
 from OjubaControlCenter.widgets import InstallOrInactive, sure, info, error, wait, imgchooser
@@ -38,11 +38,11 @@ class occPlugin(PluginsClass):
   gfxmode='auto'
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('Grub2 settings:'),'boot',30)
-    vb=gtk.VBox(False,2)
+    vb=Gtk.VBox(False,2)
     self.add(vb)
     if not ccw.installed_info('grub2'): 
-      h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-      l=gtk.Label(_("Grub2 not isntalled!"))
+      h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+      l=Gtk.Label(_("Grub2 not isntalled!"))
       h.pack_start(l, False,False,2)
       return
     self.default_conf()
@@ -53,28 +53,29 @@ class occPlugin(PluginsClass):
     if not os.path.exists(cfg_dir): os.mkdir(cfg_dir)
     
 
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=gtk.Label(_("This section will help you to change grub2 settings"))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    l=Gtk.Label(_("This section will help you to change grub2 settings"))
     h.pack_start(l, False,False,2)
     
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    h.pack_start(gtk.Label('%s :' % _("Time out")), False,False,2)
-    self.Time_Out = b = gtk.SpinButton(gtk.Adjustment(1, 1, 90, 1, 1))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    h.pack_start(Gtk.Label('%s :' % _("Time out")), False,False,2)
+    self.Time_Out = b = Gtk.SpinButton()
+    b.set_adjustment(Gtk.Adjustment(1, 1, 90, 1, 1))
     h.pack_start(b, False,False,2)
-    h.pack_start(gtk.Label(_("Seconds")), False,False,2)
+    h.pack_start(Gtk.Label(_("Seconds")), False,False,2)
     
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    h.pack_start(gtk.Label('%s :' % _("Kernel options")), False,False,2)
-    self.Kernel_Opt = e = gtk.Entry()
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    h.pack_start(Gtk.Label('%s :' % _("Kernel options")), False,False,2)
+    self.Kernel_Opt = e = Gtk.Entry()
     e.set_width_chars(50)
     h.pack_start(e, False,False,2)
     
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    self.recovery_c = c = gtk.CheckButton(_('Enabel recovery option'))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    self.recovery_c = c = Gtk.CheckButton(_('Enabel recovery option'))
     h.pack_start(c, False,False,2)
     
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    self.theme_c = c = gtk.CheckButton(_('Enabel Grub2 theme'))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    self.theme_c = c = Gtk.CheckButton(_('Enabel Grub2 theme'))
     c.connect('toggled',self.update_theme_cb)
     h.pack_start(c, False,False,2)
     
@@ -83,43 +84,40 @@ class occPlugin(PluginsClass):
     self.gfxmode = self.conf[0]['GRUB_GFXMODE']
     self.bg_fn = self.conf[1]['BACKGROUND']
     # Grub2 theme frame
-    self.tf = f = gtk.Frame(_('Grub2 Theme:')); vb.pack_start(f,False,False,6)
-    vbox = gtk.VBox(False,2)
+    self.tf = f = Gtk.Frame(); vb.pack_start(f,False,False,6)
+    f.set_label(_('Grub2 Theme:'))
+    vbox = Gtk.VBox(False,2)
     f.add(vbox)
     
-    h=gtk.HBox(False,2); vbox.pack_start(h,False,False,6)
-    l=gtk.Label(_("This section will help you to change grub2 Font and background (theme)."))
+    h=Gtk.HBox(False,2); vbox.pack_start(h,False,False,6)
+    l=Gtk.Label(_("This section will help you to change grub2 Font and background (theme)."))
     h.pack_start(l, False,False,2)
     
-    h=gtk.HBox(False,2); vbox.pack_start(h,False,False,6)
-    l=gtk.Label("%s: %s" %(_("Background"),self.bg_fn))
-    #b=gtk.Button(_('Change picture'))
+    h=Gtk.HBox(False,2); vbox.pack_start(h,False,False,6)
+    l=Gtk.Label("%s: %s" %(_("Background"),self.bg_fn))
+    #b=Gtk.Button(_('Change picture'))
     #b.connect('clicked', self.open_pic_cb, l)
     #h.pack_start(b, False,False,2)
-    fc=imgchooser(_('Choose boot background'))
-    if self.conf[1].has_key('BACKGROUND') and os.path.exists(self.conf[1]['BACKGROUND']):
-      fc.set_filename(self.conf[1]['BACKGROUND'])
-      fc.update_preview_cb(fn=self.conf[1]['BACKGROUND'])
-    fc.connect('file-set', self.img_changed, l)
+    fc=Gtk.Button(_("Chang background"))
+    fc.connect('clicked', self.img_changed, l)
     h.pack_start(fc, False,False,2)
     h.pack_start(l, False,False,2)
     
-    h=gtk.HBox(False,2); vbox.pack_start(h,False,False,6)
-    self.img=img=gtk.Image()
-    #self.img_preview()
+    h=Gtk.HBox(False,2); vbox.pack_start(h,False,False,6)
+    self.img=img=Gtk.Image()
     h.pack_start(img, False, False, 2)
     self.img_preview()
     
-    h=gtk.HBox(False,2); vbox.pack_start(h,False,False,6)
-    self.gfxmode_c = c = gtk.CheckButton('%s  = %s' %(_("Set GFXMODE"), self.gfxmode))
+    h=Gtk.HBox(False,2); vbox.pack_start(h,False,False,6)
+    self.gfxmode_c = c = Gtk.CheckButton('%s  = %s' %(_("Set GFXMODE"), self.gfxmode))
     c.connect('toggled',self.set_gfxmode_cb)
     c.set_tooltip_markup(_('Enable this option if you have boot troubles\n\nIf your monitor got out sync or turned off, While grub2 menu\nPress enter to continue booting, And enable this option.'))
     c.set_active(self.conf[0]['GRUB_GFXMODE']=='800x600')
     h.pack_start(c, False,False,2)
     
-    h=gtk.HBox(False,2); vbox.pack_start(h,False,False,6)
-    l=gtk.Label("%s: %s" %(_("Font name"),self.font_fn))
-    b = gtk.FontButton()
+    h=Gtk.HBox(False,2); vbox.pack_start(h,False,False,6)
+    l=Gtk.Label("%s: %s" %(_("Font name"),self.font_fn))
+    b = Gtk.FontButton()
     b.connect('font-set', self.fc_match_cb, l)
     b.set_font_name(self.conf[1]['FONT_NAME']  + ' 12')
     b.set_size_request(300,-1)
@@ -127,8 +125,8 @@ class occPlugin(PluginsClass):
     h.pack_start(l, False,False,2)
     
     # Apply buuton
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    self.apply_b = b = gtk.Button(_('Apply'))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    self.apply_b = b = Gtk.Button(_('Apply'))
     b.connect('clicked', self.apply_cb)
     b.set_size_request(200,-1)
     h.pack_end(b, False,False,2)
@@ -145,12 +143,14 @@ class occPlugin(PluginsClass):
       fn=self.conf[1]['BACKGROUND']
     # FIXME: show broken image instead of return
     if not os.path.exists(fn): return False
-    W=gtk.gdk.screen_width()
-    H=gtk.gdk.screen_height()
-    try: pixbuf = gtk.gdk.pixbuf_new_from_file(fn)
-    except: return False
-    scaled_buf = pixbuf.scale_simple(int(W*128/H),128,gtk.gdk.INTERP_BILINEAR)
-    self.img.set_from_pixbuf(scaled_buf)
+    #W=Gdk.Screen.width()
+    #H=Gdk.Screen.height()
+    #try:pixbuf = GdkPixbuf.Pixbuf.new_from_file(fn)
+    #except: return True
+    #scaled_buf = pixbuf.scale_simple(int(W*128/H),128,GdkPixbuf.InterpType.BILINEAR)
+    try: pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(fn, 200, 200)
+    except Exception: return False
+    self.img.set_from_pixbuf(pixbuf)
     return True
     
   def convert_img(self, in_fn, out_fn, t='png'):
@@ -158,16 +158,20 @@ class occPlugin(PluginsClass):
       self.bg_nm=''
       return
     try:
-      im=gtk.gdk.pixbuf_new_from_file(in_fn)
-      im.save(out_fn, t)
+      im=GdkPixbuf.Pixbuf.new_from_file(in_fn)
+      im.savev(out_fn, t, '', '')
     except:
       self.bg_nm=''
     
   def img_changed(self, b,l):
-    fn=b.get_filename()
-    if not self.img_preview(fn): return
-    self.bg_fn=fn
-    l.set_text("%s: %s" %(_("Background"),self.bg_fn))
+    fc=imgchooser(_('Choose boot background'), fn=self.bg_fn, parent=self.ccw)
+    r = fc.run()
+    fn=fc.get_filename()
+    fc.destroy()
+    if r == Gtk.ResponseType.OK:
+      if not self.img_preview(fn): return
+      self.bg_fn=fn
+      l.set_text("%s: %s" %(_("Background"),self.bg_fn))
     
   def png_match(self, fn):
     if not os.path.isfile(fn): return False
@@ -200,7 +204,6 @@ class occPlugin(PluginsClass):
   def apply_cb(self, w):
     if not sure(_('Are you sure you want to apply changes?'), self.ccw): return
     dlg=wait(self.ccw)
-    dlg.show_all()
     self.convert_img(self.bg_fn, self.bg_nm)
     self.conf[0]['GRUB_TIMEOUT'] = int(self.Time_Out.get_value())
     self.conf[0]['GRUB_DISTRIBUTOR'] = self.conf[0]['GRUB_DISTRIBUTOR']
@@ -221,9 +224,8 @@ class occPlugin(PluginsClass):
     try: open(self.user_conf, 'w+').write(usr_cfg)
     except IOError: pass
     #print usr_cfg, '\n\n',cfg,font, self.bg_fn,self.bg_nm
-    #return
     r = self.ccw.mechanism('grub2', 'apply_cfg', self.conf_fn, cfg, font, self.bg_nm)
-    dlg.hide()
+    dlg.destroy()
     if r == 'NotAuth': return 
     if r.startswith("Error"): return error('%s: %s' %(_('Error!'),r),self.ccw)
     info(_('Done!'),self.ccw)

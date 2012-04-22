@@ -16,7 +16,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 
-import gtk
+from gi.repository import Gtk
 import re
 import urlgrabber.grabber
 from OjubaControlCenter.utils import *
@@ -79,44 +79,45 @@ class occPlugin(PluginsClass):
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('Site Blocking'),'net',50)
     self.__lock=True
-    vb=gtk.VBox(False,2)
+    vb=Gtk.VBox(False,2)
     self.add(vb)
-    hb=gtk.HBox(False,0); vb.pack_start(hb,False,False,0)
-    b=gtk.Button(_('Filter sites with explicit contents'))
+    hb=Gtk.HBox(False,0); vb.pack_start(hb,False,False,0)
+    b=Gtk.Button(_('Filter sites with explicit contents'))
     b.connect('clicked', lambda b: run_in_bg('xdg-open https://addons.mozilla.org/en-US/firefox/addon/1803'))
     hb.pack_start(b,False,False,0)
 
-    hb=gtk.HBox(False,0); vb.pack_start(hb,False,False,0)
-    b=gtk.CheckButton(_('Block ads and spyware sites'))
+    hb=Gtk.HBox(False,0); vb.pack_start(hb,False,False,0)
+    b=Gtk.CheckButton(_('Block ads and spyware sites'))
     b.set_active(os.path.exists(self.__blocked_f))
     b.connect('toggled', self.__block_cb)
     hb.pack_start(b,False,False,0)
     hb.pack_start(LaunchFileButton(_('View blocked sites list'),self.__blocked_ls_f),False,False,0)
-    b=gtk.Button(stock=gtk.STOCK_REFRESH)
+    b=Gtk.Button(stock=Gtk.STOCK_REFRESH)
     b.connect('clicked', self.__refresh_cb)
     b.set_tooltip_text(_('connect to ojuba.org to get the updated list'))
     hb.pack_start(b,False,False,0)
-    hb=gtk.HBox(False,0)
+    hb=Gtk.HBox(False,0)
     vb.pack_start(hb,False,False,0)
-    b=gtk.CheckButton(_('Block sites in your personal black list'))
+    b=Gtk.CheckButton(_('Block sites in your personal black list'))
     b.set_active(os.path.exists(self.__blacklist_f))
     b.connect('toggled', self.__personal_list_cb)
     hb.pack_start(b,False,False,0)
-    hb=gtk.HBox(False,0)
+    hb=Gtk.HBox(False,0)
     vb.pack_start(hb,False,False,0)
-    self.__p=p=gtk.TextView()
-    s=gtk.ScrolledWindow()
-    evb=gtk.VBox(False,0)
-    evb.pack_start(gtk.Label("Edit your list of banned sites (delimited by spaces and newlines, no commas)"),False,False,0)
-    e=gtk.Expander(_("Personal black list"))
+    self.__p=p=Gtk.TextView()
+    s=Gtk.ScrolledWindow()
+    evb=Gtk.VBox(False,0)
+    evb.pack_start(Gtk.Label("Edit your list of banned sites (delimited by spaces and newlines, no commas)"),False,False,0)
+    e=Gtk.Expander()
+    e.set_label(_("Personal black list"))
     hb.pack_start(e,True,True,6)
     
     e.add(evb)
     evb.pack_start(s,False,False,6)
     s.add(p)
-    hb=gtk.HBox(False,0)
+    hb=Gtk.HBox(False,0)
     evb.pack_start(hb,False,False,0)
-    b=gtk.Button(stock=gtk.STOCK_SAVE)
+    b=Gtk.Button(stock=Gtk.STOCK_SAVE)
     b.connect('clicked', self.__save_personal_list_cb)
     hb.pack_start(b,False,False,0)
     self.__load__personal_list()
@@ -124,10 +125,10 @@ class occPlugin(PluginsClass):
 
   def __refresh_cb(self, b):
     e,l=get_blocked_hosts()
-    if len(l)<1: error("Unable to fetch black list."); return
+    if len(l)<1: error(_("Unable to fetch black list."), self.ccw); return
     r=self.ccw.mechanism('hosts','set_blocked_list', *l)
     if r == 'NotAuth': return
-    info(_('Done. You may need to restart your browser.'));
+    info(_('Done. You may need to restart your browser.'), self.ccw);
   
   def __load__personal_list(self):
     try: l=open(self.__local_ls_f,"rt").read().strip().split()
@@ -141,7 +142,7 @@ class occPlugin(PluginsClass):
     l=buf.get_text(buf.get_start_iter(),buf.get_end_iter()).strip().split()
     l=filter(lambda j: j, map(lambda i: i.strip(), l))
     self.ccw.mechanism('hosts','set_personal_list', *l)
-    info(_('Done. You may need to restart your browser.'));
+    info(_('Done. You may need to restart your browser.'), self.ccw);
     #if len(l)<1: error("You list is empty."); return
 
   def __block_cb(self, b):
@@ -156,7 +157,7 @@ class occPlugin(PluginsClass):
     if r == 'NotAuth': return
     b.set_active(os.path.exists(self.__blocked_f))
     self.__lock=False
-    info(_('Done. You may need to restart your browser.'))
+    info(_('Done. You may need to restart your browser.'), self.ccw)
 
   def __personal_list_cb(self, b):
     if self.__lock: return
@@ -166,7 +167,7 @@ class occPlugin(PluginsClass):
     if r == 'NotAuth': return
     b.set_active(os.path.exists(self.__blacklist_f))
     self.__lock=False
-    info(_('Done. You may need to restart your browser.'))
+    info(_('Done. You may need to restart your browser.'), self.ccw)
 
 
 

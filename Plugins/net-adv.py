@@ -16,7 +16,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 
-import gtk
+from gi.repository import Gtk
 import re
 from subprocess import Popen, PIPE
 from OjubaControlCenter.widgets import LaunchOrInstall, sure, info, error
@@ -27,32 +27,32 @@ class occPlugin(PluginsClass):
   ushare_path_re=re.compile(r'''^(\s*\[global\][^\[]*)^\s*(usershare\s+path[ \t]*=[ \t]*([^\n]*))\s*$''',re.M | re.S)
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw, _('Advanced Network settings:'),'net',20)
-    vb=gtk.VBox(False,2)
+    vb=Gtk.VBox(False,2)
     self.add(vb)   
-    hb=gtk.HBox(False,2); vb.pack_start(hb,False,False,6)
-    l=gtk.Label(_("""Firewall protects your system by filtering unwanted network access."""))
+    hb=Gtk.HBox(False,2); vb.pack_start(hb,False,False,6)
+    l=Gtk.Label(_("""Firewall protects your system by filtering unwanted network access."""))
     hb.pack_start(l, False,False,2)
 
-    hb=gtk.HBox(False,2)
+    hb=Gtk.HBox(False,2)
     vb.pack_start(hb,False,False,2)
     hb.pack_start(LaunchOrInstall(self, _('Configure firewall'), '/usr/bin/system-config-firewall',pkgs=['system-config-filewall']),False,False,0)
 
-    hb=gtk.HBox(False,2)
+    hb=Gtk.HBox(False,2)
     vb.pack_start(hb,False,False,2)
-    l=gtk.Label(_("""Samba is used to share folders and printers in LAN"""))
+    l=Gtk.Label(_("""Samba is used to share folders and printers in LAN"""))
     hb.pack_start(l, False,False,2)
-    hb=gtk.HBox(False,2); vb.pack_start(hb,False,False,2)
+    hb=Gtk.HBox(False,2); vb.pack_start(hb,False,False,2)
     if not self.is_smb_on():
-      b=gtk.Button(_("Start samba on boot"))
+      b=Gtk.Button(_("Start samba on boot"))
       b.connect('clicked', self.smb_service_on)
       hb.pack_start(b,False,False,0)
     hb.pack_start(LaunchOrInstall(self, _('Create or modify shares'), '/usr/bin/system-config-samba',pkgs=['system-config-samba']),False,False,0)
-    hb=gtk.HBox(False,2)
+    hb=Gtk.HBox(False,2)
     vb.pack_start(hb,False,False,2)
-    self.ushare=gtk.CheckButton(_('Allow unprivileged users to create shares'))
+    self.ushare=Gtk.CheckButton(_('Allow unprivileged users to create shares'))
     self.ushare.set_active(self.is_ushare())
     hb.pack_start(self.ushare,False,False,0)
-    b=gtk.Button(stock=gtk.STOCK_APPLY)
+    b=Gtk.Button(stock=Gtk.STOCK_APPLY)
     b.connect('clicked', self.ushare_cb)
     hb.pack_start(b,False,False,0)
 
@@ -73,12 +73,12 @@ class occPlugin(PluginsClass):
   def smb_service_on(self, b):
     r=self.ccw.mechanism('smb','start_on_boot')
     if r == 'NotAuth': return
-    info(_('Done.'))
+    info(_('Done.'), self.ccw)
 
   def ushare_cb(self,b):
     r=self.ccw.mechanism('smb','enable_ushare', str(int(self.ushare.get_active())) )
     if r == 'NotAuth': return
-    info(_('Done.'))
+    info(_('Done.'), self.ccw)
 
 # 
 # runlevel

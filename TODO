@@ -1,0 +1,7 @@
+بسم الله الرحمن الرحيم
+- fix wait dialog
+- fix Gtk.Frame, Gtk.Expander borders :(
+- Use polkit from pygobject3 instead of pygobject2
+- Rewrite DBus to support gtk3
+- fix blocklist
+- add tor plugin

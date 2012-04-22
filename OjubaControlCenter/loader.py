@@ -38,9 +38,10 @@ def loadPlugins(pluginsDir,baseClass, pluginClassName='occPlugin', skip=[], debu
       f, fn, d = imp.find_module(module,[pluginsDir])
       if not fn.startswith(pluginsDir): continue
       loaded = imp.load_module(module, f, fn, d)
+      f.close()
       if loaded.__dict__.has_key(pluginClassName): obj = loaded.__dict__[pluginClassName](*args)
       else: continue
-    except Exception, e: e=e
+    except Exception as e: e=e
     if e and debug: raise
     elif e: print "Error: %s: %s" %(module,e); continue # FIXME: reconsider this should it be continue/raise
     if not isinstance(obj, baseClass): continue

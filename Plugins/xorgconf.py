@@ -21,7 +21,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
 #import os
 #import re
 #import time
-import gtk
+from gi.repository import Gtk
 from subprocess import Popen, PIPE
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.widgets import run_in_bg
@@ -97,115 +97,118 @@ EndSection
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('Fallback X procedures:'),'hw',11)
     self.__lspci=None
-    vb=gtk.VBox(False,2)
+    vb=Gtk.VBox(False,2)
     self.add(vb)
-    hb=gtk.HBox(False,2)
+    hb=Gtk.HBox(False,2)
     vb.pack_start(hb,True,True,2)
-    l=gtk.Label()
+    l=Gtk.Label()
     l.set_markup(_("""This is an advanced tool that should <b>NOT</b> be used in normal cases.
 If you tried other tools and it fails you may use this tool."""))
     hb.pack_start(l,False,False,2)
-    hb=gtk.HBox(False,2)
+    hb=Gtk.HBox(False,2)
     vb.pack_start(hb,False,False,2)
-    self.advanced=gtk.Expander(_("Show Advanced options"))
+    self.advanced=Gtk.Expander()
+    self.advanced.set_label(_("Show Advanced options"))
     hb.pack_start(self.advanced,False,False,2)
-    vbe=gtk.VBox(False,2)
+    vbe=Gtk.VBox(False,2)
     self.advanced.add(vbe)
     
-    f=gtk.Frame(_('initrd generation'))
+    f=Gtk.Frame()
+    f.set_label(_('initrd generation'))
     vbe.pack_start(f,False,False,2)
-    vb=gtk.VBox(False,2)
+    vb=Gtk.VBox(False,2)
     f.add(vb)
-    hb=gtk.HBox(False,2); vb.pack_start(hb,False,False,2)
-    l=gtk.Label(_("""initrd file could contain old modules that conflict some proprietary drivers.
+    hb=Gtk.HBox(False,2); vb.pack_start(hb,False,False,2)
+    l=Gtk.Label(_("""initrd file could contain old modules that conflict some proprietary drivers.
 You may want to generate a new initrd file."""))
     hb.pack_start(l,False,False,2)
-    hb=gtk.HBox(False,2); vb.pack_start(hb,False,False,2)
-    b=gtk.Button(_("Generate initrd"))
-    b.set_image(gtk.image_new_from_stock(gtk.STOCK_EXECUTE, gtk.ICON_SIZE_BUTTON))
+    hb=Gtk.HBox(False,2); vb.pack_start(hb,False,False,2)
+    b=Gtk.Button(_("Generate initrd"))
+    b.set_image(Gtk.Image.new_from_stock(Gtk.STOCK_EXECUTE, Gtk.IconSize.BUTTON))
     b.connect('clicked', self.mkinitrd)
     hb.pack_start(b,False,False,2)
     
-    f=gtk.Frame(_('Xorg.conf creation tool'))
+    f=Gtk.Frame()
+    f.set_label(_('Xorg.conf creation tool'))
     vbe.pack_start(f,False,False,2)
-    vb=gtk.VBox(False,2)
+    vb=Gtk.VBox(False,2)
     f.add(vb)
-    hb=gtk.HBox(False,2); vb.pack_start(hb,False,False,2)
-    l=gtk.Label(_("""Xorg.conf is the file that controls X server which is the base of the graphical environment.
+    hb=Gtk.HBox(False,2); vb.pack_start(hb,False,False,2)
+    l=Gtk.Label(_("""Xorg.conf is the file that controls X server which is the base of the graphical environment.
 This tool will overwrite xorg.conf with a new one that is not based on your working one."""))
     hb.pack_start(l,False,False,2)
-    hb=gtk.HBox(False,2); vb.pack_start(hb,False,False,2)
-    hb.pack_start(gtk.Label(_('Driver:')),False,False,2)
-    self.driver=gtk.Entry()
+    hb=Gtk.HBox(False,2); vb.pack_start(hb,False,False,2)
+    hb.pack_start(Gtk.Label(_('Driver:')),False,False,2)
+    self.driver=Gtk.Entry()
     d,tip=self.default_driver()
     self.driver.set_text(d)
     self.driver.set_tooltip_text(_('usually a single lower case word like: %s') % tip)
     hb.pack_start(self.driver,False,False,2)
     
-    hb=gtk.HBox(False,2); vb.pack_start(hb,False,False,2)
-    self.compiz=gtk.CheckButton(_("Enable Composite extension"))
+    hb=Gtk.HBox(False,2); vb.pack_start(hb,False,False,2)
+    self.compiz=Gtk.CheckButton(_("Enable Composite extension"))
     self.compiz.set_active(True)
     self.compiz.set_tooltip_text(_('This extention is needed by special effects but could case problems in rare cases.'))
     hb.pack_start(self.compiz,False,False,2)
-    self.aiglx=gtk.CheckButton(_("Enable AIGLX"))
+    self.aiglx=Gtk.CheckButton(_("Enable AIGLX"))
     self.aiglx.set_active(True)
     self.aiglx.set_tooltip_text(_('Enable Accelerated indirect rendering.'))
     hb.pack_start(self.aiglx,False,False,2)
     
-    hb=gtk.HBox(False,2); vb.pack_start(hb,False,False,2)
-    hb.pack_start(gtk.Label(_('Vertical Refresh Rate:')),False,False,2)
-    self.auto_vref=gtk.CheckButton(_('auto'))
+    hb=Gtk.HBox(False,2); vb.pack_start(hb,False,False,2)
+    hb.pack_start(Gtk.Label(_('Vertical Refresh Rate:')),False,False,2)
+    self.auto_vref=Gtk.CheckButton(_('auto'))
     self.auto_vref.set_active(True)
     hb.pack_start(self.auto_vref,False,False,2)
-    self.m_vref=gtk.CheckButton(_('manual:'))
+    self.m_vref=Gtk.CheckButton(_('manual:'))
     self.m_vref.set_active(True)
     hb.pack_start(self.m_vref,False,False,2)
-    self.vref=gtk.SpinButton()
+    self.vref=Gtk.SpinButton()
     self.vref.set_tooltip_text(_('a value of 85Hz would be nicer on your eyes, lower values like 60Hz would work with LCD or old CRT monitors.'))
-    self.vref.get_adjustment().set_all(85, 50, 120, 5, 0, 0)
+    self.vref.set_adjustment(Gtk.Adjustment(85, 50, 120, 5, 0, 0))
     hb.pack_start(self.vref,False,False,2)
     self.m_vref.connect('toggled', lambda b: self.vref.set_sensitive(self.m_vref.get_active()))
 
     self.res=[]
-    hb=gtk.HBox(False,2); vb.pack_start(hb,False,False,2)
-    hb.pack_start(gtk.Label(_('HD Resolutions:')),False,False,2)
+    hb=Gtk.HBox(False,2); vb.pack_start(hb,False,False,2)
+    hb.pack_start(Gtk.Label(_('HD Resolutions:')),False,False,2)
     for i in ['1920×1080', '1280x1024', '1280×720']:
-      self.res.append(gtk.CheckButton(i))
+      self.res.append(Gtk.CheckButton(i))
       hb.pack_start(self.res[-1],False,False,2)
 
-    hb=gtk.HBox(False,2); vb.pack_start(hb,False,False,2)
-    hb.pack_start(gtk.Label(_('LCD Wide Resolutions:')),False,False,2)
+    hb=Gtk.HBox(False,2); vb.pack_start(hb,False,False,2)
+    hb.pack_start(Gtk.Label(_('LCD Wide Resolutions:')),False,False,2)
     for i in ['2560x1600', '1920x1200', '1680x1050', '1440x900', '1280x800']:
-      self.res.append(gtk.CheckButton(i))
+      self.res.append(Gtk.CheckButton(i))
       hb.pack_start(self.res[-1],False,False,2)
 
 
-    hb=gtk.HBox(False,2); vb.pack_start(hb,False,False,2)
-    hb.pack_start(gtk.Label(_('Normal Resolutions:')),False,False,2)
+    hb=Gtk.HBox(False,2); vb.pack_start(hb,False,False,2)
+    hb.pack_start(Gtk.Label(_('Normal Resolutions:')),False,False,2)
     res=['1600x1200', '1280x960', '1024x768', '800x600', '640x400', '320x240', '320x200']
 
     for n,i in enumerate(res):
-      c=gtk.CheckButton(i)
+      c=Gtk.CheckButton(i)
       self.res.append(c)
       if n>1: c.set_active(True)
       hb.pack_start(c,False,False,2)
 
-    hb=gtk.HBox(False,2); vb.pack_start(hb,False,False,2)
-    b=gtk.Button(stock=gtk.STOCK_SAVE)
+    hb=Gtk.HBox(False,2); vb.pack_start(hb,False,False,2)
+    b=Gtk.Button(stock=Gtk.STOCK_SAVE)
     b.connect('clicked', self.save)
     hb.pack_start(b,False,False,2)
-    b=gtk.Button(_('Delete xorg.conf'))
-    b.set_image(gtk.image_new_from_stock(gtk.STOCK_DELETE, gtk.ICON_SIZE_BUTTON))
+    b=Gtk.Button(_('Delete xorg.conf'))
+    b.set_image(Gtk.Image.new_from_stock(Gtk.STOCK_DELETE, Gtk.IconSize.BUTTON))
     b.set_tooltip_text(_('This will make X use default settings.'))
     b.connect('clicked', self.delete)
     hb.pack_start(b,False,False,2)
 
   def delete(self, b):
-    if not sure(_('Do you like to remove xorg.conf file to use default settings?')): return
+    if not sure(_('Do you like to remove xorg.conf file to use default settings?'), self.ccw): return
     s=self.ccw.mechanism('run', 'system', 'rm /etc/X11/xorg.conf')
     if s == 'NotAuth': return
-    if s=='0': info(_('Done. Changes will take effect when you login next time.'))
-    else: error(_('unexpected return code, possible an error had occurred.')); return
+    if s=='0': info(_('Done. Changes will take effect when you login next time.'), self.ccw)
+    else: error(_('unexpected return code, possible an error had occurred.'), self.ccw); return
 
   def __lspci_n(self):
     if self.__lspci: return self.__lspci
@@ -243,19 +246,19 @@ This tool will overwrite xorg.conf with a new one that is not based on your work
     v['compiz']=('Disable','Enable')[self.compiz.get_active()]
     v['aiglx']=('off','on')[self.aiglx.get_active()]
     if ' ' in v['driver'] or '\t' in v['driver']: error(_('driver should be one word')); return
-    if v['driver'].lower()!=v['driver']: error(_('driver should be lower case')); return
-    if not sure(_('Are you sure you want to overwrite your currently working xorg.conf file and generate a new one ?')): return
+    if v['driver'].lower()!=v['driver']: error(_('driver should be lower case'), self.ccw); return
+    if not sure(_('Are you sure you want to overwrite your currently working xorg.conf file and generate a new one ?'), self.ccw): return
     xorgconf=self.xorgconf_t % v
     s=self.ccw.mechanism('vga', 'saveXorgConf', xorgconf)
     if s == 'NotAuth': return
-    if s=='0': info(_('Done. Changes will take effect when you login next time.'))
-    else: error(_('unexpected return code, possible an error had occurred.')); return
+    if s=='0': info(_('Done. Changes will take effect when you login next time.'), self.ccw)
+    else: error(_('unexpected return code, possible an error had occurred.'), self.ccw); return
     self.mkinitrd(b)
 
   def mkinitrd(self, b):
-    if not sure(_('Some proprietary require rebuild initrd.\nWould you like to do that?')): return
+    if not sure(_('Some proprietary require rebuild initrd.\nWould you like to do that?'), self.ccw): return
     s=self.ccw.mechanism('run', 'system','mkinitrd -f --allow-missing /boot/initrd-`uname -r`.img `uname -r`')
     if s == 'NotAuth': return
-    if s=='0': info(_('Done. Changes will take effect when you reboot.'))
-    else: error(_('unexpected return code, possible an error had occurred.')); return
+    if s=='0': info(_('Done. Changes will take effect when you reboot.'), self.ccw)
+    else: error(_('unexpected return code, possible an error had occurred.'), self.ccw); return
 

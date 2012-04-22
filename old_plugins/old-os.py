@@ -15,23 +15,23 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
-import gtk
+from gi.repository import Gtk
 from OjubaControlCenter.widgets import sure, info, error, wait
 from OjubaControlCenter.pluginsClass import PluginsClass
 
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
     PluginsClass.__init__(self, ccw,_('Installed systems:'),'boot',40)
-    vb=gtk.VBox(False,2)
+    vb=Gtk.VBox(False,2)
     self.add(vb)
 
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=gtk.Label(_("This section will help you to search your plugged disks \nfor installed system and add them to grub menu"))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    l=Gtk.Label(_("This section will help you to search your plugged disks \nfor installed system and add them to grub menu"))
     h.pack_start(l, False,False,2)
     
     
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    self.apply_b = b = gtk.Button(_('Find and add installed systems to grub menu'))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    self.apply_b = b = Gtk.Button(_('Find and add installed systems to grub menu'))
     b.connect('clicked', self.apply_cb)
     h.pack_start(b, False,False,2)
     

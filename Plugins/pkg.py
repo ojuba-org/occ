@@ -16,7 +16,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 
-import gtk
+from gi.repository import Gtk
 import re
 import os.path
 from glob import glob
@@ -36,56 +36,56 @@ class occPlugin(PluginsClass):
   def __init__(self,ccw):
     self.__dev = bus.get_object(interface, "/org/freedesktop/UDisks")
     PluginsClass.__init__(self, ccw,_('Package Manager:'),'install', 10)
-    vb=gtk.VBox(False,2)
+    vb=Gtk.VBox(False,2)
     self.add(vb)
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=gtk.Label(_('Package Manager allows you to install software.\nIt saves you the effort downloading, tracing versions and resolving dependencies.'))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    l=Gtk.Label(_('Package Manager allows you to install software.\nIt saves you the effort downloading, tracing versions and resolving dependencies.'))
     h.pack_start(l,False,False,2)
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
     h.pack_start(LaunchButton(_("Add/Remove applications"), fn='/usr/bin/gpk-application',icon="system-software-install"),False,False,2)
     h.pack_start(LaunchButton(_("KPackageKit"), fn='/usr/bin/kpackagekit'), False,False,2)
     h.pack_start(LaunchButton(_("Yum Extender"), fn='/usr/bin/yumex'), False,False,2)
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=gtk.Label(_('Package Manager uses predefined software sources (called repositories) to get software.\nBy using official repositories you will get signed packages.'))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    l=Gtk.Label(_('Package Manager uses predefined software sources (called repositories) to get software.\nBy using official repositories you will get signed packages.'))
     h.pack_start(l,False,False,2)
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
     h.pack_start(LaunchButton(_("Software Sources Editor"), fn='/usr/bin/gpk-repo'),False,False,2)
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=gtk.Label(_("You may add installation medium (CD/DVD) which contains packages.\nThey are used to install packages offline or save bandwidth.\nSome people consider inserting media annoying and prefer to download packages over the internet."))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    l=Gtk.Label(_("You may add installation medium (CD/DVD) which contains packages.\nThey are used to install packages offline or save bandwidth.\nSome people consider inserting media annoying and prefer to download packages over the internet."))
     h.pack_start(l,False,False,2)
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    b=gtk.Button(_('Add a media repository'))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    b=Gtk.Button(_('Add a media repository'))
     b.connect('clicked', self.add_media)
     h.pack_start(b, False,False,2)
-    b=gtk.Button(_('Disable all media repositories'))
+    b=Gtk.Button(_('Disable all media repositories'))
     b.connect('clicked', self.disable_mediarepo)
     h.pack_start(b, False,False,2)
     
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=gtk.Label(_("If you don't have internet access you may want to disable internet repositories."))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    l=Gtk.Label(_("If you don't have internet access you may want to disable internet repositories."))
     h.pack_start(l,False,False,2)
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    b=gtk.Button(_('Disable all internet repositories'))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    b=Gtk.Button(_('Disable all internet repositories'))
     b.connect('clicked', self.disable_net_repos)
     h.pack_start(b, False,False,2)
-    self.restore_repos_b=b=gtk.Button(_('Restore enabled repositories'))
+    self.restore_repos_b=b=Gtk.Button(_('Restore enabled repositories'))
     b.set_tooltip_text(_("Restore the enabled repositories as they were before disabling internet repositories"))
     b.connect('clicked', self.restore_repos)
     h.pack_start(b, False,False,2)
     self.restore_repos_b.set_sensitive(os.path.exists(self.media_repo_save))
 
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=gtk.Label(_('You may keep the downloaded packages to pass them to other people.\nThose packages are kept under /var/cache/yum'))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    l=Gtk.Label(_('You may keep the downloaded packages to pass them to other people.\nThose packages are kept under /var/cache/yum'))
     h.pack_start(l,False,False,2)
-    h=gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    self.keep_cache_b=gtk.CheckButton(_('keep downloaded packages'))
+    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
+    self.keep_cache_b=Gtk.CheckButton(_('keep downloaded packages'))
     self.keep_cache_b.set_active(self.get_keep_cache())
     try:
       self.ccw.rm_old_rpms_b.set_sensitive(self.keep_cache_b.get_active())
       self.ccw.cp_new_rpms_b.set_sensitive(self.keep_cache_b.get_active())
     except: pass
     h.pack_start(self.keep_cache_b, False,False,2)
-    b=gtk.Button(stock=gtk.STOCK_APPLY)
+    b=Gtk.Button(stock=Gtk.STOCK_APPLY)
     b.connect('clicked', self.keep_cache)
     h.pack_start(b, False,False,2)
 
@@ -94,7 +94,7 @@ class occPlugin(PluginsClass):
     return dev.Get(interface+'.Device', key, dbus_interface="org.freedesktop.DBus.Properties")
 
   def add_media(self, b):
-    if not sure(_('Please make sure the media you want to add is inserted before you add it.\nDo you want to continue?')): return
+    if not sure(_('Please make sure the media you want to add is inserted before you add it.\nDo you want to continue?'), self.ccw): return
     repos=[]
     l=self.__dev.EnumerateDevices(dbus_interface = interface)
     for udi in l:
@@ -110,15 +110,15 @@ class occPlugin(PluginsClass):
         mnt=str(mnt[0])
         repo=os.path.join(mnt,'media.repo')
         if os.path.exists(repo): repos.append(repo)
-    if len(repos)==0: error(_("No valid media were found.")); return
+    if len(repos)==0: error(_("No valid media were found."), self.ccw); return
     r=self.ccw.mechanism('pkg','add_media',*repos)
     if r == 'NotAuth': return
-    info(_('Done. %s repositories were added.\nOpen the package manager to load or refresh cache.') % r)
+    info(_('Done. %s repositories were added.\nOpen the package manager to load or refresh cache.') % r, self.ccw)
 
   def disable_mediarepo(self, b):
     r=self.ccw.mechanism('pkg','disable_mediarepo')
     if r == 'NotAuth': return
-    info(_('Done. %s repositories were disabled.') % r)
+    info(_('Done. %s repositories were disabled.') % r, self.ccw)
 
   def get_keep_cache(self):
     c=open('/etc/yum.conf','rt').read()
@@ -137,7 +137,7 @@ class occPlugin(PluginsClass):
       self.ccw.rm_old_rpms_b.set_sensitive(self.keep_cache_b.get_active())
       self.ccw.cp_new_rpms_b.set_sensitive(self.keep_cache_b.get_active())
     except: pass
-    info(_('Done.'))
+    info(_('Done.'), self.ccw)
 
   def disable_net_repos(self, b):
     r=self.ccw.mechanism('pkg','disable_net_repos')
@@ -146,8 +146,8 @@ class occPlugin(PluginsClass):
     try: i=int(r)
     except ValueError: i==0
     if i<=0:
-      info(_('no repository was disabled'))
-    info(_('Done. %d repositories were disabled') % i)
+      info(_('no repository was disabled'), self.ccw)
+    info(_('Done. %d repositories were disabled') % i, self.ccw)
 
   def restore_repos(self, b):
     r=self.ccw.mechanism('pkg','restore_enabled_repos')
@@ -156,6 +156,6 @@ class occPlugin(PluginsClass):
     try: i=int(r)
     except ValueError: i==0
     if i<=0:
-      info(_('no repository was enabled'))
-    info(_('Done. %d repositories were enabled') % i)
+      info(_('no repository was enabled'), self.ccw)
+    info(_('Done. %d repositories were enabled') % i, self.ccw)
 
