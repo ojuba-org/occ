@@ -1,5 +1,5 @@
 Name:           occ
-Version:        1.22.3
+Version:        1.22.4
 Release:        1%{?dist}
 Summary:        Ojuba Control Center
 
@@ -11,6 +11,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildArch:      noarch
 Requires:       hda-verb usb_modeswitch xdg-utils system-switch-displaymanager glx-utils python-slip-dbus udisks PackageKit system-config-network
+Requires:   pygobject3 >= 3.0.2
 Obsoletes:	media-repo
 BuildRequires:  python-devel
 
@@ -78,6 +79,9 @@ fi
 
 
 %changelog
+* Sun Jun 2 2012  Muayyad Saleh AlSadi <alsadi@ojuba.org> - 1.22.4-1
+- port to gtk3, webkit3
+
 * Wed Jul 13 2011 Muayyad Saleh Alsadi <alsadi@ojuba.org> - 1.20.0-1
 - some gnome-shell features
 
