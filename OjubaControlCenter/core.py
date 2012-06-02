@@ -104,8 +104,8 @@ class OCCAbout(Gtk.AboutDialog):
   def __init__(self, parent):
     Gtk.AboutDialog.__init__(self, parent=parent)
     self.set_default_response(Gtk.ResponseType.CLOSE)
-    self.connect('delete-event', self.__hide_cb)
-    self.connect('response', self.__hide_cb)
+    #self.connect('delete-event', self.__hide_cb)
+    #self.connect('response', self.__hide_cb)
     try: self.set_program_name("OCC")
     except: pass
     self.set_name(_("OCC"))
@@ -128,10 +128,8 @@ class OCCAbout(Gtk.AboutDialog):
     self.set_website("http://linux.ojuba.org")
     self.set_website_label("ojuba Linux web site")
     self.set_authors(["Muayyad Saleh Alsadi <alsadi@ojuba.org>", "Ehab El-Gedawy <ehabsas@gmail.com>"])
-  
-  def __hide_cb(self, w, *args):
-    w.hide()
-    return True
+    self.run()
+    self.destroy()
     
 class CCWindow(Gtk.Window):
   def __init__(self):
@@ -148,7 +146,6 @@ class CCWindow(Gtk.Window):
       self.GConf=[GConf.Client.get_default(), GConf.ClientPreloadType.PRELOAD_NONE]
     elif gconf:
       self.GConf=[gconf.client_get_default(), gconf.CLIENT_PRELOAD_NONE]
-    self.about_dlg=OCCAbout(self)
     self.__init_pk()
     try: self.__mechanism = Backend(bus = bus)
     except dbus.DBusException, e:
@@ -170,7 +167,7 @@ class CCWindow(Gtk.Window):
     l.set_markup("""<span size="xx-large">%s</span>""" % (_("Ojuba Control Center")))
     b=Gtk.Button()
     b.add(l)
-    b.connect('clicked', lambda b: self.about_dlg.run())
+    b.connect('clicked', self.show_about_dlg)
     h.pack_start(b,True,False,6)
     h.pack_start(Gtk.Image.new_from_icon_name('start-here',Gtk.IconSize.DIALOG),False,False,6)
     self.cat=Gtk.Notebook()
@@ -188,6 +185,9 @@ class CCWindow(Gtk.Window):
     self.__loadPlugins(skip)
     self.show_all()
 
+  def show_about_dlg(self, *w):
+    return OCCAbout(self)
+    
   def __init_pk(self):
     global bus
     self.__nopk=False
@@ -248,9 +248,13 @@ class CCWindow(Gtk.Window):
     v=Gtk.VBox(False,2)
     s=Gtk.ScrolledWindow()
     r=Gtk.VBox(False,0)
+    #r = Gtk.Notebook()
+    #r.set_scrollable(True)
+    #r.set_show_border(True)
+    #r.popup_enable()
     l=Gtk.Label()
     l.set_markup('''<span size="xx-large" weight="bold">%s</span>\n<i>%s</i>''' % (t1,t2))
-    s.set_policy(Gtk.PolicyType.AUTOMATIC,Gtk.PolicyType.ALWAYS)
+    s.set_policy(Gtk.PolicyType.AUTOMATIC,Gtk.PolicyType.AUTOMATIC)
     h=Gtk.HBox(False,2)
     if icon: h.pack_start(icon,False,False,2)
     h.pack_start(l,False,False,2)
@@ -272,6 +276,7 @@ class CCWindow(Gtk.Window):
     p=loader.loadPlugins(self.__pluginsDir,PluginsClass,'occPlugin',skip,self.debug,self)
     p.sort(lambda a,b: a.priority-b.priority)
     for i in p:
+      #try: self.cat_v[i.category].append_page(i,Gtk.Label(i.caption))
       try: self.cat_v[i.category].pack_start(i,False,False,0)
       except KeyError: self.__newCat(i.category).pack_start(i,False,False,0)
       self.cat_plugins[i.category].append(i)

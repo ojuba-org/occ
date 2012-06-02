@@ -53,6 +53,10 @@ class comboBox(Gtk.HBox):
     self.List=List
     cb_list = Gtk.ListStore(str, str)
     self.cb = Gtk.ComboBox.new_with_model(cb_list)
+    warp_width = 1
+    if len(List) > 10:
+      warp_width = len(List) / 10
+      self.cb.set_wrap_width(warp_width)
     cell = Gtk.CellRendererText()
     self.cb.pack_start(cell, True)
     self.cb.add_attribute(cell, 'text', 0)

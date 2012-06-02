@@ -28,13 +28,14 @@ class PluginsClass(Gtk.Frame):
     Gtk.Frame.__init__(self)
     self.set_label(caption)
     self.set_border_width(6)
+    #self.show_boarder=True
     self.set_shadow_type(Gtk.ShadowType(1))
     #self.modify_bg(Gtk.StateType(0),Gdk.Color(255,0,0))
     #rc=Gtk.RcStyle()
     #self.modify_style(rc)
     #for i in rc.base:
     #  i.red=255
-    
+    self.set_shadow_type(Gtk.ShadowType.IN)
     l=Gtk.Label(caption)
     l.set_markup('<span color="blue">%s</span>' %caption)
     self.set_label_widget(l)
