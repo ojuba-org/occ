@@ -16,7 +16,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 # each element is category_id, category_caption, icon_id, category_tip
-ls=( \
+ls=(
   ('desktop', _('Desktop'), 'desktop',_('generic desktop preferences and customization')),
   ('gnome', _('GNOME Desktop'), 'gnome-main-menu',_('GNOME desktop preferences and customization')),
   ('install', _('Installer'), 'system-software-install',_('Install applications or setup ojuba')),

@@ -16,7 +16,7 @@ po/POTFILES.in: po/POTFILES.in.in
 	echo $${i} >>po/POTFILES.in; \
 	done
 
-pos: po/POTFILES.in
+pos: 
 	make -C po all
 
 install: all
@@ -27,4 +27,8 @@ install: all
 
 clean:
 	rm -f $(TARGETS)
+	rm -f *.pyc
+	rm -f */*.pyc
+	rm -rf locale
+	make -C po clean
 

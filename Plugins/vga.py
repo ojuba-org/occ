@@ -249,7 +249,7 @@ You may want to check how slow is your VGA card by performing 5 second glxgears 
     if self.__suggest_disable_KMS():
       s2=_("Some cards have problems with KMS, try to disable KMS and reboot.")
       e=True
-    if s2: s=u"\n".join((s,s2,))
+    if s2: s="\n".join((s,s2,))
     self.suggestion.set_markup(s)
     self.advanced.set_expanded(e)
     

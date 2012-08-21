@@ -41,15 +41,13 @@ from gi.repository import Gtk
 from OjubaControlCenter import loader
 from OjubaControlCenter import categories
 from OjubaControlCenter.pluginsClass import PluginsClass
-from OjubaControlCenter.widgets import error, LaunchButton
+from OjubaControlCenter.widgets import error, LaunchButton, CatFrame, MainButton, getSpecialIcon
 
 from OjubaControlCenter.odbus.proxy.OCCBackend import Backend
 import dbus
 from dbus.mainloop.glib import DBusGMainLoop
 bus = dbus.SessionBus()
 
-def getSpecialIcon(icon,size=Gtk.IconSize.DIALOG):
-  return Gtk.Image.new_from_icon_name(icon, size)
   
 class TabLabel(Gtk.HBox):
   def __init__(self, a):
@@ -132,6 +130,7 @@ class OCCAbout(Gtk.AboutDialog):
     self.destroy()
     
 class CCWindow(Gtk.Window):
+    
   def __init__(self):
     Gtk.Window.set_default_icon_name('ojuba-control-center')
     Gtk.Window.__init__(self)
@@ -156,34 +155,77 @@ class CCWindow(Gtk.Window):
     self.__pkc=None
     self.connect("delete_event", Gtk.main_quit)
     self.connect("destroy", Gtk.main_quit)
-    self.set_size_request(800,400)
+    self.set_size_request(750,650)
     self.set_title(_('Ojuba Control Center'))
-    self.maximize()
+    #self.maximize()
+    self.set_resizable(False)
+    self.set_position(Gtk.WindowPosition(1))
+    
     vb=Gtk.VBox(False,2)
     self.add(vb)
-    h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    h.pack_start(Gtk.Image.new_from_icon_name('ojuba-control-center',Gtk.IconSize.DIALOG),False,False,6)
+    vb.show()
+    
+    h=Gtk.HBox(False,6); vb.pack_start(h,False,False,6)
     l=Gtk.Label()
-    l.set_markup("""<span size="xx-large">%s</span>""" % (_("Ojuba Control Center")))
-    b=Gtk.Button()
+    l.set_markup("""<span size="xx-large"><b>:::</b></span>""")
+    
+    self.GoMain_b = b = Gtk.Button()
+    b.set_tooltip_markup("""<span size="large">%s</span>""" % (_("Back to Main")))
     b.add(l)
+    b.set_focus_on_click(False)
+    b.connect('clicked', self.show_main_cb)
+    h.pack_start(b,False,False,6)
+    
+    #h.pack_start(Gtk.Image.new_from_icon_name('ojuba-control-center',Gtk.IconSize.DIALOG),False,False,6)
+    #l=Gtk.Label()
+    #l.set_markup("""<span size="large">%s</span>""" % (_("Ojuba Control Center")))
+    b=Gtk.Button()
+    b.add(Gtk.Image.new_from_icon_name('ojuba-control-center',Gtk.IconSize.DIALOG))
+    b.set_tooltip_markup("""<span size="large">%s</span>""" % (_("About Ojuba Control Center")))
+    #b.add(l)
+    b.set_focus_on_click(False)
     b.connect('clicked', self.show_about_dlg)
-    h.pack_start(b,True,False,6)
-    h.pack_start(Gtk.Image.new_from_icon_name('start-here',Gtk.IconSize.DIALOG),False,False,6)
-    self.cat=Gtk.Notebook()
-    vb.pack_start(self.cat,True,True,6)
-    self.cat.set_tab_pos(Gtk.PositionType.LEFT)
-    self.cat.set_scrollable(True)
+    #h.pack_end(Gtk.Image.new_from_icon_name('ojuba-control-center',Gtk.IconSize.DIALOG),False,False,6)
+    h.pack_end(b, False, False, 6)
+    #h.pack_start(Gtk.Image.new_from_icon_name('start-here',Gtk.IconSize.DIALOG),False,False,6)
+    h.show_all()
+    self.GoMain_b.hide()
+    
+    
+    # Main ScrolledWindow
+    self.main_container = ms =Gtk.ScrolledWindow()
+    ms.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+    vb.pack_start(ms, True, True, 6)
+    
+    # Main contianer
+    mvb = Gtk.VBox(False,2)
+    ms.add_with_viewport(mvb)
+    ms.show_all()
+    
+    # Sub ScrolledWindow
+    self.sub_container = ss = Gtk.ScrolledWindow()
+    ss.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+    vb.pack_start(ss, True, True, 6)
+    
+    
+    # Sub container
+    svb = Gtk.VBox(False, 2)
+    ss.add_with_viewport(svb)
+    #ss.show()
+    svb.show()
+    
+    self.vis_plugins = []
     self.cat_v={}
     self.cat_c={}
     self.cat_plugins={}
-    self.cat.connect('switch-page', self.__activate_page)
-    for i in categories.ls: self.__newCat(i)
+    #self.cat.connect('switch-page', self.__activate_page)
+    for i in categories.ls:
+        self.__newCat(i)
     skip=sum(map(lambda a: a[15:].split(','),
       filter(lambda s: s.startswith('--skip-plugins='), sys.argv[1:])),[])
     self.debug='--debug' in sys.argv[1:]
     self.__loadPlugins(skip)
-    self.show_all()
+    self.show()
 
   def show_about_dlg(self, *w):
     return OCCAbout(self)
@@ -235,8 +277,23 @@ class CCWindow(Gtk.Window):
     for i in self.cat_plugins[self.cat_c[n]]: i._activate()
     # todo tell all plugins in this page we are active
     return True
-    
+  
   def __newCat(self,i):
+    mvb = self.main_container.get_children()[0].get_children()[0]
+    if type(i)==str:
+      k = i
+      r = CatFrame(i)
+    else:
+      k = i[0]
+      r = CatFrame(*i)
+    mvb.pack_start(r, False, False, 2)
+    mvb.show_all()
+    self.cat_v[k]=r
+    self.cat_plugins[k]=[]
+    return r
+    #print mvb, svb
+    
+  def __newCat__old(self,i):
     if type(i)==str:
       k,t1,t2=i,i,''
       tl=Gtk.Label(i)
@@ -248,10 +305,10 @@ class CCWindow(Gtk.Window):
     v=Gtk.VBox(False,2)
     s=Gtk.ScrolledWindow()
     r=Gtk.VBox(False,0)
-    #r = Gtk.Notebook()
-    #r.set_scrollable(True)
-    #r.set_show_border(True)
-    #r.popup_enable()
+    r = Gtk.Notebook()
+    r.set_scrollable(True)
+    r.set_show_border(True)
+    r.popup_enable()
     l=Gtk.Label()
     l.set_markup('''<span size="xx-large" weight="bold">%s</span>\n<i>%s</i>''' % (t1,t2))
     s.set_policy(Gtk.PolicyType.AUTOMATIC,Gtk.PolicyType.AUTOMATIC)
@@ -275,12 +332,60 @@ class CCWindow(Gtk.Window):
       self.__pluginsDir=os.path.join(self.__exeDir,'..','share','occ','Plugins')
     p=loader.loadPlugins(self.__pluginsDir,PluginsClass,'occPlugin',skip,self.debug,self)
     p.sort(lambda a,b: a.priority-b.priority)
+    btncnt = dict((i[0],[0, Gtk.HBox(), False]) for i in categories.ls)
+    svb = self.sub_container.get_children()[0].get_children()[0]
+    #h=Gtk.HBox(False,2)
     for i in p:
-      #try: self.cat_v[i.category].append_page(i,Gtk.Label(i.caption))
-      try: self.cat_v[i.category].pack_start(i,False,False,0)
-      except KeyError: self.__newCat(i.category).pack_start(i,False,False,0)
+      if i.category in btncnt:
+        btncnt[i.category][0] += 1
+      else:
+        btncnt[i.category][0] = 0
+      
+      if btncnt[i.category][0] % 6 == 0:
+        btncnt[i.category][1] = Gtk.HBox()
+        btncnt[i.category][2] = False
+        
+      h = btncnt[i.category][1]
+      if not btncnt[i.category][2]:
+        btncnt[i.category][2] = True
+        try: self.cat_v[i.category].pack_start(h,False,False,0)
+        except KeyError: self.__newCat(i.category).pack_start(h,False,False,0)
+        
+      # pack main buttons
+      h.pack_start(self.create_buttons(i),False,False,6)
+      h.show_all()
+      # pack plugin
+      svb.pack_start(i,False,False,0)
       self.cat_plugins[i.category].append(i)
       
+      
+   
+  def create_buttons(self, plugin):
+    # we must remove char : in the caption ?
+    caption = plugin.caption.replace(':', '')
+    # FIXME: make fixed size main button widget
+    b=MainButton(caption, icon='ojuba-control-center') #stock=Gtk.STOCK_PREFERENCES)
+    b.set_tooltip_text(caption)
+    b.connect('clicked', self.show_plugin, plugin)
+    return b
+
+  def show_plugin(self, b, plugin):
+    for p in self.vis_plugins:
+        p.hide()
+    plugin.show_all()
+    self.vis_plugins.append(plugin)
+    self.GoMain_b.show_all()
+    self.main_container.hide()
+    self.sub_container.show()
+  
+  def show_main_cb(self, *b):
+    self.GoMain_b.hide()
+    self.sub_container.hide()
+    self.main_container.show_all()
+    for p in self.vis_plugins:
+        p.hide()
+    self.vis_plugins = []
+    
 def main():
   w=CCWindow()
   Gtk.main()

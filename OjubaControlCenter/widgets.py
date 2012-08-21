@@ -22,17 +22,128 @@ from utils import *
 import multiprocessing, time, signal
 
 class NiceImage(Gtk.Image):
-  def __init__(self, filename=None, icon=None,stock=None):
+  def __init__(self, filename=None, icon=None,stock=None, iconsize=4):
     Gtk.Image.__init__(self)
     if filename: self.set_from_file(filename)
-    elif icon: self.set_from_icon_name(icon, Gtk.IconSize.BUTTON)
-    elif stock: self.set_from_stock(stock, Gtk.IconSize.BUTTON)
+    elif icon: self.set_from_icon_name(icon, iconsize)
+    elif stock: self.set_from_stock(stock, iconsize)
 
 class NiceButton(Gtk.Button):
   def __init__(self, caption, img_fn=None, icon=None,stock=None):
     Gtk.Button.__init__(self,caption)
+    self.set_size_request(100,100)
     self.set_image(NiceImage(img_fn, icon,stock))
+    
+def create_css_view():
+    ###############################
+    ## Not used :(
+    display = Gdk.Display.get_default()
+    screen = display.get_default_screen()
+    css_provider = Gtk.CssProvider()
+    #http://gnomejournal.org/article/107/styling-gtk-with-css
+    cssdate = """.button {
+                    border-radius: 15px;
+                    background-color: red;
+                    margin: 100px;
+                    padding: 1px;
+                    }
 
+                 .button:hover {
+                        transition: 3000ms linear;
+                        border-radius: 50px;
+                        background-color: red;
+                    }"""
+    css_provider.load_from_data(cssdate)
+    context = Gtk.StyleContext()
+    context.add_provider_for_screen(screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+#create_css_view()
+
+
+class MainButton_(Gtk.LinkButton):
+  ###############################
+  ## Not used :(
+  def __init__(self, caption, img_fn=None, icon=None, stock=None, iconsize=6):
+    #super(MainButton, self).__init__()
+    Gtk.LinkButton.__init__(self, '', caption)
+    self.set_use_underline(False)
+    l = self.get_children()[0]
+    l.set_line_wrap(True)
+    l.set_justify(Gtk.Justification.CENTER)
+    #l=Gtk.Label(caption)
+    #l.set_size_request(80,80)
+    #l.set_line_wrap(True)
+    #l.set_justify(Gtk.Justification.CENTER)
+    #self.add(l)
+    self.set_size_request(100,100)
+    #l.set_label(caption)
+
+class MainButton(Gtk.Button):
+  def __init__(self, caption, img_fn=None, icon=None, stock=None, iconsize=6):
+    Gtk.Button.__init__(self)
+    #self.set_size_request(80,80)
+    self.set_focus_on_click(False)
+    l=Gtk.Label.new(caption)
+    #l.set_markup('<span color="blue">%s</span>' %caption)
+    l.set_line_wrap(True)
+    l.set_justify(Gtk.Justification.CENTER)
+    l.set_width_chars(10)
+    #l.set_size_request(80,50)
+    #f = Gtk.Fixed()
+    #f.add(l)
+    #f.set_size_request(70,-1)
+    ni = NiceImage(img_fn, icon, stock, iconsize)
+    vbox=Gtk.VBox(False,2)
+    #hbox=Gtk.HBox(True,2)
+    #hbox.pack_start(f, True, True,6)
+    vbox.pack_start(ni,False,False,6)
+    vbox.pack_start(l,False,False,6)
+    self.add(vbox)
+    self.show_all()
+    self.set_size_request(100, 100)
+    #l.set_size_request(80,50)
+    #self.chg_color()
+    
+  def chg_color(self):
+    for i in range(5):
+      self.modify_fg(Gtk.StateType(i), Gdk.color_parse("#ff0000"))
+
+class CatFrame(Gtk.Frame):
+  __gtype_name__ = 'OCC_CategoryFrame'
+  # each element is category_id, category_caption, icon_id, category_tip
+  def __init__(self, category, caption=None, icon=None, description=''):
+    self.description = description
+    if caption:
+      self.caption = caption
+    else:
+      self.caption = category
+    self.category = category
+    #if icon:
+    #  icon=getSpecialIcon(icon)
+    Gtk.Frame.__init__(self)
+    self.set_label(caption)
+    self.set_border_width(6)
+    self.set_shadow_type(Gtk.ShadowType(1))
+    self.set_shadow_type(Gtk.ShadowType.IN)
+    l=Gtk.Label(caption)
+    #l.add(icon)
+    #l.set_markup('<span color="blue">%s %s</span>' %(caption, '-' * (100-len(caption))))
+    l.set_markup('<span color="blue">%s</span>\n%s' % (caption, description))
+    self.set_label_widget(l)
+    self.vb = vb = Gtk.VBox(False,2)
+    self.add(vb)
+    #if description:
+    #  h=Gtk.HBox(False,2)
+    #  l=Gtk.Label(description)
+    #  h.pack_start(l, False, False, 4)
+    #  vb.pack_start(h, False, False, 4)
+    self.show_all()
+    
+  def pack_start(self, w, *args):
+    if args:
+      self.vb.pack_start(w, *args)
+    else:
+      self.vb.pack_start(w, False, False, 4)
+      
 class LaunchFileButton(Gtk.Button):
   def __init__(self, caption, fn):
     self.__fn=fn
@@ -226,11 +337,12 @@ def error(msg, parent=None, sec_msg=''):
   dlg.destroy()
   return True
 
-def wait(parent=None, msg=_('Please wait...'), sec_msg=''):
+def wait(parent=None, msg='Please wait...', sec_msg=''):
   dlg = waitDialog(parent, msg)
   #dlg.present()
   #while(Gtk.main_iteration()): pass
 
   return dlg
 
-
+def getSpecialIcon(icon,size=Gtk.IconSize.DIALOG):
+  return Gtk.Image.new_from_icon_name(icon, size)
