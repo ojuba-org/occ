@@ -41,43 +41,80 @@ def create_css_view():
     screen = display.get_default_screen()
     css_provider = Gtk.CssProvider()
     #http://gnomejournal.org/article/107/styling-gtk-with-css
-    cssdate = """.button {
-                    border-radius: 15px;
-                    background-color: red;
-                    margin: 100px;
-                    padding: 1px;
+    #transition: 300ms ease-out;
+    cssdate = """
+                ScrolledWindow, GtkViewport, MainButton {
+                    background-color: #eee;
+                    }
+                GtkWindow {
+                    background-color: #abb;
+                    border-radius: 2px;
+                    margin: 55px;
+                    padding: 55px;
                     }
 
-                 .button:hover {
-                        transition: 3000ms linear;
-                        border-radius: 50px;
-                        background-color: red;
-                    }"""
+              """
     css_provider.load_from_data(cssdate)
     context = Gtk.StyleContext()
-    context.add_provider_for_screen(screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-#create_css_view()
+    context.add_provider_for_screen(screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER)
+create_css_view()
+class MainButton_(Gtk.Label):
+  #__gtype_name__ = 'MainButton'
+  ###############################
+  ## Not used :(
+  def __init__(self, caption, img_fn=None, icon=None, stock=None, iconsize=6):
+    #super(MainButton, self).__init__()
+    Gtk.Label.__init__(self, '<a href=".">%s</a>' % caption)
+    self.set_use_markup(True)
+    self.set_use_underline(False)
+    self.set_line_wrap(True)
+    self.set_justify(Gtk.Justification.CENTER)
+    self.set_size_request(100,100)
+    #ni = NiceImage(img_fn, icon, stock, iconsize)
+    #self.add(ni)
 
-
+class MainButton(Gtk.EventBox):
+  __gtype_name__ = 'MainButton'
+  def __init__(self, caption, img_fn=None, icon=None, stock=None, iconsize=6):
+    #super(MainButton, self).__init__()
+    self.caption = caption
+    Gtk.EventBox.__init__(self)
+    l = Gtk.Label(caption)
+    l.set_line_wrap(True)
+    l.set_justify(Gtk.Justification.CENTER)
+    l.set_size_request(80,80)
+    l.set_use_underline(False)
+    ni = NiceImage(img_fn, icon, stock, iconsize)
+    box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+    self.add(box)
+    box.pack_start(ni, False,False, 1)
+    box.pack_start(l, False,False, 1)
+    self.set_size_request(100,100)
+    self.set_resize_mode(0)
+    #print self.get_children(), self
+    #l.set_label(caption)
+    
 class MainButton_(Gtk.LinkButton):
   ###############################
   ## Not used :(
   def __init__(self, caption, img_fn=None, icon=None, stock=None, iconsize=6):
     #super(MainButton, self).__init__()
-    Gtk.LinkButton.__init__(self, '', caption)
+    Gtk.LinkButton.__init__(self,  '<a href=".">%s</a>' % caption, caption)
     self.set_use_underline(False)
     l = self.get_children()[0]
     l.set_line_wrap(True)
     l.set_justify(Gtk.Justification.CENTER)
-    #l=Gtk.Label(caption)
-    #l.set_size_request(80,80)
-    #l.set_line_wrap(True)
-    #l.set_justify(Gtk.Justification.CENTER)
-    #self.add(l)
+    l.set_size_request(80,80)
+    l.set_use_underline(False)
+    ni = NiceImage(img_fn, icon, stock, iconsize)
+    self.set_image(ni)
+    self.set_image_position(2)
+
     self.set_size_request(100,100)
     #l.set_label(caption)
 
-class MainButton(Gtk.Button):
+class MainButton_(Gtk.Button):
+  __gtype_name__ = 'MainButton_'
   def __init__(self, caption, img_fn=None, icon=None, stock=None, iconsize=6):
     Gtk.Button.__init__(self)
     #self.set_size_request(80,80)
@@ -123,12 +160,15 @@ class CatFrame(Gtk.Frame):
     self.set_label(caption)
     self.set_border_width(6)
     self.set_shadow_type(Gtk.ShadowType(1))
-    self.set_shadow_type(Gtk.ShadowType.IN)
     l=Gtk.Label(caption)
     #l.add(icon)
     #l.set_markup('<span color="blue">%s %s</span>' %(caption, '-' * (100-len(caption))))
-    l.set_markup('<span color="blue">%s</span>\n%s' % (caption, description))
-    self.set_label_widget(l)
+    l.set_markup('<span color="blue">%s</span>\n%s\n' % (caption, description))
+    h = Gtk.Box()
+    ni = NiceImage(icon=icon, iconsize=5)
+    h.pack_start(ni, False, False, 1)
+    h.pack_start(l, False, False, 1)
+    self.set_label_widget(h)
     self.vb = vb = Gtk.VBox(False,2)
     self.add(vb)
     #if description:

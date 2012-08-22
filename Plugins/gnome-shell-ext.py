@@ -27,7 +27,7 @@ class extHBox(Gtk.HBox):
   def __init__(self, parent, ext, ccw):
     Gtk.HBox.__init__(self,False,0)
     self.Parent=parent
-    self.Uuid=self.Name=self.Description=self.Shell_version=''
+    self.Uuid, self.Name, self.Description, self.Shell_version = '', '', '', ''
     self.Url=self.Localedir=self.Path=''
     if ext.has_key('uuid'): self.Uuid=ext['uuid']
     if ext.has_key('name'): self.Name=ext['name']
@@ -55,7 +55,7 @@ class extHBox(Gtk.HBox):
     
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
-    PluginsClass.__init__(self, ccw,_('Gnome shell extensions manager'),'gnome',50)
+    PluginsClass.__init__(self, ccw,_('Shell extensions manager'),'gnome',50)
     description=_("Gnome shell extensions")
     shell_ver=ccw.installed_info('gnome-shell')
     if not shell_ver or not ccw.GSettings:

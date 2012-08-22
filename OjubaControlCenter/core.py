@@ -36,7 +36,7 @@ if not os.path.exists(ld): ld=os.path.join(os.path.abspath(os.path.dirname(sys.a
 gettext.install('occ', ld, unicode=0)
 
 import rpm
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
 
 from OjubaControlCenter import loader
 from OjubaControlCenter import categories
@@ -155,7 +155,7 @@ class CCWindow(Gtk.Window):
     self.__pkc=None
     self.connect("delete_event", Gtk.main_quit)
     self.connect("destroy", Gtk.main_quit)
-    self.set_size_request(750,650)
+    self.set_size_request(750, 550)
     self.set_title(_('Ojuba Control Center'))
     #self.maximize()
     self.set_resizable(False)
@@ -176,24 +176,24 @@ class CCWindow(Gtk.Window):
     b.connect('clicked', self.show_main_cb)
     h.pack_start(b,False,False,6)
     
-    #h.pack_start(Gtk.Image.new_from_icon_name('ojuba-control-center',Gtk.IconSize.DIALOG),False,False,6)
-    #l=Gtk.Label()
-    #l.set_markup("""<span size="large">%s</span>""" % (_("Ojuba Control Center")))
     b=Gtk.Button()
     b.add(Gtk.Image.new_from_icon_name('ojuba-control-center',Gtk.IconSize.DIALOG))
     b.set_tooltip_markup("""<span size="large">%s</span>""" % (_("About Ojuba Control Center")))
-    #b.add(l)
     b.set_focus_on_click(False)
     b.connect('clicked', self.show_about_dlg)
-    #h.pack_end(Gtk.Image.new_from_icon_name('ojuba-control-center',Gtk.IconSize.DIALOG),False,False,6)
     h.pack_end(b, False, False, 6)
-    #h.pack_start(Gtk.Image.new_from_icon_name('start-here',Gtk.IconSize.DIALOG),False,False,6)
+    
+    self.searh_e = e = Gtk.Entry()
+    e.connect("changed", self.search_main_cb)
+    e.connect("icon-press", lambda x, y, z : x.set_text(''))
+    e.set_icon_from_stock(1, Gtk.STOCK_FIND)
+    e.set_can_default(True)
+    h.pack_end(e, False, False, 6)
     h.show_all()
     self.GoMain_b.hide()
     
-    
     # Main ScrolledWindow
-    self.main_container = ms =Gtk.ScrolledWindow()
+    self.main_container = ms = Gtk.ScrolledWindow()
     ms.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
     vb.pack_start(ms, True, True, 6)
     
@@ -207,7 +207,6 @@ class CCWindow(Gtk.Window):
     ss.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
     vb.pack_start(ss, True, True, 6)
     
-    
     # Sub container
     svb = Gtk.VBox(False, 2)
     ss.add_with_viewport(svb)
@@ -218,6 +217,7 @@ class CCWindow(Gtk.Window):
     self.cat_v={}
     self.cat_c={}
     self.cat_plugins={}
+    self.cat_buttons={}
     #self.cat.connect('switch-page', self.__activate_page)
     for i in categories.ls:
         self.__newCat(i)
@@ -332,7 +332,7 @@ class CCWindow(Gtk.Window):
       self.__pluginsDir=os.path.join(self.__exeDir,'..','share','occ','Plugins')
     p=loader.loadPlugins(self.__pluginsDir,PluginsClass,'occPlugin',skip,self.debug,self)
     p.sort(lambda a,b: a.priority-b.priority)
-    btncnt = dict((i[0],[0, Gtk.HBox(), False]) for i in categories.ls)
+    btncnt = dict((i[0],[0, Gtk.Fixed(), False]) for i in categories.ls)
     svb = self.sub_container.get_children()[0].get_children()[0]
     #h=Gtk.HBox(False,2)
     for i in p:
@@ -342,7 +342,8 @@ class CCWindow(Gtk.Window):
         btncnt[i.category][0] = 0
       
       if btncnt[i.category][0] % 6 == 0:
-        btncnt[i.category][1] = Gtk.HBox()
+        btncnt[i.category][0] = 1
+        btncnt[i.category][1] = Gtk.Fixed()
         btncnt[i.category][2] = False
         
       h = btncnt[i.category][1]
@@ -352,40 +353,87 @@ class CCWindow(Gtk.Window):
         except KeyError: self.__newCat(i.category).pack_start(h,False,False,0)
         
       # pack main buttons
-      h.pack_start(self.create_buttons(i),False,False,6)
+      mb = self.create_buttons(i)
+      h.put(mb, (btncnt[i.category][0]-1)*125, 0)
       h.show_all()
       # pack plugin
+      #print i.category, i, btncnt[i.category][0]
       svb.pack_start(i,False,False,0)
       self.cat_plugins[i.category].append(i)
+      self.create_search_dict(mb, i)
       
-      
-   
+  def create_search_dict(self, button, plugin):
+    caption = plugin.caption.replace(':', '').lower()
+    try:
+      description = plugin.get_children()[0].get_children()[0].get_children()[0].get_text().lower()
+    except Exception as e:
+      print caption, e
+      description = ''
+    self.cat_buttons[button] = {'caption': caption,
+                                'description': description,
+                                'category': plugin.category}
+                           
   def create_buttons(self, plugin):
     # we must remove char : in the caption ?
     caption = plugin.caption.replace(':', '')
     # FIXME: make fixed size main button widget
     b=MainButton(caption, icon='ojuba-control-center') #stock=Gtk.STOCK_PREFERENCES)
     b.set_tooltip_text(caption)
-    b.connect('clicked', self.show_plugin, plugin)
+    #b.connect('clicked', self.show_plugin, plugin)
+    #b.connect('activate-link', self.show_plugin, plugin)
+    b.connect("button-press-event", self.show_plugin, plugin)
     return b
 
-  def show_plugin(self, b, plugin):
+  def show_plugin(self, b, e, plugin):
+    self.searh_e.set_text('')
+    self.searh_e.hide()
+    if e.button > 1:
+      return
     for p in self.vis_plugins:
-        p.hide()
+      p.hide()
     plugin.show_all()
     self.vis_plugins.append(plugin)
     self.GoMain_b.show_all()
     self.main_container.hide()
     self.sub_container.show()
+    self.set_title(plugin.caption.replace(':', ''))
+    return False
   
   def show_main_cb(self, *b):
+    self.searh_e.show()
+    self.searh_e.set_text('')
+    
     self.GoMain_b.hide()
     self.sub_container.hide()
     self.main_container.show_all()
     for p in self.vis_plugins:
-        p.hide()
+      p.hide()
     self.vis_plugins = []
-    
+    self.set_title(_('Ojuba Control Center'))
+    self.searh_e.grab_focus()
+  
+  def search_main_cb(self, e):
+    txt = e.get_text().lower()
+    if not txt:
+      e.set_icon_from_stock(1, Gtk.STOCK_FIND)
+      self.main_container.show_all()
+      return
+    e.set_icon_from_stock(1, Gtk.STOCK_CLEAR)
+    d = self.cat_buttons
+    l = filter(lambda a: txt in d[a]['caption'] or txt in d[a]['description'], d.keys())
+    cats = []
+    for p in self.cat_buttons.keys():
+      #self.cat_v[k]=r
+      cat = d[p]['category']
+      if p in l:
+        p.show()
+        self.cat_v[cat].show()
+        cats.append(cat)
+      else:
+        p.hide()
+        if cat not in cats:
+            self.cat_v[cat].hide()
+  
 def main():
   w=CCWindow()
   Gtk.main()
