@@ -48,11 +48,27 @@ def create_css_view():
                     }
                 GtkWindow {
                     background-color: #abb;
+                    background-image: -gtk-gradient (linear,
+                                     left top, left bottom,
+                                     from (#abb),
+                                     to (shade (#fff, 0.5)));
                     border-radius: 2px;
+                    border-width: 10px;
                     margin: 55px;
                     padding: 55px;
                     }
-
+                  .notebook,
+              .entry {
+                    border-width: 0;
+                    background-image: -gtk-gradient (linear,
+                                                     left top, left bottom,
+                                                     from (#abb),
+                                                     to (shade (#eee, 0.9)));
+                    border-radius: 10px;
+                    border-style: solid;
+                    border-width: 5px;
+                    color: #000;
+  }
               """
     css_provider.load_from_data(cssdate)
     context = Gtk.StyleContext()
@@ -163,10 +179,11 @@ class CatFrame(Gtk.Frame):
     l=Gtk.Label(caption)
     #l.add(icon)
     #l.set_markup('<span color="blue">%s %s</span>' %(caption, '-' * (100-len(caption))))
-    l.set_markup('<span color="blue">%s</span>\n%s\n' % (caption, description))
+    #l.set_markup('<span color="blue">%s</span>\n%s\n' % (caption, description))
+    l.set_markup('<span color="blue">%s</span>\n' % (caption))
     h = Gtk.Box()
-    ni = NiceImage(icon=icon, iconsize=5)
-    h.pack_start(ni, False, False, 1)
+    #ni = NiceImage(icon=icon, iconsize=5)
+    #h.pack_start(ni, False, False, 1)
     h.pack_start(l, False, False, 1)
     self.set_label_widget(h)
     self.vb = vb = Gtk.VBox(False,2)

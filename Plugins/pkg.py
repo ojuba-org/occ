@@ -30,16 +30,22 @@ bus = dbus.SystemBus()
 interface = 'org.freedesktop.UDisks'
 
 
+## NOTE: these global vars is loader validators
+category = 'install'
+caption = _('Package Manager:')
+description = _('Package Manager allows you to install software.\nIt saves you the effort downloading, tracing versions and resolving dependencies.')
+priority = 10
+
 class occPlugin(PluginsClass):
   keep_cache_re=re.compile(r"^(\s*keepcache)\s*=\s*(.*)\s*$",re.M)
   media_repo_save='/etc/occ/media-repo.save'
   def __init__(self,ccw):
     self.__dev = bus.get_object(interface, "/org/freedesktop/UDisks")
-    PluginsClass.__init__(self, ccw,_('Package Manager:'),'install', 10)
+    PluginsClass.__init__(self, ccw, caption, category, priority)
     vb=Gtk.VBox(False,2)
     self.add(vb)
     h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=Gtk.Label(_('Package Manager allows you to install software.\nIt saves you the effort downloading, tracing versions and resolving dependencies.'))
+    l=Gtk.Label(description)
     h.pack_start(l,False,False,2)
     h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
     h.pack_start(LaunchButton(_("Add/Remove applications"), fn='/usr/bin/gpk-application',icon="system-software-install"),False,False,2)

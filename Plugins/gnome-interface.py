@@ -22,10 +22,15 @@ from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.gwidgets import resetButton, GSCheckButton, comboBox, comboBoxWithFolder, creatVBox
 from OjubaControlCenter.widgets import InstallOrInactive
 
+## NOTE: these global vars is loader validators
+category = 'gnome'
+caption = _('Shell Interface')
+description = _("Adjust interface settings")
+priority = 40
+
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
-    PluginsClass.__init__(self, ccw,_('Shell Interface'),'gnome',40)
-    description=_("Adjust interface settings")
+    PluginsClass.__init__(self, ccw, caption, category, priority)
     self.GConf=ccw.GConf
     self.dirs=self.get_dirs()
     creatVBox(self, ccw, description, self.GioSettings, self.gconfsettings) 

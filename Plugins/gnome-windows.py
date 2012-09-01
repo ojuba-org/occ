@@ -21,10 +21,15 @@ import os.path
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.gwidgets import resetButton, comboBox, hscale, fontButton, creatVBox
 
+## NOTE: these global vars is loader validators
+category = 'gnome'
+caption = _('Windows')
+description = _("Adjust windows settings")
+priority = 45
+
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
-    PluginsClass.__init__(self, ccw,_('windows'),'gnome',45)
-    description=_("Adjust windows settings")
+    PluginsClass.__init__(self, ccw, caption, category, priority)
     self.GConf=ccw.GConf
     creatVBox(self, ccw, description, self.gconfsettings, self.gconfsettings, False) 
 

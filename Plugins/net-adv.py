@@ -23,14 +23,20 @@ from OjubaControlCenter.widgets import LaunchOrInstall, sure, info, error
 from OjubaControlCenter.utils import chkconfig
 from OjubaControlCenter.pluginsClass import PluginsClass
 
+## NOTE: these global vars is loader validators
+category = 'net'
+caption = _('Advanced Network settings:')
+description = _("""Firewall protects your system by filtering unwanted network access.""")
+priority = 20
+
 class occPlugin(PluginsClass):
   ushare_path_re=re.compile(r'''^(\s*\[global\][^\[]*)^\s*(usershare\s+path[ \t]*=[ \t]*([^\n]*))\s*$''',re.M | re.S)
   def __init__(self,ccw):
-    PluginsClass.__init__(self, ccw, _('Advanced Network settings:'),'net',20)
+    PluginsClass.__init__(self, ccw, caption, category, priority)
     vb=Gtk.VBox(False,2)
     self.add(vb)   
     hb=Gtk.HBox(False,2); vb.pack_start(hb,False,False,6)
-    l=Gtk.Label(_("""Firewall protects your system by filtering unwanted network access."""))
+    l=Gtk.Label(description)
     hb.pack_start(l, False,False,2)
 
     hb=Gtk.HBox(False,2)

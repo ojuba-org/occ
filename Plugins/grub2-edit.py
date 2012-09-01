@@ -22,6 +22,12 @@ from OjubaControlCenter.utils import cmd_out, copyfile
 from OjubaControlCenter.widgets import InstallOrInactive, sure, info, error, wait, imgchooser
 from OjubaControlCenter.pluginsClass import PluginsClass
 
+## NOTE: these global vars is loader validators
+category = 'boot'
+caption = _('Grub2 settings:')
+description = _("This section will help you to change grub2 settings")
+priority = 30
+
 class occPlugin(PluginsClass):
   conf={}
   conf[0]={}
@@ -37,7 +43,7 @@ class occPlugin(PluginsClass):
   #bg_fn='/usr/share/backgrounds/default.png'
   gfxmode='auto'
   def __init__(self,ccw):
-    PluginsClass.__init__(self, ccw,_('Grub2 settings:'),'boot',30)
+    PluginsClass.__init__(self, ccw, caption, category, priority)
     vb=Gtk.VBox(False,2)
     self.add(vb)
     if not ccw.installed_info('grub2'): 
@@ -54,7 +60,7 @@ class occPlugin(PluginsClass):
     
 
     h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=Gtk.Label(_("This section will help you to change grub2 settings"))
+    l=Gtk.Label(description)
     h.pack_start(l, False,False,2)
     
     h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)

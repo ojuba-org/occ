@@ -25,16 +25,22 @@ from glob import glob
 from OjubaControlCenter.widgets import InstallOrInactive, error
 from OjubaControlCenter.pluginsClass import PluginsClass
 
+## NOTE: these global vars is loader validators
+category = 'desktop'
+caption = _('Fixing legacy fonts:')
+description = _('Some legacy fonts do not use any standard encoding.\nThis tool helps you to convert them to standard openType fonts.\nDrag and drop the files into the list then click convert.')
+priority = 110
+
 class occPlugin(PluginsClass):
   __ch_re=re.compile(r'\\(0\d\d)')
   def __init__(self,ccw):
-    PluginsClass.__init__(self, ccw,_('Fixing legacy fonts:'),'desktop',110)
+    PluginsClass.__init__(self, ccw, caption, category, priority)
     p=os.path.expanduser('~/.fonts/')
     if not os.path.exists(p): os.mkdir(p)
     vb=Gtk.VBox(False,2)
     self.add(vb)
     h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=Gtk.Label(_('Some legacy fonts do not use any standard encoding.\nThis tool helps you to convert them to standard openType fonts.\nDrag and drop the files into the list then click convert.'))
+    l=Gtk.Label(description)
     h.pack_start(l,False,False,2)
     h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
     self.files = Gtk.ListStore(str,str,float,int,str) # fn, basename, percent, pulse, label

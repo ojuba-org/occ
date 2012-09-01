@@ -24,14 +24,20 @@ from glob import glob
 from OjubaControlCenter.widgets import LaunchFileManager,NiceButton,sure,info
 from OjubaControlCenter.pluginsClass import PluginsClass
 
+## NOTE: these global vars is loader validators
+category = 'desktop'
+caption = _('Installing fonts:')
+description = _('Open your personal fonts folder and manage your fonts there.\nJust drag and drop or copy and past font files there.')
+priority = 20
+
 class occPlugin(PluginsClass):
   __ch_re=re.compile(r'\\(0\d\d)')
   def __init__(self,ccw):
-    PluginsClass.__init__(self, ccw,_('Installing fonts:'),'desktop')
+    PluginsClass.__init__(self, ccw, caption, category, priority)
     vb=Gtk.VBox(False,2)
     self.add(vb)
     h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=Gtk.Label(_('Open your personal fonts folder and manage your fonts there.\nJust drag and drop or copy and past font files there.'))
+    l=Gtk.Label(description)
     h.pack_start(l,False,False,2)
     h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
     p=os.path.expanduser('~/.fonts/')

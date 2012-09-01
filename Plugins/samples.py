@@ -22,10 +22,16 @@ from glob import glob
 from OjubaControlCenter.widgets import info,error
 from OjubaControlCenter.pluginsClass import PluginsClass
 
+## NOTE: these global vars is loader validators
+category = 'desktop'
+caption = _('Samples icon:')
+description = ''
+priority = 50
+
 class occPlugin(PluginsClass):
   desktop_re=re.compile(r"^\s*XDG_DESKTOP_DIR\s*=\s*(.*)\s*$", re.M)
   def __init__(self,ccw):
-    PluginsClass.__init__(self, ccw,_('Samples icon:'),'desktop', 50)
+    PluginsClass.__init__(self, ccw, caption, category, priority)
     self.load()
     vb=Gtk.VBox(False,2)
     self.add(vb)

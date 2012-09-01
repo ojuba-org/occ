@@ -27,11 +27,17 @@ from glob import glob
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.widgets import LaunchOrInstall, InstallOrInactive, sure
 
+## NOTE: these global vars is loader validators
+category = 'hw'
+caption = _('Printer settings and tools')
+description = ''
+priority = 30
+
 class occPlugin(PluginsClass):
   amixer_re=re.compile("""^\S[^'\n]+'([^'\n]+)'""",re.M)
   def __init__(self,ccw):
     self.__hda_verb_needed=None
-    PluginsClass.__init__(self, ccw,_('Printer settings and tools'),'hw',30)
+    PluginsClass.__init__(self, ccw, caption, category, priority)
     vb=Gtk.VBox(False,2)
     self.add(vb)
     hb=Gtk.HBox(False,2); vb.pack_start(hb,True,True,2)

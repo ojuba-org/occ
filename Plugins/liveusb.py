@@ -30,15 +30,21 @@ dbus_loop = DBusGMainLoop(set_as_default = True)
 bus = dbus.SystemBus()
 interface = 'org.freedesktop.UDisks'
 
+## NOTE: these global vars is loader validators
+category = 'install'
+caption = _('LiveUSB')
+description = _('A Live System enables you to carry your operating system with you.\nAlso, You may add persistent layer so that it can hold your modification to the system.')
+priority = 150
+
 class occPlugin(PluginsClass):
   __dev_re=re.compile(r'(\d+)$')
   def __init__(self,ccw):
     self.__dev = bus.get_object(interface, "/org/freedesktop/UDisks")
-    PluginsClass.__init__(self, ccw,_('LiveUSB'),'install', 150)
+    PluginsClass.__init__(self, ccw, caption, category, priority)
     vb=Gtk.VBox(False,2)
     self.add(vb)
     h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=Gtk.Label(_('A Live System enables you to carry your operating system with you.\nAlso, You may add persistent layer so that it can hold your modification to the system.'))
+    l=Gtk.Label(description)
     h.pack_start(l,False,False,2)
     hb=Gtk.HBox(False,2); vb.pack_start(hb,False,False,6)
     hb.pack_start(Gtk.Label(_('Source:')), False,False,2)

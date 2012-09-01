@@ -20,10 +20,15 @@ from gi.repository import Gtk
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.gwidgets import resetButton, GSCheckButton, mainGSCheckButton, creatVBox
 
+## NOTE: these global vars is loader validators
+category = 'gnome'
+caption = _('Desktop Icons')
+description = _("Select the icons you want to be visible on desktop")
+priority = 20
+
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
-    PluginsClass.__init__(self, ccw,_('Desktop Icons'),'gnome',20)
-    description=_("Select the icons you want to be visible on desktop")
+    PluginsClass.__init__(self, ccw, caption, category, priority)
     creatVBox(self, ccw, description, self.GioSettings) 
     
   def GioSettings(self, vb, ccw):

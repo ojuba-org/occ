@@ -27,6 +27,12 @@ from OjubaControlCenter.widgets import LaunchOrInstall, InstallOrInactive, wait,
 #for i in ts.dbMatch('name','wine'): print i['name'],i['version'],i['FILENAMES']
 #if ts.dbMatch('name','bogus_package',1).count()==0: print not installed
 
+## NOTE: these global vars is loader validators
+category = 'install'
+caption = _('Favorite Packages')
+description = _('Those are some selected software packages.\nIf you got packages DVD, you may like to enable it before installing the packages.')
+priority = 20
+
 class Separator(Gtk.HBox):
   def __init__(self):
     Gtk.HBox.__init__(self)
@@ -35,11 +41,11 @@ class Separator(Gtk.HBox):
     
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
-    PluginsClass.__init__(self, ccw,_('Favorite Packages'),'install',20)
+    PluginsClass.__init__(self, ccw, caption, category, priority)
     vb=Gtk.VBox(False,2)
     self.add(vb)
     h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=Gtk.Label(_('Those are some selected software packages.\nIf you got packages DVD, you may like to enable it before installing the packages.'))
+    l=Gtk.Label(description)
     h.pack_start(l,False,False,2)
     hb=Gtk.HBox(False,0); vb.pack_start(hb,False,False,6) 
     hb.pack_start(Gtk.Label(_('Desktop:')),False,False,2)

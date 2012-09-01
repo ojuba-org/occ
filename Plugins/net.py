@@ -23,15 +23,21 @@ from OjubaControlCenter.utils import chkconfig
 from OjubaControlCenter.widgets import LaunchOrInstall, sure, info, error
 from OjubaControlCenter.pluginsClass import PluginsClass
 
+## NOTE: these global vars is loader validators
+category = 'net'
+caption = _('Network settings:')
+description = _("""Network Manager applet is the little icon you see on your system tray.
+You can use it to edit your connections.""")
+priority = 10
+
 class occPlugin(PluginsClass):
   comments_re=re.compile('#.*$',re.M)
   def __init__(self,ccw):
-    PluginsClass.__init__(self, ccw, _('Network settings:'),'net',10)
+    PluginsClass.__init__(self, ccw, caption, category, priority)
     vb=Gtk.VBox(False,2)
     self.add(vb)   
     hb=Gtk.HBox(False,2); vb.pack_start(hb,False,False,6)
-    l=Gtk.Label(_("""Network Manager applet is the little icon you see on your system tray.
-You can use it to edit your connections."""))
+    l=Gtk.Label(description)
     hb.pack_start(l, False,False,2)
 
     hb=Gtk.HBox(False,2)

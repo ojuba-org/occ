@@ -22,16 +22,22 @@ from OjubaControlCenter.utils import cmd_out
 from OjubaControlCenter.widgets import NiceButton, InstallOrInactive, wait, sure, info, error, sel_dir_dlg
 from OjubaControlCenter.pluginsClass import PluginsClass
 
+## NOTE: these global vars is loader validators
+category = 'install'
+caption = _('Local repository:')
+description = _("Ojuba can create local rpository for you!")
+priority = 8
+
 class occPlugin(PluginsClass):
   repo_fn="/etc/yum.repos.d/local-occ.repo"
   tdir_re=re.compile('''[\s\t]*baseurl[\s\t]*=[\s\t]*file://(.*)''')
   def __init__(self,ccw):
-    PluginsClass.__init__(self, ccw,_('Local repository:'),'install',8)
+    PluginsClass.__init__(self, ccw, caption, category, priority)
     self.tdir=self.get_repo_path_cb()
     vb=Gtk.VBox(False,2)
     self.add(vb)
     h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=Gtk.Label(_("Ojuba can create local rpository for you!"))
+    l=Gtk.Label(description)
     h.pack_start(l,False,False,2)
     
     h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)

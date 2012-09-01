@@ -21,11 +21,17 @@ import re
 from OjubaControlCenter.widgets import LaunchOrInstall,info,error
 from OjubaControlCenter.pluginsClass import PluginsClass
 
+## NOTE: these global vars is loader validators
+category = 'desktop'
+caption = _('System Language:')
+description = ''
+priority = 10
+
 class occPlugin(PluginsClass):
   lang_re=re.compile(r'''^(\s*LANG\s*=\s*)['"]([^"']*)['"]''')
   lang_fn='/etc/sysconfig/i18n'
   def __init__(self,ccw):
-    PluginsClass.__init__(self, ccw,_('System Language:'),'desktop', 10)
+    PluginsClass.__init__(self, ccw, caption, category, priority)
     vb=Gtk.VBox(False,2)
     self.add(vb)
     h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)

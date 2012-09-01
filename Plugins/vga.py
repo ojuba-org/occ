@@ -28,6 +28,12 @@ from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.widgets import run_in_bg
 from OjubaControlCenter.widgets import LaunchOrInstall, info, error
 
+## NOTE: these global vars is loader validators
+category = 'hw'
+caption = _('Display settings and tools')
+description = ''
+priority = 10
+
 class occPlugin(PluginsClass):
   gears_re=re.compile("^\s*(\d+)(\.\d+)? frames in (\d+)(\.\d+)? seconds = (\d+)(\.\d+)? FPS\s*$")
   via='1106'
@@ -42,7 +48,7 @@ class occPlugin(PluginsClass):
   nvidia_dict=None
   def __init__(self,ccw):
     self.__lspci=None
-    PluginsClass.__init__(self, ccw,_('Display settings and tools'),'hw',10)
+    PluginsClass.__init__(self, ccw, caption, category, priority)
     self.__dri=None
     self.fps=None
     vb=Gtk.VBox(False,2)

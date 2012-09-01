@@ -25,6 +25,12 @@ from OjubaControlCenter.widgets import NiceButton, InstallOrInactive, wait, sure
 from OjubaControlCenter.pluginsClass import PluginsClass
 from functools  import cmp_to_key
 
+## NOTE: these global vars is loader validators
+category = 'install'
+caption = _('Old RPM Files:')
+description = _("Ojuba keeps an archive of all the RPM packages downloaded from the internet\nAllowing you to use them when necessary\nHowever, These packages take precious hard disk space.\nYou can save some space by deleting those files.\nYou can also have a backup which you can use later")
+priority = 9
+
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
     self.ts = rpm_TransactionSet()
@@ -32,11 +38,11 @@ class occPlugin(PluginsClass):
     # will be used to save 450 MB avaliable after copying
     self.LFREE = 450*1024*1024
     
-    PluginsClass.__init__(self, ccw,_('Old RPM Files:'),'install',9)
+    PluginsClass.__init__(self, ccw, caption, category, priority)
     vb=Gtk.VBox(False,2)
     self.add(vb)
     h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=Gtk.Label(_("Ojuba keeps an archive of all the RPM packages downloaded from the internet\nAllowing you to use them when necessary\nHowever, These packages take precious hard disk space.\nYou can save some space by deleting those files.\nYou can also have a backup which you can use later"))
+    l=Gtk.Label(description)
     h.pack_start(l,False,False,2)
     h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
     self.ccw.rm_old_rpms_b=b=Gtk.Button(_('Remove old RPM files'))

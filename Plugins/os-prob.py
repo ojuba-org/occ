@@ -20,14 +20,20 @@ from gi.repository import Gtk
 from OjubaControlCenter.widgets import InstallOrInactive, sure, info, error, wait
 from OjubaControlCenter.pluginsClass import PluginsClass
 
+## NOTE: these global vars is loader validators
+category = 'boot'
+caption = _('Installed systems:')
+description = _("This section will help you to search your disks \nfor installed system and add them to grub menu")
+priority = 40
+
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
-    PluginsClass.__init__(self, ccw,_('Installed systems:'),'boot',40)
+    PluginsClass.__init__(self, ccw, caption, category, priority)
     vb=Gtk.VBox(False,2)
     self.add(vb)
 
     h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=Gtk.Label(_("This section will help you to search your disks \nfor installed system and add them to grub menu"))
+    l=Gtk.Label(description)
     h.pack_start(l, False,False,2)
     
     

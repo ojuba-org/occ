@@ -24,10 +24,16 @@ from glob import glob
 from OjubaControlCenter.widgets import NiceButton, InstallOrInactive, sure, info, error
 from OjubaControlCenter.pluginsClass import PluginsClass
 
+## NOTE: these global vars is loader validators
+category = 'boot'
+caption = _('System Kernel:')
+description = _("Adjust windows settings")
+priority = 50
+
 class occPlugin(PluginsClass):
   __rre=re.compile(r"-\d\.")
   def __init__(self,ccw):
-    PluginsClass.__init__(self, ccw,_('System Kernel:'),'boot',50)
+    PluginsClass.__init__(self, ccw, caption, category, priority)
     vb=Gtk.VBox(False,2)
     self.add(vb)
     self.__k_r=os.uname()[2]
@@ -35,7 +41,7 @@ class occPlugin(PluginsClass):
     else: self.__kernel='kernel'
     
     h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
-    l=Gtk.Label(_("Linux kernel is the part of the system that deal with the hardware.\nFor safety the system will keep older kernels,\nso that you can use them if the new kernel went wrong.\nBut usually you don't need to keep them if the newer one works fine."))
+    l=Gtk.Label(description)
     h.pack_start(l, False,False,2)
     h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)
     b=Gtk.Button(_("Keep only one kernel"))

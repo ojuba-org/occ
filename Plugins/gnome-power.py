@@ -20,10 +20,15 @@ from gi.repository import Gtk
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.gwidgets import resetButton, comboBox, creatVBox
 
+## NOTE: these global vars is loader validators
+category = 'gnome'
+caption = _('Power settings')
+description = _("Adjust power settings")
+priority = 60
+
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
-    PluginsClass.__init__(self, ccw,_('Power settings'),'gnome',60)
-    description=_("Adjust power settings")
+    PluginsClass.__init__(self, ccw, caption, category, priority)
     creatVBox(self, ccw, description, self.GioSettings) 
     
   def GioSettings(self, vb, ccw):

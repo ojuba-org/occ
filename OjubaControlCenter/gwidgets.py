@@ -264,14 +264,14 @@ def creatVBox(parent, ccw, description, gsFuc=not_installed, nogsFunc=not_instal
   vbox=Gtk.VBox(False,2)
   vb=Gtk.VBox(False,2)
   #FIXME: Toggle comment state for next 7 lines to disable expander 
-  expander=Gtk.Expander()
-  expander.add(vbox)
-  expander.set_label(description)
-  parent.add(expander)
-  #parent.add(vbox)
-  #h=Gtk.HBox(False,0)
-  #h.pack_start(Gtk.Label(_('Adjust desktop fonts')),False,False,0)
-  #vbox.pack_start(h,False,False,6)
+  #expander=Gtk.Expander()
+  #expander.add(vbox)
+  #expander.set_label(description)
+  #parent.add(expander)
+  parent.add(vbox)
+  h=Gtk.HBox(False,0)
+  h.pack_start(Gtk.Label(_('Adjust desktop fonts')),False,False,0)
+  vbox.pack_start(h,False,False,6)
   vbox.pack_start(vb,False,False,6)
   
   if not ccw.GSettings:

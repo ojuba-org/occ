@@ -22,13 +22,19 @@ from subprocess import Popen, PIPE
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.widgets import LaunchOrInstall, error, info
 
+## NOTE: these global vars is loader validators
+category = 'hw'
+caption = _('Hardware Information')
+description = ''
+priority = 0
+
 class occPlugin(PluginsClass):
   cpu_re=re.compile(r"^\s*model name\s*:\s*(.*)\s*$",re.M)
   cache_re=re.compile(r"^\s*cache size\s*:\s*(.*)\s*$",re.M)
   mem_re=re.compile(r"^\s*MemTotal\s*:\s*(.*)\s*$",re.M)
   swap_re=re.compile(r"^\s*SwapTotal\s*:\s*(.*)\s*$",re.M)
   def __init__(self,ccw):
-    PluginsClass.__init__(self, ccw,_('Hardware Information'),'hw',0)
+    PluginsClass.__init__(self, ccw, caption, category, priority)
     vb=Gtk.VBox(False,2)
     self.add(vb)
     h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)

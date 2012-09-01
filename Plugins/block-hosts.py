@@ -24,6 +24,12 @@ from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.utils import run_in_bg
 from OjubaControlCenter.widgets import LaunchFileButton, sure, info, error
 
+## NOTE: these global vars is loader validators
+category = 'net'
+caption = _('Site Blocking')
+description = ''
+priority = 50
+
 comments_re=re.compile('#.*$',re.M)
 
 def parse_blocked_hosts(h, is_hosts=True):
@@ -77,7 +83,7 @@ class occPlugin(PluginsClass):
   __blocked_f='/etc/occ/enable_blocked_hosts'
   __blacklist_f='/etc/occ/enable_blacklist'
   def __init__(self,ccw):
-    PluginsClass.__init__(self, ccw,_('Site Blocking'),'net',50)
+    PluginsClass.__init__(self, ccw, caption, category, priority)
     self.__lock=True
     vb=Gtk.VBox(False,2)
     self.add(vb)

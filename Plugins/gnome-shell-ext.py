@@ -23,6 +23,12 @@ from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.widgets import LaunchFileManager
 from OjubaControlCenter.gwidgets import creatVBox
 
+## NOTE: these global vars is loader validators
+category = 'gnome'
+caption = _('Shell extensions manager')
+description = _("Gnome shell extensions")
+priority = 50
+
 class extHBox(Gtk.HBox):
   def __init__(self, parent, ext, ccw):
     Gtk.HBox.__init__(self,False,0)
@@ -55,8 +61,7 @@ class extHBox(Gtk.HBox):
     
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
-    PluginsClass.__init__(self, ccw,_('Shell extensions manager'),'gnome',50)
-    description=_("Gnome shell extensions")
+    PluginsClass.__init__(self, ccw, caption, category, priority)
     shell_ver=ccw.installed_info('gnome-shell')
     if not shell_ver or not ccw.GSettings:
       creatVBox(self, ccw, description, resetBtton=False) 

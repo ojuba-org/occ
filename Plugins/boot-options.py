@@ -21,6 +21,12 @@ from OjubaControlCenter.utils import *
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.widgets import LaunchFileButton, sure, info, error
 
+## NOTE: these global vars is loader validators
+category = 'boot'
+caption = _('Boot options')
+description = ''
+priority = 50
+
 class occPlugin(PluginsClass):
   __resolutions={
   '640x480x8':0x301,	'640x480x15':0x310,	'640x480x16':0x311,	'640x480x24':0x312,
@@ -31,7 +37,7 @@ class occPlugin(PluginsClass):
   resolutions_ls=[_('Default')]
   resolutions_ls.extend(sorted(__resolutions.keys()))
   def __init__(self,ccw):
-    PluginsClass.__init__(self, ccw,_('Boot options'),'boot',50)
+    PluginsClass.__init__(self, ccw, caption, category, priority)
     vb=Gtk.VBox(False,2)
     self.add(vb)
     hb=Gtk.HBox(False,0)

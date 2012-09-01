@@ -21,13 +21,19 @@ from OjubaControlCenter.utils import chkconfig
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.widgets import InstallOrInactive, error, info, sure
 
+## NOTE: these global vars is loader validators
+category = 'net'
+caption = _('Dialup modem')
+description = _("Some software dialup modems are supported by slmodem driver.\nIf you have a supported modem select a proper interface for it and activate its daemon before using it.")
+priority = 100
+
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
-    PluginsClass.__init__(self, ccw,_('Dialup modem'),'net',100)
+    PluginsClass.__init__(self, ccw, caption, category, priority)
     vb=Gtk.VBox(False,2)
     self.add(vb)
     hb=Gtk.HBox(False,6); vb.pack_start(hb,True,True,2)
-    hb.pack_start(Gtk.Label(_("Some software dialup modems are supported by slmodem driver.\nIf you have a supported modem select a proper interface for it and activate its daemon before using it.")),False,False,2)
+    hb.pack_start(Gtk.Label(description),False,False,2)
     hb=Gtk.HBox(False,6); vb.pack_start(hb,True,True,2)
     hb.pack_start(InstallOrInactive(self, _("Install slmodem driver"),_("slmodem driver is installed"), _('driver for some software modems'), ['kmod-slmodem']),False,False,2)
     self.sl_service=Gtk.CheckButton(_("Start slmodem daemon on boot"))

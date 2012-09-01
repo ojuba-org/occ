@@ -20,9 +20,15 @@ from gi.repository import Gtk
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.widgets import LaunchButton
 
+## NOTE: these global vars is loader validators
+category = 'gnome'
+caption = _('Gnome Control Center')
+description = ''
+priority = 10
+
 class occPlugin(PluginsClass):
   def __init__(self,ccw):
-    PluginsClass.__init__(self, ccw,_('Gnome Control Center'),'gnome',10)
+    PluginsClass.__init__(self, ccw, caption, category, priority)
     vb=Gtk.VBox(False,2)
     self.add(vb)
     hb=Gtk.HBox(False,0)

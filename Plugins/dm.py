@@ -23,18 +23,26 @@ import pwd
 from OjubaControlCenter.pluginsClass import PluginsClass
 from OjubaControlCenter.widgets import info, error
 
+
+## NOTE: these global vars is loader validators
+category = 'desktop'
+caption = _('Graphical Login Manager')
+## NOTE: we can use discription in main plugin label, to help search
+description = _("Display Manager is the application that allow you to log into your desktop.\nIt's the application that might ask you to authenticate with your username and password")
+priority = 150
+
 class occPlugin(PluginsClass):
   dm_re=re.compile(r'''^\s*DISPLAYMANAGER\s*=\s*['"]?([^'"]+)['"]?\s*$''',re.M)
   def __init__(self,ccw):
-    PluginsClass.__init__(self, ccw,_('Graphical Login Manager'),'desktop',150)
+    PluginsClass.__init__(self, ccw, caption, category, priority)
     vb=Gtk.VBox(False,2)
     self.add(vb)
     hb=Gtk.HBox(False,2); vb.pack_start(hb,True,True,6)
-    l=Gtk.Label(_("Display Manager is the application that allow you to log into your desktop.\nIt's the application that might ask you to authenticate with your username and password"))
+    l=Gtk.Label(description) # using discription here 
     #l.set_line_wrap(True)
     hb.pack_start(l,False,False,2)
     hb=Gtk.HBox(False,2); vb.pack_start(hb,True,True,2)
-    self.dm_ls=['gdm','kdm','wdm','xdm', 'lxdm', 'fdisk']
+    self.dm_ls=['gdm','kdm','wdm','xdm', 'lxdm']
     self.dm_ls=filter(lambda i: os.path.exists('/usr/sbin/'+i) or os.path.exists('/usr/bin/'+i),self.dm_ls)
     self.dm=Gtk.ComboBoxText()
     for i in self.dm_ls: self.dm.append_text(i)
@@ -71,11 +79,13 @@ class occPlugin(PluginsClass):
     except ValueError: return 0
 
   def set_dm(self,*args):
+    s=''
     if os.path.exists("/etc/sysconfig/desktop"):
-      ss=self.ccw.mechanism('run','system', 'rm -f /etc/sysconfig/desktop')
-      if ss == 'NotAuth': return
+      s=self.ccw.mechanism('run','system', 'rm -f /etc/sysconfig/desktop')
+    if s == 'NotAuth': return
     i=self.dm_ls[self.dm.get_active()]
     s=self.set_sysconf_disktop(i)
+    if s == 'NotAuth': return
     if i != 'lxdm':
       s=self.ccw.mechanism('run','system', 'system-switch-displaymanager "%s"' % i)
     if s == 'NotAuth': return
@@ -86,7 +96,7 @@ class occPlugin(PluginsClass):
     dm_txt='''DISPLAYMANAGER="%s"''' %dm
     print dm_txt
     s=self.ccw.mechanism('run','write_conf', '/etc/sysconfig/desktop', dm_txt)
-    return '0'
+    return s
     
   def autologin_cb(self, *args):
     u=pwd.getpwuid(os.geteuid())[0]
