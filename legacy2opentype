@@ -1,4 +1,6 @@
 #! /usr/bin/env fontforge
+# vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4 autoindent syntax=python
+# -*- Mode: Python; py-indent-offset: 4 -*-
 #
 # This python script converts legacy MS Windows-only Arabic fonts to Unicode
 # and OpenType.

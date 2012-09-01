@@ -1,5 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+# vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4 autoindent syntax=python
+# -*- Mode: Python; py-indent-offset: 4 -*-
 
 from OjubaControlCenter.core import main
 main()
