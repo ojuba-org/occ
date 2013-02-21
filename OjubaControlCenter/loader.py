@@ -28,7 +28,11 @@ class occHooks(ihooks.Hooks):
                 """Compile source files with any line ending."""
                 if file:
                         file.close()
-                py_compile.compile(filename)        # line ending conversion is in here
+                try:
+                    # line ending conversion is in here
+                    py_compile.compile(filename)
+                except IOError:
+                    pass
                 cfile = open(filename + (__debug__ and 'c' or 'o'), 'rb')
                 try:
                         return self.load_compiled(name, filename, cfile)
