@@ -1,5 +1,5 @@
 Name:           occ
-Version:        1.22.4
+Version:        2.0.0
 Release:        1%{?dist}
 Summary:        Ojuba Control Center
 
@@ -64,11 +64,11 @@ fi
 %defattr(-,root,root,-)
 %doc AUTHORS README COPYING LICENSE-ar.txt LICENSE-en
 %{python_sitelib}/*
-/etc/dbus-1/system.d/org.ojuba.occ.conf
+/etc/dbus-1/system.d/org.Ojuba.OCC.conf
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/scalable/apps/ojuba-control-center.svg
 %{_datadir}/polkit-1/actions/org.ojuba.occ.policy
-%{_datadir}/dbus-1/system-services/org.ojuba.occ.service
+%{_datadir}/dbus-1/system-services/org.Ojuba.OCC.service
 %{_datadir}/occ/occ-mechanism.py*
 %{_datadir}/occ/mechanisms/*.py*
 %{_datadir}/occ/Plugins/*.py*
@@ -79,6 +79,10 @@ fi
 
 
 %changelog
+* Sat Aug 10 2013  Ehab El-Gedawy <ehabsas@gmail.com> - 2.0.0-1
+- dbus call fix
+- load mechanisms 
+
 * Sun Jun 2 2012  Muayyad Saleh AlSadi <alsadi@ojuba.org> - 1.22.4-1
 - port to gtk3, webkit3
 

@@ -1,0 +1,4 @@
+[D-BUS Service]
+Name=org.Ojuba.OCC
+Exec=/usr/share/occ/occ-mechanism.py
+User=root

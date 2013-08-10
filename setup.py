@@ -25,9 +25,9 @@ from glob import glob
 # python setup.py install --root=/
 locales = map(lambda i: ('share/' + i,['' + i + '/occ.mo',]), glob('locale/*/LC_MESSAGES'))
 data_files = [
-    ('/etc/dbus-1/system.d', ['config/org.ojuba.occ.conf']),
+    ('/etc/dbus-1/system.d', ['config/org.Ojuba.OCC.conf']),
     ('share/polkit-1/actions',['config/org.ojuba.occ.policy']),
-    ('share/dbus-1/system-services',['config/org.ojuba.occ.service']),
+    ('share/dbus-1/system-services',['config/org.Ojuba.OCC.service']),
     ('share/occ',['occ-mechanism.py']),
     ('share/occ/Plugins', glob('Plugins/*.py') ),
     ('share/occ/mechanisms',glob('mechanisms/*.py')),
@@ -36,7 +36,7 @@ data_files = [
     ('bin',['occ','legacy2opentype','RunOrInstall']),
 ]
 data_files.extend(locales)
-setup (name = 'occ', version = '1.7.0',
+setup (name = 'occ', version = '2.0.0',
       description = 'Ojuba Control Center',
       author = 'Muayyad Saleh Alsadi',
       author_email = 'alsadi@ojuba.org',

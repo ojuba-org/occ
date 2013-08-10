@@ -19,6 +19,8 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     "http://waqf.ojuba.org/license"
 """
 import OjubaControlCenter.odbus.service
-try: OjubaControlCenter.odbus.service.run_service ()
-except KeyboardInterrupt: pass
+#try:
+print "------------"
+OjubaControlCenter.odbus.service.run_service()
+#except KeyboardInterrupt: pass
 

@@ -63,9 +63,10 @@ def create_css_view():
                             .entry {
                                         border-width: 0;
                                         background-image: -gtk-gradient (linear,
-                                                                                                        left top, left bottom,
-                                                                                                        from (#abb),
-                                                                                                        to (shade (#eee, 0.9)));
+                                                                         left top,
+                                                                         left bottom,
+                                                                         from (#abb),
+                                                                         to (shade (#eee, 0.9)));
                                         border-radius: 10px;
                                         border-style: solid;
                                         border-width: 5px;
