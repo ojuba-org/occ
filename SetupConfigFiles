@@ -1,4 +1,0 @@
-cp '/run/media/ehab/DATA/PROJ/occ_/config/org.Ojuba.OCC.conf'  /etc/dbus-1/system.d/
-cp '/run/media/ehab/DATA/PROJ/occ_/config/org.Ojuba.OCC.service' /usr/share/dbus-1/system-services/
-cp '/run/media/ehab/DATA/PROJ/occ_/config/org.ojuba.occ.policy' /usr/share/polkit-1/actions/
-

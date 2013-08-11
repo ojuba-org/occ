@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: occ 0.1\n"
+"Project-Id-Version: occ 2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-10 01:02+0200\n"
-"PO-Revision-Date: 2009-06-25 17:44+0300\n"
+"POT-Creation-Date: 2013-08-11 21:52+0200\n"
+"PO-Revision-Date: 2012-06-25 17:44+0300\n"
 "Last-Translator: Muayyd Saleh Alsadi <alsadi@ojuba.org>\n"
 "Language-Team: Arabic <ar@li.org>\n"
 "Language: ar\n"
@@ -75,6 +75,10 @@ msgid ""
 "\tRun (setenforce 0) as root to stop SELinux, and try again.\n"
 "Note: You can disable SELinux by running (sestop) as root."
 msgstr ""
+"خطأ D-Bus\n"
+"\tقم بتنفيذ الأمر (setenforce 0) بصلاحيات الجذر ؛ لتعطيل SELinux، ثم حاول "
+"مرة أخرى\n"
+"ملحوظة: يمكنك استخدام الأمر sestop بصلاحيات الجذر ؛ لتعطيل SELinux نهائياً"
 
 #: ../OjubaControlCenter/gwidgets.py:26
 msgid "This setting Unavailable "
@@ -118,7 +122,7 @@ msgstr "عن مركز تحكم أعجوبة"
 
 #: ../OjubaControlCenter/mainGUI.py:257
 msgid "OCC"
-msgstr ""
+msgstr "مركز تحكم أعجوبة"
 
 #: ../OjubaControlCenter/widgets.py:215
 #, python-format
@@ -354,7 +358,7 @@ msgstr "مجموعة حزم الدوائر الإلكترونية مثبتة م�
 
 #: ../Plugins/fav-apps.py:155
 msgid "Can not get latest opera url, make sure that you are online!"
-msgstr ""
+msgstr "لا يمكن التعرف على عنوان حزم أوبرا ؛ تأكد أنك متصل بالشابكة"
 
 #: ../Plugins/fav-apps.py:159
 msgid "already installed"
@@ -362,7 +366,7 @@ msgstr "الحزم مثبتة مسبقا"
 
 #: ../Plugins/fav-apps.py:164
 msgid "You can wait about 5-15 minutes while downloading opera browser."
-msgstr ""
+msgstr "يمكنك الانتظار ٥-١٥ دقيقة، لحين تحميل حزم أوبرا"
 
 #: ../Plugins/fonts.py:31
 msgid "Installing fonts:"
@@ -601,7 +605,6 @@ msgid "Sleep inactive type on power"
 msgstr "الخمول فى حالة إنعدام النشاط مع البطارية"
 
 #: ../Plugins/gnome-shell-ext.py:30
-#, fuzzy
 msgid "Shell extensions manager"
 msgstr "مدير إضافات غنوم شل"
 
@@ -614,7 +617,6 @@ msgid "Personal shell extensions folder"
 msgstr "مجلد إضافات غنوم شل الشخصي"
 
 #: ../Plugins/gnome-windows.py:28
-#, fuzzy
 msgid "Windows"
 msgstr "النوافذ"
 
@@ -912,7 +914,7 @@ msgstr "الملفات"
 
 #: ../Plugins/liveusb.py:37
 msgid "LiveUSB"
-msgstr ""
+msgstr "قرص حي"
 
 #: ../Plugins/liveusb.py:38
 msgid ""
@@ -1033,11 +1035,11 @@ msgstr "دليل المستودع"
 
 #: ../Plugins/local-repo.py:55
 msgid "Generate local repository informations"
-msgstr ""
+msgstr "إنشاء ملفات معلومات المستودع"
 
 #: ../Plugins/local-repo.py:59
 msgid "Write local repository configuration"
-msgstr ""
+msgstr "اكتب ملف المستودع المحلي"
 
 #: ../Plugins/local-repo.py:65
 msgid "Create local repository"
@@ -1284,7 +1286,7 @@ msgstr "هل أنت متأكد من رغبتك في الكشف وإضافة ال
 
 #: ../Plugins/os-prob.py:57
 msgid "Error"
-msgstr ""
+msgstr "خطأ"
 
 #: ../Plugins/os-prob.py:58
 #, python-format
@@ -1471,7 +1473,7 @@ msgstr "إعادة إنشاء أيقونة العينات"
 
 #: ../Plugins/samples.py:64
 msgid "Samples icon already removed."
-msgstr ""
+msgstr "تم إزالة أيقونات العينات مسبقاً"
 
 #: ../Plugins/samples.py:67
 msgid "Unable to remove samples icon."
@@ -1892,87 +1894,3 @@ msgstr ""
 #: ../Plugins/xorgconf.py:270
 msgid "Done. Changes will take effect when you reboot."
 msgstr "تم. ستأخذ الإعدادات الجديدة مفعولها عند إعادة التشغيل."
-
-#~ msgid ""
-#~ "Linux kernel is the part of the system that deal with the hardware.\n"
-#~ "For safety the system will keep older kernels,\n"
-#~ "so that you can use them if the new kernel went wrong.\n"
-#~ "But usually you don't need to keep them if the newer one works fine."
-#~ msgstr ""
-#~ "نواة لينكس هي ذاك الجزء من النظام الذي يتعامل مع العتاد hardware.\n"
-#~ "النظام قد يحتفظ بالأنوية القديمة في حال تعثر النظام مع النواة الجديدة.\n"
-#~ "لكن إن كان النظام يعمل جيدا بالنواة الجديدة فإنك لا تحتاج للقديمة."
-
-#~ msgid "KMS is enabled for all kernels."
-#~ msgstr "الخيار KMS مفعّل لكل الأنوية."
-
-#~ msgid "KMS is disabled for all kernels."
-#~ msgstr "الخيار KMS معطّل لكل الأنوية."
-
-#~ msgid "No operating systems were found"
-#~ msgstr "لم نجد أي نظام تشغيل"
-
-#~ msgid "Interface"
-#~ msgstr "الواجهة:"
-
-#~ msgid "Icons and Cursors"
-#~ msgstr "أيقونات ومؤشرات"
-
-#~ msgid "Add icons and cursors theme"
-#~ msgstr "أضف سمة الأيقونات والمؤشرات"
-
-#~ msgid ""
-#~ "Save some spaces by removing old RPM files, Located in /var/cache/yum, Or "
-#~ "backup theme!"
-#~ msgstr ""
-#~ "تحرير بعض المساحة عن طريق حذف الحزم القديمة ، الموجودة فى /var/cache/yum/ "
-#~ "أو أخذ نسخة إحتياطية منها !"
-
-#~ msgid "Add/Remove programs"
-#~ msgstr "إضافة/إزالة البرامج"
-
-#~ msgid "USB Mode Switch"
-#~ msgstr "تبديل طور USB"
-
-#~ msgid "Remove all applied methods"
-#~ msgstr "حذف كل الطرق المفعلة"
-
-#~ msgid "Device ID:"
-#~ msgstr "معرّف الجهاز:"
-
-#~ msgid "Switch method:"
-#~ msgstr "طريقة التبديل:"
-
-#~ msgid "always apply this method automatically"
-#~ msgstr "دوما طبق هذه الطريقة تلقائيا"
-
-#~ msgid "Method details"
-#~ msgstr "تفاصيل الطريقة"
-
-#~ msgid "no method selected."
-#~ msgstr "لم تختر أي طريقة."
-
-#~ msgid "Could not find suitable method."
-#~ msgstr "لم نجد أي طريقة مناسبة"
-
-#~ msgid "Applied successfully"
-#~ msgstr "تم تطبيقها بنجاح"
-
-#~ msgid ""
-#~ "Are you sure you want to apply this method automatically. You may want to "
-#~ "try the \"apply now\" button first."
-#~ msgstr ""
-#~ "هل أنت متأكد من أنك تريد تطبيق هذه الطريقة تلقائيا. قد ترغب بتجربة زر "
-#~ "\"تطبيق الآن\" أولا."
-
-#~ msgid "Are you sure you want to remove all permanently applied methods."
-#~ msgstr "هل أنت متأكد من رغبتك في إزالة الطرق التي ثبتها بشكل دائم."
-
-#~ msgid "Grpahics:"
-#~ msgstr "رسوميات:"
-
-#~ msgid "System fonts folder"
-#~ msgstr "مجلد خطوط النظام"
-
-#~ msgid "Launch, install or configure Applications"
-#~ msgstr "تشغيل أو تثبيت أو إعداد التطبيقات"

@@ -1,4 +1,0 @@
-[D-BUS Service]
-Name=org.ojuba.occ
-Exec=/usr/share/occ/occ-mechanism.py
-User=root

@@ -32,7 +32,7 @@ class Backend (slip.dbus.service.Object):
   default_polkit_auth_required = "org.ojuba.occ.call"
   def __init__ (self, bus_name, object_path):
     slip.dbus.service.Object.__init__ (self, bus_name, object_path)
-    print "/\/\/\/\/ Running occ dbus service at '%s'." % (dbus_service_name)
+    print "*** Serivce __init__: Running occ dbus service at '%s'." % (dbus_service_name)
     self.__load()
 
   def __load(self):
@@ -44,13 +44,14 @@ class Backend (slip.dbus.service.Object):
     p=l.load_mech(pluginsDir,mechanismClass,'OccMechanism')
     self.__m={}
     for i in p: self.__m[i.name]=i
-    print self.__m
+    #print self.__m
     #self.__m['ping'].call('foo','bar')
 
-  #@polkit.require_auth("org.ojuba.occ.call")
+  @polkit.require_auth("org.ojuba.occ.call")
+  #@dbus.service.method(dbus_interface = dbus_service_name + ".Backend", in_signature="", out_signature="")
   @dbus.service.method(dbus_interface = dbus_service_name + ".Backend")
   def call(self,args):
-    print args
+    #print args
     M=args[0]
     a=args[1:]
     if self.__m.has_key(M): r=self.__m[M].call(*a)

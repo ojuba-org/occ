@@ -67,6 +67,7 @@ fi
 /etc/dbus-1/system.d/org.Ojuba.OCC.conf
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/scalable/apps/ojuba-control-center.svg
+%{_datadir}/icons/hicolor/*/apps/ojuba-control-center.png
 %{_datadir}/polkit-1/actions/org.ojuba.occ.policy
 %{_datadir}/dbus-1/system-services/org.Ojuba.OCC.service
 %{_datadir}/occ/occ-mechanism.py*

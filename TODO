@@ -1,7 +1,6 @@
 بسم الله الرحمن الرحيم
 - fix wait dialog
-- fix Gtk.Frame, Gtk.Expander borders :(
-- Use polkit from pygobject3 instead of pygobject2
 - fix blocklist
 - fix media repos
 - add tor plugin
+- test all plugins and add more!

@@ -10,4 +10,6 @@ for example if running glxinfo crashes X and thus running occ will send you back
 
   occ --skip-plugins=vga
 
-
+if you want to run program from the source
+    - edit config/org.Ojuba.OCC.service, make Exec key point to occ-mechanism.py in source main directory
+    - run make install-dbus-conf as root

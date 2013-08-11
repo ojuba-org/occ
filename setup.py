@@ -25,14 +25,14 @@ from glob import glob
 # python setup.py install --root=/
 locales = map(lambda i: ('share/' + i,['' + i + '/occ.mo',]), glob('locale/*/LC_MESSAGES'))
 data_files = [
-    ('/etc/dbus-1/system.d', ['config/org.Ojuba.OCC.conf']),
-    ('share/polkit-1/actions',['config/org.ojuba.occ.policy']),
-    ('share/dbus-1/system-services',['config/org.Ojuba.OCC.service']),
+    #('/etc/dbus-1/system.d', ['config/org.Ojuba.OCC.conf']),
+    #('share/polkit-1/actions',['config/org.ojuba.occ.policy']),
+    #('share/dbus-1/system-services',['config/org.Ojuba.OCC.service']),
     ('share/occ',['occ-mechanism.py']),
     ('share/occ/Plugins', glob('Plugins/*.py') ),
     ('share/occ/mechanisms',glob('mechanisms/*.py')),
-    ('share/applications',['occ.desktop']),
-    ('share/icons/hicolor/scalable/apps', ['ojuba-control-center.svg']),
+    #('share/applications',['occ.desktop']),
+    #('share/icons/hicolor/scalable/apps', ['ojuba-control-center.svg']),
     ('bin',['occ','legacy2opentype','RunOrInstall']),
 ]
 data_files.extend(locales)

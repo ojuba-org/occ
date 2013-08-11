@@ -3,7 +3,7 @@
 # -*- Mode: Python; py-indent-offset: 4 -*-
 """
 Ojuba Control Center
-Copyright © 2009, Ojuba Team <core@ojuba.org>
+Copyright آ© 2009, Ojuba Team <core@ojuba.org>
 
     Released under terms of Waqf Public License.
     This program is free software; you can redistribute it and/or modify
@@ -24,8 +24,9 @@ from glob import glob
 
 class occHooks(ihooks.Hooks):
     """ emulate python import """
-    def load_source(self, name, filename, file=None):
+    def load(self, name, filename, file=None):
         """Compile source files with any line ending."""
+        cfile = None
         if file:
             file.close()
         try:
@@ -33,11 +34,14 @@ class occHooks(ihooks.Hooks):
             py_compile.compile(filename)
         except IOError:
             pass
-        cfile = open(filename + (__debug__ and 'c' or 'o'), 'rb')
         try:
+            cfile = open(filename + (__debug__ and 'c' or 'o'), 'rb')
             return self.load_compiled(name, filename, cfile)
+        except IOError:
+            cfile = open(filename, 'rb')
+            return self.load_source(name, filename, cfile)
         finally:
-            cfile.close()
+            if cfile: cfile.close()
 
 class Loader(object):
     # TODO: add more doc details
@@ -54,14 +58,20 @@ class Loader(object):
             sys.path.append(self.pluginsDir)
             
     def get_plugins(self, mech=False):
-        hook = occHooks()
+        hook = ihooks.Hooks()
         pluginsList = []
         # python files list with extention stripped
         lst = map(lambda x: os.path.splitext(os.path.basename(x))[0],
                                                 glob(os.path.join(self.pluginsDir, "*.py")))
         for module in lst:
-            m = hook.load_source(module, os.path.join(self.pluginsDir, module + '.py'))
-            
+            #m = hook.load(module, os.path.join(self.pluginsDir, module + '.py'))
+            filename = os.path.join(self.pluginsDir, module + '.py')
+            cfile, m = None, None
+            try: cfile = open(filename, 'rb')
+            except IOError: pass
+            if cfile: m = hook.load_source(module, filename, cfile)
+            if not m:
+                continue
             valid_plugin = m.__dict__.has_key(self.pluginClassName) and \
                                         m.__dict__.has_key('category') and \
                                         m.__dict__.has_key('caption') and \
