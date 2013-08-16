@@ -33,29 +33,36 @@ class occPlugin(PluginsClass):
     def __init__(self,ccw):
         PluginsClass.__init__(self, ccw, caption, category, priority)
         self.GConf=ccw.GConf
-        creatVBox(self, ccw, description, self.gconfsettings, self.gconfsettings, False) 
+        creatVBox(self, ccw, description, self.GioSettings) 
 
     def GioSettings(self, vb, ccw):
-        pass
-    
-    def gconfsettings(self, vb, ccw):
-        if not self.GConf: return False
-        TActions_ls=['lower', 'menu', 'minmize', 'none', 'shade', 'toggle_maximize', 
-                                     'toggle_maximize_horizontally', 'toggle_maximize_vertically', 'toggle_shade']
-        FMode_ls=['click', 'mouse', 'sloppy']
+        P='org.gnome.shell.overrides'
+        if not P in ccw.GSchemas_List: return False
+        GS = ccw.GSettings(P)
+        FD_l=( \
+             (_('Windows button layout'),'button-layout'),
+        )
         BTLayout_ls=[':close', ':minimize', ':maximize', ':minimize,close',
-                                 ':maximize,close', ':minimize,maximize', ':minimize,maximize,close']
-        L=( \
-            (_('Action on title bar double-click'), '/apps/metacity/general/action_double_click_titlebar', TActions_ls, ''),
-            (_('Action on title bar middle-click'), '/apps/metacity/general/action_middle_click_titlebar', TActions_ls, ''),
-            (_('Action on title bar right-click'), '/apps/metacity/general/action_right_click_titlebar', TActions_ls, ''),
-            (_('Window focus mode'), '/apps/metacity/general/focus_mode', FMode_ls, ''),
-            (_('Windows button layout'), '/desktop/gnome/shell/windows/button_layout', BTLayout_ls, _('Require Gnome-Shell Restart'))
-            )
-        GC, CPT = self.GConf
-        for t,k,l,h in L:
-            GC.add_dir(os.path.dirname(k),CPT)
-            cb=comboBox(t,k,GC, l)
-            cb.set_tooltip_text(h)
-            vb.pack_start(cb,False,False,1)
-
+                     ':maximize,close', ':minimize,maximize', ':minimize,maximize,close',
+                     'close:', 'minimize:', 'maximize:', 'minimize,close:',
+                     'maximize,close:', 'minimize,maximize:', 'minimize,maximize,close:']
+        for t,k in FD_l:
+            if k in GS.list_keys():
+                cb=comboBox(t,k,GS, BTLayout_ls)
+                vb.pack_start(cb,False,False,1)
+        P='org.gnome.desktop.wm.preferences'
+        if not P in ccw.GSchemas_List: return False
+        GS = ccw.GSettings(P)
+        FD_l=( \
+             #(_('Windows button layout'),'button-layout'),
+             (_('Action on title bar double-click'),'action-double-click-titlebar'),
+             (_('Action on title bar middle-click'),'action-middle-click-titlebar'),
+             (_('Action on title bar right-click'),'action-right-click-titlebar'),
+             (_('Window focus mode'),'focus-mode')
+        )
+        for t,k in FD_l:
+            if k in GS.list_keys():
+                cb=comboBox(t,k,GS, GS.get_range(k)[1])
+                vb.pack_start(cb,False,False,1)
+        return True
+    

@@ -44,8 +44,8 @@ class occPlugin(PluginsClass):
              (_('Suspend button'),'button-suspend'),
              #(_('Cursor theme'),'button-sleep'),
              (_('Critical battery action'),'critical-battery-action'),
-             (_('Laptop lid close action on AC'),'lid-close-ac-action'),
-             (_('Laptop lid close action on battery'),'lid-close-battery-action'),
+             #(_('Laptop lid close action on AC'),'lid-close-ac-action'),
+             #(_('Laptop lid close action on battery'),'lid-close-battery-action'),
              (_('Sleep inactive type on AC'),'sleep-inactive-ac-type'),
              (_('Sleep inactive type on power'),'sleep-inactive-battery-type')
         )

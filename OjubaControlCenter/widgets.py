@@ -33,7 +33,7 @@ class NiceImage(Gtk.Image):
 class NiceButton(Gtk.Button):
     def __init__(self, caption, img_fn=None, icon=None,stock=None):
         Gtk.Button.__init__(self,caption)
-        self.set_size_request(100,100)
+        #self.set_size_request(100,100)
         self.set_image(NiceImage(img_fn, icon,stock))
         
 def create_css_view():

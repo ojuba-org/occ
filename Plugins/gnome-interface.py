@@ -35,32 +35,24 @@ class occPlugin(PluginsClass):
         PluginsClass.__init__(self, ccw, caption, category, priority)
         self.GConf=ccw.GConf
         self.dirs=self.get_dirs()
-        creatVBox(self, ccw, description, self.GioSettings, self.gconfsettings) 
+        creatVBox(self, ccw, description, self.GioSettings) 
         
     def GioSettings(self, vb, ccw):
-        P='org.gnome.shell.clock'
-        if not P in ccw.GSchemas_List or not ccw.GSettings: return False
-        GS = ccw.GSettings(P)
-        DT_l=( \
-             (_('Show seconds in clock'),'show-seconds'),
-             (_('Show date in clock'),'show-date')
-        )
-        
-        for t,k in DT_l:
-            g=GSCheckButton(t,k,GS)
-            vb.pack_start(g,False,False,1)
         P='org.gnome.desktop.interface'
-        if not P in ccw.GSchemas_List: 
-            self.gconfsettings(vb, ccw)
-            return True
-        GS = ccw.GSettings(P)
-        FB_l=( \
-             (_('Menus have icons'),'menus-have-icons'),
-             (_('Buttons have icons'),'buttons-have-icons')
-        )
+        FB_l = ()
+        if P in ccw.GSchemas_List: 
+            GS = ccw.GSettings(P)
+            FB_l=( \
+                 (_('Show seconds in clock'),'clock-show-seconds'),
+                 (_('Show date in clock'),'clock-show-date'),
+                 (_('Menus have icons'),'menus-have-icons'),
+                 (_('Buttons have icons'),'buttons-have-icons')
+                )
+            ret = True
         for t,k in FB_l:
-            b=GSCheckButton(t,k,GS)
-            vb.pack_start(b,False,False,1)
+            if k in GS.list_keys():
+                b=GSCheckButton(t,k,GS)
+                vb.pack_start(b,False,False,1)
         tf=comboBox(_('Clock format'),'clock-format',GS, GS.get_range('clock-format')[1])
         vb.pack_start(tf,False,False,1)
         PP="org.gnome.shell.extensions.user-theme"
@@ -77,30 +69,10 @@ class occPlugin(PluginsClass):
              (_('Icon theme'),'icon-theme',self.get_valid_icon_themes(),_('Add icons theme'),os.path.expanduser('~/.icons'), self.get_valid_icon_themes),
              (_('Cursor theme'),'cursor-theme',self.get_valid_cursor_themes(),_('Add cursor theme'),os.path.expanduser('~/.icons'), self.get_valid_cursor_themes)
         )
-        self.gconfsettings(vb, ccw)
         for t,k,l,bt,dst,ls_func in FD_l:
             cb=comboBoxWithFolder(t,k,GS, l, bt, dst, ls_func)
             vb.pack_start(cb,False,False,1)
-        return True
-        
-    def gconfsettings(self, vb, ccw):
-        if not self.GConf: return False
-        # FIXME: User titled menu items
-        TActions_ls=['lower', 'menu', 'minmize', 'none', 'shade', 'toggle_maximize', 
-                                     'toggle_maximize_horizontally', 'toggle_maximize_vertically', 'toggle_shade']
-        FMode_ls=['click', 'mouse', 'sloppy']
-        BTLayout_ls=[':close', ':minimize', ':maximize', ':minimize,close',
-                                 ':maximize,close', ':minimize,maximize', ':minimize,maximize,close']
-        # TODO: add the fallback (metacity) window theme
-        L=( 
-            (_('Windows theme'), '/desktop/gnome/shell/windows/theme', self.get_metacity_themes(), _('Add Windows theme'),os.path.expanduser('~/.themes'), self.get_metacity_themes, _('This option requires shell reload')),
-            )
-        GC, CPT = self.GConf
-        for t,k,l,bt, dst, ls_func,h in L:
-            GC.add_dir(os.path.dirname(k), CPT)
-            cb=comboBoxWithFolder(t, k, GC, l, bt, dst, ls_func)
-            cb.set_tooltip_text(h)
-            vb.pack_start(cb,False,False,1)
+        return ret
 
     def get_metacity_themes(self):
         valid = self.walk_directories(self.dirs['themes'], lambda d:

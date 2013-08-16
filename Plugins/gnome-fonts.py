@@ -33,7 +33,7 @@ class occPlugin(PluginsClass):
     def __init__(self,ccw):
         PluginsClass.__init__(self, ccw, caption, category, priority)
         self.GConf=ccw.GConf
-        creatVBox(self, ccw, description, self.GioSettings, self.gconfsettings) 
+        creatVBox(self, ccw, description, self.GioSettings) 
 
     def GioSettings(self, vb, ccw):
         P='org.gnome.desktop.interface'
@@ -47,9 +47,21 @@ class occPlugin(PluginsClass):
              (_('Monospace font'),'monospace-font-name'),
         )
         for t,k in FB_l:
-            b=fontButton(t,k,GS, ccw)
-            vb.pack_start(b,False,False,1)
-        self.gconfsettings(vb, ccw)
+            if k in GS.list_keys():
+                b=fontButton(t,k,GS, ccw)
+                vb.pack_start(b,False,False,1)
+        
+        P='org.gnome.desktop.wm.preferences'
+        if not P in ccw.GSchemas_List: return True
+        GS = ccw.GSettings(P)
+        FD_l=( \
+             (_('Window title'),'titlebar-font'),
+        )
+        for t,k in FD_l:
+            if k in GS.list_keys():
+                b=fontButton(t,k,GS, ccw)
+                vb.pack_start(b,False,False,1)
+        
         P='org.gnome.settings-daemon.plugins.xsettings'
         if not P in ccw.GSchemas_List: return True
         GS = ccw.GSettings(P)
@@ -58,13 +70,8 @@ class occPlugin(PluginsClass):
              (_('Antialiasing'),'antialiasing')
         )
         for t,k in FD_l:
-            cb=comboBox(t,k,GS, GS.get_range(k)[1])
-            vb.pack_start(cb,False,False,1)
+            if k in GS.list_keys():
+                cb=comboBox(t,k,GS, GS.get_range(k)[1])
+                vb.pack_start(cb,False,False,1)
         return True
-        
-    def gconfsettings(self, vb, ccw):
-        if not self.GConf: return False
-        GC,CPT = self.GConf
-        P = '/apps/metacity/general/titlebar_font'
-        GC.add_dir(os.path.dirname(P),CPT)
-        vb.pack_start(fontButton(_('Window title'),P,GC, ccw),False,False,1)
+   

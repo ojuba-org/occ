@@ -50,6 +50,7 @@ class occPlugin(PluginsClass):
         scroll=Gtk.ScrolledWindow()
         scroll.set_policy(Gtk.PolicyType.NEVER,Gtk.PolicyType.ALWAYS)
         scroll.add(self.files_ls)
+        scroll.set_size_request(-1,200)
         h.pack_start(scroll,True,True,2)
         self.__init_list()
         h=Gtk.HBox(False,2); vb.pack_start(h,False,False,6)

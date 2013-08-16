@@ -79,7 +79,7 @@ class comboBox(Gtk.HBox):
         cb_list.clear()
         for i in List:
             #cb_list.append([i])
-            cb_list.append([i.replace('_',' ').replace(':','').replace(',','+').capitalize(), i])
+            cb_list.append([i.replace('_',' ').replace(',','+').capitalize(), i])
                 
     def update(self,*args, **kw):
         v=self.gs.get_string(self.k)
@@ -272,7 +272,7 @@ def creatVBox(parent, ccw, description, gsFuc=not_installed, nogsFunc=not_instal
     #parent.add(expander)
     parent.add(vbox)
     h=Gtk.HBox(False,0)
-    h.pack_start(Gtk.Label(_('Adjust desktop fonts')),False,False,0)
+    h.pack_start(Gtk.Label(description),False,False,0)
     vbox.pack_start(h,False,False,6)
     vbox.pack_start(vb,False,False,6)
     

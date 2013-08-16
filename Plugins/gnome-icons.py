@@ -37,21 +37,22 @@ class occPlugin(PluginsClass):
         P='org.gnome.desktop.background'
         if not P in ccw.GSchemas_List: return False
         GS = ccw.GSettings(P)
-        c=mainGSCheckButton(vb,_('Show desktop icons'),'show-desktop-icons',GS)
-        vb.pack_start(c,False,False,1)
+        if 'show-desktop-icons' in GS.list_keys():
+            c=mainGSCheckButton(vb,_('Show desktop icons'),'show-desktop-icons',GS)
+            vb.pack_start(c,False,False,1)
         P='org.gnome.nautilus.desktop'
         if not P in ccw.GSchemas_List: return True
         GS = ccw.GSettings(P)
         DT_l=( \
-             (_('Computer'),'computer-icon-visible'),
              (_('Home'),'home-icon-visible'),
              (_('Network'),'network-icon-visible'),
              (_('Trash'),'trash-icon-visible'),
              (_('Mounted volumes'),'volumes-visible')
         )
         for t,k in DT_l:
-            g=GSCheckButton(t,k,GS)
-            vb.pack_start(g,False,False,1)
+            if k in GS.list_keys():
+                g=GSCheckButton(t,k,GS)
+                vb.pack_start(g,False,False,1)
         c.update_cboxs()
         return True
 
