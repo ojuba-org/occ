@@ -1,34 +1,40 @@
+%global owner ojuba-org
+%global commit #Write commit number here
+
 Name:           occ
 Version:        2.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Ojuba Control Center
 
 Group:          Development/Languages
-License:        waqf
-URL:            http://linux.ojuba.org
-Source0:        %{name}-%{version}.tar.bz2
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+License:	WAQFv2
+URL:            http://ojuba.org
+Source:		https://github.com/%{owner}/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz
 
 BuildArch:      noarch
-Requires:       hda-verb usb_modeswitch xdg-utils system-switch-displaymanager glx-utils python-slip-dbus udisks PackageKit system-config-network
-Requires:   pygobject3 >= 3.0.2
+Requires:       hda-verb
+Requires:       usb_modeswitch
+Requires:       xdg-utils
+Requires:       system-switch-displaymanager
+Requires:       glx-utils
+Requires:       python-slip-dbus
+Requires:       udisks
+Requires:       PackageKit
+Requires:       system-config-network
+Requires:	pygobject3 >= 3.0.2
 Obsoletes:	media-repo
-BuildRequires:  python-devel
-
-# sitelib for noarch packages, sitearch for others (remove the unneeded one)
-%{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+BuildRequires:  python2-devel
 
 %description
 Ojuba Control Center is a central place to control your computer.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{commit}
 
 %build
 make %{?_smp_mflags}
 
 %install
-rm -rf $RPM_BUILD_ROOT
 %makeinstall DESTDIR=$RPM_BUILD_ROOT
 
 mkdir -p $RPM_BUILD_ROOT/usr/sbin/
@@ -44,9 +50,6 @@ echo -e '#! /bin/sh\nLC_ALL=en_US.UTF-8 exec RunOrInstall audacity-freeworld /us
 chmod +x $RPM_BUILD_ROOT/usr/local/bin/*
 chmod +x $RPM_BUILD_ROOT/usr/sbin/*
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
 %post
 touch --no-create %{_datadir}/icons/hicolor || :
 if [ -x %{_bindir}/gtk-update-icon-cache ] ; then
@@ -59,11 +62,10 @@ if [ -x %{_bindir}/gtk-update-icon-cache ] ; then
 %{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
 fi
 
-
 %files
 %defattr(-,root,root,-)
-%doc AUTHORS README COPYING LICENSE-ar.txt LICENSE-en
-%{python_sitelib}/*
+%doc AUTHORS README COPYING waqf2-ar.pdf
+%{python2_sitelib}/*
 /etc/dbus-1/system.d/org.Ojuba.OCC.conf
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/scalable/apps/ojuba-control-center.svg
@@ -80,6 +82,9 @@ fi
 
 
 %changelog
+* Sun Feb 16 2014 Mosaab Alzoubi <moceap@hotmail.com> - 2.0.0-2
+- General Revision.
+
 * Sat Aug 10 2013  Ehab El-Gedawy <ehabsas@gmail.com> - 2.0.0-1
 - dbus call fix
 - load mechanisms 
@@ -131,4 +136,3 @@ fi
 
 * Fri Jun 26 2009 Muayyad Saleh Alsadi <alsadi@ojuba.org> - 1.1.0-1
 - initial package
-
