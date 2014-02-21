@@ -3,7 +3,7 @@
 
 Name:           occ
 Version:        2.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Ojuba Control Center
 
 Group:          Development/Languages
@@ -12,7 +12,7 @@ URL:            http://ojuba.org
 Source:		https://github.com/%{owner}/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz
 
 BuildArch:      noarch
-Requires:       hda-verb
+Requires:       alsa-tools
 Requires:       usb_modeswitch
 Requires:       xdg-utils
 Requires:       system-switch-displaymanager
@@ -82,6 +82,9 @@ fi
 
 
 %changelog
+* Fri Feb 21 2014 Mosaab Alzoubi <moceap@hotmail.com> - 2.0.0-3
+- alsa-tools provide hda-verb since 2012.
+
 * Sun Feb 16 2014 Mosaab Alzoubi <moceap@hotmail.com> - 2.0.0-2
 - General Revision.
 
