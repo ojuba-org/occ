@@ -279,6 +279,10 @@ msgstr ""
 msgid "Desktop:"
 msgstr "سطح المكتب:"
 
+#: ../Plugins/fav-apps.py:55
+msgid "Ayat"
+msgstr "آيات"
+
 #. hb.pack_start(LaunchOrInstall(self,'screenlets','/usr/bin/screenlets',['screenlets']),False,False,2)
 #: ../Plugins/fav-apps.py:59
 msgid "extra screensavers"
@@ -286,7 +290,7 @@ msgstr "حافظات شاشة إضافية"
 
 #: ../Plugins/fav-apps.py:63
 msgid "Internet:"
-msgstr "إنترنت:"
+msgstr "شابكة:"
 
 #: ../Plugins/fav-apps.py:75
 msgid "Mobile related:"
