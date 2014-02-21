@@ -13,6 +13,7 @@ Source:		https://github.com/%{owner}/%{name}/archive/%{commit}/%{name}-%{commit}
 
 BuildArch:      noarch
 Requires:       alsa-tools
+Requires:       ayat-repo
 Requires:       usb_modeswitch
 Requires:       xdg-utils
 Requires:       system-switch-displaymanager
