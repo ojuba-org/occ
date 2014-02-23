@@ -12,7 +12,7 @@ URL:            http://ojuba.org
 Source:		https://github.com/%{owner}/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz
 
 BuildArch:      noarch
-Requires:       alsa-tools
+Requires:       hda-verb
 Requires:       ayat-repo
 Requires:       usb_modeswitch
 Requires:       xdg-utils
