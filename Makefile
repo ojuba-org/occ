@@ -16,12 +16,14 @@ RM := $(shell which rm | egrep '/' | sed  's/\s//g')
 GTK_UPDATE_ICON_CACHE := $(shell which gtk-update-icon-cache)
 UPDATE_DESKTOP_DATABASE := $(shell which update-desktop-database)
 
-all: $(TARGETS) icons
+all: $(TARGETS) micons
 
-icons:
+micons:
+	@$(ECHO) "*** Converting: icons..."
 	@for i in 96 72 64 48 36 32 24 22 16; do \
 		convert -background none $(ICON_NAME).svg -resize $${i}x$${i} $(ICON_NAME)-$${i}.png; \
 	done
+
 pos:
 	$(MAKE) -C po all
 

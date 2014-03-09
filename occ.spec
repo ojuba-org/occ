@@ -76,6 +76,7 @@ fi
 %{_datadir}/occ/occ-mechanism.py*
 %{_datadir}/occ/mechanisms/*.py*
 %{_datadir}/occ/Plugins/*.py*
+%{_datadir}/occ/icons/*.*
 %{_datadir}/locale/*/*/*.mo
 %{_bindir}/*
 %{_sbindir}/*

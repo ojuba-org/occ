@@ -31,6 +31,7 @@ data_files = [
     ('share/occ',['occ-mechanism.py']),
     ('share/occ/Plugins', glob('Plugins/*.py') ),
     ('share/occ/mechanisms',glob('mechanisms/*.py')),
+    ('share/occ/icons',glob('icons/*.svg')),
     #('share/applications',['occ.desktop']),
     #('share/icons/hicolor/scalable/apps', ['ojuba-control-center.svg']),
     ('bin',['occ','legacy2opentype','RunOrInstall']),
