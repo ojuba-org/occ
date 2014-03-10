@@ -64,6 +64,8 @@ class Loader(object):
         lst = map(lambda x: os.path.splitext(os.path.basename(x))[0],
                                                 glob(os.path.join(self.pluginsDir, "*.py")))
         for module in lst:
+            if module in self.skip:
+                continue
             #m = hook.load(module, os.path.join(self.pluginsDir, module + '.py'))
             filename = os.path.join(self.pluginsDir, module + '.py')
             cfile, m = None, None
