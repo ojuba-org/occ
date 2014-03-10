@@ -134,7 +134,7 @@ class GUI(Gtk.VBox):
     def __loadPlugins(self, skip):
         p = self.Loader.get_plugins()
         p.sort(lambda a,b: a['priority'] - b['priority'])
-        btncnt = dict((i[0],[0, Gtk.Fixed(), False]) for i in categories.ls)
+        btncnt = dict((i[0],[0, Gtk.HButtonBox.new(), False]) for i in categories.ls)
         
         svb = self.sub_container.get_children()[0].get_children()[0]
 
@@ -147,21 +147,20 @@ class GUI(Gtk.VBox):
     
             if btncnt[category][0] % 6 == 0:
                 btncnt[category][0] = 1
-                btncnt[category][1] = Gtk.Fixed()
+                btncnt[category][1] = Gtk.HButtonBox.new()
                 btncnt[category][2] = False
     
             h = btncnt[category][1]
+            h.set_layout( Gtk.ButtonBoxStyle.START)
+            h.set_spacing(40)
+            
             if not btncnt[category][2]:
                 btncnt[category][2] = True
                 try: self.cat_v[category].pack_start(h,False,False,0)
                 except KeyError: self.__newCat(category).pack_start(h,False,False,0)
-            # pack main buttons
             mb = self.create_buttons(i, svb)
-            h.put(mb, (btncnt[category][0]-1)*125, 0)
+            h.add(mb)
             h.show_all()
-            # pack plugin
-            #print category, i, btncnt[category][0]
-            #svb.pack_start(i,False,False,0)
             self.cat_plugins[category].append(i)
             self.create_search_dict(mb, i)
             
