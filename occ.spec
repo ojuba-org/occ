@@ -2,8 +2,8 @@
 %global commit #Write commit number here
 
 Name:           occ
-Version:        2.0.0
-Release:        3%{?dist}
+Version:        3.0.0
+Release:        1%{?dist}
 Summary:        Ojuba Control Center
 
 Group:          Development/Languages
@@ -84,6 +84,9 @@ fi
 
 
 %changelog
+* Sun Mar 16 2014 Mosaab Alzoubi <moceap@hotmail.com> - 3.0.0-1
+- Update to 3.0.
+
 * Fri Feb 21 2014 Mosaab Alzoubi <moceap@hotmail.com> - 2.0.0-3
 - alsa-tools provide hda-verb since 2012.
 
