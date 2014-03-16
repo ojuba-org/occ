@@ -70,13 +70,13 @@ class occPlugin(PluginsClass):
         if lang:
             self.ar_b.set_sensitive(not lang.startswith('ar_'))
             self.fr_b.set_sensitive(not lang.startswith('fr_'))
-            self.en_b.set_sensitive(not lang.startswith('en_'))
+            self.en_b.set_sensitive(not (self.ar_b.get_sensitive() and self.fr_b.get_sensitive()))
         
         return lang
 
     def set_lang(self, w, nl="en_US.utf8"):
         ## setup  new config if config file not exist
-        config = [('language', nl), ('xsession', 'gnome'), ('systemaccount', 'false')]
+        config = [('Language', nl), ('XSession', 'gnome'), ('SystemAccount', 'false')]
         ## change language if config file exist
         if self.conf.has_option("User", "Language"):
             self.conf.set("User", "Language", nl)
@@ -84,6 +84,7 @@ class occPlugin(PluginsClass):
             
         c_list = map(lambda (a, b):"%s=%s" %(a,b), config)
         c_text = "[User]\n%s\n" % "\n".join(c_list)
+        c_text = c_text.replace("language","Language").replace("xsession","XSession").replace("systemaccount","SystemAccount")
 
         self.ccw.mechanism('run','write_conf',self.lang_fn, c_text)
         return self.get_lang()
