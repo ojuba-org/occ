@@ -97,7 +97,7 @@ fi
 - dbus call fix
 - load mechanisms 
 
-* Sun Jun 2 2012  Muayyad Saleh AlSadi <alsadi@ojuba.org> - 1.22.4-1
+* Sat Jun 2 2012  Muayyad Saleh AlSadi <alsadi@ojuba.org> - 1.22.4-1
 - port to gtk3, webkit3
 
 * Wed Jul 13 2011 Muayyad Saleh Alsadi <alsadi@ojuba.org> - 1.20.0-1
@@ -129,7 +129,7 @@ fi
 - bug fixes
 - disable/enable net repos
 
-* Sun Aug 29 2009 Muayyad Saleh Alsadi <alsadi@ojuba.org> - 1.9.0-1
+* Sat Aug 29 2009 Muayyad Saleh Alsadi <alsadi@ojuba.org> - 1.9.0-1
 - manage samples icon
 - add installer tab
 
