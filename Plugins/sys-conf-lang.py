@@ -56,9 +56,9 @@ class occPlugin(PluginsClass):
         self.get_lang()
 
     def get_lang(self):
-        self.ar_b.set_sensitive(False)
-        self.fr_b.set_sensitive(False)
-        self.en_b.set_sensitive(False)
+        #self.ar_b.set_sensitive(False)
+        #self.fr_b.set_sensitive(False)
+        #self.en_b.set_sensitive(False)
         
         lang = None
         
