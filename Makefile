@@ -101,6 +101,7 @@ uninstall: uninstall-dbus-conf
 clean:
 	@$(ECHO) "*** Cleaning..."
 	@$(MAKE) -C po clean
+	@$(MAKE) -C icons clean
 	@$(ECHO) "- Removing: $(TARGETS)"
 	@$(RM) -f $(TARGETS)
 	@$(ECHO) "- Removing: locale build"
