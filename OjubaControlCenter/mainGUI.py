@@ -176,7 +176,7 @@ class GUI(Gtk.VBox):
         # we must remove char : in the caption ?
         caption = plugin['caption'].replace(':', '')
         # FIXME: make fixed size main button widget
-        icon = os.path.join(self.__iconsDir,  '%s.svg' % caption )
+        icon = os.path.join(self.__iconsDir,  '%s.png' % caption )
         if os.path.isfile(icon):
             b = MainButton(caption, img_fn=icon)
         else:

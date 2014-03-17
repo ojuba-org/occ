@@ -23,6 +23,7 @@ micons:
 	@for i in 96 72 64 48 36 32 24 22 16; do \
 		convert -background none $(ICON_NAME).svg -resize $${i}x$${i} $(ICON_NAME)-$${i}.png; \
 	done
+	$(MAKE) -C icons all
 
 pos:
 	$(MAKE) -C po all
