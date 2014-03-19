@@ -259,6 +259,7 @@ class OCCAbout(Gtk.AboutDialog):
         try: self.set_program_name("OCC")
         except: pass
         self.set_name(_("OCC"))
+        self.set_logo_icon_name('ojuba-control-center')
         #self.about_dlg.set_version(version)
         self.set_copyright("Copyright © 2009 ojuba.org")
         self.set_comments(_("Ojuba Control Center"))
