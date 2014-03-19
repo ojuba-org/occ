@@ -49,9 +49,9 @@ class GUI(Gtk.VBox):
         debug = '--debug' in sys.argv[1:]
         self.__exeDir=os.path.abspath(os.path.dirname(sys.argv[0]))
         self.__pluginsDir=os.path.join(self.__exeDir,'Plugins')
-        self.__iconsDir=os.path.join(self.__exeDir,'icons')
         if not os.path.isdir(self.__pluginsDir):
             self.__pluginsDir=os.path.join(self.__exeDir,'..','share','occ','Plugins')
+        self.__iconsDir=os.path.join(self.__pluginsDir, '..', 'icons')
         self.Loader = loader.Loader(self.__pluginsDir,
                                     PluginsClass,
                                     'occPlugin',
