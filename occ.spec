@@ -3,7 +3,7 @@
 
 Name:           occ
 Version:        3.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Ojuba Control Center
 
 Group:          Development/Languages
@@ -84,6 +84,9 @@ fi
 /usr/local/bin/*
 
 %changelog
+* Thu Mar 31 2014 Ehab El-Gedawy <ehabsas@gmail.com> - 3.0.0-3
+- fix icons
+
 * Thu Mar 20 2014 Ehab El-Gedawy <ehabsas@gmail.com> - 3.0.0-2
 - fix icons
 
