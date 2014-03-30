@@ -1,0 +1,10 @@
+#! /usr/bin/env bash
+# vim: tabstop=8 expandtab shiftwidth=4 softtabstop=4 autoindent syntax=python
+# -*- Mode: Python; py-indent-offset: 4 -*-
+rm -f Plugins/*.pyc
+for i in $(ls Plugins/)
+do 
+    longname=$(egrep '^caption' Plugins/$i | cut -d"'" -f2 | cut -d':' -f1)
+    [ -e  "icons/${longname}.svg" ] && git mv "icons/${longname}.svg" "icons/${i/.py/.svg}"
+done
+
