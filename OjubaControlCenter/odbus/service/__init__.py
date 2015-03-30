@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import gobject
+from gi.repository import GObject
 #import dbus
 import dbus.mainloop.glib
 import slip.dbus.service
@@ -9,7 +9,7 @@ from OCCBackend import Backend
 from OjubaControlCenter.odbus import dbus_service_name, dbus_service_path
 
 def run_service ():
-  mainloop = gobject.MainLoop ()
+  mainloop = GObject.MainLoop ()
   dbus.mainloop.glib.DBusGMainLoop (set_as_default=True)
   system_bus = dbus.SystemBus ()
   name = dbus.service.BusName (dbus_service_name, system_bus)
