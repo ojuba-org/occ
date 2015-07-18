@@ -1,34 +1,34 @@
 %global owner ojuba-org
 %global commit #Write commit number here
 
-Name:           occ
-Version:        3.0.0
-Release:        3%{?dist}
-Summary:        Ojuba Control Center
-
-Group:          Development/Languages
-License:	WAQFv2
-URL:            http://ojuba.org
-Source:		https://github.com/%{owner}/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz
-
-BuildArch:      noarch
-Requires:       hda-verb
-Requires:       ayat-repo
-Requires:       usb_modeswitch
-Requires:       xdg-utils
-Requires:       system-switch-displaymanager
-Requires:       glx-utils
-Requires:       python-slip-dbus
-Requires:       udisks
-Requires:       PackageKit
-Requires:       system-config-network
-Requires:	pygobject3 >= 3.0.2
-Obsoletes:	media-repo
-BuildRequires:  python2-devel
-BuildRequires:  ImageMagick
+Name: occ
+Version: 3.0.0
+Release: 4%{?dist}
+Summary: Ojuba Control Center
+Summary(ar): مركز تحكّم أعجوبة
+License: WAQFv2
+URL: http://ojuba.org
+Source: https://github.com/%{owner}/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz
+BuildArch: noarch
+Requires: hda-verb
+Requires: ayat-repo
+Requires: usb_modeswitch
+Requires: xdg-utils
+Requires: system-switch-displaymanager
+Requires: glx-utils
+Requires: python-slip-dbus
+Requires: udisks
+Requires: PackageKit
+Requires: system-config-network
+Requires: pygobject3 >= 3.0.2
+BuildRequires: python2-devel
+BuildRequires: ImageMagick
 
 %description
 Ojuba Control Center is a central place to control your computer.
+
+%description -l ar
+عاصمة التّحكم بجهازك.
 
 %prep
 %setup -q -n %{name}-%{commit}
@@ -37,7 +37,7 @@ Ojuba Control Center is a central place to control your computer.
 make %{?_smp_mflags}
 
 %install
-%makeinstall DESTDIR=$RPM_BUILD_ROOT
+%make_install
 
 mkdir -p $RPM_BUILD_ROOT/usr/sbin/
 
@@ -65,8 +65,8 @@ if [ -x %{_bindir}/gtk-update-icon-cache ] ; then
 fi
 
 %files
-%defattr(-,root,root,-)
-%doc AUTHORS README COPYING waqf2-ar.pdf
+%license COPYING waqf2-ar.pdf
+%doc AUTHORS README 
 %{python2_sitelib}/*
 /etc/dbus-1/system.d/org.Ojuba.OCC.conf
 %{_datadir}/applications/%{name}.desktop
@@ -84,13 +84,21 @@ fi
 /usr/local/bin/*
 
 %changelog
-* Thu Mar 31 2014 Ehab El-Gedawy <ehabsas@gmail.com> - 3.0.0-3
+* Sat Jul 18 2015 Mosaab Alzoubi <moceap@hotmail.com> - 3.0.0-4
+- General fixes
+- Add Arabic summary and description
+- Remove group tag
+- Remove media-repo obsolete
+- Use %%make_install
+- Remove old attr way
+- Use %%license
+
+* Mon Mar 31 2014 Ehab El-Gedawy <ehabsas@gmail.com> - 3.0.0-3
 - fix icons
 
 * Thu Mar 20 2014 Ehab El-Gedawy <ehabsas@gmail.com> - 3.0.0-2
 - fix icons
 
-%changelog
 * Sun Mar 16 2014 Mosaab Alzoubi <moceap@hotmail.com> - 3.0.0-1
 - Update to 3.0.
 
