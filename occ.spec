@@ -23,6 +23,7 @@ Requires: system-config-network
 Requires: pygobject3 >= 3.0.2
 BuildRequires: python2-devel
 BuildRequires: ImageMagick
+BuildRequires: intltool
 
 %description
 Ojuba Control Center is a central place to control your computer.
