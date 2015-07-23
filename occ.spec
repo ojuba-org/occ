@@ -40,18 +40,18 @@ make %{?_smp_mflags}
 %install
 %make_install
 
-mkdir -p $RPM_BUILD_ROOT/usr/sbin/
+mkdir -p %{buildroot}/usr/sbin/
 
 # local is used because we fix files from other packages, this is wrong but we do not have skype source to fix it
-mkdir -p $RPM_BUILD_ROOT/usr/local/bin/ 
+mkdir -p %{buildroot}/usr/local/bin/ 
 
-echo -e '#! /bin/sh\n[ $UID -ne 0 ] && echo -e "Permission denied, be root" && exit\nsetenforce 0\nsed -rie "s/^(SELINUX=).*/\1disabled/" /etc/selinux/config' >$RPM_BUILD_ROOT/usr/sbin/sestop
+echo -e '#! /bin/sh\n[ $UID -ne 0 ] && echo -e "Permission denied, be root" && exit\nsetenforce 0\nsed -rie "s/^(SELINUX=).*/\1disabled/" /etc/selinux/config' >%{buildroot}/usr/sbin/sestop
 
-echo -e '#! /bin/sh\nLD_PRELOAD=/usr/lib/libv4l/v4l1compat.so exec RunOrInstall skype /usr/bin/skype "$@"' >$RPM_BUILD_ROOT/usr/local/bin/skype
-echo -e '#! /bin/sh\nLC_ALL=en_US.UTF-8 exec RunOrInstall audacity-freeworld /usr/bin/audacity "$@"' >$RPM_BUILD_ROOT/usr/local/bin/audacity
+echo -e '#! /bin/sh\nLD_PRELOAD=/usr/lib/libv4l/v4l1compat.so exec RunOrInstall skype /usr/bin/skype "$@"' >%{buildroot}/usr/local/bin/skype
+echo -e '#! /bin/sh\nLC_ALL=en_US.UTF-8 exec RunOrInstall audacity-freeworld /usr/bin/audacity "$@"' >%{buildroot}/usr/local/bin/audacity
 
-chmod +x $RPM_BUILD_ROOT/usr/local/bin/*
-chmod +x $RPM_BUILD_ROOT/usr/sbin/*
+chmod +x %{buildroot}/usr/local/bin/*
+chmod +x %{buildroot}/usr/sbin/*
 
 %post
 touch --no-create %{_datadir}/icons/hicolor || :
