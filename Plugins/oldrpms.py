@@ -97,7 +97,7 @@ class occPlugin(PluginsClass):
             r.extend(self.get_rpms(i))
         return r
 
-    def get_ls(self, d='/var/cache/yum',OLD=True):
+    def get_ls(self, d='/var/cache/dnf',OLD=True):
         self.rpm_list = self.get_rpms(d)
         rpm_ls = self.rpm_list
         rpm_h = {}
