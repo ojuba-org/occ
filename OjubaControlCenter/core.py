@@ -18,11 +18,13 @@ Copyright © 2009-2011, ojuba.org <core@ojuba.org>
         The Latest version of the license can be found on
         "http://waqf.ojuba.org/license"
 """
+import gi
 
-try: from gi.repository import Gio
-except ImportError: Gio=None
+from gi.repository import Gio
 
-try: from gi.repository import GConf
+try:
+    gi.require_version('GConf', '2.0')
+    from gi.repository import GConf
 except ImportError: GConf=None
 gconf=None
 

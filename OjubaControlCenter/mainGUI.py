@@ -17,7 +17,7 @@ Copyright © 2009, Ojuba Team <core@ojuba.org>
     The Latest version of the license can be found on
     "http://waqf.ojuba.org/license"
 """
-
+import gi
 import os, sys
 import gettext
 
@@ -25,7 +25,7 @@ ld=os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])),'..','share','loca
 if not os.path.exists(ld): ld=os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])),'locale')
 gettext.install('occ', ld, unicode=0)
 
-
+gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 
 from OjubaControlCenter import loader
