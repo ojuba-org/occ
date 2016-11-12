@@ -66,8 +66,7 @@ class occPlugin(PluginsClass):
             self.count+=1
 			
 			
-    def __refresh_repos_informations(self):
-        self.__reposinformations=self.__get_information_from_location()
+
     
     def __enable_or_disable(self,b,s,data):
         if not b.get_state():
