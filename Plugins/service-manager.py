@@ -32,7 +32,7 @@ class occPlugin(PluginsClass):
         PluginsClass.__init__(self, ccw, caption, category, priority)
 	self.__allservices= subprocess.Popen("LANG=C TERM=dumb COLUMNS=1024 systemctl list-unit-files  --all --type service --no-legend --no-pager --no-ask-password",stdout=subprocess.PIPE,stderr=subprocess.PIPE,shell=True).communicate()[0].decode('utf-8').strip().split()
 
-	self.__all_ss_services= subprocess.Popen("LANG=C TERM=dumb COLUMNS=1024 systemctl list-units  --all --type service --no-legend --no-pager --no-ask-password",stdout=subprocess.PIPE,stderr=subprocess.PIPE,shell=True).communicate()[0].decode('utf-8').strip().split()
+	self.__all_ss_services= subprocess.Popen("LANG=C TERM=dumb COLUMNS=1024 systemctl list-units  --all --type service --no-legend --no-pager --no-ask-password",stdout=subprocess.PIPE,stderr=subprocess.PIPE,shell=True).communicate()[0].decode('utf-8').strip().split("\n")
 
 	self.__all_enabled_disabled_services=self.__get_enabled_disabled_service()
 	self.__all_start_stop_services=self.__get_start_stop_service()
@@ -157,14 +157,20 @@ class occPlugin(PluginsClass):
                 b.set_active(True)
                 return True
 
+    def __remove_espace(self,out):
+	result=[]
+	for line in out:
+		result.append(line.split()[0:4])
+	return result
 
     def __get_start_stop_service(self):
 	result=[]
-	for service in self.__all_ss_services:
-		if self.__all_ss_services[self.__all_ss_services.index(service)+3]=="running":
-			result.append([service,"running"])
-		elif self.__all_ss_services[self.__all_ss_services.index(service)+3]=="dead":
-			result.append([service,"dead"])
+	services=self.__remove_espace(self.__all_ss_services)
+	for service in services:
+		if service[3]=="running":
+			result.append([service[0],"running"])
+		elif service[3]=="dead":
+			result.append([service[0],"dead"])
 			
 	return result
 
