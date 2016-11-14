@@ -157,19 +157,20 @@ class occPlugin(PluginsClass):
                 b.set_active(True)
                 return True
 
-    def __remove_espace(self,out):
+    def __filter_result(self,out):
 	result=[]
 	for line in out:
-		result.append(line.split()[0:4])
+		line=line.split()
+		result.append([line[0],line[3]])
 	return result
 
     def __get_start_stop_service(self):
 	result=[]
-	services=self.__remove_espace(self.__all_ss_services)
+	services=self.__filter_result(self.__all_ss_services)
 	for service in services:
-		if service[3]=="running":
+		if service[1]=="running":
 			result.append([service[0],"running"])
-		elif service[3]=="dead":
+		elif service[1]=="dead":
 			result.append([service[0],"dead"])
 			
 	return result
