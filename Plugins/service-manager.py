@@ -34,6 +34,8 @@ class occPlugin(PluginsClass):
 
 	self.__all_ss_services= subprocess.Popen("LANG=C TERM=dumb COLUMNS=1024 systemctl list-units  --all --type service --no-legend --no-pager --no-ask-password",stdout=subprocess.PIPE,stderr=subprocess.PIPE,shell=True).communicate()[0].decode('utf-8').strip().split("\n")
 	self.__ss_black_list=("dbus.serivce","gdm.service","lightdm.service","kdm.service","sddm.service","mdm.service","upower.service","udisks2.service")
+	self.__black_list=("dbus.serivce","gdm.service","lightdm.service","kdm.service","sddm.service","mdm.service","upower.service","udisks2.service")
+
 	self.__all_enabled_disabled_services=self.__get_enabled_disabled_service()
 	self.__all_start_stop_services=self.__get_start_stop_service()
 
@@ -128,7 +130,9 @@ class occPlugin(PluginsClass):
     def __get_enabled_disabled_service(self):
 	result=[]
 	for service in self.__allservices:
-		if self.__allservices[self.__allservices.index(service)+1]=="enabled":
+		if service in self.__black_list:
+			continue
+		elif self.__allservices[self.__allservices.index(service)+1]=="enabled":
 			result.append([service,"enabled"])
 		elif self.__allservices[self.__allservices.index(service)+1]=="disabled":
 			result.append([service,"disabled"])
