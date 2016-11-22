@@ -33,8 +33,8 @@ class occPlugin(PluginsClass):
 	self.__allservices= subprocess.Popen("LANG=C TERM=dumb COLUMNS=1024 systemctl list-unit-files  --all --type service --no-legend --no-pager --no-ask-password",stdout=subprocess.PIPE,stderr=subprocess.PIPE,shell=True).communicate()[0].decode('utf-8').strip().split()
 
 	self.__all_ss_services= subprocess.Popen("LANG=C TERM=dumb COLUMNS=1024 systemctl list-units  --all --type service --no-legend --no-pager --no-ask-password",stdout=subprocess.PIPE,stderr=subprocess.PIPE,shell=True).communicate()[0].decode('utf-8').strip().split("\n")
-	self.__ss_black_list=("dbus.serivce","gdm.service","lightdm.service","kdm.service","sddm.service","mdm.service","upower.service","udisks2.service")
-	self.__black_list=("dbus.serivce","gdm.service","lightdm.service","kdm.service","sddm.service","mdm.service","upower.service","udisks2.service")
+	self.__ss_black_list=("dbus.service","gdm.service","lightdm.service","kdm.service","sddm.service","mdm.service","upower.service","udisks2.service")
+	self.__black_list=("dbus.service","gdm.service","lightdm.service","kdm.service","sddm.service","mdm.service","upower.service","udisks2.service")
 
 	self.__all_enabled_disabled_services=self.__get_enabled_disabled_service()
 	self.__all_start_stop_services=self.__get_start_stop_service()
