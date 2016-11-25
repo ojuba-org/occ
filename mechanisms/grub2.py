@@ -30,7 +30,10 @@ class OccMechanism(mechanismClass):
         mechanismClass.__init__(self,'grub2')
     
     def update_grub(self):
-        return cmd_out('su -l -c "grub2-mkconfig -o /boot/grub2/grub.cfg"')
+        if os.path.isdir("/sys/firmware/efi/efivars"):
+            return cmd_out('su -l -c "grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg"')
+        else:
+            return cmd_out('su -l -c "grub2-mkconfig -o /boot/grub2/grub.cfg"')
         
     def os_prober_cb(self):
         other_os_re=re.compile(r"""Found\s*.*on.*""")
