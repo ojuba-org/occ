@@ -36,7 +36,9 @@ class occPlugin(PluginsClass):
 	if self.__check_if_bat() :
 		if self.__check_if_tlp("/usr/lib/systemd/system/tlp.service"):
 
-			self.__backup_config_file()
+			c=self.__backup_config_file()
+			if not c:
+				return
 			self.notebook=Gtk.Notebook()
 			self.add(self.notebook)
 
@@ -324,6 +326,11 @@ class occPlugin(PluginsClass):
     def __backup_config_file(self):
 	if not os.path.isfile("/etc/default/tlp.backup_by_ojuba_occ"):
 		self.ccw.mechanism('run','system',"cp /etc/default/tlp /etc/default/tlp.backup_by_ojuba_occ")
+	if not os.path.isfile("/etc/default/tlp.backup_by_ojuba_occ"):
+		return False
+	else:
+		return True
+
 
     def __restore_default_file_config(self,button):
         if not sure(_("Are you sure you want to continue?"), self.ccw):
