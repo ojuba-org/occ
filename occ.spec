@@ -1,14 +1,13 @@
 %global owner ojuba-org
-%global commit #Write commit number here
 
 Name: occ
-Version: 3.0.0
-Release: 5%{?dist}
+Version: 4.0
+Release: 1%{?dist}
 Summary: Ojuba Control Center
 Summary(ar): مركز تحكّم أعجوبة
 License: WAQFv2
 URL: http://ojuba.org
-Source: https://github.com/%{owner}/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz
+Source: https://github.com/%{owner}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch: noarch
 Requires: hda-verb
 Requires: ayat-repo
@@ -30,13 +29,13 @@ BuildRequires: ImageMagick
 BuildRequires: intltool
 
 %description
-Ojuba Control Center is a central place to control your computer.
+Central place to control your computer.
 
 %description -l ar
 عاصمة التّحكم بجهازك.
 
 %prep
-%setup -q -n %{name}-%{commit}
+%autosetup -n %{name}-%{version}
 
 %build
 make %{?_smp_mflags}
@@ -56,6 +55,50 @@ echo -e '#! /bin/sh\nLC_ALL=en_US.UTF-8 exec RunOrInstall audacity-freeworld /us
 
 chmod +x %{buildroot}/usr/local/bin/*
 chmod +x %{buildroot}/usr/sbin/*
+
+
+
+
+# Register as an application to be visible in the software center
+#
+# NOTE: It would be *awesome* if this file was maintained by the upstream
+# project, translated and installed into the right place during `make install`.
+#
+# See http://www.freedesktop.org/software/appstream/docs/ for more details.
+#
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/appdata
+cat > $RPM_BUILD_ROOT%{_datadir}/appdata/%{name}.appdata.xml <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2017 Mosaab Alzoubi <moceap@hotmail.com> -->
+<!--
+EmailAddress: moceap@hotmail.com
+SentUpstream: 2017-2-1
+-->
+<application>
+  <id type="desktop">occ.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <summary>Ojuba Control Center</summary>
+  <summary xml:lang="ar">مركز تحكّم أعجوبة</summary>
+  <description>
+    <p>
+	Central place to control your computer.
+    </p>
+  </description>
+  <description xml:lang="ar">
+    <p>
+	عاصمة التّحكم بجهازك.
+    </p>
+  </description>
+  <url type="homepage">https://github.com/ojuba-org/%{name}</url>
+  <screenshots>
+    <screenshot type="default">http://ojuba.org/screenshots/%{name}.png</screenshot>
+  </screenshots>
+  <updatecontact>moceap@hotmail.com</updatecontact>
+</application>
+EOF
+
+
+
 
 %post
 touch --no-create %{_datadir}/icons/hicolor || :
@@ -87,9 +130,16 @@ fi
 %{_bindir}/*
 %{_sbindir}/*
 /usr/local/bin/*
+%{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
-* Mon Dec 7 2014 Ehab El-Gedawy <ehabsas@gmail.com> - 3.0.0-5
+* Wed Feb 1 2017 Mosaab Alzoubi <moceap@hotmail.com> - 4.0
+- Update to 4.0
+- Multi plugins added
+- New way to Github
+- Add appdata
+
+* Mon Dec 7 2015 Ehab El-Gedawy <ehabsas@gmail.com> - 3.0.0-5
 - add python dependencies to spec file
 - add dnf support to old rpms plugin
 
